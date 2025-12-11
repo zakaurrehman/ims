@@ -3,7 +3,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import logo from '../../public/logo/imsLogo.png';
+import logo from '../../public/logo/logo new.png';
 
 export default function NavbarContent({ isMenuOpen, toggleMenu, children }) {
   return (
@@ -11,9 +11,8 @@ export default function NavbarContent({ isMenuOpen, toggleMenu, children }) {
       <div className="flex justify-between items-center">
         {/* Logo */}
 
-        <div className="flex-shrink-0 flex items-center gap-3">
-          <Image src={logo} alt="IMS Logo" width={40} height={40} />
-          <span className="text-xs text-white">METALS & ALLOYS</span>
+        <div className="flex-shrink-0 flex items-center ml-8">
+          <Image src={logo} alt="IMS Logo" width={80} height={80} />
         </div>
 
         {/* Desktop Navigation */}
