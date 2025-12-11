@@ -7,7 +7,8 @@ import EfficientShipment from '../components/Features/EfficientShipment';
 import Features from '../components/Features/features';
 import CTA from '../components/CTA/cta';
 import Footer from '../components/Footer/footer';
-import Testimonials from '../components/Testimonial/testimonials';
+import Pricing from '../components/Pricing/pricing';
+// import Testimonials from '../components/Testimonial/testimonials';
 import PlatformSection from '../components/platform/PlatformSection';
 
 export default function HomePage() {
@@ -20,8 +21,8 @@ export default function HomePage() {
      
         <PlatformSection />
            <Features />
-        <Testimonials />
-        {/* <Pricing /> */}
+        {/* <Testimonials /> */}
+        <Pricing />
         <CTA />
       </main>
       <Footer />

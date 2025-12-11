@@ -7,6 +7,8 @@ import { RiRefreshLine } from "react-icons/ri";
 import { IoMdArrowDropright } from "react-icons/io";
 import { UserAuth } from '../../../contexts/useAuthContext';
 import { completeUserEmail } from '../../../actions/validations';
+import Image from 'next/image';
+import imsLogo from '../../../public/logo/imsLogo.png';
 
 export default function SignInPage() {
   const { SignIn, user, err } = UserAuth(); // <-- get user for redirect
@@ -63,19 +65,33 @@ export default function SignInPage() {
             <div className="max-w-md mx-auto">
               <div className="bg-white rounded-lg shadow-2xl w-full p-8 relative">
 
+
                 {/* Back Arrow */}
-                <button className="absolute top-8 left-8 text-gray-600 hover:text-gray-800 transition-colors">
+                <button
+                  className="absolute top-8 left-8 text-gray-600 hover:text-gray-800 transition-colors"
+                  type="button"
+                  onClick={() => router.push('/')}
+                >
                   <ArrowLeft size={20} />
                 </button>
 
                 {/* Logo */}
                 <div className="text-center mb-8 pt-6">
-                  <div className="inline-block">
-                    <div className="flex items-center justify-center gap-1">
-                      <span className="text-4xl font-bold text-[var(--endeavour)]">IMS</span>
-                    </div>
-                    <p className="text-xs text-gray-500 tracking-[0.2em] mt-1">METALS & ALLOYS</p>
-                  </div>
+                  <button
+                    type="button"
+                    className="inline-block focus:outline-none"
+                    onClick={() => router.push('/')}
+                  >
+                    <Image
+                      src={imsLogo}
+                      alt="IMS Logo"
+                      width={120}
+                      height={100}
+                      className="mx-auto mb-2"
+                      priority
+                    />
+                  </button>
+                  {/* <p className="text-xs text-gray-500 tracking-[0.2em] mt-1">METALS & ALLOYS</p> */}
                 </div>
 
                 {/* Welcome Text */}
@@ -153,12 +169,12 @@ export default function SignInPage() {
                 </div>
 
                 {/* Register Link */}
-                <div className="text-center mt-6">
+                {/* <div className="text-center mt-6">
                   <p className="text-sm text-gray-600">
                     Don&#39;t have an account?{' '}
                     <a href="#" className="text-[var(--endeavour)] hover:text-[var(--port-gore)] font-medium transition-colors">Register</a>
                   </p>
-                </div>
+                </div> */}
 
                 {/* Footer */}
                 <div className="text-center mt-8 pt-6 border-t border-gray-200">
