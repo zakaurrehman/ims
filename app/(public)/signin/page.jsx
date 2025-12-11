@@ -8,7 +8,7 @@ import { IoMdArrowDropright } from "react-icons/io";
 import { UserAuth } from '../../../contexts/useAuthContext';
 import { completeUserEmail } from '../../../actions/validations';
 import Image from 'next/image';
-import imsLogo from '../../../public/logo/imsLogo.png';
+import imsLogo from '../../../public/logo/logoNew.svg';
 
 export default function SignInPage() {
   const { SignIn, user, err } = UserAuth(); // <-- get user for redirect
@@ -86,7 +86,7 @@ export default function SignInPage() {
                       src={imsLogo}
                       alt="IMS Logo"
                       width={120}
-                      height={100}
+                      height={140}
                       className="mx-auto mb-2"
                       priority
                     />

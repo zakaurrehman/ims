@@ -3,7 +3,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import logo from '../../public/logo/logo new.png';
+import logo from '../../public/logo/logoNew.svg';
 
 export default function NavbarContent({ isMenuOpen, toggleMenu, children }) {
   return (
@@ -12,7 +12,7 @@ export default function NavbarContent({ isMenuOpen, toggleMenu, children }) {
         {/* Logo */}
 
         <div className="flex-shrink-0 flex items-center ml-8">
-          <Image src={logo} alt="IMS Logo" width={80} height={80} />
+          <Image src={logo} alt="IMS Logo" width={80} height={100} />
         </div>
 
         {/* Desktop Navigation */}
