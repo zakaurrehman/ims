@@ -1,3 +1,4 @@
+
 'use client'
 
 export const getTtl = (txt, ln) => {
@@ -9,6 +10,9 @@ export const getTtl = (txt, ln) => {
 
 
 const TitlesArr = [
+    { 'Assistant': ['Assistant', 'Ассистент'] },
+    { 'Hello! How can I assist you today?': ['Hello! How can I assist you today?', 'Здравствуйте! Чем могу помочь?'] },
+    { 'I am your assistant. This is a demo chatbot UI. (No backend connected)': ['I am your assistant. This is a demo chatbot UI. (No backend connected)', 'Я ваш ассистент. Это демонстрационный чат-бот (без подключения к серверу)'] },
     { Logout: ['Logout', 'Выйти'] },
     { Confirm: ['Confirm', 'Подтвердить'] },
     { Cancel: ['Cancel', 'Отменить'] },
@@ -29,7 +33,9 @@ const TitlesArr = [
     { Invoices: ['Invoices', 'Счета'] },
     { Expenses: ['Expenses', 'Затраты'] },
     { 'Contracts Review': ['Contracts Review', 'Обзор контрактов'] },
+    { 'Contracts Review & Statement': ['Contracts Review & Statement', 'Обзор и отчёт контрактов'] },
     { 'Invoices Review': ['Invoices Review', 'Обзор счетов'] },
+    { 'Invoices Review & Statement': ['Invoices Review & Statement', 'Обзор и отчёт счетов'] },
     { 'Inventory Review': ['Inventory Review', 'Обзор запасов'] },
     { 'Contracts Statement': ['Contracts Statement', 'Отчёт о контрактах'] },
     { 'Invoices Statement': ['Invoices Statement', 'Отчет о счетах'] },

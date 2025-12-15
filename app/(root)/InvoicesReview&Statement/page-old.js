@@ -2,24 +2,24 @@
 import { useContext, useEffect, useState } from 'react';
 import Customtable from './newTable.js';
 import MyDetailsModal from '../contracts/modals/dataModal.js'
-import { SettingsContext } from "../../../contexts/useSettingsContext";
-import { ContractsContext } from "../../../contexts/useContractsContext";
+import { SettingsContext } from "../../../contexts/useSettingsContext.js";
+import { ContractsContext } from "../../../contexts/useContractsContext.js";
 import Toast from '../../../components/toast.js'
-import { ExpensesContext } from "../../../contexts/useExpensesContext";
-import { InvoiceContext } from "../../../contexts/useInvoiceContext";
+import { ExpensesContext } from "../../../contexts/useExpensesContext.js";
+import { InvoiceContext } from "../../../contexts/useInvoiceContext.js";
 
-import { loadData, loadInvoice } from '../../../utils/utils'
-import Spinner from '../../../components/spinner';
-import { UserAuth } from "../../../contexts/useAuthContext"
-import { getInvoices, groupedArrayInvoice, getD } from '../../../utils/utils'
-import Spin from '../../../components/spinTable';
-import { Numcur, SumValuesSupplier } from '../contractsreview/funcs.js'
+import { loadData, loadInvoice } from '../../../utils/utils.js'
+import Spinner from '../../../components/spinner.js';
+import { UserAuth } from "../../../contexts/useAuthContext.js"
+import { getInvoices, groupedArrayInvoice, getD } from '../../../utils/utils.js'
+import Spin from '../../../components/spinTable.js';
+import { Numcur, SumValuesSupplier } from '../ContractsReview&Statement/funcs.js'
 //import CBox from '../../../components/combobox.js'
-import { OutTurn, Finalizing, relStts } from '../../../components/const'
+import { OutTurn, Finalizing, relStts } from '../../../components/const.js'
 import dateFormat from "dateformat";
 import { EXD } from './excel.js'
-import { getTtl } from '../../../utils/languages';
-import DateRangePicker from '../../../components/dateRangePicker';
+import { getTtl } from '../../../utils/languages.js';
+import DateRangePicker from '../../../components/dateRangePicker.js';
 
 const TotalInvoicePayments = (data) => {
   let accumulatedPmnt = 0;

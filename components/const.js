@@ -32,7 +32,7 @@ export const sideBar = () => {
                     page: 'apps',
                     hasDropdown: true,
                     subItems: [
-                        { item: 'Message', img: <BiMessageRoundedDetail />, page: 'apps/message' },
+                        { item: 'Assistant', img: <BiMessageRoundedDetail />, page: 'apps/Assistant' },
                         // { item: 'Call', img: <BiPhone />, page: 'apps/call' },
                         // { item: 'Calendar', img: <BiCalendar />, page: 'apps/calendar' },
                     ]
@@ -47,21 +47,14 @@ export const sideBar = () => {
                 { item: 'Invoices', img: <TbFileInvoice />, page: 'invoices' },
                 { item: 'Expenses', img: <DiBrackets />, page: 'expenses' },
                 { item: 'Accounting', img: <CgEreader className="scale-[0.8]" />, page: 'accounting' },
+                { item: 'Contracts Review & Statement', img: <VscPreview />, page: 'ContractsReview&Statement' },
+                { item: 'Invoices Review & Statement', img: <LiaFileInvoiceDollarSolid />, page: 'InvoicesReview&Statement' }
             ]
         },
-        {
-            ttl: 'Review',
-            items: [
-                { item: 'Contracts Review', img: <VscPreview />, page: 'contractsreview' },
-                { item: 'Invoices Review', img: <LiaFileInvoiceDollarSolid />, page: 'invoicesreview' },
-                //    { item: 'Inventory Review', img: <BiBasket />, page: 'inventoryreview' }
-            ]
-        },
+      
         {
             ttl: 'Statements',
             items: [
-                { item: 'Contracts Statement', img: <IoNewspaperOutline />, page: 'contractsstatement' },
-                { item: 'Invoices Statement', img: <HiOutlineDocumentChartBar />, page: 'invoicesstatement' },
                 { item: 'Account Statement', img: <TbReportMoney className="scale-[1]" />, page: 'accstatement' },
                 { item: 'Stocks', img: <MdOutlineWarehouse />, page: 'stocks' }
             ]

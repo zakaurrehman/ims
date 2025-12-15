@@ -33,9 +33,9 @@ export default function Sidebar() {
 
   return showLink && (
     <nav
-      className="relative flex flex-col border-r shadow-sm shrink-0 h-screen"
+      className="relative bg-gradient-to-br from-white via-[var(--endeavour)] to-[var(--port-gore)] flex flex-col border-r shadow-sm shrink-0 h-screen overflow-x-hidden"
       style={{
-        background: 'linear-gradient(180deg, var(--endeavour) 0%, var(--chathams-blue) 100%)',
+        
         width: '260px',
         minWidth: '260px',
         maxWidth: '260px',
@@ -82,9 +82,9 @@ export default function Sidebar() {
                           `} 
                           style={{ minHeight: 48 }}
                         >
-                          <div className="flex items-center gap-3">
-                            <span className={`text-xl transition-colors ${isSubItemActive ? 'text-white' : 'text-[var(--rock-blue)]'} group-hover:text-[var(--selago)]`}>{y.img}</span>
-                            <span className={`ml-2 text-base font-medium whitespace-nowrap tracking-wide text-[var(--selago)]`}>{getTtl(y.item, ln)}</span>
+                          <div className="flex items-center gap-3 min-w-0">
+                            <span className={`text-xl transition-colors shrink-0 ${isSubItemActive ? 'text-white' : 'text-[var(--rock-blue)]'} group-hover:text-[var(--selago)]`}>{y.img}</span>
+                            <span className={`ml-2 text-sm font-medium leading-tight tracking-wide text-[var(--selago)]`}>{getTtl(y.item, ln)}</span>
                           </div>
                           <span className="text-[var(--selago)]">
                             {isDropdownOpen ? <FaAngleUp /> : <FaAngleDown />}
@@ -120,8 +120,8 @@ export default function Sidebar() {
                       <div className={`group flex items-center gap-3 px-6 py-3 my-1 rounded-xl cursor-pointer transition-all duration-150
                         ${isActive ? 'bg-[var(--rock-blue)] bg-opacity-80 text-[var(--endeavour)] shadow-md font-bold' : 'text-[var(--selago)] hover:bg-[var(--rock-blue)] hover:text-[var(--selago)]'}
                       `} style={{ minHeight: 48 }}>
-                        <span className={`text-xl transition-colors ${isActive ? 'text-[var(--endeavour)]' : 'text-[var(--rock-blue)]'} group-hover:text-[var(--selago)]`}>{y.img}</span>
-                        <span className={`ml-2 text-base font-medium whitespace-nowrap tracking-wide`}>{getTtl(y.item, ln)}</span>
+                        <span className={`text-xl transition-colors shrink-0 ${isActive ? 'text-[var(--endeavour)]' : 'text-[var(--rock-blue)]'} group-hover:text-[var(--selago)]`}>{y.img}</span>
+                        <span className={`ml-2 text-sm font-medium leading-tight tracking-wide`}>{getTtl(y.item, ln)}</span>
                       </div>
                     </Link>
                   );
@@ -137,8 +137,8 @@ export default function Sidebar() {
           <Tltip direction='right' tltpText={getTtl('Settings', ln)} show={false}>
             <Link href='/settings'>
               <div className="flex items-center gap-3 px-6 py-3 rounded-xl cursor-pointer transition-all duration-150 text-[var(--selago)] hover:bg-[var(--rock-blue)] hover:text-[var(--selago)]">
-                <FiSettings className='text-xl' />
-                <span className="ml-2 text-base font-medium whitespace-nowrap tracking-wide">{getTtl('Settings', ln)}</span>
+                <FiSettings className='text-xl shrink-0' />
+                <span className="ml-2 text-sm font-medium leading-tight tracking-wide">{getTtl('Settings', ln)}</span>
               </div>
             </Link>
           </Tltip>
@@ -146,8 +146,8 @@ export default function Sidebar() {
           <Tltip direction='right' tltpText={getTtl('Logout', ln)} show={false}>
             <Link href='/logout'>
               <div className="flex items-center gap-3 px-6 py-3 rounded-xl cursor-pointer transition-all duration-150 text-[var(--selago)] hover:bg-[var(--rock-blue)] hover:text-[var(--selago)]">
-                <span className="text-xl"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 17L21 12L16 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M21 12H9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M12 19C7.58172 19 4 15.4183 4 11C4 6.58172 7.58172 3 12 3C13.6569 3 15.1566 3.63214 16.2426 4.75736" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
-                <span className="ml-2 text-base font-medium whitespace-nowrap tracking-wide">{getTtl('Logout', ln)}</span>
+                <span className="text-xl shrink-0"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 17L21 12L16 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M21 12H9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M12 19C7.58172 19 4 15.4183 4 11C4 6.58172 7.58172 3 12 3C13.6569 3 15.1566 3.63214 16.2426 4.75736" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>
+                <span className="ml-2 text-sm font-medium leading-tight tracking-wide">{getTtl('Logout', ln)}</span>
               </div>
             </Link>
           </Tltip>

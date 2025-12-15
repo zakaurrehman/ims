@@ -7,7 +7,6 @@ import {
   Target, 
   FileSearch,
   FileBarChart,
-  Wallet,
   Settings,
   ChevronDown,
   LogOut,
@@ -41,16 +40,14 @@ const menuItems = [
   {
     category: "REVIEW",
     items: [
-      { icon: FileSearch, label: "Contracts Review", href: "/contracts-review" },
-      { icon: FileBarChart, label: "Invoices Review", href: "/invoices-review" },
+      { icon: FileSearch, label: "Contracts Review & Statement", href: "/contractsreview" },
+      { icon: FileBarChart, label: "Invoices Review & Statement", href: "/invoicesreview" },
     ]
   },
   {
     category: "STATEMENTS",
     items: [
-      { icon: Wallet, label: "Contracts Statement", href: "/contracts-statement" },
-      { icon: Settings, label: "Invoices Statement", href: "/invoices-statement" },
-      { icon: FileText, label: "Account Statement", href: "/account-statement" },
+      { icon: FileText, label: "Account Statement", href: "/accstatement" },
       { icon: Box, label: "Stocks", href: "/stocks" },
     ]
   },
