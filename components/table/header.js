@@ -1,3 +1,5 @@
+'use client';
+
 import { useContext } from "react";
 import { FaSearch } from "react-icons/fa";
 import { TiDeleteOutline } from "react-icons/ti";
@@ -9,11 +11,16 @@ import { GrAddCircle } from "react-icons/gr";
 import Tltip from "../../components/tlTip";
 import { MdDeleteOutline } from "react-icons/md";
 import { GrDocumentPdf } from "react-icons/gr";
+import QuickSumControl from './quicksum/QuickSumControl';
+
 
 
 const Header = ({ data, cb, cb1, type, excellReport,
 	globalFilter, setGlobalFilter, table, filterIcon, resetFilterTable, addMaterial, delTable, table1, runPdf,
-	 tableModes, datattl }) => {
+	 tableModes, datattl , quickSumEnabled = false,
+  setQuickSumEnabled = () => {},
+  quickSumColumns = [],
+  setQuickSumColumns = () => {},}) => {
 
 	const { ln } = useContext(SettingsContext);
 	const pathname = usePathname()
@@ -92,6 +99,14 @@ const Header = ({ data, cb, cb1, type, excellReport,
 					{filterIcon}
 					{excellReport}
 					<ColFilter table={table} />
+									<QuickSumControl
+  table={table}
+  enabled={quickSumEnabled}
+  setEnabled={setQuickSumEnabled}
+  selectedColumnIds={quickSumColumns}
+  setSelectedColumnIds={setQuickSumColumns}
+/>
+
 				</div>
 			</div>
 
