@@ -20,7 +20,7 @@ const Header = ({ data, cb, cb1, type, excellReport,
 
 
 	return (
-		<div className="justify-between flex p-3 flex-wrap bg-[var(--selago)]/30 border border-[var(--selago)] rounded-t-2xl">
+		<div className="justify-between flex p-3 flex-wrap bg-[var(--selago)]/30 border border-[var(--selago)] rounded-t-2xl sticky top-0 z-20" style={{ position: 'sticky', top: 0, zIndex: 20, background: 'rgba(235,242,252,0.95)' }}>
 			<div className='flex items-center gap-5 w-full sm:w-auto'>
 				{pathname !== '/accounting' &&
 					<div className="flex items-center relative md:max-w-64 w-full sm:w-auto md:w-64">

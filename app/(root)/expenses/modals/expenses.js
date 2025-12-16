@@ -41,7 +41,7 @@ const Expenses = () => {
             <div className='z-10 relative mt-2 border border-[var(--rock-blue)] rounded-lg 
        flex m-2 pb-6 bg-[var(--selago)]/30'>
 
-                <div className='grid grid-cols-12 flex gap-3 w-full p-2'>
+                <div className='grid grid-cols-12 gap-3 w-full p-2'>
                     <div className='col-span-12 md:col-span-4  px-2'>
                         <div>
                             <p className='flex text-xs text-[var(--port-gore)] font-medium whitespace-nowrap'>{getTtl('Expense Invoice', ln)}</p>

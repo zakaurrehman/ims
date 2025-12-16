@@ -26,6 +26,22 @@ const Stocks = () => {
     const { uidCollection } = UserAuth();
     const ln = compData.lng
 
+    // Load stocks from Firestore if not present
+    useEffect(() => {
+        const fetchStocks = async () => {
+            if (!settings?.Stocks || !Array.isArray(settings?.Stocks?.Stocks)) {
+                if (uidCollection) {
+                    const { loadDataSettings } = await import('../../../../utils/utils');
+                    const stocksData = await loadDataSettings(uidCollection, 'settings');
+                    if (stocksData?.Stocks) {
+                        updateSettings({ Stocks: stocksData.Stocks });
+                    }
+                }
+            }
+        };
+        fetchStocks();
+    }, [uidCollection]);
+
 
 
 
@@ -131,7 +147,7 @@ const Stocks = () => {
                     </Tltip>
                 </div>
                 <div className='border border-[var(--rock-blue)] p-4 rounded-lg mt-1 shadow-md  w-full gap-4 flex flex-wrap h-fit'>
-                    <div className='grid grid-cols-4 flex items-center gap-4 w-full'>
+                    <div className='grid grid-cols-4  items-center gap-4 w-full'>
                         <div className='col-span-12 md:col-span-2 w-full'>
                             <p className='text-xs'>{getTtl('Name', ln)}:</p>
                             <input type='text' className='input h-7 text-xs w-full' value={value.stock}
@@ -149,7 +165,7 @@ const Stocks = () => {
 
                     </div>
 
-                    <div className='grid grid-cols-3 flex items-center gap-4 w-full'>
+                    <div className='grid grid-cols-3  items-center gap-4 w-full'>
                         <div className='col-span-12 md:col-span-1'>
                             <p className='text-xs'>{getTtl('country', ln)}:</p>
                             <input type='text' className='input h-7 text-xs ' value={value.country}
@@ -167,7 +183,7 @@ const Stocks = () => {
                         </div>
                     </div>
 
-                    <div className='grid grid-cols-3 flex items-center gap-4 w-full'>
+                    <div className='grid grid-cols-3  items-center gap-4 w-full'>
                         <div className='col-span-12 md:col-span-1'>
                             <p className='text-xs'>{getTtl('Other', ln)}:</p>
                             <input type='text' className='input h-7 text-xs' value={value.other}

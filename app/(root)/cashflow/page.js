@@ -805,9 +805,9 @@ const Cashflow = () => {
 
                         }
 
-                        <div className="flex overflow-x-auto whitespace-nowrap w-full">
-                            <div className="border-r-2 border-t-2 border-b-2 border-slate-600 w-1/2 2xl:w-[42rem]">
-                                <div className=" p-2">
+                        <div className="flex flex-wrap gap-4 w-full">
+                            <div className="border-r-2 border-t-2 border-b-2 border-slate-600 w-full max-w-screen-lg flex-1 min-w-[320px]">
+                                <div className="p-2">
                                     <span className="font-bold p-1 responsiveTextTitle">Stocks - Paid</span>
                                     <div className="flex p-1 justify-between">
                                         {
@@ -881,7 +881,7 @@ const Cashflow = () => {
 
 
 
-                                <div className=" p-2">
+                                <div className="p-2">
                                     <span className="font-bold p-1 responsiveTextTitle">Stocks - UnPaid</span>
                                     <div className="flex p-1 justify-between">
                                         {
@@ -1149,9 +1149,9 @@ const Cashflow = () => {
                             </div>
 
 
-                            <div className=" border-t-2 border-b-2 border-slate-600 w-1/2 2xl:w-[36rem]">
+                            <div className="border-t-2 border-b-2 border-slate-600 w-full max-w-screen-lg flex-1 min-w-[320px]">
 
-                                <div className=" p-2 ">
+                                <div className="p-2">
                                     <span className="font-bold flex items-center p-1 responsiveTextTitle">Supplier - Payment </span>
                                     <div className="flex p-1 justify-between">
                                         {
@@ -1224,7 +1224,7 @@ const Cashflow = () => {
                                 </div>
 
 
-                                <div className=" p-2 ">
+                                <div className="p-2">
                                     <span className="font-bold flex items-center p-1 responsiveTextTitle">Supplier - Balances </span>
                                     <div className="flex p-1 justify-between">
                                         {
@@ -1296,7 +1296,7 @@ const Cashflow = () => {
                                     </div>
                                 </div>
 
-                                <div className=" p-2 ">
+                                <div className="p-2">
                                     <span className="font-bold flex items-center p-1 responsiveTextTitle">Expenses</span>
                                     <div className="flex p-1 justify-between">
                                         {

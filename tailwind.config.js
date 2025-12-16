@@ -55,9 +55,9 @@ module.exports = {
 				"fade-zoom-out": "fade-zoom-out 200ms ease-in forwards",
 			}
 		},
-		container: {
-			maxWidth: '1700px'
-		}
+		   container: {
+			   maxWidth: '1200px'
+		   }
 	},
 	plugins: [],
 	layers: ['components', 'utilities', 'app'], // or simply use a default layer like `components`

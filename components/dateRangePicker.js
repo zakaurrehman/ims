@@ -15,12 +15,18 @@ const DateRangePicker = () => {
     const yr = new Date().getFullYear();
 
     const handleValueChange = (newValue) => {
-        setValue(newValue);
+        // Normalize for shortcut values that may use 'start'/'end' instead of 'startDate'/'endDate'
+        const normalized = {
+            startDate: newValue.startDate || newValue.start || null,
+            endDate: newValue.endDate || newValue.end || null
+        };
+        setValue(normalized);
 
         setDateSelect({
-            ...dateSelect, start: newValue.startDate,
-            end: newValue.endDate
-        })
+            ...dateSelect,
+            start: normalized.startDate,
+            end: normalized.endDate
+        });
     }
 
     return (
