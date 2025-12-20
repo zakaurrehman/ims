@@ -5,16 +5,16 @@ import { UserAuth } from '../../../contexts/useAuthContext'
 import { SettingsContext } from '../../../contexts/useSettingsContext'
 import { getTtl } from '../../../utils/languages'
 import { useRouter } from 'next/navigation'
-import { BiSearch, BiLogOutCircle } from 'react-icons/bi'
+import { BiLogOutCircle } from 'react-icons/bi'
 import { IoChatbubblesOutline } from 'react-icons/io5'
 import { FiSettings, FiUser } from 'react-icons/fi'
+import GlobalSearch from '../../../components/GlobalSearch'
 
 export const MainNav = () => {
   const { SignOut, user } = UserAuth()
   const { compData } = useContext(SettingsContext)
   const ln = compData?.lng || 'English'
   const router = useRouter()
-  const [searchQuery, setSearchQuery] = useState('')
   const [showDropdown, setShowDropdown] = useState(false)
   const dropdownRef = useRef(null)
 
@@ -36,22 +36,11 @@ export const MainNav = () => {
 
   return (
     <div className='px-4 md:px-8 xl:px-10 py-3 hidden md:flex items-center justify-between bg-white border-b border-[var(--selago)]'>
-      {/* Search Bar */}
-      <div className='flex items-center flex-1 max-w-xl'>
-        <div className='relative w-full'>
-          <BiSearch className='absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg' />
-          <input
-            type='text'
-            placeholder={getTtl('Search anything...', ln)}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className='w-full pl-10 pr-4 py-2.5 rounded-lg bg-gray-50 border border-transparent focus:border-[var(--rock-blue)] focus:bg-white focus:outline-none text-sm text-gray-600 placeholder-gray-400 transition-all'
-          />
-        </div>
-      </div>
+      {/* Global Search */}
+      <GlobalSearch />
 
       {/* Right Side Icons */}
-      <div className='flex items-center gap-3'>
+      <div className='flex items-center gap-3 ml-4'>
         {/* Message Icon */}
         <button
           className='p-2.5 rounded-lg bg-white border border-gray-200 hover:bg-[var(--selago)] hover:border-[var(--rock-blue)] transition-all group'
@@ -62,7 +51,7 @@ export const MainNav = () => {
 
         {/* User Profile Dropdown */}
         <div className='relative' ref={dropdownRef}>
-          <button 
+          <button
             onClick={() => setShowDropdown(!showDropdown)}
             className='flex items-center gap-2 p-1 rounded-lg hover:bg-[var(--selago)] transition-all'
           >
