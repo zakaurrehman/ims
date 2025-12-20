@@ -153,7 +153,7 @@ const Dash = () => {
             </div>
           </div>
 
-          {/* Main Chart - Total Revenue */}
+          {/* Main Chart  try again- Total Revenue things*/}
           <div className='mb-6'>
             <div className='bg-white rounded-2xl shadow-xl border border-[var(--selago)] overflow-hidden hover:shadow-2xl transition-all duration-300'>
               <div className='p-6 min-w-[300px] min-h-[200px]'>
