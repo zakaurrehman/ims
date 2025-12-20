@@ -1,13 +1,12 @@
 'use client';
 
 import useMetalPrices from '../../hooks/useMetalPrices';
-import { HiRefresh } from 'react-icons/hi';
-import { GiMetalBar, GiCopperCoil } from 'react-icons/gi';
+import { HiRefresh, HiCube, HiCubeTransparent } from 'react-icons/hi';
 import { TbArrowUpRight, TbArrowDownRight } from 'react-icons/tb';
 
 const metalIcons = {
-    nickel: GiMetalBar,
-    copper: GiCopperCoil,
+    nickel: HiCube,
+    copper: HiCubeTransparent,
 };
 
 const metalColors = {
@@ -57,7 +56,7 @@ export default function MetalPricesWidget() {
                 <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-700 rounded-xl flex items-center justify-center shadow-lg">
-                            <GiMetalBar className="w-5 h-5 text-white" />
+                            <HiCube className="w-5 h-5 text-white" />
                         </div>
                         <div>
                             <h3 className="text-[var(--port-gore)] font-bold text-lg">Metal Prices</h3>
