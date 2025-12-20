@@ -25,6 +25,7 @@ import { loadData, groupedArrayInvoice, getInvoices } from '@utils/utils'
 import { setMonthsInvoices, calContracts, frmNum } from './funcs'
 import { getTtl } from '@utils/languages';
 import DateRangePicker from '@components/dateRangePicker';
+import CurrencyWidget from '@components/Dashboard/CurrencyWidget';
 
 
 ChartJS.register(
@@ -256,8 +257,12 @@ const Dash = () => {
             </div>
           </div>
 
-          {/* Horizontal Bar Charts Row */}
-          <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8'>
+          {/* Currency Widget + Horizontal Bar Charts Row */}
+          <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8'>
+            {/* Currency Exchange Widget */}
+            <CurrencyWidget />
+
+            {/* Consignees Chart */}
             <div className='bg-white rounded-2xl shadow-xl border border-[var(--selago)] overflow-hidden hover:shadow-2xl transition-all duration-300'>
               <div className='p-6 min-w-[300px] min-h-[200px]'>
                 <div className='flex items-center gap-3 mb-6'>
