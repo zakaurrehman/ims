@@ -42,8 +42,32 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, setFil
 
     const [columnFilters, setColumnFilters] = useState([]) //Column filter
 
+    // Quick Sum state
+    const [quickSumEnabled, setQuickSumEnabled] = useState(false);
+    const [quickSumColumns, setQuickSumColumns] = useState([]);
+    const [rowSelection, setRowSelection] = useState({});
+
+    const columnsWithSelection = useMemo(() => {
+        if (!quickSumEnabled) return columns;
+        const selectCol = {
+            id: "select",
+            header: ({ table }) => (
+                <input type="checkbox" checked={table.getIsAllPageRowsSelected()}
+                    ref={(el) => { if (el) el.indeterminate = table.getIsSomePageRowsSelected(); }}
+                    onChange={table.getToggleAllPageRowsSelectedHandler()} />
+            ),
+            cell: ({ row }) => (
+                <input type="checkbox" checked={row.getIsSelected()} disabled={!row.getCanSelect()}
+                    onChange={row.getToggleSelectedHandler()} />
+            ),
+            enableSorting: false, enableColumnFilter: false, size: 40,
+        };
+        return [selectCol, ...(columns || [])];
+    }, [columns, quickSumEnabled]);
+
     const table = useReactTable({
-        columns, data,
+        columns: columnsWithSelection, data,
+        enableRowSelection: quickSumEnabled,
         getCoreRowModel: getCoreRowModel(),
         filterFns: {
             dateBetweenFilterFn,
@@ -52,8 +76,10 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, setFil
             globalFilter,
             columnVisibility,
             pagination,
-            columnFilters
+            columnFilters,
+            rowSelection,
         },
+        onRowSelectionChange: setRowSelection,
         onColumnFiltersChange: setColumnFilters, ////Column filter
         getFilteredRowModel: getFilteredRowModel(),
         onGlobalFilterChange: setGlobalFilter,
@@ -120,6 +146,10 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, setFil
                     table={table} excellReport={excellReport}
                     filterIcon={FiltersIcon(ln, filterOn, setFilterOn)}
                     resetFilterTable={ResetFilterTableIcon(ln, resetTable, filterOn)}
+                    quickSumEnabled={quickSumEnabled}
+                    setQuickSumEnabled={setQuickSumEnabled}
+                    quickSumColumns={quickSumColumns}
+                    setQuickSumColumns={setQuickSumColumns}
                 />
 
                 <div className=" overflow-x-auto border-x border-[var(--selago)] md:max-h-[310px] 2xl:max-h-[550px]">

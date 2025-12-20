@@ -26,16 +26,39 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, cb, ty
     const [{ pageIndex, pageSize }, setPagination] = useState({ pageIndex: 0, pageSize: 500 })
     const pagination = useMemo(() => ({ pageIndex, pageSize, }), [pageIndex, pageSize])
     const pathName = usePathname()
-    const [columnFilters, setColumnFilters] = useState([ 
+    const [columnFilters, setColumnFilters] = useState([
         {
         id: 'sType',
         value: 'Warehouse', // filter the name column by 'John' by default
     },
 ]) //Column filter
 
+    // Quick Sum state
+    const [quickSumEnabled, setQuickSumEnabled] = useState(false);
+    const [quickSumColumns, setQuickSumColumns] = useState([]);
+    const [rowSelection, setRowSelection] = useState({});
+
+    const columnsWithSelection = useMemo(() => {
+        if (!quickSumEnabled) return columns;
+        const selectCol = {
+            id: "select",
+            header: ({ table }) => (
+                <input type="checkbox" checked={table.getIsAllPageRowsSelected()}
+                    ref={(el) => { if (el) el.indeterminate = table.getIsSomePageRowsSelected(); }}
+                    onChange={table.getToggleAllPageRowsSelectedHandler()} />
+            ),
+            cell: ({ row }) => (
+                <input type="checkbox" checked={row.getIsSelected()} disabled={!row.getCanSelect()}
+                    onChange={row.getToggleSelectedHandler()} />
+            ),
+            enableSorting: false, enableColumnFilter: false, size: 40,
+        };
+        return [selectCol, ...(columns || [])];
+    }, [columns, quickSumEnabled]);
 
     const table = useReactTable({
-        columns, data,
+        columns: columnsWithSelection, data,
+        enableRowSelection: quickSumEnabled,
         getCoreRowModel: getCoreRowModel(),
         filterFns: {
             dateBetweenFilterFn,
@@ -44,8 +67,10 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, cb, ty
             globalFilter,
             columnVisibility,
             pagination,
-            columnFilters
+            columnFilters,
+            rowSelection,
         },
+        onRowSelectionChange: setRowSelection,
         onColumnFiltersChange: setColumnFilters, ////Column filter
         getFilteredRowModel: getFilteredRowModel(),
         onGlobalFilterChange: setGlobalFilter,
@@ -72,6 +97,10 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, cb, ty
                     type={type}
                     filterIcon={FiltersIcon(ln, filterOn, setFilterOn)}
                     resetFilterTable={ResetFilterTableIcon(ln, resetTable, filterOn)}
+                    quickSumEnabled={quickSumEnabled}
+                    setQuickSumEnabled={setQuickSumEnabled}
+                    quickSumColumns={quickSumColumns}
+                    setQuickSumColumns={setQuickSumColumns}
                 />
 
                 <div className=" overflow-x-auto border-x border-[var(--selago)]">
