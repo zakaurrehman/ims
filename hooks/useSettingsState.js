@@ -21,6 +21,9 @@ function useSettingsState() {
     };
     const [dateSelect, setDateSelect] = useState(defaultDateSelect);
 
+    // Year state for navigating to specific year data
+    const [dateYr, setDateYr] = useState(currentYear.toString());
+
     // Setter for updating settings
     const updateSettings = (newSettings) => {
         setSettings((prev) => ({ ...prev, ...newSettings }));
@@ -46,6 +49,8 @@ function useSettingsState() {
         setLoading,
         dateSelect,
         setDateSelect,
+        dateYr,
+        setDateYr,
         ln, // Computed language value for easy access
     };
 }

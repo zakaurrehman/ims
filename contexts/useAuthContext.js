@@ -1,9 +1,5 @@
 'use client'
 
-// --- Auto-logout after 30 minutes of inactivity ---
-// (rest of the file remains unchanged)
-'use client'
-
 import { createContext, useContext, useEffect, useState } from 'react'
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { auth } from '../utils/firebase'
