@@ -14,8 +14,11 @@ export const useQuickSum = ({
     if (!enabled) return [];
     if (!selectedRows.length) return [];
 
-    return (selectedColumnIds || []).map((colId) => {
-      const total = selectedRows.reduce((sum, r) => sum + toNumber(r.getValue(colId)), 0);
+     return (selectedColumnIds || []).map((colId) => {
+      const total = selectedRows.reduce((sum, r) => {
+        const n = toNumber(r.getValue(colId));
+        return sum + (Number.isFinite(n) ? n : 0); 
+      }, 0);
       return { id: colId, total };
     });
   }, [enabled, selectedRows, selectedColumnIds]);

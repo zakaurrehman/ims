@@ -11,7 +11,7 @@ import { InvoiceContext } from "../../../contexts/useInvoiceContext";
 import MonthSelect from '../../../components/monthSelect';
 import Toast from '../../../components/toast.js'
 import ModalCopyInvoice from '../../../components/modalCopyInvoice';
-import EditableCell from '../../../components/table/EditableCell';
+//import EditableCell from '../../../components/table/EditableCell';
 import useInlineEdit from '../../../hooks/useInlineEdit';
 
 import { loadData, sortArr, getD, saveDataSettings } from '../../../utils/utils'
@@ -29,6 +29,11 @@ import Modal from '../../../components/modal';
 import DlayedResponse from './modals/delayedResponse';
 import Image from 'next/image';
 import Tltip from '../../../components/tlTip';
+import EditableCell from '../../../components/table/inlineEditing/EditableCell';
+import EditableSelectCell from '../../../components/table/inlineEditing/EditableSelectCell';
+import { updateContractField } from '../../../utils/utils';
+import { useGlobalSearch } from '../../../contexts/useGlobalSearchContext';
+
 
 
 const Contracts = () => {
@@ -45,6 +50,8 @@ const Contracts = () => {
 	const [openAlert, setOpenAlert] = useState(true)
 	const [filteredData, setFilteredData] = useState([])
 	const [highlightId, setHighlightId] = useState(null)
+	const { upsertSourceItems } = useGlobalSearch();
+
 
 	// Inline editing hook
 	const { updateField } = useInlineEdit('contracts', setContractsData);
@@ -114,7 +121,33 @@ const Contracts = () => {
 
 		Load();
 	}, [dateSelect])
+useEffect(() => {
+  if (!contractsData || !contractsData.length || Object.keys(settings).length === 0) {
+    upsertSourceItems('contracts', []);
+    return;
+  }
 
+  const items = contractsData.map(c => ({
+    key: `contract_${c.id}`,
+    route: '/contracts',
+    rowId: c.id,
+
+    title: `Contract • PO ${c.order || ''}`,
+    subtitle: `${gQ(c.supplier, 'Supplier', 'nname') || ''} • ${c.pol || ''}-${c.pod || ''}`,
+
+    searchText: [
+      c.order,
+      gQ(c.supplier, 'Supplier', 'nname'),
+      c.pol,
+      c.pod,
+      c.packing,
+      c.contType,
+      c.size,
+    ].filter(Boolean).join(' ')
+  }));
+
+  upsertSourceItems('contracts', items);
+}, [contractsData, settings]);
 	const gQ = (z, y, x) => settings[y][y].find(q => q.id === z)?.[x] || ''
 
 	const showQTY = (x) => {
@@ -129,52 +162,78 @@ const Contracts = () => {
 	let propDefaults = Object.keys(settings).length === 0 ? [] : [
 		{ accessorKey: 'opDate', header: getTtl('Operation Time', ln), cell: (props) => <p>{dateFormat(props.getValue(), 'dd-mmm-yy HH:MM')}</p> },
 		{ accessorKey: 'lstSaved', header: getTtl('Last Saved', ln), cell: (props) => <p>{dateFormat(props.getValue(), 'dd-mmm-yy HH:MM')}</p> },
-		{
-			accessorKey: 'order', header: getTtl('PO', ln) + '#',
-			cell: (props) => <EditableCell value={props.getValue()} row={props.row} column={props.column} onSave={handleCellSave} />
-		},
+		{ accessorKey: 'order', header: getTtl('PO', ln) + '#' },
 		{
 			accessorKey: 'date', header: getTtl('Date', ln), cell: (props) => <p>{dateFormat(props.getValue(), 'dd-mmm-yy')}</p>,
 			meta: {
 				filterVariant: 'dates',
 			}, filterFn: 'dateBetweenFilterFn'
 		},
-		{
-			accessorKey: 'supplier', header: getTtl('Supplier', ln), meta: {
-				filterVariant: 'selectSupplier',
-			},
-		},
+{
+  accessorKey: 'supplier',
+  header: getTtl('Supplier', ln),
+  cell: EditableSelectCell,
+  meta: {
+    filterVariant: 'selectSupplier',
+    options: settings.Supplier?.Supplier?.map(s => ({
+      value: s.id,
+      label: s.nname
+    })) ?? []
+  }
+},
+
 		{
 			accessorKey: 'originSupplier', header: 'Original supplier',
 		},
-		{ accessorKey: 'shpType', header: getTtl('Shipment', ln) },
-		{ accessorKey: 'origin', header: getTtl('Origin', ln) },
-		{ accessorKey: 'delTerm', header: getTtl('Delivery Terms', ln) },
 		{
-			accessorKey: 'pol', header: getTtl('POL', ln),
-			cell: (props) => <EditableCell value={props.getValue()} row={props.row} column={props.column} onSave={handleCellSave} />
-		},
+  accessorKey: 'shpType',
+  header: getTtl('Shipment', ln),
+  cell: EditableSelectCell,
+  meta: {
+    options: settings.Shipment?.Shipment?.map(s => ({
+      value: s.id,
+      label: s.shpType
+    })) ?? []
+  }
+},
+
 		{
-			accessorKey: 'pod', header: getTtl('POD', ln),
-			cell: (props) => <EditableCell value={props.getValue()} row={props.row} column={props.column} onSave={handleCellSave} />
-		},
+  accessorKey: 'origin',
+  header: getTtl('Origin', ln),
+  cell: EditableSelectCell,
+  meta: {
+    options: settings.Origin?.Origin?.map(o => ({
+      value: o.id,
+      label: o.origin
+    })) ?? []
+  }
+},
+{
+  accessorKey: 'delTerm',
+  header: getTtl('Delivery Terms', ln),
+  cell: EditableSelectCell,
+  meta: {
+    options: settings['Delivery Terms']?.['Delivery Terms']?.map(d => ({
+      value: d.id,
+      label: d.delTerm
+    })) ?? []
+  }
+},
+{ accessorKey: 'pol', header: getTtl('POL', ln), cell: EditableCell },
+{ accessorKey: 'pod', header: getTtl('POD', ln), cell: EditableCell },
+
+{ accessorKey: 'packing', header: getTtl('Packing', ln), cell: EditableCell },
+{ accessorKey: 'contType', header: getTtl('Container Type', ln), cell: EditableCell },
+{ accessorKey: 'size', header: getTtl('Size', ln), cell: EditableCell },
+
+		{ accessorKey: 'deltime', header: getTtl('Delivery Time', ln), cell: EditableCell },
+
 		{
-			accessorKey: 'packing', header: getTtl('Packing', ln),
-			cell: (props) => <EditableCell value={props.getValue()} row={props.row} column={props.column} onSave={handleCellSave} />
-		},
-		{
-			accessorKey: 'contType', header: getTtl('Container Type', ln),
-			cell: (props) => <EditableCell value={props.getValue()} row={props.row} column={props.column} onSave={handleCellSave} />
-		},
-		{
-			accessorKey: 'size', header: getTtl('Size', ln),
-			cell: (props) => <EditableCell value={props.getValue()} row={props.row} column={props.column} onSave={handleCellSave} />
-		},
-		{
-			accessorKey: 'deltime', header: getTtl('Delivery Time', ln),
-			cell: (props) => <EditableCell value={props.getValue()} row={props.row} column={props.column} onSave={handleCellSave} />
-		},
-		{ accessorKey: 'cur', header: getTtl('Currency', ln) },
+  accessorKey: 'cur',
+  header: getTtl('Currency', ln),
+  cell: (props) => <span>{gQ(props.getValue(), 'Currency', 'cur')}</span>
+},
+
 		{ accessorKey: 'qTypeTable', header: getTtl('QTY', ln), cell: (props) => <span>{showQTY(props)}</span> },
 		{
 			accessorKey: 'completed', header: 'Completed',
@@ -249,6 +308,31 @@ const Contracts = () => {
 		blankInvoice()
 	}
 
+	const onCellUpdate = async ({ rowIndex, columnId, value }) => {
+  const row = contractsData[rowIndex];
+  if (!row?.id) return;
+
+  // 🚫 Do not allow editing completed contracts
+  if (row.completed) return;
+
+  const prev = contractsData;
+  const next = prev.map((x, i) =>
+    i === rowIndex ? { ...x, [columnId]: value } : x
+  );
+  setContractsData(next);
+
+  try {
+    await updateContractField(
+      uidCollection,
+      row.id,
+      row.dateRange?.startDate ?? row.date,
+      { [columnId]: value }
+    );
+  } catch (e) {
+    console.error(e);
+    setContractsData(prev); // revert on failure
+  }
+};
 	return (
 		<div className="container mx-auto px-2 md:px-8 xl:px-10 pb-8 md:pb-0 mt-16 md:mt-0">
 			{Object.keys(settings).length === 0 ? <Spinner /> :
@@ -268,12 +352,13 @@ const Contracts = () => {
 
 						</div>
 
-						<Customtable data={sortArr(getFormatted(contractsData), 'order')} columns={propDefaults} SelectRow={SelectRow}
-							invisible={invisible}
+<Customtable data={sortArr(contractsData, 'order')}
+ columns={propDefaults} SelectRow={SelectRow}
+ 							invisible={invisible}
 							excellReport={EXD(contractsData.filter(x => filteredData.map(z => z.id).includes(x.id)),
 								settings, getTtl('Contracts', ln), ln)}
 							setFilteredData={setFilteredData}
-							highlightId={highlightId} />
+							highlightId={highlightId} onCellUpdate={onCellUpdate} />
 					</div>
 					<div className="text-left pt-6 flex gap-4">
 						<Tltip direction='bottom' tltpText='Create new Contract'>

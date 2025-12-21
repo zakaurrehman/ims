@@ -8,6 +8,8 @@ import { MainNav } from './_components/MainNav';
 import { usePathname } from 'next/navigation';
 import { Analytics } from "@vercel/analytics/next"
 import FloatingChat from '../../components/FloatingChat';
+import GlobalSearchLoader from '../../utils/globalSearch/GlobalSearchLoader'
+
 
 export default function MyLayout({
 	children, // will be a page or nested layout
@@ -46,6 +48,7 @@ export default function MyLayout({
 				<SideBarMini />
 			</div>
 			<div className="grow md:overflow-auto h-screen relative">
+								<GlobalSearchLoader />
 				<MainNav />
 				{children}
 			</div>

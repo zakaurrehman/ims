@@ -18,9 +18,14 @@ import dateFormat from "dateformat";
 import { getTtl } from '../../../utils/languages';
 import DateRangePicker from '../../../components/dateRangePicker';
 import Tooltip from '../../../components/tooltip';
-import EditableCell from '../../../components/table/EditableCell';
+//import EditableCell from '../../../components/table/EditableCell';
 import useInlineEdit from '../../../hooks/useInlineEdit';
 import { useRouter, useSearchParams } from 'next/navigation';
+import EditableCell from '../../../components/table/inlineEditing/EditableCell';
+import EditableSelectCell from '../../../components/table/inlineEditing/EditableSelectCell';
+import { updateExpenseField } from '../../../utils/utils';
+import { useGlobalSearch } from '../../../contexts/useGlobalSearchContext';
+
 
 
 
@@ -35,6 +40,8 @@ const Expenses = () => {
 	const [totalsAll, setTotalsAll] = useState([])
 	const [filteredId, setFilteredId] = useState([])
 	const [highlightId, setHighlightId] = useState(null)
+		const { upsertSourceItems } = useGlobalSearch();
+const [isEditMode, setIsEditMode] = useState(false);
 
 	// Inline editing hook
 	const { updateField } = useInlineEdit('expenses', setExpensesData);
@@ -126,6 +133,35 @@ const Expenses = () => {
 		setTotalsAll(totalsAll);
 
 	}, [filteredId])
+useEffect(() => {
+  if (!expensesData || !expensesData.length || Object.keys(settings).length === 0) {
+    upsertSourceItems('expenses', []);
+    return;
+  }
+
+  const items = expensesData.map(e => ({
+    key: `expense_${e.id}`,
+    route: '/expenses',
+    rowId: e.id,
+
+    title: `Expense • ${gQ(e.supplier, 'Supplier', 'nname') || ''} • ${e.expense || ''}`,
+    subtitle: `${e.salesInv || ''} • ${e.amount ?? ''} • ${e.comments || ''}`,
+
+    // This is what we actually search against:
+    searchText: [
+      gQ(e.supplier, 'Supplier', 'nname'),
+      e.expense,
+      e.salesInv,
+      e.comments,
+      e.amount,
+      e.cur,
+      e.expType,
+      e.paid
+    ].filter(Boolean).join(' ')
+  }));
+
+  upsertSourceItems('expenses', items);
+}, [expensesData, settings]);
 
 
 
@@ -152,13 +188,17 @@ const Expenses = () => {
 	const caseInsensitiveEquals = (row, columnId, filterValue) =>
 		row.getValue(columnId).toLowerCase() === filterValue.toLowerCase();
 
-	let propDefaults = Object.keys(settings).length === 0 ? [] : [
+		let propDefaults = Object.keys(settings).length === 0 ? [] : [
 		{ accessorKey: 'lstSaved', header: getTtl('Last Saved', ln), cell: (props) => <p>{dateFormat(props.getValue(), 'dd-mmm-yy HH:MM')}</p> },
-		{
-			accessorKey: 'supplier', header: getTtl('Vendor', ln), meta: {
-				filterVariant: 'selectSupplier',
-			},
-		},
+  {
+    accessorKey: 'supplier',
+    header: getTtl('Vendor', ln),
+    cell: EditableSelectCell,
+    meta: {
+      filterVariant: 'selectSupplier',
+      options: settings.Supplier?.Supplier?.map(s => ({ value: s.id, label: s.nname })) ?? []
+    }
+  },
 		{
 			accessorKey: 'date', header: getTtl('Date', ln), cell: (props) => <p>{dateFormat(props.getValue(), 'dd-mmm-yy')}</p>,
 			meta: {
@@ -166,32 +206,45 @@ const Expenses = () => {
 			},
 			filterFn: 'dateBetweenFilterFn'
 		},
-		{
-			accessorKey: 'salesInv', header: getTtl('SalesInvoices', ln),
-			cell: (props) => <EditableCell value={props.getValue()} row={props.row} column={props.column} onSave={handleCellSave} />
-		},
+		{ accessorKey: 'salesInv', header: getTtl('SalesInvoices', ln) },
 		{ accessorKey: 'poSupplierOrder', header: getTtl('PoOrderNo', ln) },
-		{ accessorKey: 'cur', header: getTtl('Currency', ln) },
-		{
-			accessorKey: 'amount', header: getTtl('Amount', ln), cell: (props) => <p>{showAmount(props)}</p>, meta: {
-				filterVariant: 'range',
-			},
-		},
-		{
-			accessorKey: 'expense', header: getTtl('Expense Invoice', ln) + '#',
-			cell: (props) => <EditableCell value={props.getValue()} row={props.row} column={props.column} onSave={handleCellSave} />
-		},
-		{ accessorKey: 'expType', header: getTtl('Expense Type', ln) },
-		{
-			accessorKey: 'paid', header: getTtl('Paid / Unpaid', ln), meta: {
-				filterVariant: 'paidNotPaidExp',
-			},
-			filterFn: caseInsensitiveEquals,
-		},
-		{
-			accessorKey: 'comments', header: getTtl('Comments', ln),
-			cell: (props) => <EditableCell value={props.getValue()} row={props.row} column={props.column} onSave={handleCellSave} />
-		},
+		  {
+    accessorKey: 'cur',
+    header: getTtl('Currency', ln),
+    cell: EditableSelectCell,
+    meta: {
+      options: settings.Currency?.Currency?.map(c => ({ value: c.id, label: c.cur })) ?? []
+    }
+  },
+	{
+  accessorKey: 'amount',
+  header: getTtl('Amount', ln),
+  cell: EditableCell,
+  meta: { filterVariant: 'range' },
+},
+
+		 { accessorKey: 'expense', header: getTtl('Expense Invoice', ln) + '#', cell: EditableCell },
+		  {
+    accessorKey: 'expType',
+    header: getTtl('Expense Type', ln),
+    cell: EditableSelectCell,
+    meta: {
+      options: settings.Expenses?.Expenses?.map(e => ({ value: e.id, label: e.expType })) ?? []
+    }
+  },
+	{
+  accessorKey: 'paid',
+  header: getTtl('Paid / Unpaid', ln),
+  cell: EditableSelectCell,
+  meta: {
+    filterVariant: 'paidNotPaidExp',
+    options: settings.ExpPmnt?.ExpPmnt?.map(p => ({ value: p.id, label: p.paid })) ?? [],
+  },
+  filterFn: caseInsensitiveEquals,
+},
+
+		{ accessorKey: 'comments', header: getTtl('Comments', ln), cell: EditableCell },
+
 	];
 
 	let invisible = ['lstSaved', 'comments'].reduce((acc, key) => {
@@ -235,7 +288,25 @@ const Expenses = () => {
 		setDateYr(row.dateRange?.startDate?.substring(0, 4));
 		setIsOpen(true);
 	};
+const onCellUpdate = async ({ rowIndex, columnId, value }) => {
+  const row = expensesData[rowIndex];
+  if (!row?.id) return;
 
+  // fix numeric
+  const newValue = columnId === "amount" ? (parseFloat(value) || 0) : value;
+
+  // optimistic UI update
+  const prev = expensesData;
+  const next = prev.map((x, i) => (i === rowIndex ? { ...x, [columnId]: newValue } : x));
+  setExpensesData(next);
+
+  try {
+    await updateExpenseField(uidCollection, row.id, row.date, { [columnId]: newValue });
+  } catch (e) {
+    console.error(e);
+    setExpensesData(prev); // revert on fail
+  }
+};
 
 	return (
 		<div className="container mx-auto px-2 md:px-8 xl:px-10 mt-16 md:mt-0">
@@ -252,13 +323,13 @@ const Expenses = () => {
 							</div>
 						</div>
 
-						<Customtable data={getFormatted(expensesData.map(x => ({ ...x, poSupplierOrder: x.poSupplier?.order })))}
+						<Customtable data={expensesData.map(x => ({ ...x, poSupplierOrder: x.poSupplier?.order }))}
 							columns={propDefaults} SelectRow={SelectRow}
 							invisible={invisible}
 							excellReport={EXD(expensesData.filter(x => filteredId.includes(x.id)).map(x => ({ ...x, poSupplierOrder: x.poSupplier?.order })),
 								settings, getTtl('Expenses', ln), ln)}
 							setFilteredId={setFilteredId}
-							highlightId={highlightId}
+							highlightId={highlightId} onCellUpdate={onCellUpdate}
 						/>
 
 

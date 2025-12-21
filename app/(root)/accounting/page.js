@@ -20,6 +20,12 @@ import DateRangePicker from '../../../components/dateRangePicker';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { FaWallet, FaArrowTrendUp, FaArrowTrendDown, FaPiggyBank } from 'react-icons/fa6';
+import EditableCell from '../../../components/table/inlineEditing/EditableCell';
+import EditableSelectCell from '../../../components/table/inlineEditing/EditableSelectCell';
+import { updateExpenseField, updateInvoiceField } from '../../../utils/utils';
+import { useGlobalSearch } from '../../../contexts/useGlobalSearchContext';
+
+
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -124,6 +130,7 @@ const Accounting = () => {
   const { invoicesAccData, setInvoicesAccData } = useContext(InvoiceContext);
   const { settings, dateSelect, setLoading, loading, ln } = useContext(SettingsContext);
   const { uidCollection } = UserAuth();
+const { upsertSourceItems } = useGlobalSearch();
 
 
   const gQ = (z, y, x) => settings[y][y].find(q => q.id === z)?.[x] || ''
@@ -159,12 +166,14 @@ const Accounting = () => {
         let item = {
           dateInv: l.final ? l.date : l.dateRange.endDate,
           saleInvoice: l.invoice + getprefixInv(l),
-          clientInv: l.final ? l.client.nname : gQ(l.client, 'Client', 'nname'),
+          clientInv: l.client,              // store ID
+clientInvName: l.client.nname,    // for display
           amountInv: l.totalAmount,
           invType: getprefixInv1(l),
           invoice: l.invoice,
-          curINV: l.final ? l.cur.cur : gQ(l.cur, 'Currency', 'cur')
-        }
+ curINV: l.final ? l.cur.cur : gQ(l.cur, 'Currency', 'cur'),
+           invoiceId: l.id,
+  invoiceDate: l.dateRange?.startDate ?? l.date        }
         invArr = [...invArr, item]
       }
 
@@ -223,8 +232,9 @@ const Accounting = () => {
           amountExp: l.amount,
           expType: l.expType,
           invoice: l.salesInv.replace(/\D/g, ''),
-          curEX: gQ(l.cur, 'Currency', 'cur')
-        }
+ curEX: gQ(l.cur, 'Currency', 'cur'),
+            expenseId: l.id,
+  expenseDate: l.dateRange?.startDate ?? l.date        }
         expArr = [...expArr, item]
       }
 
@@ -239,6 +249,63 @@ const Accounting = () => {
 
     Object.keys(settings).length !== 0 && Load();
   }, [dateSelect, settings])
+useEffect(() => {
+  if (!invoicesAccData || invoicesAccData.length === 0 || Object.keys(settings).length === 0) {
+    upsertSourceItems('accounting', []);
+    return;
+  }
+
+  const items = invoicesAccData.map((row, idx) => {
+    // Determine source + navigation
+    const isExpense = !!row.expenseId;
+    const isInvoice = !!row.invoiceId && !row.expenseId;
+    const isPurchase = row.expType === 'Purchase';
+
+    let route = '/accounting';
+    let rowId = idx.toString(); // fallback
+
+    if (isExpense) {
+      route = '/expenses';
+      rowId = row.expenseId;
+    } else if (isInvoice) {
+      route = '/invoices';
+      rowId = row.invoiceId;
+    } else if (isPurchase) {
+      route = '/contracts';
+      rowId = row.invoice;
+    }
+
+    const clientLabel =
+      row.clientExp
+        ? gQ(row.clientExp, 'Supplier', 'nname')
+        : row.clientInvName || '';
+
+    const amount =
+      row.amountInv != null ? row.amountInv :
+      row.amountExp != null ? row.amountExp : '';
+
+    return {
+      key: `accounting_${idx}`,
+      route,
+      rowId,
+
+      title: `Accounting • ${clientLabel || 'Transaction'}`,
+      subtitle: `${row.saleInvoice || row.expInvoice || ''} • ${amount}`,
+
+      searchText: [
+        clientLabel,
+        row.saleInvoice,
+        row.expInvoice,
+        row.invoice,
+        row.expType,
+        row.invType,
+        amount,
+      ].filter(Boolean).join(' ')
+    };
+  });
+
+  upsertSourceItems('accounting', items);
+}, [invoicesAccData, settings]);
 
 
   let showAmountExp = (x) => {
@@ -273,18 +340,46 @@ const Accounting = () => {
       },
       filterFn: 'dateBetweenFilterFn'
     },
-    { accessorKey: 'expInvoice', header: getTtl('Expense Invoice', ln) + '#', cell: (props) => <p>{props.getValue()}</p> },
-    { accessorKey: 'clientExp', header: getTtl('Supplier', ln), cell: (props) => <p>{gQ(props.getValue(), 'Supplier', 'nname')}</p> ,},
-    { accessorKey: 'amountExp', header: getTtl('Amount', ln), cell: (props) => <p>{showAmountExp(props)}</p> },
+   { accessorKey: 'expInvoice', header: getTtl('Expense Invoice', ln) + '#', cell: EditableCell },
     {
-      accessorKey: 'expType', header: getTtl('Expense Type', ln),
-      cell: (props) => <p>{props.getValue() === 'Purchase' ? props.getValue() : gQ(props.getValue(), 'Expenses', 'expType')}</p>
-    },
+  accessorKey: 'clientExp',
+  header: getTtl('Supplier', ln),
+  cell: EditableSelectCell,
+  meta: {
+    options: settings.Supplier?.Supplier?.map(s => ({
+      value: s.id,
+      label: s.nname
+    })) ?? []
+  }
+},
+    { accessorKey: 'amountExp', header: getTtl('Amount', ln), cell: EditableCell },
+
+  {
+  accessorKey: 'expType',
+  header: getTtl('Expense Type', ln),
+  cell: EditableSelectCell,
+  meta: {
+    options: settings.Expenses?.Expenses?.map(e => ({
+      value: e.id,
+      label: e.expType
+    })) ?? []
+  }},
 
 
     { accessorKey: 'dateInv', header: getTtl('Date', ln), cell: (props) => <p>{props.getValue() ? dateFormat(props.getValue(), 'dd-mmm-yy') : ''}</p> },
     { accessorKey: 'saleInvoice', header: getTtl('Invoice', ln), cell: (props) => <p>{props.getValue()}</p> },
-    { accessorKey: 'clientInv', header: getTtl('Consignee', ln), cell: (props) => <p>{props.getValue()}</p> ,},
+    {
+  accessorKey: 'clientInv',
+  header: getTtl('Consignee', ln),
+  cell: EditableSelectCell,
+  meta: {
+    options: settings.Client?.Client?.map(c => ({
+      value: c.id,
+      label: c.nname
+    })) ?? []
+  }
+},
+
     { accessorKey: 'amountInv', header: getTtl('Amount', ln), cell: (props) => <p>{showAmountInv(props)}</p> },
     { accessorKey: 'invType', header: getTtl('Invoice Type', ln), cell: (props) => <p>{props.getValue()}</p> },
 
@@ -397,7 +492,56 @@ const Accounting = () => {
     if (Math.abs(value) > 999) return value > 0 ? '>999%' : '<-999%';
     return value.toFixed(1) + '%';
   };
+const onCellUpdate = async ({ rowIndex, columnId, value }) => {
+  const row = invoicesAccData[rowIndex];
+  if (!row) return;
 
+  if (row.expType === 'Purchase') return;
+
+  const prev = invoicesAccData;
+  const next = prev.map((x, i) =>
+    i === rowIndex ? { ...x, [columnId]: value } : x
+  );
+  setInvoicesAccData(next);
+
+  try {
+    // EXPENSE SIDE
+    if (['expInvoice', 'amountExp', 'expType', 'clientExp'].includes(columnId)) {
+      if (!row.expenseId || !row.expenseDate)
+        throw new Error("Missing expense mapping");
+
+      const patch =
+        columnId === 'expInvoice' ? { expense: value } :
+        columnId === 'amountExp' ? { amount: parseFloat(value) || 0 } :
+        columnId === 'expType' ? { expType: value } :
+        columnId === 'clientExp' ? { supplier: value } : {};
+
+      await updateExpenseField(
+        uidCollection,
+        row.expenseId,
+        row.expenseDate,
+        patch
+      );
+    }
+
+    // INVOICE SIDE
+    if (columnId === 'clientInv') {
+      if (!row.invoiceId || !row.invoiceDate)
+        throw new Error("Missing invoice mapping");
+
+      await updateInvoiceField(
+        uidCollection,
+        row.invoiceId,
+        row.invoiceDate,
+        { client: value }
+      );
+    }
+
+  } catch (e) {
+    console.error(e);
+    setInvoicesAccData(prev); // revert
+  }
+};
 
   return (
     <div className="container mx-auto px-2 md:px-8 xl:px-10 mt-16 md:mt-0 pb-10 overflow-x-hidden">
@@ -587,7 +731,7 @@ const Accounting = () => {
           {/* Full Table */}
           <div className="bg-white rounded-2xl p-5 shadow-lg border border-[var(--selago)]">
             <h3 className="text-lg font-semibold text-[var(--port-gore)] mb-4">All Transactions</h3>
-            <Customtable data={invoicesAccData} columns={propDefaults}
+            <Customtable data={invoicesAccData} columns={propDefaults}  onCellUpdate={onCellUpdate}
               excellReport={EXD(invoicesAccData, settings, getTtl('Accounting', ln), ln)} />
           </div>
 

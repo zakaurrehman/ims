@@ -26,7 +26,7 @@ import dateBetweenFilterFn from '../../../components/table/filters/date-between-
 import { Filter } from "../../../components/table/filters/filterFunc";
 
 
-const Customtable = ({ data, columns, invisible, SelectRow, excellReport, setFilteredData, highlightId }) => {
+const Customtable = ({ data, columns, invisible, SelectRow, excellReport, setFilteredData, highlightId,onCellUpdate  }) => {
 
 
 
@@ -42,6 +42,8 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, setFil
       const [quickSumEnabled, setQuickSumEnabled] = useState(false);
   const [quickSumColumns, setQuickSumColumns] = useState([]);
 
+          const[isEditMode,setIsEditMode]=useState(false)
+  
   // ✅ row selection state (only used when quicksumEnabled)
   const [rowSelection, setRowSelection] = useState({});
 
@@ -80,6 +82,13 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, setFil
   }, [columns, quickSumEnabled]);
 
     const table = useReactTable({
+  meta: {
+  isEditMode,
+  updateData: (rowIndex, columnId, value) => {
+    if (!isEditMode) return;           // extra safety
+    onCellUpdate?.({ rowIndex, columnId, value });
+  },
+},
          columns:columnsWithSelection, data,
         enableRowSelection: quickSumEnabled,
         getCoreRowModel: getCoreRowModel(),
@@ -121,6 +130,8 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, setFil
                 <Header globalFilter={globalFilter} setGlobalFilter={setGlobalFilter}
                     table={table} excellReport={excellReport}
                     filterIcon={FiltersIcon(ln, filterOn, setFilterOn)}
+                      isEditMode={isEditMode}
+                    setIsEditMode={setIsEditMode}
                     resetFilterTable={ResetFilterTableIcon(ln, resetTable, filterOn)}
                     quickSumEnabled={quickSumEnabled}  
                     setQuickSumEnabled={setQuickSumEnabled}

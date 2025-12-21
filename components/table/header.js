@@ -17,13 +17,25 @@ import QuickSumControl from './quicksum/QuickSumControl';
 
 const Header = ({ data, cb, cb1, type, excellReport,
 	globalFilter, setGlobalFilter, table, filterIcon, resetFilterTable, addMaterial, delTable, table1, runPdf,
-	 tableModes, datattl , quickSumEnabled = false,
+	 tableModes, datattl ,isEditMode,
+  setIsEditMode, quickSumEnabled = false,
   setQuickSumEnabled = () => {},
   quickSumColumns = [],
   setQuickSumColumns = () => {},}) => {
 
 	const { ln } = useContext(SettingsContext);
 	const pathname = usePathname()
+	const editEnabledRoutes = [
+  '/invoices',
+  '/expenses',
+  '/accounting',
+  '/contracts',
+];
+
+const showEditButton = editEnabledRoutes.some(route =>
+  pathname.startsWith(route)
+);
+
 
 
 	return (
@@ -99,6 +111,18 @@ const Header = ({ data, cb, cb1, type, excellReport,
 					{filterIcon}
 					{excellReport}
 					<ColFilter table={table} />
+					{showEditButton && typeof setIsEditMode === 'function' && (
+  <button
+    onClick={() => setIsEditMode(prev => !prev)}
+    className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all
+      ${isEditMode
+        ? 'bg-[var(--endeavour)] text-white'
+        : 'bg-white border border-gray-300 text-gray-600 hover:bg-gray-100'}
+    `}
+  >
+    ✏️ {isEditMode ? 'Editing ON' : 'Edit'}
+  </button>
+)}
 									<QuickSumControl
   table={table}
   enabled={quickSumEnabled}

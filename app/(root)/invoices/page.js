@@ -20,9 +20,13 @@ import Modal from '../../../components/modal';
 import DlayedResponse from './modals/delayedResponse';
 import Image from 'next/image';
 import Tooltip from '../../../components/tooltip';
-import EditableCell from '../../../components/table/EditableCell';
+// import EditableCell from '../../../components/table/EditableCell';
 import useInlineEdit from '../../../hooks/useInlineEdit';
 import { useRouter, useSearchParams } from 'next/navigation';
+import EditableCell from '../../../components/table/inlineEditing/EditableCell';
+import EditableSelectCell from '../../../components/table/inlineEditing/EditableSelectCell';
+import { updateInvoiceField } from '../../../utils/utils';
+import { useGlobalSearch } from '../../../contexts/useGlobalSearchContext';
 
 
 const Invoices = () => {
@@ -38,6 +42,12 @@ const Invoices = () => {
 	const [openAlert, setOpenAlert] = useState(true)
 	const [filteredData, setFilteredData] = useState([])
 	const [highlightId, setHighlightId] = useState(null)
+		const { upsertSourceItems } = useGlobalSearch();
+		const [isEditMode, setIsEditMode] = useState(false);
+
+	const gQ = (z, y, x) => settings?.[y]?.[y]?.find(q => q.id === z)?.[x] || '';
+
+
 
 	// Inline editing hook
 	const { updateField } = useInlineEdit('invoices', setInvoicesData);
@@ -107,6 +117,33 @@ const Invoices = () => {
 
 		Load();
 	}, [dateSelect])
+useEffect(() => {
+  if (!invoicesData || !invoicesData.length || Object.keys(settings).length === 0) {
+    upsertSourceItems('invoices', []);
+    return;
+  }
+
+  const items = invoicesData.map(inv => ({
+    key: `invoice_${inv.id}`,
+    route: '/invoices',
+    rowId: inv.id,
+
+    title: `Invoice • ${String(inv.invoice ?? '').padStart(4, '0')}`,
+    subtitle: `${gQ(inv.client, 'Client', 'nname') || ''} • ${inv.container || ''} • ${inv.pol || ''}-${inv.pod || ''}`,
+
+    searchText: [
+      inv.invoice,
+      gQ(inv.client, 'Client', 'nname'),
+      inv.container,
+      inv.pol,
+      inv.pod,
+      inv.packing,
+      inv.order,
+    ].filter(Boolean).join(' ')
+  }));
+
+  upsertSourceItems('invoices', items);
+}, [invoicesData, settings]);
 
 
 
@@ -133,13 +170,16 @@ const Invoices = () => {
 	}
 
 	let showAmount = (x) => {
+  const isoCurrency =
+    settings.Currency?.Currency?.find(c => c.id === x.row.original.cur)?.cur
+    || 'USD'; // safe fallback
 
-		return new Intl.NumberFormat('en-US', {
-			style: 'currency',
-			currency: x.row.original.cur,
-			minimumFractionDigits: 2
-		}).format(x.getValue())
-	}
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: isoCurrency,
+    minimumFractionDigits: 2
+  }).format(x.getValue());
+};
 	const aaa = (x) => {
 		console.log(x)
 	}
@@ -160,17 +200,48 @@ const Invoices = () => {
 				className={`${setInvStatus(props) === 'Draft' ? 'text-[var(--endeavour)]' : setInvStatus(props) === 'Final' ? 'text-green-600' : 'text-red-600'} 
 			p-1.5 rounded-xl bg-[var(--selago)] px-2 justify-center flex font-medium`}>{setInvStatus(props)}</p>
 		},
+	{
+  accessorKey: 'client',
+  header: getTtl('Consignee', ln),
+  cell: EditableSelectCell,
+  meta: {
+    filterVariant: 'selectClient',
+    options: settings.Client?.Client?.map(c => ({
+      value: c.id,
+      label: c.nname
+    })) ?? []
+  }
+},
+
 		{
-			accessorKey: 'client', header: getTtl('Consignee', ln), meta: {
-				filterVariant: 'selectClient',
-			},
-		},
-		{ accessorKey: 'shpType', header: getTtl('Shipment', ln), },
+  accessorKey: 'shpType',
+  header: getTtl('Shipment', ln),
+  cell: EditableSelectCell,
+  meta: {
+    options: settings.Shipment?.Shipment?.map(s => ({
+      value: s.id,
+      label: s.shpType
+    })) ?? []
+  }
+},
+
 		{ accessorKey: 'origin', header: getTtl('Origin', ln) },
-		{ accessorKey: 'delTerm', header: getTtl('Delivery Terms', ln) },
-		{ accessorKey: 'pol', header: getTtl('POL', ln) },
-		{ accessorKey: 'pod', header: getTtl('POD', ln) },
-		{ accessorKey: 'packing', header: getTtl('Packing', ln) },
+		{
+  accessorKey: 'delTerm',
+  header: getTtl('Delivery Terms', ln),
+  cell: EditableSelectCell,
+  meta: {
+    options: settings['Delivery Terms']?.['Delivery Terms']?.map(d => ({
+      value: d.id,
+      label: d.delTerm
+    })) ?? []
+  }
+},
+
+{ accessorKey: 'pol', header: getTtl('POL', ln), cell: EditableCell },
+{ accessorKey: 'pod', header: getTtl('POD', ln), cell: EditableCell },
+{ accessorKey: 'packing', header: getTtl('Packing', ln), cell: EditableCell },
+
 		{ accessorKey: 'cur', header: getTtl('Currency', ln), },
 		{ accessorKey: 'invType', header: getTtl('Invoice Type', ln), },
 		{
@@ -192,10 +263,7 @@ const Invoices = () => {
 				filterVariant: 'range',
 			},
 		},
-		{
-			accessorKey: 'container', header: getTtl('Container No', ln),
-			cell: (props) => <EditableCell value={props.getValue()} row={props.row} column={props.column} onSave={handleCellSave} />
-		},
+		{ accessorKey: 'container', header: getTtl('Container No', ln), cell: (props) => <span className='text-wrap w-40 md:w-64 flex'>{props.getValue()}</span> },
 		{
 			accessorKey: 'etd', header: 'ETD', cell: (props) => <span>{props.row.original.shipData?.etd?.startDate ?
 				dateFormat(props.row.original.shipData?.etd?.startDate, 'dd-mmm-yy') : ''}</span>
@@ -292,7 +360,31 @@ const Invoices = () => {
 		setLoading(false)
 	};
 
+  const onCellUpdate = async ({ rowIndex, columnId, value }) => {
+  const row = invoicesData[rowIndex];
+  if (!row?.id) return;
 
+  // 🚫 Do not allow editing finalized invoices
+  if (row.final) return;
+
+  const prev = invoicesData;
+  const next = prev.map((x, i) =>
+    i === rowIndex ? { ...x, [columnId]: value } : x
+  );
+  setInvoicesData(next);
+
+  try {
+    await updateInvoiceField(
+      uidCollection,
+      row.id,
+      row.dateRange?.startDate ?? row.date,
+      { [columnId]: value }
+    );
+  } catch (e) {
+    console.error(e);
+    setInvoicesData(prev); // revert on error
+  }
+};
 	return (
 		<div className="container mx-auto px-2 md:px-8 xl:px-10 mt-16 md:mt-0">
 			{Object.keys(settings).length === 0 ? <Spinner /> :
@@ -310,8 +402,9 @@ const Invoices = () => {
 
 						</div>
 
-						<Customtable data={sortArr(getFormatted(invoicesData), 'invoice')} columns={propDefaults} SelectRow={SelectRow}
+						<Customtable data={sortArr(invoicesData, 'invoice')} columns={propDefaults} SelectRow={SelectRow}
 							invisible={invisible}
+							onCellUpdate={onCellUpdate}
 							excellReport={EXD(invoicesData.filter(x => filteredData.map(z => z.id).includes(x.id)),
 								settings, getTtl('Invoices', ln), ln)}
 							setFilteredData={setFilteredData}

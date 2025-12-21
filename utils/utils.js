@@ -835,3 +835,38 @@ export const loadAcntStatement = async (uidCollection, year, clientId, date1) =>
   const docSnap = await getDoc(doc(db, uidCollection, 'actStatements', year, clientId, date1, date1));
   return docSnap.exists() ? docSnap.data() : [];
 }
+export const updateExpenseField = async (
+  uidCollection,
+  expenseId,
+  expenseDate,
+  patch
+) => {
+  const year = expenseDate.substring(0, 4);
+  const ref = doc(db, uidCollection, "data", "expenses_" + year, expenseId);
+  await updateDoc(ref, patch);
+};
+
+
+export const updateInvoiceField = async (
+  uidCollection,
+  invoiceId,
+  invoiceDate,
+  patch
+) => {
+  const year = invoiceDate.substring(0, 4);
+  const ref = doc(db, uidCollection, "data", "invoices_" + year, invoiceId);
+  await updateDoc(ref, patch);
+};
+
+export const updateContractField = async (
+  uidCollection,
+  contractId,
+  contractDate,
+  patch
+) => {
+  const year = contractDate.substring(0, 4);
+  const ref = doc(db, uidCollection, "data", "contracts_" + year, contractId);
+  await updateDoc(ref, patch);
+};
+
+

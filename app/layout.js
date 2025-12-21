@@ -2,6 +2,7 @@ import './globals.css';
 import { Poppins} from 'next/font/google';
 import Provider from './providers'
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GlobalSearchProvider } from '../contexts/useGlobalSearchContext'; 
 
 
 const poppins = Poppins({
@@ -22,7 +23,9 @@ export default function RootLayout({ children }) {
 		<html lang="en">
 			<body className={poppins.className}>
 				<Provider>
-					<div>{children}</div>
+					<GlobalSearchProvider>
+						<div>{children}</div>
+					</GlobalSearchProvider>
 				</Provider>
 				<SpeedInsights />
 			</body>
