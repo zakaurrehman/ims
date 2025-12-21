@@ -75,32 +75,36 @@ export default function Sidebar() {
                     return (
                       <div key={k}>
                         {/* Dropdown Header */}
-                      
+                        <div 
+                          onClick={() => toggleDropdown(y.item)}
+                          className={`group flex items-center justify-between px-6 py-3 my-1 rounded-xl cursor-pointer transition-all duration-150
+                            ${isSubItemActive ? 'bg-[var(--rock-blue)] bg-opacity-30' : 'text-[var(--selago)] hover:bg-[var(--rock-blue)] hover:bg-opacity-20'}
+                          `} 
+                          style={{ minHeight: 48 }}
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <span className={`text-xl transition-colors shrink-0 ${isSubItemActive ? 'text-white' : 'text-[var(--rock-blue)]'} group-hover:text-[var(--selago)]`}>{y.img}</span>
+                            <span className={`ml-2 text-sm font-medium leading-tight tracking-wide text-[var(--selago)]`}>{getTtl(y.item, ln)}</span>
+                          </div>
+                          <span className="text-[var(--selago)]">
+                            {isDropdownOpen ? <FaAngleUp /> : <FaAngleDown />}
+                          </span>
+                        </div>
                         
                         {/* Dropdown Items */}
                         <div className={`overflow-hidden transition-all duration-300 ${isDropdownOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                          <div className=" mr-2 ml-2 bg-[var(--rock-blue)]/30 rounded-xl overflow-hidden">
-                            {y.subItems && y.subItems.map((sub, si) => {
+                          <div className="ml-4 mr-2 bg-[var(--rock-blue)]/30 rounded-xl overflow-hidden">
+                            {y.subItems.map((sub, si) => {
                               const isSubActive = pathName.slice(1) === sub.page;
                               return (
                                 <Link href={`/${sub.page}`} key={si} onClick={setDates}>
-                                  <div
-                                    className={`group flex items-center gap-3 px-4 py-3 cursor-pointer transition-all duration-150
-                                      ${isSubActive 
-                                        ? 'bg-white text-[var(--endeavour)] font-semibold' 
-                                        : 'text-white hover:bg-white/20'}
-                                    `}
-                                  >
-                                    <span
-                                      className={`text-lg ${isSubActive ? 'text-[var(--endeavour)]' : 'text-white'}`}
-                                    >
-                                      {sub.img}
-                                    </span>
-                                    <span
-                                      className={`text-sm ${isSubActive ? 'text-[var(--endeavour)]' : 'text-white'}`}
-                                    >
-                                      {getTtl(sub.item, ln)}
-                                    </span>
+                                  <div className={`group flex items-center gap-3 px-4 py-3 cursor-pointer transition-all duration-150
+                                    ${isSubActive 
+                                      ? 'bg-white text-[var(--endeavour)] font-semibold' 
+                                      : 'text-white hover:bg-white/20'}
+                                  `}>
+                                    <span className={`text-lg ${isSubActive ? 'text-[var(--endeavour)]' : 'text-white'}`}>{sub.img}</span>
+                                    <span className={`text-sm ${isSubActive ? 'text-[var(--endeavour)]' : 'text-white'}`}>{getTtl(sub.item, ln)}</span>
                                   </div>
                                 </Link>
                               );
