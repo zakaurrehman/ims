@@ -100,7 +100,7 @@ const Total = (data, name, val, mult, settings) => {
 
 const loadInvoices = async (uidCollection, con) => {
 
-    let yrs = [...new Set(con.invoices.map(x => x.date.substring(0, 4)))]
+    let yrs = [...new Set((con.invoices || []).map(x => x.date.substring(0, 4)))]
     let arrTmp = [];
     for (let i = 0; i < yrs.length; i++) {
         let yr = yrs[i]
@@ -803,7 +803,7 @@ const ContractsMerged = () => {
     }
 
     return (
-        <div className="container mx-auto px-2 md:px-8 xl:px-10 mt-16 md:mt-0 pb-8">
+       <div className="container mx-auto px-0 pb-8 md:pb-0 mt-16 md:mt-0">
             {Object.keys(settings).length === 0 ? <Spinner /> :
                 <>
                     <Toast />
@@ -887,7 +887,8 @@ const ContractsMerged = () => {
 
                     {valueCon && <MyDetailsModal isOpen={isOpenCon} setIsOpen={setIsOpenCon}
                         title={!valueCon.id ? getTtl('New Contract', ln) : `${getTtl('Contract No', ln)}: ${valueCon.order}`} />}
-                </>}
+                </>
+            }
         </div>
     );
 };

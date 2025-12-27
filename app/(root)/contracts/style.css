@@ -87,3 +87,44 @@
 .animate-highlight-row {
   animation: highlight-fade 2s ease-out forwards;
 }
+
+
+/* Bigger tap target for selection */
+.qs-checkbox {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 640px) {
+  .qs-checkbox {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* spacing from left side — requested change */
+  .dropdown-left-space {
+    margin-left: 8px;
+  }
+
+  /* Dropdown never overflows screen */
+  .dropdown-panel,
+  .radix-popover-content {
+    max-height: 60vh;
+    overflow-y: auto;
+    width: 92vw !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+    border-radius: 12px;
+  }
+
+  .table_cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Selected row highlight */
+tr[aria-selected="true"] {
+  background: #e8f2ff;
+}

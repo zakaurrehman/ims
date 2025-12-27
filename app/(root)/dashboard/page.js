@@ -117,7 +117,16 @@ const Dash = () => {
       }, {});
 
 
-      setDataPL(tmpPL)
+      // Separate expenses and rename contracts to purchases
+      setDataExpenses(tmpData.accumulatedExp);
+      setDataContracts(tmpData.accumulatedPmnt); // Rename to purchases
+
+      // Add sections for Sales Contracts, Expenses, and Purchase Contracts
+      const salesContracts = tmpData.salesContracts || [];
+      const expenses = tmpData.accumulatedExp || [];
+      const purchaseContracts = tmpData.accumulatedPmnt || [];
+
+      setDataPL(Object.values(tmpPL));
       setLoading(false)
     }
 
@@ -132,7 +141,7 @@ const Dash = () => {
   const years = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i);
 
   return (
-    <div className="xl:container mx-auto px-2 md:px-8 xl:px-10 pb-8 md:pb-0 min-h-screen bg-gradient-to-br from-[var(--selago)]/30 via-white to-[var(--rock-blue)]/10">
+    <div className="xl:container mx-auto px-2 md:px-8 xl:px-10 pb-8 md:pb-0 min-h-screen bg-gradient-to-br from-[var(--selago)]/20 via-[var(--white)] to-[var(--rock-blue)]/5">
       {Object.keys(settings).length === 0 ? <Spinner /> :
         <>
           <Toast />
@@ -200,6 +209,7 @@ const Dash = () => {
           </div>
 
           {/* Stats Cards Row */}
+          {/* Horizontal Layout for Cards */}
           <div className='grid grid-cols-1 md:grid-cols-3 gap-6 mb-6'>
             {/* P&L Card */}
             <div className='bg-gradient-to-br from-[var(--port-gore)] to-[var(--bunting)] rounded-2xl shadow-xl overflow-hidden hover:scale-[1.02] transition-transform duration-300'>
@@ -213,7 +223,7 @@ const Dash = () => {
                     </div>
                   </div>
                   <div className='text-3xl font-bold text-white mb-4'>
-                    ${frmNum(Object.values(dataPL).reduce((acc, currentValue) => acc + currentValue, 0) / 1000000)}M
+                    {frmNum(Object.values(dataPL).reduce((acc, currentValue) => acc + currentValue, 0) / 1000000)}M
                   </div>
                   <div className='h-[100px] min-w-[300px] min-h-[100px]'>
                     <Line data={LineChartSmall(dataPL, 'rgba(159, 184, 212, 1)').obj} options={LineChartSmall().options} />
@@ -234,7 +244,7 @@ const Dash = () => {
                     </div>
                   </div>
                   <div className='text-3xl font-bold text-white mb-4'>
-                    ${frmNum(Object.values(dataInvoices).reduce((acc, currentValue) => acc + currentValue, 0) / 1000000)}M
+                    {frmNum(Object.values(dataInvoices).reduce((acc, currentValue) => acc + currentValue, 0) / 1000000)}M
                   </div>
                   <div className='h-[100px] min-w-[300px] min-h-[100px]'>
                     <Line data={LineChartSmall(dataInvoices, 'rgba(255, 255, 255, 0.9)').obj} options={LineChartSmall().options} />
@@ -255,7 +265,7 @@ const Dash = () => {
                     </div>
                   </div>
                   <div className='text-3xl font-bold text-white mb-4'>
-                    ${frmNum((Object.values(dataInvoices).reduce((acc, currentValue) => acc + currentValue, 0) -
+                    {frmNum((Object.values(dataInvoices).reduce((acc, currentValue) => acc + currentValue, 0) -
                       Object.values(dataPL).reduce((acc, currentValue) => acc + currentValue, 0)) / 1000000)}M
                   </div>
                   <div className='h-[100px] min-w-[300px] min-h-[100px]'>
@@ -264,6 +274,67 @@ const Dash = () => {
                 </div>
               </div>
             </div>
+                 <div className='bg-gradient-to-br from-[var(--endeavour)] to-[var(--chathams-blue)] rounded-2xl shadow-xl overflow-hidden hover:scale-[1.02] transition-transform duration-300'>
+            <div className='p-6 relative min-w-[300px] min-h-[200px]'>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+              <div className='relative z-10'>
+                <div className='flex items-center justify-between mb-4'>
+                  <span className='text-white/80 text-sm font-medium'>Sales Contracts - $M</span>
+                  <div className='px-3 py-1 rounded-lg text-xs font-bold bg-emerald-500/20 text-emerald-400'>
+                    Sales
+                  </div>
+                </div>
+                <div className='text-3xl font-bold text-white mb-4'>
+                  ${Object.values(dataContracts).reduce((acc, val) => acc + val, 0).toFixed(2)}M
+                </div>
+                <div className='h-[100px] min-w-[300px] min-h-[100px]'>
+                  <Line data={LineChartSmall(dataContracts, 'rgba(255, 255, 255, 0.9)').obj} options={LineChartSmall().options} />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Expenses Section */}
+          <div className='bg-gradient-to-br from-[var(--port-gore)] to-[var(--bunting)] rounded-2xl shadow-xl overflow-hidden hover:scale-[1.02] transition-transform duration-300'>
+            <div className='p-6 relative min-w-[300px] min-h-[200px]'>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+              <div className='relative z-10'>
+                <div className='flex items-center justify-between mb-4'>
+                  <span className='text-white/80 text-sm font-medium'>Expenses - $M</span>
+                  <div className='px-3 py-1 rounded-lg text-xs font-bold bg-red-500/20 text-red-400'>
+                    Costs
+                  </div>
+                </div>
+                <div className='text-3xl font-bold text-white mb-4'>
+                  ${Object.values(dataExpenses).reduce((acc, val) => acc + val, 0).toFixed(2)}M
+                </div>
+                <div className='h-[100px] min-w-[300px] min-h-[100px]'>
+                  <Line data={LineChartSmall(dataExpenses, 'rgba(159, 184, 212, 1)').obj} options={LineChartSmall().options} />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Purchase Contracts Section */}
+          <div className='bg-gradient-to-br from-[var(--chathams-blue)] to-[var(--port-gore)] rounded-2xl shadow-xl overflow-hidden hover:scale-[1.02] transition-transform duration-300'>
+            <div className='p-6 relative min-w-[300px] min-h-[200px]'>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+              <div className='relative z-10'>
+                <div className='flex items-center justify-between mb-4'>
+                  <span className='text-white/80 text-sm font-medium'>Purchase Contracts - $M</span>
+                  <div className='px-3 py-1 rounded-lg text-xs font-bold bg-green-500/20 text-green-400'>
+                    Purchases
+                  </div>
+                </div>
+                <div className='text-3xl font-bold text-white mb-4'>
+                  ${Object.values(dataInvoices).reduce((acc, val) => acc + val, 0).toFixed(2)}M
+                </div>
+                <div className='h-[100px] min-w-[300px] min-h-[100px]'>
+                  <Line data={LineChartSmall(dataInvoices, 'rgba(159, 184, 212, 0.9)').obj} options={LineChartSmall().options} />
+                </div>
+              </div>
+            </div>
+          </div>
           </div>
 
           {/* Currency Widget + Metal Prices + Horizontal Bar Charts Row */}
@@ -296,7 +367,7 @@ const Dash = () => {
                 <div className='flex items-center gap-3 mb-6'>
                   <div className="w-10 h-10 bg-gradient-to-br from-[var(--chathams-blue)] to-[var(--port-gore)] rounded-xl flex items-center justify-center shadow-lg">
                     <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
                   </div>
                   <h3 className='text-[var(--port-gore)] font-bold text-lg'>Contracts - $</h3>
@@ -307,6 +378,9 @@ const Dash = () => {
               </div>
             </div>
           </div>
+ 
+          {/* Sales Contracts Section */}
+     
 
         </>}
     </div>

@@ -544,7 +544,7 @@ const onCellUpdate = async ({ rowIndex, columnId, value }) => {
 };
 
   return (
-    <div className="container mx-auto px-2 md:px-8 xl:px-10 mt-16 md:mt-0 pb-10 overflow-x-hidden">
+    <div className="container mx-auto px-0 pb-8 md:pb-0 mt-16 md:mt-0  overflow-x-hidden">
       {Object.keys(settings).length === 0 ? <Spinner /> :
         <>
           <Toast />

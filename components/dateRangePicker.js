@@ -1,33 +1,43 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
 import { SettingsContext } from "../contexts/useSettingsContext";
 import dateFormat from 'dateformat';
 
-const DateRangePicker = () => {
+// Helper to convert string (yyyy-mm-dd) to Date
+const toDate = (val) => val ? new Date(val) : null;
+// Helper to convert Date to string (yyyy-mm-dd)
+const toStr = (val) => val ? dateFormat(val, "yyyy-mm-dd") : null;
 
+const DateRangePicker = () => {
     const { setDateSelect, dateSelect } = useContext(SettingsContext);
 
+    // Always keep value as Date objects for the picker
     const [value, setValue] = useState({
-        startDate: dateSelect.start,
-        endDate: dateSelect.end
+        startDate: toDate(dateSelect.start),
+        endDate: toDate(dateSelect.end)
     });
 
+    // Sync with context changes
+    useEffect(() => {
+        setValue({
+            startDate: toDate(dateSelect.start),
+            endDate: toDate(dateSelect.end)
+        });
+    }, [dateSelect]);
+
     const yr = new Date().getFullYear();
+    const today = new Date();
+    const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
     const handleValueChange = (newValue) => {
-        // Normalize for shortcut values that may use 'start'/'end' instead of 'startDate'/'endDate'
-        const normalized = {
-            startDate: newValue.startDate || newValue.start || null,
-            endDate: newValue.endDate || newValue.end || null
-        };
-        setValue(normalized);
-
+        setValue(newValue);
         setDateSelect({
             ...dateSelect,
-            start: normalized.startDate,
-            end: normalized.endDate
+            start: toStr(newValue.startDate),
+            end: toStr(newValue.endDate)
         });
-    }
+    };
 
     return (
         <Datepicker
@@ -39,31 +49,42 @@ const DateRangePicker = () => {
             displayFormat={"DD-MMM-YY"}
             placeholder="Select range"
             showShortcuts={true}
-            //    primaryColor={"indigo"}
             readOnly={true}
             configs={{
                 shortcuts: {
-                    today: "Today",
-                    currentMonth: "This month",
+                    customToday: {
+                        text: "Today",
+                        period: {
+                            start: today,
+                            end: today
+                        }
+                    },
+                    customMonth: {
+                        text: "This month",
+                        period: {
+                            start: firstDayOfMonth,
+                            end: lastDayOfMonth
+                        }
+                    },
                     custom: {
                         text: "This year",
                         period: {
-                            start: `${yr}-01-01`,
-                            end: `${yr}-12-31`
+                            start: new Date(`${yr}-01-01`),
+                            end: new Date(`${yr}-12-31`)
                         },
                     },
                     custom1: {
                         text: "Last year",
                         period: {
-                            start: `${yr - 1}-01-01`,
-                            end: `${yr - 1}-12-31`
+                            start: new Date(`${yr - 1}-01-01`),
+                            end: new Date(`${yr - 1}-12-31`)
                         },
                     },
                 }
             }}
-            containerClassName="z-20 relative"
+            containerClassName="z-[9999] relative"
         />
-
     );
 };
+
 export default DateRangePicker;
