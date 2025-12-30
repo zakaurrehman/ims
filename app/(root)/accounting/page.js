@@ -128,6 +128,7 @@ const loadContracts = async (uidCollection, invoice) => {
 const Accounting = () => {
 
   const { invoicesAccData, setInvoicesAccData } = useContext(InvoiceContext);
+  
   const { settings, dateSelect, setLoading, loading, ln } = useContext(SettingsContext);
   const { uidCollection } = UserAuth();
 const { upsertSourceItems } = useGlobalSearch();

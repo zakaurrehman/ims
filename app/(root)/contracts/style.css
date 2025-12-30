@@ -122,9 +122,43 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  /* Summary table layout tweaks */
+  .summary-table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  .summary-table th,
+  .summary-table td {
+    padding: 0.5rem 0.75rem !important;
+    vertical-align: middle;
+  }
+  /* First column left, others (numbers) right */
+  .summary-table th:nth-child(1),
+  .summary-table td:nth-child(1) {
+    text-align: left;
+  }
+  .summary-table th:nth-child(n+2),
+  .summary-table td:nth-child(n+2) {
+    text-align: right;
+  }
 }
 
 /* Selected row highlight */
 tr[aria-selected="true"] {
   background: #e8f2ff;
+}
+
+/* Compact table styles for larger screens */
+@media (min-width: 640px) {
+  table thead th {
+    padding: 0.35rem 0.5rem !important;
+    font-size: 0.75rem !important;
+  }
+  table tbody td {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.75rem !important;
+    line-height: 1.1 !important;
+  }
+  .qs-checkbox { width: 16px; height: 16px; }
 }

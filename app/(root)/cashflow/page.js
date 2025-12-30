@@ -1,5 +1,4 @@
 'use client';
-
 import Spinner from "../../../components/spinner";
 import Toast from "../../../components/toast";
 import YearSelect from "./yearSelect";
@@ -183,7 +182,6 @@ const Cashflow = () => {
 
             setLoading(false)
         }
-
         Object.keys(settings).length !== 0 && Load();
     }, [yr, settings,])
 
@@ -740,12 +738,12 @@ const Cashflow = () => {
 
 
     return (
-        <div className="container mx-auto px-0 pb-8 md:pb-0 mt-16 md:mt-0">
+        <div className="container mx-auto max-w-[1200px] px-4 pb-8 md:pb-0 mt-16 md:mt-0">
             {Object.keys(settings).length === 0 ? <Spinner /> :
                 <>
                     <Toast />
                     {loading && <Spin />}
-                    <div className="border border-slate-200 rounded-xl p-4 mt-8 shadow-md relative">
+                    <div className="bg-white border border-slate-200 rounded-xl p-6 mt-8 shadow-sm relative">
                         <div className='flex items-center justify-between flex-wrap'>
                             <div className="text-3xl p-1 pb-2 text-slate-500">{getTtl('Cashflow', ln)}</div>
                             <div className="flex group">
@@ -806,9 +804,11 @@ const Cashflow = () => {
                         }
 
                         <div className="flex flex-wrap gap-4 w-full">
-                            <div className="border-r-2 border-t-2 border-b-2 border-slate-600 w-full max-w-screen-lg flex-1 min-w-[320px]">
-                                <div className="p-2">
-                                    <span className="font-bold p-1 responsiveTextTitle">Stocks - Paid</span>
+                            <div className="w-full max-w-screen-lg flex-1 min-w-[320px] pr-4">
+                                <div className="p-4 bg-white rounded-md shadow-sm border border-slate-100 mb-4 flex flex-col justify-between min-h-[140px] cf-card">
+                                    <div className="flex items-center justify-between">
+                                        <span className="font-bold p-1 responsiveTextTitle">Stocks - Paid</span>
+                                    </div>
                                     <div className="flex p-1 justify-between">
                                         {
                                             stocksSortName ?
@@ -881,8 +881,10 @@ const Cashflow = () => {
 
 
 
-                                <div className="p-2">
-                                    <span className="font-bold p-1 responsiveTextTitle">Stocks - UnPaid</span>
+                                <div className="p-4 bg-white rounded-md shadow-sm border border-slate-100 mb-4 flex flex-col justify-between min-h-[140px] cf-card">
+                                    <div className="flex items-center justify-between">
+                                        <span className="font-bold p-1 responsiveTextTitle">Stocks - UnPaid</span>
+                                    </div>
                                     <div className="flex p-1 justify-between">
                                         {
                                             stocksSortName1 ?
@@ -952,8 +954,10 @@ const Cashflow = () => {
                                 </div>
 
 
-                                <div className=" p-2 ">
-                                    <span className="font-bold p-1 responsiveTextTitle">Clients - Payment</span>
+                                <div className="p-4 bg-white rounded-md shadow-sm border border-slate-100 mb-4 flex flex-col justify-between min-h-[140px] cf-card">
+                                    <div className="flex items-center justify-between">
+                                        <span className="font-bold p-1 responsiveTextTitle">Clients - Payment</span>
+                                    </div>
                                     <div className="flex p-1 justify-between">
                                         {
                                             clientSortName1 ?
@@ -1021,8 +1025,10 @@ const Cashflow = () => {
                                 </div>
 
 
-                                <div className=" p-2 ">
-                                    <span className="font-bold p-1 responsiveTextTitle">Clients - Balances</span>
+                                <div className="p-4 bg-white rounded-md shadow-sm border border-slate-100 mb-4 flex flex-col justify-between min-h-[140px] cf-card">
+                                    <div className="flex items-center justify-between">
+                                        <span className="font-bold p-1 responsiveTextTitle">Clients - Balances</span>
+                                    </div>
                                     <div className="flex p-1 justify-between ">
                                         {
                                             clientSortName ?
@@ -1063,9 +1069,10 @@ const Cashflow = () => {
                                                         setValueCon, setIsOpenCon, blankInvoice, router, toggleCheckClient,
                                                         toggleCheckClientAll, toggleClientPartial, toggleClientFull, savePmntClient, clientPartialPayment)}
                                                 </MyAccordion>
-                                            </div>
-                                        )
-                                    })}
+                                                </div>
+                                            )
+                                        })}
+
                                     <div className="flex items-center leading-4 2xl:leading-6 justify-between p-1 responsiveTextTotal">
                                         <div className="">
                                             <span className="leading-5 border-t-2 border-slate-400">Total</span>
@@ -1149,10 +1156,12 @@ const Cashflow = () => {
                             </div>
 
 
-                            <div className="border-t-2 border-b-2 border-slate-600 w-full max-w-screen-lg flex-1 min-w-[320px]">
+                            <div className="w-full max-w-screen-lg flex-1 min-w-[320px] pl-4">
 
-                                <div className="p-2">
-                                    <span className="font-bold flex items-center p-1 responsiveTextTitle">Supplier - Payment </span>
+                                <div className="p-4 bg-white rounded-md shadow-sm border border-slate-100 mb-4 flex flex-col justify-between min-h-[140px] cf-card">
+                                    <div className="flex items-center justify-between">
+                                        <span className="font-bold flex items-center p-1 responsiveTextTitle">Supplier - Payment </span>
+                                    </div>
                                     <div className="flex p-1 justify-between">
                                         {
                                             supPmntssSortName1 ?
@@ -1224,8 +1233,10 @@ const Cashflow = () => {
                                 </div>
 
 
-                                <div className="p-2">
-                                    <span className="font-bold flex items-center p-1 responsiveTextTitle">Supplier - Balances </span>
+                                <div className="p-4 bg-white rounded-md shadow-sm border border-slate-100 mb-4 flex flex-col justify-between min-h-[140px] cf-card">
+                                    <div className="flex items-center justify-between">
+                                        <span className="font-bold flex items-center p-1 responsiveTextTitle">Supplier - Balances </span>
+                                    </div>
                                     <div className="flex p-1 justify-between">
                                         {
                                             supPmntssSortName ?
@@ -1270,10 +1281,13 @@ const Cashflow = () => {
                                                         toggleSupplier, savePmntSupplier, supplierPartialPayment)}
                                                 </MyAccordion>
                                             </div>
-
                                         )
                                     })}
-                                    <div className="flex items-center leading-4 justify-between p-1 responsiveTextTotal">
+
+                                    <div className="p-4 bg-white rounded-md shadow-sm border border-slate-100 mb-4 flex flex-col justify-between min-h-[140px] cf-card">
+                                        <div className="flex items-center justify-between">
+                                            <span className="font-bold flex items-center p-1 responsiveTextTitle">Expenses</span>
+                                        </div>
                                         <div className="border-t-2 border-slate-400 ">
                                             Total
                                         </div>
@@ -1365,7 +1379,7 @@ const Cashflow = () => {
                                     </div>
                                 </div>
 
-                                <div className="p-2">
+                                <div className="p-4 bg-white rounded-md shadow-sm border border-slate-100 mb-4 flex flex-col justify-between min-h-[140px] cf-card">
                                     {
                                         userTitle === 'Admin' &&
                                         <div className='mt-10 p-1'>
@@ -1512,5 +1526,4 @@ const Cashflow = () => {
         </div >
     )
 }
-
 export default Cashflow;

@@ -141,23 +141,23 @@ const Dash = () => {
   const years = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i);
 
   return (
-    <div className="xl:container mx-auto px-2 md:px-8 xl:px-10 pb-8 md:pb-0 min-h-screen bg-gradient-to-br from-[var(--selago)]/20 via-[var(--white)] to-[var(--rock-blue)]/5">
+    <div className="xl:container mx-auto px-2 md:px-6 xl:px-8 pb-6 md:pb-0 min-h-screen md:pl-[260px] bg-gradient-to-br from-[var(--selago)]/20 via-[var(--white)] to-[var(--rock-blue)]/5">
       {Object.keys(settings).length === 0 ? <Spinner /> :
         <>
           <Toast />
           {loading && <Spin />}
           
           {/* Header Section */}
-          <div className="pt-16 pb-6">
+          <div className="pt-10 pb-3">
             <div className='flex items-center justify-between flex-wrap gap-4'>
-              <div className="flex items-center gap-4">
-                <div className="w-1.5 h-12 bg-gradient-to-b from-[var(--endeavour)] to-[var(--chathams-blue)] rounded-full"></div>
+                <div className="flex items-center gap-3">
+                <div className="w-1.5 h-10 bg-gradient-to-b from-[var(--endeavour)] to-[var(--chathams-blue)] rounded-full"></div>
                 <div>
-                  <h1 className="text-3xl font-bold text-[var(--port-gore)] tracking-tight">{getTtl('Dashboard', ln)}</h1>
+                  <h1 className="text-2xl font-bold text-[var(--port-gore)] tracking-tight">{getTtl('Dashboard', ln)}</h1>
                   <p className="text-sm text-[var(--regent-gray)] mt-1">Financial overview and analytics</p>
                 </div>
               </div>
-              <div className='flex items-center gap-3 bg-white/80 backdrop-blur-sm px-5 py-3 rounded-2xl shadow-lg border border-[var(--selago)]'>
+              <div className='flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-2xl shadow-lg border border-[var(--selago)]'>
                 <select
                   value={selectedYear}
                   onChange={(e) => setSelectedYear(e.target.value)}
@@ -174,10 +174,10 @@ const Dash = () => {
           </div>
 
           {/* Main Chart - Total Revenue */}
-          <div className='mb-6'>
+          <div className='mb-4'>
             <div className='bg-white rounded-2xl shadow-xl border border-[var(--selago)] overflow-hidden hover:shadow-2xl transition-all duration-300'>
-              <div className='p-6 min-w-[300px] min-h-[200px]'>
-                <div className='flex items-center justify-between mb-6'>
+              <div className='p-4 min-w-[260px] min-h-[160px]'>
+                <div className='flex items-center justify-between mb-4'>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-gradient-to-br from-[var(--endeavour)] to-[var(--chathams-blue)] rounded-xl flex items-center justify-center shadow-lg">
                       <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -190,11 +190,11 @@ const Dash = () => {
                     {selectedYear}
                   </div>
                 </div>
-                <div className='h-[320px] min-w-[300px] min-h-[200px]'>
+                <div className='h-[220px] min-w-[240px] min-h-[140px]'>
                   <Bar data={BarChartContracts(dataContracts, dataInvoices, '#103a7a', '#9fb8d4').obj} options={BarChartContracts().options} />
                 </div>
                 {/* Legend */}
-                <div className='flex items-center justify-center gap-8 mt-6 pt-4 border-t border-[var(--selago)]'>
+                <div className='flex items-center justify-center gap-6 mt-4 pt-3 border-t border-[var(--selago)]'>
                   <div className='flex items-center gap-2'>
                     <div className='w-3 h-3 rounded-full bg-[#103a7a]'></div>
                     <span className='text-sm text-[var(--regent-gray)] font-medium'>Total Income</span>
@@ -210,10 +210,10 @@ const Dash = () => {
 
           {/* Stats Cards Row */}
           {/* Horizontal Layout for Cards */}
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-6 mb-6'>
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-4 mb-4'>
             {/* P&L Card */}
             <div className='bg-gradient-to-br from-[var(--port-gore)] to-[var(--bunting)] rounded-2xl shadow-xl overflow-hidden hover:scale-[1.02] transition-transform duration-300'>
-              <div className='p-6 relative min-w-[300px] min-h-[200px]'>
+              <div className='p-4 relative min-w-[260px] min-h-[160px]'>
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
                 <div className='relative z-10'>
                   <div className='flex items-center justify-between mb-4'>
@@ -222,10 +222,10 @@ const Dash = () => {
                       {getTtl('Profit', ln)}
                     </div>
                   </div>
-                  <div className='text-3xl font-bold text-white mb-4'>
+                  <div className='text-2xl font-bold text-white mb-3'>
                     {frmNum(Object.values(dataPL).reduce((acc, currentValue) => acc + currentValue, 0) / 1000000)}M
                   </div>
-                  <div className='h-[100px] min-w-[300px] min-h-[100px]'>
+                  <div className='h-[60px] min-w-[220px] min-h-[60px]'>
                     <Line data={LineChartSmall(dataPL, 'rgba(159, 184, 212, 1)').obj} options={LineChartSmall().options} />
                   </div>
                 </div>
@@ -234,7 +234,7 @@ const Dash = () => {
 
             {/* Sales Card */}
             <div className='bg-gradient-to-br from-[var(--endeavour)] to-[var(--chathams-blue)] rounded-2xl shadow-xl overflow-hidden hover:scale-[1.02] transition-transform duration-300'>
-              <div className='p-6 relative min-w-[300px] min-h-[200px]'>
+              <div className='p-4 relative min-w-[260px] min-h-[160px]'>
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
                 <div className='relative z-10'>
                   <div className='flex items-center justify-between mb-4'>
@@ -243,10 +243,10 @@ const Dash = () => {
                       {getTtl('Sales', ln)}
                     </div>
                   </div>
-                  <div className='text-3xl font-bold text-white mb-4'>
+                  <div className='text-2xl font-bold text-white mb-3'>
                     {frmNum(Object.values(dataInvoices).reduce((acc, currentValue) => acc + currentValue, 0) / 1000000)}M
                   </div>
-                  <div className='h-[100px] min-w-[300px] min-h-[100px]'>
+                  <div className='h-[60px] min-w-[220px] min-h-[60px]'>
                     <Line data={LineChartSmall(dataInvoices, 'rgba(255, 255, 255, 0.9)').obj} options={LineChartSmall().options} />
                   </div>
                 </div>
@@ -255,7 +255,7 @@ const Dash = () => {
 
             {/* Costs Card */}
             <div className='bg-gradient-to-br from-[var(--chathams-blue)] to-[var(--port-gore)] rounded-2xl shadow-xl overflow-hidden hover:scale-[1.02] transition-transform duration-300'>
-              <div className='p-6 relative min-w-[300px] min-h-[200px]'>
+              <div className='p-4 relative min-w-[260px] min-h-[160px]'>
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
                 <div className='relative z-10'>
                   <div className='flex items-center justify-between mb-4'>
@@ -264,18 +264,18 @@ const Dash = () => {
                       {getTtl('Costs', ln)}
                     </div>
                   </div>
-                  <div className='text-3xl font-bold text-white mb-4'>
+                  <div className='text-2xl font-bold text-white mb-3'>
                     {frmNum((Object.values(dataInvoices).reduce((acc, currentValue) => acc + currentValue, 0) -
                       Object.values(dataPL).reduce((acc, currentValue) => acc + currentValue, 0)) / 1000000)}M
                   </div>
-                  <div className='h-[100px] min-w-[300px] min-h-[100px]'>
+                  <div className='h-[60px] min-w-[220px] min-h-[60px]'>
                     <Line data={LineChartSmall(dataContracts, 'rgba(159, 184, 212, 0.9)').obj} options={LineChartSmall().options} />
                   </div>
                 </div>
               </div>
             </div>
                  <div className='bg-gradient-to-br from-[var(--endeavour)] to-[var(--chathams-blue)] rounded-2xl shadow-xl overflow-hidden hover:scale-[1.02] transition-transform duration-300'>
-            <div className='p-6 relative min-w-[300px] min-h-[200px]'>
+                 <div className='p-4 relative min-w-[260px] min-h-[160px]'>
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
               <div className='relative z-10'>
                 <div className='flex items-center justify-between mb-4'>
@@ -284,10 +284,10 @@ const Dash = () => {
                     Sales
                   </div>
                 </div>
-                <div className='text-3xl font-bold text-white mb-4'>
+                <div className='text-2xl font-bold text-white mb-3'>
                   ${Object.values(dataContracts).reduce((acc, val) => acc + val, 0).toFixed(2)}M
                 </div>
-                <div className='h-[100px] min-w-[300px] min-h-[100px]'>
+                <div className='h-[60px] min-w-[220px] min-h-[60px]'>
                   <Line data={LineChartSmall(dataContracts, 'rgba(255, 255, 255, 0.9)').obj} options={LineChartSmall().options} />
                 </div>
               </div>
@@ -296,7 +296,7 @@ const Dash = () => {
 
           {/* Expenses Section */}
           <div className='bg-gradient-to-br from-[var(--port-gore)] to-[var(--bunting)] rounded-2xl shadow-xl overflow-hidden hover:scale-[1.02] transition-transform duration-300'>
-            <div className='p-6 relative min-w-[300px] min-h-[200px]'>
+            <div className='p-4 relative min-w-[260px] min-h-[160px]'>
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
               <div className='relative z-10'>
                 <div className='flex items-center justify-between mb-4'>
@@ -305,10 +305,10 @@ const Dash = () => {
                     Costs
                   </div>
                 </div>
-                <div className='text-3xl font-bold text-white mb-4'>
+                <div className='text-2xl font-bold text-white mb-3'>
                   ${Object.values(dataExpenses).reduce((acc, val) => acc + val, 0).toFixed(2)}M
                 </div>
-                <div className='h-[100px] min-w-[300px] min-h-[100px]'>
+                <div className='h-[60px] min-w-[220px] min-h-[60px]'>
                   <Line data={LineChartSmall(dataExpenses, 'rgba(159, 184, 212, 1)').obj} options={LineChartSmall().options} />
                 </div>
               </div>
@@ -317,7 +317,7 @@ const Dash = () => {
 
           {/* Purchase Contracts Section */}
           <div className='bg-gradient-to-br from-[var(--chathams-blue)] to-[var(--port-gore)] rounded-2xl shadow-xl overflow-hidden hover:scale-[1.02] transition-transform duration-300'>
-            <div className='p-6 relative min-w-[300px] min-h-[200px]'>
+            <div className='p-4 relative min-w-[260px] min-h-[160px]'>
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
               <div className='relative z-10'>
                 <div className='flex items-center justify-between mb-4'>
@@ -326,10 +326,10 @@ const Dash = () => {
                     Purchases
                   </div>
                 </div>
-                <div className='text-3xl font-bold text-white mb-4'>
+                <div className='text-2xl font-bold text-white mb-3'>
                   ${Object.values(dataInvoices).reduce((acc, val) => acc + val, 0).toFixed(2)}M
                 </div>
-                <div className='h-[100px] min-w-[300px] min-h-[100px]'>
+                <div className='h-[60px] min-w-[220px] min-h-[60px]'>
                   <Line data={LineChartSmall(dataInvoices, 'rgba(159, 184, 212, 0.9)').obj} options={LineChartSmall().options} />
                 </div>
               </div>
@@ -338,7 +338,7 @@ const Dash = () => {
           </div>
 
           {/* Currency Widget + Metal Prices + Horizontal Bar Charts Row */}
-          <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-6 mb-8'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-4 mb-6'>
             {/* Currency Exchange Widget */}
             <CurrencyWidget />
 
@@ -347,32 +347,32 @@ const Dash = () => {
 
             {/* Consignees Chart */}
             <div className='bg-white rounded-2xl shadow-xl border border-[var(--selago)] overflow-hidden hover:shadow-2xl transition-all duration-300'>
-              <div className='p-6 min-w-[300px] min-h-[200px]'>
-                <div className='flex items-center gap-3 mb-6'>
-                  <div className="w-10 h-10 bg-gradient-to-br from-[var(--endeavour)] to-[var(--rock-blue)] rounded-xl flex items-center justify-center shadow-lg">
-                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className='p-3 min-w-[240px] min-h-[140px]'>
+                <div className='flex items-center gap-2 mb-3'>
+                  <div className="w-8 h-8 bg-gradient-to-br from-[var(--endeavour)] to-[var(--rock-blue)] rounded-lg flex items-center justify-center shadow-sm">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                   </div>
-                  <h3 className='text-[var(--port-gore)] font-bold text-lg'>Consignees - $</h3>
+                  <h3 className='text-[var(--port-gore)] font-bold text-base'>Consignees - $</h3>
                 </div>
-                <div className={cons < 10 ? 'h-[250px] min-w-[300px] min-h-[200px]' : cons > 10 && cons < 15 ? 'h-[400px] min-w-[300px] min-h-[200px]' : 'h-[500px] min-w-[300px] min-h-[200px]'}>
+                <div className={cons < 10 ? 'h-[180px] min-w-[240px] min-h-[140px]' : cons > 10 && cons < 15 ? 'h-[260px] min-w-[240px] min-h-[140px]' : 'h-[320px] min-w-[240px] min-h-[140px]'}>
                   <Bar data={HorizontalBar(dataPieClnts, '#0366ae').obj} options={HorizontalBar().options} />
                 </div>
               </div>
             </div>
 
             <div className='bg-white rounded-2xl shadow-xl border border-[var(--selago)] overflow-hidden hover:shadow-2xl transition-all duration-300'>
-              <div className='p-6 min-w-[300px] min-h-[200px]'>
-                <div className='flex items-center gap-3 mb-6'>
-                  <div className="w-10 h-10 bg-gradient-to-br from-[var(--chathams-blue)] to-[var(--port-gore)] rounded-xl flex items-center justify-center shadow-lg">
-                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className='p-3 min-w-[240px] min-h-[140px]'>
+                <div className='flex items-center gap-2 mb-3'>
+                  <div className="w-8 h-8 bg-gradient-to-br from-[var(--chathams-blue)] to-[var(--port-gore)] rounded-lg flex items-center justify-center shadow-sm">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
                   </div>
-                  <h3 className='text-[var(--port-gore)] font-bold text-lg'>Contracts - $</h3>
+                  <h3 className='text-[var(--port-gore)] font-bold text-base'>Contracts - $</h3>
                 </div>
-                <div className={cons < 10 ? 'h-[250px] min-w-[300px] min-h-[200px]' : cons > 10 && cons < 15 ? 'h-[400px] min-w-[300px] min-h-[200px]' : 'h-[500px] min-w-[300px] min-h-[200px]'}>
+                <div className={cons < 10 ? 'h-[180px] min-w-[240px] min-h-[140px]' : cons > 10 && cons < 15 ? 'h-[260px] min-w-[240px] min-h-[140px]' : 'h-[320px] min-w-[240px] min-h-[140px]'}>
                   <Bar data={HorizontalBar(dataPieSupps, '#103a7a').obj} options={HorizontalBar().options} />
                 </div>
               </div>

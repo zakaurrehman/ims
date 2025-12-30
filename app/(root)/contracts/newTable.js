@@ -43,7 +43,7 @@ const Customtable = ({
 
   const [{ pageIndex, pageSize }, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 500
+    pageSize: 200
   })
 
   const pagination = useMemo(() => ({ pageIndex, pageSize }), [pageIndex, pageSize])
@@ -158,7 +158,7 @@ const Customtable = ({
 
       {/* ---------- SCROLL CONTAINER WITH MOBILE HEIGHT ---------- */}
       <div className="overflow-x-auto border-x border-[var(--selago)] 
-        max-h-[360px] md:max-h-[310px] 2xl:max-h-[550px]">
+        max-h-[720px] md:max-h-[700px] 2xl:max-h-[900px]">
 
         <table className="w-full">
 
@@ -171,7 +171,7 @@ const Customtable = ({
                 {hdGroup.headers.map(header =>
                   <th
                     key={header.id}
-                    className="relative px-6 py-3 text-left text-sm text-white uppercase 
+                    className="relative px-3 py-2 text-left text-xs text-white uppercase 
                     font-semibold hover:bg-[var(--rock-blue)]">
 
                     {/* SORTABLE HEADERS */}
@@ -224,11 +224,11 @@ const Customtable = ({
                     data-label={cell.column.columnDef.header}
                     className={`
                       table_cell 
-                      text-xs sm:text-sm
+                      text-xs
                       break-words whitespace-normal
                       max-w-full sm:max-w-none
                       hover:bg-[var(--rock-blue)] hover:text-[var(--bunting)]
-                      ${pathName === '/invoices' ? 'md:py-1.5' : 'md:py-3'}
+                      ${pathName === '/invoices' ? 'md:py-1' : 'md:py-1'}
                     `}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -244,10 +244,10 @@ const Customtable = ({
       </div>
 
       {/* ---------- FOOTER ---------- */}
-      <div className="table-toolbar flex p-2.5 border-t border-[var(--selago)] flex-wrap 
+      <div className="table-toolbar flex p-2 border-t border-[var(--selago)] flex-wrap 
         bg-white rounded-b-2xl">
 
-        <div className="hidden lg:flex text-[var(--regent-gray)] text-sm w-48 xl:w-96 p-2">
+        <div className="hidden lg:flex text-[var(--regent-gray)] text-sm w-40 xl:w-72 p-1">
           {`${getTtl('Showing', ln)} ${
             table.getState().pagination.pageIndex * table.getState().pagination.pageSize +
             (table.getFilteredRowModel().rows.length ? 1 : 0)

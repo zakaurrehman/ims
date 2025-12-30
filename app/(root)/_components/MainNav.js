@@ -16,96 +16,86 @@ export const MainNav = () => {
   const ln = compData?.lng || 'English'
   const router = useRouter()
   const { query, setQuery, items } = useGlobalSearch()
-const [openSearch, setOpenSearch] = useState(false)
-const searchRef = useRef(null)
 
-  // const [searchQuery, setSearchQuery] = useState('')
+  const [openSearch, setOpenSearch] = useState(false)
+  const searchRef = useRef(null)
+
   const [showDropdown, setShowDropdown] = useState(false)
   const dropdownRef = useRef(null)
 
   const LogOut = async () => {
-    router.push('/')
     await SignOut()
+    router.push('/')
   }
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowDropdown(false)
       }
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setOpenSearch(false)
+      }
     }
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
-  useEffect(() => {
-  const handleClickOutside = (event) => {
-    if (searchRef.current && !searchRef.current.contains(event.target)) {
-      setOpenSearch(false)
-    }
+
+  const normalizedQuery = (query || '').trim().toLowerCase()
+
+  const searchResults =
+    normalizedQuery.length < 2
+      ? []
+      : items
+          .filter((x) => (x.searchText || '').toLowerCase().includes(normalizedQuery))
+          .slice(0, 10)
+
+  const onPickResult = (item) => {
+    setOpenSearch(false)
+    setQuery('')
+    router.push(`${item.route}?focus=${encodeURIComponent(item.rowId)}`)
   }
-  document.addEventListener('mousedown', handleClickOutside)
-  return () => document.removeEventListener('mousedown', handleClickOutside)
-}, [])
-const normalizedQuery = (query || '').trim().toLowerCase()
-
-const searchResults =
-  normalizedQuery.length < 2
-    ? []
-    : items
-        .filter((x) => (x.searchText || '').toLowerCase().includes(normalizedQuery))
-        .slice(0, 10)
-
-const onPickResult = (item) => {
-  setOpenSearch(false)
-  setQuery('')
-  router.push(`${item.route}?focus=${encodeURIComponent(item.rowId)}`)
-}
-
 
   return (
     <div className='px-4 md:px-8 xl:px-10 py-3 hidden md:flex items-center justify-between bg-white border-b border-[var(--selago)]'>
       {/* Search Bar */}
-{/* Search Bar */}
-<div className='flex items-center flex-1 max-w-xl'>
-  <div className='relative w-full' ref={searchRef}>
-    <BiSearch className='absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg' />
-    <input
-      type='text'
-      placeholder={getTtl('Search anything...', ln)}
-      value={query}
-      onFocus={() => setOpenSearch(true)}
-      onChange={(e) => {
-        setQuery(e.target.value)
-        setOpenSearch(true)
-      }}
-      className='w-full pl-10 pr-4 py-2.5 rounded-lg bg-gray-50 border border-transparent focus:border-[var(--rock-blue)] focus:bg-white focus:outline-none text-sm text-gray-600 placeholder-gray-400 transition-all'
-    />
+      <div className='flex items-center flex-1 max-w-xl'>
+        <div className='relative w-full' ref={searchRef}>
+          <BiSearch className='absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg' />
+          <input
+            type='text'
+            placeholder={getTtl('Search anything...', ln)}
+            value={query}
+            onFocus={() => setOpenSearch(true)}
+            onChange={(e) => {
+              setQuery(e.target.value)
+              setOpenSearch(true)
+            }}
+            className='w-full pl-10 pr-4 py-2 rounded-full bg-gray-50 border border-gray-200 shadow-sm focus:border-[var(--rock-blue)] focus:bg-white focus:outline-none text-sm text-gray-700 placeholder-gray-500 transition-all'
+          />
 
-    {/* Search Dropdown */}
-    {openSearch && searchResults.length > 0 && (
-      <div className='absolute left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-[var(--selago)] z-50 overflow-hidden'>
-        {searchResults.map((r) => (
-          <button
-            key={r.key}
-            type='button'
-            onMouseDown={(e) => e.preventDefault()} // prevents input blur before click
-            onClick={() => onPickResult(r)}
-            className='w-full text-left px-4 py-3 hover:bg-[var(--selago)] transition-all'
-          >
-            <div className='text-sm font-semibold text-[var(--port-gore)]'>{r.title}</div>
-            <div className='text-xs text-gray-500 truncate'>{r.subtitle}</div>
-          </button>
-        ))}
+          {/* Search Dropdown */}
+          {openSearch && searchResults.length > 0 && (
+            <div className='absolute left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-[var(--selago)] z-50 overflow-hidden'>
+              {searchResults.map((r) => (
+                <button
+                  key={r.key}
+                  type='button'
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => onPickResult(r)}
+                  className='w-full text-left px-4 py-3 hover:bg-[var(--selago)] transition-all'
+                >
+                  <div className='text-sm font-semibold text-[var(--port-gore)]'>{r.title}</div>
+                  <div className='text-xs text-gray-500 truncate'>{r.subtitle}</div>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-    )}
-  </div>
-</div>
-
 
       {/* Right Side Icons */}
       <div className='flex items-center gap-3'>
-        {/* Message Icon */}
         <button
           className='p-2.5 rounded-lg bg-white border border-gray-200 hover:bg-[var(--selago)] hover:border-[var(--rock-blue)] transition-all group'
           onClick={() => router.push('apps/Assistant')}
@@ -113,22 +103,18 @@ const onPickResult = (item) => {
           <IoChatbubblesOutline className='text-xl text-gray-500 group-hover:text-[var(--endeavour)]' />
         </button>
 
-        {/* User Profile Dropdown */}
         <div className='relative' ref={dropdownRef}>
-          <button 
+          <button
             onClick={() => setShowDropdown(!showDropdown)}
             className='flex items-center gap-2 p-1 rounded-lg hover:bg-[var(--selago)] transition-all'
           >
-            {/* Avatar */}
             <div className='w-10 h-10 rounded-full bg-gradient-to-r from-[var(--endeavour)] via-[var(--chathams-blue)] to-[var(--endeavour)] flex items-center justify-center text-white font-semibold text-sm overflow-hidden border-2 border-white shadow-md'>
               {user?.email ? user.email.charAt(0).toUpperCase() : <FiUser />}
             </div>
           </button>
 
-          {/* Dropdown Menu */}
           {showDropdown && (
             <div className='absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-lg border border-[var(--selago)] py-2 z-50'>
-              {/* User Info */}
               <div className='px-4 py-3 border-b border-[var(--selago)]'>
                 <p className='text-sm font-semibold text-[var(--port-gore)]'>
                   {user?.displayName || user?.email?.split('@')[0] || 'User'}
@@ -136,7 +122,6 @@ const onPickResult = (item) => {
                 <p className='text-xs text-gray-500 truncate'>{user?.email || ''}</p>
               </div>
 
-              {/* Menu Items */}
               <div className='py-1'>
                 <button
                   onClick={() => {
