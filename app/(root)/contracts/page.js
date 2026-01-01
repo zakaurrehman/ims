@@ -360,7 +360,7 @@ useEffect(() => {
 							setFilteredData={setFilteredData}
 							highlightId={highlightId} onCellUpdate={onCellUpdate} />
 					</div>
-					<div className="text-left pt-6 flex gap-4">
+					<div className="text-left pt-6 flex gap-4 md:ml-72">
 						<Tltip direction='bottom' tltpText='Create new Contract'>
 							<button
 								type="button"
