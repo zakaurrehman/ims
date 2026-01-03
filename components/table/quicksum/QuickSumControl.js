@@ -66,9 +66,8 @@ export default function QuickSumControl({
       <button
         type="button"
         onClick={toggleEnabled}
-        className={`px-2 py-1 border rounded text-xs ${
-          enabled ? 'bg-slate-200' : 'bg-white'
-        }`}
+        className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all flex items-center border
+          ${enabled ? 'bg-[var(--endeavour)] text-white' : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-100'}`}
         title="Quick Sum"
       >
         Quick Sum
@@ -79,20 +78,20 @@ export default function QuickSumControl({
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="px-2 py-1 border rounded text-xs bg-white"
+            className="px-3 py-1.5 rounded-lg text-sm font-medium transition-all bg-white border border-gray-300"
             title="Choose columns"
           >
             Columns ▾
           </button>
 
           {open && (
-            <div className="absolute right-0 mt-2 w-64 bg-white border rounded shadow-md z-50 p-2">
+            <div className="sm:absolute right-0 mt-2 sm:w-64 w-full bg-white border rounded shadow-md z-50 p-2">
               <div className="text-xs font-semibold text-slate-700 mb-2">
                 Select numeric columns
               </div>
 
               {numericCols.length === 0 ? (
-                <div className="text-xs text-slate-500">
+                <div className="text-sm text-slate-500">
                   No numeric columns detected.
                 </div>
               ) : (
@@ -100,7 +99,7 @@ export default function QuickSumControl({
                   {numericCols.map((c) => (
                     <label
                       key={c.id}
-                      className="flex items-center gap-2 text-xs py-1 cursor-pointer"
+                      className="flex items-center gap-2 text-sm py-1 cursor-pointer"
                     >
                       <input
                         type="checkbox"
@@ -116,7 +115,7 @@ export default function QuickSumControl({
               <div className="mt-2 pt-2 border-t flex items-center justify-between">
                 <button
                   type="button"
-                  className="text-xs underline text-slate-600"
+                  className="text-sm underline text-slate-600"
                   onClick={() => setSelectedColumnIds([])}
                 >
                   Clear columns
@@ -124,7 +123,7 @@ export default function QuickSumControl({
 
                 <button
                   type="button"
-                  className="text-xs underline text-slate-600"
+                  className="text-sm underline text-slate-600"
                   onClick={() => setOpen(false)}
                 >
                   Close
@@ -138,18 +137,18 @@ export default function QuickSumControl({
       {/* Totals display (compact) */}
       {enabled ? (
         selectedCount > 0 ? (
-          <div className="flex items-center gap-2 text-xs text-slate-700 ml-2">
+          <div className="flex items-center gap-2 text-sm text-slate-700 ml-2">
             <span className="font-medium">{selectedCount} selected</span>
 
             {(totals || []).map((t) => (
-              <span key={t.id} className="bg-white border rounded px-2 py-1">
+              <span key={t.id} className="bg-white border border-gray-300 rounded-lg px-3 py-1.5 text-sm">
                 {t.id}: {t.total.toFixed(2)}
               </span>
             ))}
 
             <button
               type="button"
-              className="text-xs underline text-slate-600"
+              className="text-sm underline text-slate-600"
               onClick={() => table.resetRowSelection()}
             >
               Clear rows

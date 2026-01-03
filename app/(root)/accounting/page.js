@@ -545,7 +545,7 @@ const onCellUpdate = async ({ rowIndex, columnId, value }) => {
 };
 
   return (
-    <div className="container mx-auto px-0 pb-8 md:pb-0 mt-16 md:mt-0  overflow-x-hidden">
+   <div className="container mx-auto px-4 md:px-6 lg:px-8 pb-8 md:pb-0 mt-16 md:mt-0 overflow-x-hidden">
       {Object.keys(settings).length === 0 ? <Spinner /> :
         <>
           <Toast />
@@ -613,9 +613,15 @@ const onCellUpdate = async ({ rowIndex, columnId, value }) => {
               </div>
             </div>
           </div>
+           {/* Full Table */}
+          <div className="bg-white rounded-2xl p-5 shadow-lg border border-[var(--selago)]">
+            <h3 className="text-lg font-semibold text-[var(--port-gore)] mb-4">All Transactions</h3>
+            <Customtable data={invoicesAccData} columns={propDefaults}  onCellUpdate={onCellUpdate}
+              excellReport={EXD(invoicesAccData, settings, getTtl('Accounting', ln), ln)} />
+          </div>
 
           {/* Main Content Grid */}
-          <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-6">
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-6 mt-3">
             {/* Last Transaction */}
             <div className="xl:col-span-2 bg-white rounded-2xl p-5 shadow-lg border border-[var(--selago)]">
               <h3 className="text-lg font-semibold text-[var(--port-gore)] mb-4">Last Transaction</h3>
@@ -729,12 +735,7 @@ const onCellUpdate = async ({ rowIndex, columnId, value }) => {
             </div>
           </div>
 
-          {/* Full Table */}
-          <div className="bg-white rounded-2xl p-5 shadow-lg border border-[var(--selago)]">
-            <h3 className="text-lg font-semibold text-[var(--port-gore)] mb-4">All Transactions</h3>
-            <Customtable data={invoicesAccData} columns={propDefaults}  onCellUpdate={onCellUpdate}
-              excellReport={EXD(invoicesAccData, settings, getTtl('Accounting', ln), ln)} />
-          </div>
+         
 
         </>}
     </div>

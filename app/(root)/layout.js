@@ -44,10 +44,10 @@ export default function MyLayout({
 			<div className='hidden md:flex  drop-shadow-xl z-10 mx-auto'>
 				<Sidebar />
 			</div>
-			<div className='md:hidden flex drop-shadow-xl z-30 top-0 bottom-4 fixed w-full h-0'>
+			<div className='md:hidden flex drop-shadow-xl z-30 fixed top-0 left-0 right-0 h-14'>
 				<SideBarMini />
 			</div>
-			<div className="grow md:overflow-auto h-screen relative">
+			<div className="grow md:overflow-auto h-screen relative pt-14 md:pt-0">
 								<GlobalSearchLoader />
 				<MainNav />
 				{children}

@@ -21,6 +21,7 @@ const SideBarMini = () => {
   const { SignOut, user } = UserAuth();
   const { setDates, compData } = useContext(SettingsContext);
   const ln = compData?.lng || 'English';
+  const placeholderText = getTtl('Search anything...', ln) || 'Search...';
   const [searchOpen, setSearchOpen] = useState(false);
   const searchRef = useRef(null);
   const { query, setQuery, items } = useGlobalSearch();
@@ -60,7 +61,7 @@ const SideBarMini = () => {
   };
 
   return (
-    <nav className="w-full h-fit flex shadow-sm bg-gradient-to-br from-white via-[var(--endeavour)] to-[var(--port-gore)]">
+    <nav className="w-full h-14 flex items-center shadow-sm bg-gradient-to-br from-white via-[var(--endeavour)] to-[var(--port-gore)]">
       <div className='flex w-full justify-between items-center'>
         {/* Logo and Search Icon */}
         <div className='flex items-center'>
@@ -84,7 +85,8 @@ const SideBarMini = () => {
               <div className="absolute top-12 left-0 w-72 z-[100]">
                 <input
                   type="text"
-                  placeholder={getTtl('Search anything...', ln)}
+                  placeholder={placeholderText}
+                  aria-label={placeholderText}
                   value={query}
                   onFocus={() => setShowDropdown(true)}
                   onChange={(e) => {
