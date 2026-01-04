@@ -1,5 +1,5 @@
-import { Fragment, useEffect, useState, } from 'react'
-import { Combobox, Transition, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions } from '@headlessui/react'
+import { Fragment, useEffect, useState, useRef } from 'react'
+import { Combobox, Transition, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions, Portal } from '@headlessui/react'
 import { AiOutlineCheck } from 'react-icons/ai';
 import { HiChevronUpDown } from 'react-icons/hi2';
 import { loadStockDataPerDescription, filteredArray } from '../utils/utils'
@@ -57,8 +57,34 @@ const MyCombobox = ({ data, setValue, value, dt, indx, name, classes, disabled, 
         setValue({ ...value, productsDataInvoice: newObj })
     }
 
+    const wrapperRef = useRef(null)
+    const [dropdownStyle, setDropdownStyle] = useState({})
+
+    const updateDropdownStyle = () => {
+        const el = wrapperRef.current
+        if (!el) return
+        const rect = el.getBoundingClientRect()
+        setDropdownStyle({
+            position: 'absolute',
+            left: `${rect.left + window.scrollX}px`,
+            top: `${rect.bottom + window.scrollY}px`,
+            width: `${rect.width}px`,
+            zIndex: 9999,
+        })
+    }
+
+    useEffect(() => {
+        updateDropdownStyle()
+        window.addEventListener('resize', updateDropdownStyle)
+        window.addEventListener('scroll', updateDropdownStyle, true)
+        return () => {
+            window.removeEventListener('resize', updateDropdownStyle)
+            window.removeEventListener('scroll', updateDropdownStyle, true)
+        }
+    }, [])
+
     return (
-        <div className="w-full">
+        <div className="w-full" ref={wrapperRef}>
             <Combobox by="id" value={selected} onChange={(e) => setSelection(e)} disabled={disabled}>
                 <div className="my-1">
                     <div className={`relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left 
@@ -82,9 +108,10 @@ const MyCombobox = ({ data, setValue, value, dt, indx, name, classes, disabled, 
                         leaveTo="opacity-0"
                         afterLeave={() => setQuery('')}
                     >
-                        <ComboboxOptions className={`w-[var(--input-width)] z-10 absolute mt-1 max-h-60 overflow-auto rounded-md 
-                        bg-white py-1 text-base shadow-lg ring-1 ring-[var(--selago)] focus:outline-none 
-                        sm:text-sm ${classes1} `}>
+                        <Portal>
+                            <ComboboxOptions style={dropdownStyle} className={`z-50 mt-1 max-h-60 overflow-auto rounded-md 
+                            bg-white py-1 text-base shadow-lg ring-1 ring-[var(--selago)] focus:outline-none 
+                            sm:text-sm ${classes1} `}>
                             {filteredData.length === 0 && query !== '' ? (
                                 <div className="relative cursor-default select-none py-2 px-4 text-[var(--regent-gray)] text-xs">
                                     Nothing found.
@@ -122,6 +149,7 @@ const MyCombobox = ({ data, setValue, value, dt, indx, name, classes, disabled, 
                                 ))
                             )}
                         </ComboboxOptions>
+                        </Portal>
                     </Transition>
                 </div>
             </Combobox>
