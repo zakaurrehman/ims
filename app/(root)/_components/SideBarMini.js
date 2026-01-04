@@ -60,6 +60,32 @@ const SideBarMini = () => {
     router.push(`${item.route}?focus=${encodeURIComponent(item.rowId)}`);
   };
 
+  // Observe MenuItems presence and dispatch open/close events
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    let prev = !!document.querySelector('[data-ims-sidebar]');
+
+    const dispatchState = (isOpen) => {
+      window.dispatchEvent(new CustomEvent('ims:menuToggle', { detail: { isOpen } }));
+    };
+
+    // dispatch initial state
+    dispatchState(prev);
+
+    const observer = new MutationObserver(() => {
+      const current = !!document.querySelector('[data-ims-sidebar]');
+      if (current !== prev) {
+        prev = current;
+        dispatchState(current);
+      }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <nav className="w-full h-14 flex items-center shadow-sm bg-gradient-to-br from-white via-[var(--endeavour)] to-[var(--port-gore)]">
       <div className='flex w-full justify-between items-center'>
@@ -135,7 +161,7 @@ const SideBarMini = () => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                <MenuItems className="fixed right-2 mt-1 w-76 origin-top-left divide-y divide-[var(--rock-blue)]/30 rounded-xl shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none h-[450px] overflow-auto z-[20000]" style={{ background: 'linear-gradient(180deg, var(--endeavour) 0%, var(--chathams-blue) 100%)' }}>
+                <MenuItems data-ims-sidebar="1" className="fixed right-2 mt-1 w-76 origin-top-left divide-y divide-[var(--rock-blue)]/30 rounded-xl shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none h-[450px] overflow-auto z-[20000]" style={{ background: 'linear-gradient(180deg, var(--endeavour) 0%, var(--chathams-blue) 100%)' }}>
 
                 {/* Company selector removed, menu starts from Dashboard */}
                    <div className='px-4 py-3 border-b border-[var(--selago)]'>

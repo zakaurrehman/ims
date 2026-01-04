@@ -215,32 +215,3 @@ input::-webkit-inner-spin-button {
 }
 
 /******************************************/
-gobal.css only add in the end of file
-jo end py pehlay sy ha wo line chorh k paste karna
-/******************************************/
-/* Only target disabled buttons inside the datepicker wrapper */
-.datepicker-wrapper button[disabled] {
-  @apply cursor-not-allowed relative text-xs text-[var(--regent-gray)];
-}
-
-/* Scope to datepicker only */
-.datepicker-wrapper button[disabled],
-.datepicker-wrapper button[disabled] span {
-  text-decoration: none !important;
-  /* remove line */
-}
-/* ✅ Ensure react-tailwindcss-datepicker popup stays UNDER the mobile sidebar menu */
-.react-tailwindcss-datepicker .absolute.z-10,
-.react-tailwindcss-datepicker .absolute.z-20,
-.react-tailwindcss-datepicker .absolute.z-30,
-.react-tailwindcss-datepicker .absolute.z-40,
-.react-tailwindcss-datepicker .absolute.z-50,
-.react-tailwindcss-datepicker [class*="z-["] {
-  z-index: 50 !important;   /* keep popup modest */
-}
-/* Force datepicker calendar above sticky table headers */
-.react-tailwindcss-datepicker .absolute {
-  z-index: 100 !important;
-}
-
-/******************************************/

@@ -81,6 +81,177 @@ const FloatingChat = () => {
         }
     }, [chatOpen]);
 
+    // Close chat when sidebar/menu opens on mobile
+    useEffect(() => {
+        const handler = (e) => {
+            try {
+                const isOpen = e?.detail?.isOpen;
+                if (isOpen && typeof window !== 'undefined' && window.innerWidth < 768) {
+                    setChatOpen(false);
+                }
+            } catch (err) {
+                // ignore
+            }
+        };
+
+        if (typeof window !== 'undefined') {
+            window.addEventListener('ims:menuToggle', handler);
+        }
+
+        return () => {
+            if (typeof window !== 'undefined') {
+                window.removeEventListener('ims:menuToggle', handler);
+            }
+        };
+    }, []);
+
+    // Toggle a body class so other components (like datepicker) can hide when chat is open
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const cls = 'ims-chat-open';
+        if (chatOpen) {
+            document.body.classList.add(cls);
+        } else {
+            document.body.classList.remove(cls);
+        }
+
+        return () => {
+            document.body.classList.remove(cls);
+        };
+    }, [chatOpen]);
+
+    // Additionally, forcibly hide any datepicker popovers appended to body when chat opens,
+    // and restore them when chat closes.
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+
+        const selectors = '[data-testid="dropdown"], .react-tailwindcss-datepicker__dropdown, .react-tailwindcss-datepicker-dropdown';
+
+        const hidePopovers = () => {
+            const els = Array.from(document.querySelectorAll(selectors));
+            els.forEach(el => {
+                if (el.dataset.imsOrigDisplay === undefined) {
+                    el.dataset.imsOrigDisplay = el.style.display || '';
+                    el.dataset.imsOrigVisibility = el.style.visibility || '';
+                    el.dataset.imsOrigPointer = el.style.pointerEvents || '';
+                    el.dataset.imsHiddenByChat = '1';
+                }
+                el.style.display = 'none';
+                el.style.visibility = 'hidden';
+                el.style.pointerEvents = 'none';
+            });
+        };
+
+        // Aggressive hide: hide any node that contains a date-range pattern.
+        // Instead of removing immediately, mark and hide so we can restore later.
+        const removeDatepickerLikeNodes = () => {
+            try {
+                const dateRegex = /\d{1,2}-[A-Za-z]{3}-\d{2}\s*~\s*\d{1,2}-[A-Za-z]{3}-\d{2}/;
+                const all = Array.from(document.querySelectorAll('body *'));
+                all.forEach(el => {
+                    if (!el || !el.textContent) return;
+                    if (dateRegex.test(el.textContent)) {
+                        // Prefer to hide an ancestor popover container if found
+                        let target = el.closest('[role="dialog"], [data-testid="dropdown"], .react-tailwindcss-datepicker__dropdown, .react-tailwindcss-datepicker-dropdown');
+                        // fallback: find nearest positioned ancestor (absolute/fixed)
+                        if (!target) {
+                            let ancestor = el;
+                            for (let i = 0; i < 6 && ancestor; i++) {
+                                const cs = window.getComputedStyle(ancestor);
+                                if (cs && (cs.position === 'absolute' || cs.position === 'fixed' || cs.zIndex !== 'auto')) {
+                                    target = ancestor;
+                                    break;
+                                }
+                                ancestor = ancestor.parentElement;
+                            }
+                        }
+
+                        // If still not found, use the element itself
+                        if (!target) target = el;
+
+                        try {
+                            if (target.dataset && target.dataset.imsOrigDisplay === undefined) {
+                                target.dataset.imsOrigDisplay = target.style.display || '';
+                                target.dataset.imsOrigVisibility = target.style.visibility || '';
+                                target.dataset.imsOrigPointer = target.style.pointerEvents || '';
+                                target.dataset.imsHiddenByChat = '1';
+                            }
+                            target.style.display = 'none';
+                            target.style.visibility = 'hidden';
+                            target.style.pointerEvents = 'none';
+                        } catch (err) {
+                            // if hide fails, as a last resort remove the element
+                            try { target.remove(); } catch (e) { }
+                        }
+                    }
+                });
+            } catch (err) {
+                // ignore
+            }
+        };
+
+        const restorePopovers = () => {
+            // restore elements we previously hid (either by selector or by date content)
+            const hidden = Array.from(document.querySelectorAll('[data-ims-hidden-by-chat], [data-ims-hidden-by-chat="1"]'));
+            hidden.forEach(el => {
+                if (el.dataset.imsOrigDisplay !== undefined) {
+                    el.style.display = el.dataset.imsOrigDisplay;
+                    el.style.visibility = el.dataset.imsOrigVisibility;
+                    el.style.pointerEvents = el.dataset.imsOrigPointer;
+                    delete el.dataset.imsOrigDisplay;
+                    delete el.dataset.imsOrigVisibility;
+                    delete el.dataset.imsOrigPointer;
+                } else {
+                    el.style.display = '';
+                    el.style.visibility = '';
+                    el.style.pointerEvents = '';
+                }
+                delete el.dataset.imsHiddenByChat;
+            });
+
+            // also restore known selectors (kept for backward compatibility)
+            const els = Array.from(document.querySelectorAll(selectors));
+            els.forEach(el => {
+                if (el.dataset.imsOrigDisplay !== undefined) {
+                    el.style.display = el.dataset.imsOrigDisplay;
+                    el.style.visibility = el.dataset.imsOrigVisibility;
+                    el.style.pointerEvents = el.dataset.imsOrigPointer;
+                    delete el.dataset.imsOrigDisplay;
+                    delete el.dataset.imsOrigVisibility;
+                    delete el.dataset.imsOrigPointer;
+                } else {
+                    el.style.display = '';
+                    el.style.visibility = '';
+                    el.style.pointerEvents = '';
+                }
+            });
+        };
+
+        if (chatOpen) {
+            hidePopovers();
+            removeDatepickerLikeNodes();
+        } else {
+            // slight delay to allow picker to open/close naturally
+            setTimeout(() => restorePopovers(), 50);
+        }
+
+        // Also observe DOM mutations to hide newly created popovers while chat is open
+        let observer;
+        if (chatOpen) {
+            observer = new MutationObserver(() => hidePopovers());
+            observer.observe(document.body, { childList: true, subtree: true });
+            // Also remove nodes that may be inserted without expected selectors
+            const obs2 = new MutationObserver(() => removeDatepickerLikeNodes());
+            obs2.observe(document.body, { childList: true, subtree: true });
+        }
+
+        return () => {
+            if (observer) observer.disconnect();
+            if (typeof obs2 !== 'undefined' && obs2) obs2.disconnect();
+            restorePopovers();
+        };
+    }, [chatOpen]);
+
     // Prepare data context for API
     const getCurrentDataContext = useCallback(() => {
         const formatContract = (con) => ({
@@ -224,7 +395,8 @@ const FloatingChat = () => {
             {/* Floating Chat Button */}
             <button
                 onClick={() => setChatOpen(!chatOpen)}
-                className={`fixed bottom-4 right-4 p-3.5 rounded-full shadow-lg z-50 flex items-center justify-center transition-all duration-300 ${
+                style={{ zIndex: 99999 }}
+                className={`fixed bottom-4 right-4 p-3.5 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ${
                     chatOpen
                         ? 'bg-gray-500 hover:bg-gray-600'
                         : 'bg-gradient-to-r from-[var(--endeavour)] to-[var(--chathams-blue)] hover:opacity-90'
@@ -239,7 +411,7 @@ const FloatingChat = () => {
 
             {/* Chat Window */}
             {chatOpen && (
-                <div className="fixed bottom-20 right-4 w-96 h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 z-50 flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-300">
+                <div style={{ zIndex: 99999 }} className="fixed bottom-20 right-4 w-96 h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-300">
                     {/* Header */}
                     <div className="p-3 bg-gradient-to-r from-[var(--endeavour)] via-[var(--chathams-blue)] to-[var(--endeavour)] flex items-center justify-between">
                         <div className="flex items-center gap-2">

@@ -162,3 +162,82 @@ tr[aria-selected="true"] {
   }
   .qs-checkbox { width: 16px; height: 16px; }
 }
+
+/* Uniform table layout and cell padding across material tables */
+.table-cell-uniform, .table_cell, table th, table td {
+  padding: 0.5rem 0.75rem !important;
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+
+/* Prefer fixed layout so column widths are stable and aligned */
+table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+/* Ensure inputs and inline elements inside table cells align with cell padding */
+.table_cell input, table td input, .table-cell-uniform input {
+  padding: 0.25rem 0.5rem !important;
+  margin: 0 !important;
+  box-sizing: border-box;
+  height: 2rem !important;
+}
+
+/* Utility class: add `.table-cell-uniform` to tables that require strict uniformity */
+.table-cell-uniform th,
+.table-cell-uniform td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Make the first column (Material) fully readable: allow wrapping and wider max width */
+.table-cell-uniform th:nth-child(1),
+.table-cell-uniform td:nth-child(1) {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  word-break: break-word;
+  max-width: 380px;
+  text-align: left !important;
+}
+
+/* Inputs inside table cells: readable color and consistent box-sizing */
+.table-cell-uniform td input,
+.table_cell input,
+table td input {
+  color: var(--port-gore) !important;
+  background-clip: padding-box;
+  box-sizing: border-box;
+}
+
+/* Blue border + subtle blue focus ring on edit (click/focus) for every table cell input */
+.table-cell-uniform td input:focus,
+.table_cell input:focus,
+table td input:focus,
+.table-cell-uniform td input:focus-visible {
+  border-color: var(--endeavour) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(9,110,182,0.12) !important;
+}
+
+/* Ensure material column inputs align left and remain readable */
+.table-cell-uniform td:nth-child(1) input,
+.table_cell td:nth-child(1) input {
+  text-align: left !important;
+}
+
+/* Specific classes applied from `newTable.js` */
+.material-col {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  word-break: break-word;
+}
+
+.material-input {
+  min-height: 2rem;
+  line-height: 1.1;
+  color: var(--port-gore) !important;
+}

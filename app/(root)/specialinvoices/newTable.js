@@ -142,19 +142,25 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, setFil
     return (
         <div className="flex flex-col relative ">
             <div >
-                <Header globalFilter={globalFilter} setGlobalFilter={setGlobalFilter}
-                    table={table} excellReport={excellReport}
-                    filterIcon={FiltersIcon(ln, filterOn, setFilterOn)}
-                    resetFilterTable={ResetFilterTableIcon(ln, resetTable, filterOn)}
-                    quickSumEnabled={quickSumEnabled}
-                    setQuickSumEnabled={setQuickSumEnabled}
-                    quickSumColumns={quickSumColumns}
-                    setQuickSumColumns={setQuickSumColumns}
-                />
+                {/* HEADER - Desktop: higher z-index + overflow visible, Mobile: normal */}
+                <div className="relative md:z-30 md:overflow-visible">
+                    <Header globalFilter={globalFilter} se
+                    tGlobalFilter={setGlobalFilter}
+                        table={table} excellReport={excellReport}
+                        filterIcon={FiltersIcon(ln, filterOn, setFilterOn)}
+                        resetFilterTable={ResetFilterTableIcon(ln, resetTable, filterOn)}
+                        quickSumEnabled={quickSumEnabled}
+                        setQuickSumEnabled={setQuickSumEnabled}
+                        quickSumColumns={quickSumColumns}
+                        setQuickSumColumns={setQuickSumColumns}
+                    />
+                </div>
 
-                <div className=" overflow-x-auto border-x border-[var(--selago)] md:max-h-[310px] 2xl:max-h-[550px]">
+                {/* SCROLL CONTAINER - Desktop: lower z-index, Mobile: normal */}
+                <div className="overflow-x-auto border-x border-[var(--selago)] md:max-h-[310px] 2xl:max-h-[550px] relative md:z-10">
                     <table className="w-full">
-                        <thead className="md:sticky md:top-0 md:z-10">
+                        {/* THEAD - Desktop: lowest z-index, Mobile: normal */}
+                        <thead className="md:sticky md:top-0 md:z-[5]">
                             {table.getHeaderGroups().map(hdGroup =>
                                 <Fragment key={hdGroup.id}>
                                     <tr className="cursor-pointer bg-[var(--rock-blue)]/50">

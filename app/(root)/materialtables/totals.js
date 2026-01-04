@@ -64,7 +64,7 @@ const Customtable = ({ data, columns }) => {
         <div className="flex flex-col relative pt-7">
             <div>
                 <div className="overflow-x-auto border-x border-[var(--selago)] md:max-h-[310px] 2xl:max-h-[550px]">
-                    <table className="w-full min-w-[600px] sm:table hidden">
+                    <table className="table-cell-uniform w-full min-w-[600px] sm:table hidden">
                         <thead className="divide-y divide-[var(--selago)] md:sticky md:top-0 md:z-10 ">
                             {table.getHeaderGroups().map(hdGroup => (
                                 <tr key={hdGroup.id} className="bg-gradient-to-r from-[var(--endeavour)] via-[var(--chathams-blue)] to-[var(--endeavour)]">

@@ -62,7 +62,7 @@ export default function QuickSumControl({
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 flex-wrap">
       <button
         type="button"
         onClick={toggleEnabled}
@@ -137,11 +137,11 @@ export default function QuickSumControl({
       {/* Totals display (compact) */}
       {enabled ? (
         selectedCount > 0 ? (
-          <div className="flex items-center gap-2 text-sm text-slate-700 ml-2">
+          <div className="flex flex-wrap items-center gap-2 text-sm text-slate-700 ml-2">
             <span className="font-medium">{selectedCount} selected</span>
 
             {(totals || []).map((t) => (
-              <span key={t.id} className="bg-white border border-gray-300 rounded-lg px-3 py-1.5 text-sm">
+              <span key={t.id} className="bg-white border border-gray-300 rounded-lg px-3 py-1.5 text-sm whitespace-nowrap">
                 {t.id}: {t.total.toFixed(2)}
               </span>
             ))}
