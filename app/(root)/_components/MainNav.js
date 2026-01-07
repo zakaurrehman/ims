@@ -78,7 +78,7 @@ export const MainNav = () => {
 
           {/* Search Dropdown */}
           {openSearch && searchResults.length > 0 && (
-            <div className='absolute left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-[var(--selago)] z-50 overflow-hidden max-h-96 overflow-y-auto'>
+            <div className='absolute left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-[var(--selago)] z-[9999] overflow-visible max-h-96 overflow-y-auto'>
               {searchResults.map((r) => (
                 <button
                   key={r.key}
@@ -119,7 +119,7 @@ export const MainNav = () => {
           </button>
 
           {showDropdown && (
-            <div className='absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-lg border border-[var(--selago)] py-2 z-50'>
+            <div className='absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-lg border border-[var(--selago)] py-2 z-[9999] overflow-visible'>
               <div className='px-4 py-3 border-b border-[var(--selago)]'>
                 <p className='text-sm font-semibold text-[var(--port-gore)]'>
                   {user?.displayName || user?.email?.split('@')[0] || 'User'}
