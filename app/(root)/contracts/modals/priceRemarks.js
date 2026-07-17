@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { SettingsContext } from "@contexts/useSettingsContext";
 import { getTtl } from '@utils/languages';
 import { CirclePlus, Pencil, Trash, } from "lucide-react"
-import { Button } from '@components/ui/button.jsx';
+import { Button } from '@components/ui/button';
 
 
 const PriceRemarks = ({ value, setValue }) => {

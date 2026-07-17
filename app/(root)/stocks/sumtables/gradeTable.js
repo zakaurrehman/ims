@@ -48,18 +48,21 @@ const GradeTable = ({ dataTable, loading, settings }) => {
   if (rows.length === 0) return null
 
   const thStyle = {
-    color: 'var(--chathams-blue)',
-    background: '#dbeeff',
+    color: 'var(--ink-muted)',
+    background: 'var(--bg-subtle)',
     padding: '6px 10px',
-    borderBottom: '1px solid #b8ddf8',
+    borderBottom: '1px solid var(--line)',
     whiteSpace: 'nowrap',
     fontWeight: 500,
+    fontSize: '11px',
+    textTransform: 'uppercase',
+    letterSpacing: '0.04em',
   }
 
   const tdStyle = {
-    color: 'var(--chathams-blue)',
+    color: 'var(--ink)',
     padding: '6px 10px',
-    borderBottom: '1px solid #b8ddf8',
+    borderBottom: '1px solid var(--line)',
     whiteSpace: 'nowrap',
     textAlign: 'center',
   }
@@ -69,8 +72,8 @@ const GradeTable = ({ dataTable, loading, settings }) => {
       <div
         style={{
           borderRadius: '16px',
-          border: '1px solid #b8ddf8',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+          border: '1px solid var(--line)',
+          boxShadow: 'var(--shadow-xs)',
           overflow: 'hidden',
         }}
       >
@@ -78,10 +81,10 @@ const GradeTable = ({ dataTable, loading, settings }) => {
         <div
           className="responsiveTextTable font-medium text-center"
           style={{
-            background: '#dbeeff',
+            background: 'var(--bg-subtle)',
             padding: '8px 16px',
-            borderBottom: '1px solid #b8ddf8',
-            color: 'var(--chathams-blue)',
+            borderBottom: '1px solid var(--line)',
+            color: 'var(--ink)',
             fontWeight: '500'
           }}
         >

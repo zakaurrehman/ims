@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import { getTtl } from '@utils/languages';
 import { CirclePlus, Pencil, Trash, } from "lucide-react"
-import { Button } from '@components/ui/button.jsx';
+import { Button } from '@components/ui/button';
 
 const Remraks = ({ value, setValue, ln }) => {
 
@@ -79,10 +79,10 @@ const Remraks = ({ value, setValue, ln }) => {
 
                 {value.remarks.map((x, i) => {
                     return (
-                        <li key={i} className="justify-between inline-flex items-center gap-x-2 py-2 px-4 responsiveText bg-white border border-[#d8e8f5] text-[var(--port-gore)] -mt-px first:rounded-t-xl first:mt-0 last:rounded-b-xl ">
+                        <li key={i} className="justify-between inline-flex items-center gap-x-2 py-2 px-4 responsiveText bg-white border border-[var(--line-strong)] text-[var(--port-gore)] -mt-px first:rounded-t-xl first:mt-0 last:rounded-b-xl ">
                             {edit.status && edit.id === x.id ?
                                 <input
-                                    className="w-full border rounded-full border-[#d8e8f5] h-7
+                                    className="w-full border rounded-full border-[var(--line-strong)] h-7
 focus:outline-0 focus:border-[var(--endeavour)] indent-1.5 text-[0.72rem] text-[var(--port-gore)]"
                                     onKeyDown={handleKeyPress}
                                     value={value1}

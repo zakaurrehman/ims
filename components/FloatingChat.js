@@ -6,8 +6,8 @@ import { UserAuth } from "../contexts/useAuthContext";
 import { loadData, loadMarginsRange, loadAllStockData, loadCompanyExpenses, resolveInvoiceDate, groupInvoicesByNumber, computeStockNetSummary } from '../utils/utils';
 import { effectiveDueDate } from '../utils/finance';
 import { authedFetch } from '../utils/aiClient';
-import { X, Send, Loader2, Trash2, RefreshCw, ExternalLink, Receipt, FileText, Wallet } from 'lucide-react';
-import { BsRobot, BsPerson } from "react-icons/bs";
+import { X, Send, Loader2, Trash2, RefreshCw, ExternalLink, Receipt, FileText, Wallet, Bot, User } from 'lucide-react';
+import { TONES } from './statusUtils';
 import dateFormat from "dateformat";
 
 // Map citation source type → icon for the chip row under each AI answer.
@@ -598,37 +598,37 @@ const FloatingChat = () => {
     return (
         <>
             {chatOpen && (
-                <div style={{ zIndex: 99999 }} className="fixed bottom-4 right-4 w-96 h-[540px] bg-white rounded-2xl shadow-2xl border border-[#b8ddf8] flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-300">
+                <div style={{ zIndex: 99999, boxShadow: 'var(--shadow-md)' }} className="fixed bottom-4 right-4 w-96 h-[540px] bg-white rounded-2xl border border-[var(--line)] flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-300">
 
                     {/* Header */}
-                    <div className="px-3 py-2.5 border-b border-[#b8ddf8] flex items-center justify-between bg-[#dbeeff]">
+                    <div className="px-3 py-2.5 border-b border-[var(--line)] flex items-center justify-between bg-white">
                         <div className="flex items-center gap-2">
-                            <div className="w-1 h-5 bg-[var(--endeavour)] rounded-full" />
-                            <span className="responsiveText font-semibold text-[var(--port-gore)]">Assistant</span>
+                            <div className="w-1 h-5 bg-[var(--brand)] rounded-full" />
+                            <span className="responsiveText font-semibold text-[var(--ink)]">Assistant</span>
                         </div>
                         <div className="flex items-center gap-1.5">
                             {dataLoading ? (
-                                <Loader2 className="w-3 h-3 text-[var(--endeavour)] animate-spin" />
+                                <Loader2 className="w-3 h-3 text-[var(--brand)] animate-spin" />
                             ) : (
                                 <div className="flex items-center gap-1">
-                                    <span className="px-2 py-0.5 rounded-full font-medium" style={{ fontSize: '0.6rem', backgroundColor: '#d1fae5', color: '#065f46', border: '1px solid #6ee7b7' }}>
+                                    <span className="px-2 py-0.5 rounded-full font-medium" style={{ fontSize: '0.6rem', backgroundColor: TONES.green.bg, color: TONES.green.text, border: `1px solid ${TONES.green.border}` }}>
                                         {contractsData.length} Con
                                     </span>
-                                    <span className="px-2 py-0.5 rounded-full font-medium" style={{ fontSize: '0.6rem', backgroundColor: '#dbeeff', color: 'var(--chathams-blue)', border: '1px solid #b8ddf8' }}>
+                                    <span className="px-2 py-0.5 rounded-full font-medium" style={{ fontSize: '0.6rem', backgroundColor: TONES.blue.bg, color: TONES.blue.text, border: `1px solid ${TONES.blue.border}` }}>
                                         {invoicesData.length} Inv
                                     </span>
-                                    <span className="px-2 py-0.5 rounded-full font-medium" style={{ fontSize: '0.6rem', backgroundColor: '#fef3c7', color: '#92400e', border: '1px solid #fcd34d' }}>
+                                    <span className="px-2 py-0.5 rounded-full font-medium" style={{ fontSize: '0.6rem', backgroundColor: TONES.amber.bg, color: TONES.amber.text, border: `1px solid ${TONES.amber.border}` }}>
                                         {stocksData.length} Stk
                                     </span>
                                 </div>
                             )}
-                            <button onClick={handleRefreshData} disabled={dataLoading} className="p-1 hover:text-[var(--endeavour)] text-[var(--regent-gray)] transition-colors disabled:opacity-40" title="Refresh data">
+                            <button onClick={handleRefreshData} disabled={dataLoading} className="p-1 rounded hover:bg-[var(--bg-subtle)] hover:text-[var(--brand)] text-[var(--ink-muted)] transition-colors disabled:opacity-40" title="Refresh data">
                                 <RefreshCw className="w-3 h-3" />
                             </button>
-                            <button onClick={handleClearChat} className="p-1 hover:text-[var(--endeavour)] text-[var(--regent-gray)] transition-colors" title="Clear chat">
+                            <button onClick={handleClearChat} className="p-1 rounded hover:bg-[var(--bg-subtle)] hover:text-[var(--brand)] text-[var(--ink-muted)] transition-colors" title="Clear chat">
                                 <Trash2 className="w-3 h-3" />
                             </button>
-                            <button onClick={() => setChatOpen(false)} className="p-1 hover:text-[var(--endeavour)] text-[var(--regent-gray)] transition-colors" title="Close">
+                            <button onClick={() => setChatOpen(false)} className="p-1 rounded hover:bg-[var(--bg-subtle)] hover:text-[var(--brand)] text-[var(--ink-muted)] transition-colors" title="Close">
                                 <X className="w-3 h-3" />
                             </button>
                         </div>
@@ -639,8 +639,8 @@ const FloatingChat = () => {
                         {messages.map((msg) => (
                             <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                 {msg.role === 'assistant' && (
-                                    <div className="w-7 h-7 rounded-full bg-[var(--endeavour)]/10 flex items-center justify-center mr-2 flex-shrink-0 mt-1">
-                                        <BsRobot className="w-3.5 h-3.5 text-[var(--endeavour)]" />
+                                    <div className="w-7 h-7 rounded-full bg-[var(--brand-soft)] flex items-center justify-center mr-2 flex-shrink-0 mt-1">
+                                        <Bot className="w-3.5 h-3.5 text-[var(--brand)]" />
                                     </div>
                                 )}
                                 <div
@@ -649,21 +649,21 @@ const FloatingChat = () => {
                                             ? 'rounded-br-sm'
                                             : msg.isError
                                                 ? 'bg-red-50 text-red-700 border border-red-200 rounded-bl-sm'
-                                                : 'bg-[var(--selago)]/40 text-[var(--port-gore)] border border-[var(--selago)] rounded-bl-sm'
+                                                : 'bg-[var(--bg-subtle)] text-[var(--ink)] border border-[var(--line)] rounded-bl-sm'
                                     }`}
-                                    style={msg.role === 'user' ? { backgroundColor: '#e8f5ff', color: 'var(--port-gore)' } : {}}
+                                    style={msg.role === 'user' ? { backgroundColor: 'var(--brand-soft)', color: 'var(--ink)' } : {}}
                                 >
                                     <div
                                         className="break-words leading-relaxed"
                                         dangerouslySetInnerHTML={{ __html: formatMessageContent(msg.content) }}
                                     />
                                     {msg.isStreaming && (
-                                        <span className="inline-block w-1.5 h-3.5 bg-[var(--endeavour)] ml-0.5 animate-pulse rounded-sm" />
+                                        <span className="inline-block w-1.5 h-3.5 bg-[var(--brand)] ml-0.5 animate-pulse rounded-sm" />
                                     )}
                                     {/* Citation chips — clicking opens the record in its page via ?focus= */}
                                     {Array.isArray(msg.sources) && msg.sources.length > 0 && (
-                                        <div className="mt-2 pt-2 border-t border-[var(--selago)] flex flex-wrap gap-1">
-                                            <span style={{ fontSize: '0.55rem', color: 'var(--regent-gray)', textTransform: 'uppercase', letterSpacing: '0.04em' }} className="font-semibold w-full mb-0.5">
+                                        <div className="mt-2 pt-2 border-t border-[var(--line)] flex flex-wrap gap-1">
+                                            <span style={{ fontSize: '0.55rem', color: 'var(--ink-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }} className="font-semibold w-full mb-0.5">
                                                 Sources ({msg.sources.length})
                                             </span>
                                             {msg.sources.slice(0, 12).map((src) => {
@@ -678,8 +678,8 @@ const FloatingChat = () => {
                                                             setChatOpen(false);
                                                         }}
                                                         title={`Open ${src.label} in ${src.route.replace('/', '')}`}
-                                                        className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-white border border-[#d8e8f5] hover:border-[var(--endeavour)] hover:bg-[#f0f9ff] transition-colors"
-                                                        style={{ fontSize: '0.6rem', color: 'var(--chathams-blue)' }}
+                                                        className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-white border border-[var(--line)] hover:border-[var(--brand)] hover:bg-[var(--brand-soft)] transition-colors"
+                                                        style={{ fontSize: '0.6rem', color: 'var(--brand-strong)' }}
                                                     >
                                                         <Icon className="w-2.5 h-2.5" aria-hidden="true" />
                                                         <span className="truncate max-w-[120px]">{src.label}</span>
@@ -687,19 +687,19 @@ const FloatingChat = () => {
                                                 );
                                             })}
                                             {msg.sources.length > 12 && (
-                                                <span style={{ fontSize: '0.58rem', color: 'var(--regent-gray)' }} className="self-center">
+                                                <span style={{ fontSize: '0.58rem', color: 'var(--ink-muted)' }} className="self-center">
                                                     +{msg.sources.length - 12} more
                                                 </span>
                                             )}
                                         </div>
                                     )}
-                                    <span className="mt-1 block text-right text-[var(--regent-gray)]" style={{ fontSize: '0.6rem' }}>
+                                    <span className="mt-1 block text-right text-[var(--ink-muted)]" style={{ fontSize: '0.6rem' }}>
                                         {msg.time}
                                     </span>
                                 </div>
                                 {msg.role === 'user' && (
-                                    <div className="w-7 h-7 rounded-full bg-[var(--port-gore)]/10 flex items-center justify-center ml-2 flex-shrink-0 mt-1">
-                                        <BsPerson className="w-3.5 h-3.5 text-[var(--port-gore)]" />
+                                    <div className="w-7 h-7 rounded-full bg-[var(--bg-sunken)] flex items-center justify-center ml-2 flex-shrink-0 mt-1">
+                                        <User className="w-3.5 h-3.5 text-[var(--ink-secondary)]" />
                                     </div>
                                 )}
                             </div>
@@ -708,14 +708,14 @@ const FloatingChat = () => {
                         {/* Typing dots — only while waiting for first streaming token */}
                         {isLoading && !messages.find(m => m.isStreaming) && (
                             <div className="flex justify-start">
-                                <div className="w-7 h-7 rounded-full bg-[var(--endeavour)]/10 flex items-center justify-center mr-2 flex-shrink-0">
-                                    <BsRobot className="w-3.5 h-3.5 text-[var(--endeavour)]" />
+                                <div className="w-7 h-7 rounded-full bg-[var(--brand-soft)] flex items-center justify-center mr-2 flex-shrink-0">
+                                    <Bot className="w-3.5 h-3.5 text-[var(--brand)]" />
                                 </div>
-                                <div className="bg-white border border-gray-100 rounded-2xl rounded-bl-sm px-3 py-2.5">
+                                <div className="bg-white border border-[var(--line)] rounded-2xl rounded-bl-sm px-3 py-2.5">
                                     <div className="flex gap-1">
-                                        <span className="w-1.5 h-1.5 bg-[var(--endeavour)] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                                        <span className="w-1.5 h-1.5 bg-[var(--endeavour)] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                                        <span className="w-1.5 h-1.5 bg-[var(--endeavour)] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                                        <span className="w-1.5 h-1.5 bg-[var(--brand)] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                                        <span className="w-1.5 h-1.5 bg-[var(--brand)] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                                        <span className="w-1.5 h-1.5 bg-[var(--brand)] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                                     </div>
                                 </div>
                             </div>
@@ -725,7 +725,7 @@ const FloatingChat = () => {
                     </div>
 
                     {/* Input + actions */}
-                    <div className="p-3 border-t border-[#b8ddf8]" style={{ backgroundColor: '#ffffff' }}>
+                    <div className="p-3 border-t border-[var(--line)]" style={{ backgroundColor: '#ffffff' }}>
 
                         {/* Nav buttons — shown after a data response mentions a page */}
                         {lastAssistantMsg && !isLoading && (() => {
@@ -736,7 +736,7 @@ const FloatingChat = () => {
                                         <a
                                             key={p.route}
                                             href={p.route}
-                                            className="flex items-center gap-1 px-2.5 py-1 bg-[var(--endeavour)] text-white rounded-full hover:bg-[var(--chathams-blue)] transition-colors"
+                                            className="flex items-center gap-1 px-2.5 py-1 bg-[var(--brand)] text-white rounded-full hover:bg-[var(--brand-strong)] transition-colors"
                                             style={{ fontSize: '0.62rem' }}
                                         >
                                             <ExternalLink className="w-2.5 h-2.5" />
@@ -748,7 +748,7 @@ const FloatingChat = () => {
                         })()}
 
                         {/* Input bar */}
-                        <div className="flex items-center gap-2 border-2 border-[var(--endeavour)]/30 rounded-full px-3 py-2 focus-within:border-[var(--endeavour)] transition-colors" style={{ backgroundColor: '#e8f5ff' }}>
+                        <div className="flex items-center gap-2 border-2 border-[var(--line-strong)] rounded-full px-3 py-2 focus-within:border-[var(--brand)] transition-colors" style={{ backgroundColor: 'var(--bg-subtle)' }}>
                             <input
                                 ref={inputRef}
                                 type="text"
@@ -757,13 +757,13 @@ const FloatingChat = () => {
                                 onKeyDown={handleKeyDown}
                                 placeholder="Ask me anything"
                                 disabled={isLoading || dataLoading}
-                                className="flex-1 outline-none text-[var(--port-gore)] placeholder-[#6b8fb5] disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex-1 outline-none text-[var(--ink)] placeholder-[var(--ink-muted)] disabled:opacity-50 disabled:cursor-not-allowed"
                                 style={{ fontSize: '0.68rem', backgroundColor: 'transparent' }}
                             />
                             <button
                                 onClick={() => handleSendMessage()}
                                 disabled={!newMessage.trim() || isLoading || dataLoading}
-                                className="p-1.5 bg-[var(--endeavour)] text-white rounded-lg hover:bg-[var(--chathams-blue)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
+                                className="p-1.5 bg-[var(--brand)] text-white rounded-lg hover:bg-[var(--brand-strong)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
                             >
                                 {isLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
                             </button>
@@ -776,7 +776,7 @@ const FloatingChat = () => {
                                     <button
                                         key={action}
                                         onClick={() => handleSendMessage(action)}
-                                        className="px-2.5 py-1 bg-white border border-[#b8ddf8] rounded-full text-[var(--port-gore)] hover:border-[var(--endeavour)] hover:text-[var(--endeavour)] transition-colors"
+                                        className="px-2.5 py-1 bg-white border border-[var(--line)] rounded-full text-[var(--ink)] hover:bg-[var(--bg-subtle)] hover:border-[var(--brand)] hover:text-[var(--brand)] transition-colors"
                                         style={{ fontSize: '0.65rem' }}
                                     >
                                         {action}
@@ -792,7 +792,7 @@ const FloatingChat = () => {
                                     <button
                                         key={action}
                                         onClick={() => handleSendMessage(action)}
-                                        className="px-2.5 py-1 bg-white border border-[#b8ddf8] rounded-full text-[var(--port-gore)] hover:border-[var(--endeavour)] hover:text-[var(--endeavour)] transition-colors"
+                                        className="px-2.5 py-1 bg-white border border-[var(--line)] rounded-full text-[var(--ink)] hover:bg-[var(--bg-subtle)] hover:border-[var(--brand)] hover:text-[var(--brand)] transition-colors"
                                         style={{ fontSize: '0.65rem' }}
                                     >
                                         {action}

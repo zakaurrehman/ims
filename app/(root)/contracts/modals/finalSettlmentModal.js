@@ -10,7 +10,7 @@ import { getTtl } from '@utils/languages';
 import FinalSetRemarks from './finalSettlmentRemarks.js';
 import Tltip from '@components/tlTip.js';
 import { Save, FileText, Plus, X } from "lucide-react"
-import { Button } from '@components/ui/button.jsx';
+import { Button } from '@components/ui/button';
 
 function countDecimalDigits(inputString) {
 
@@ -192,13 +192,13 @@ const FinalSettlmentModal = ({ isOpen, setIsOpen, setShowPoInvModal }) => {
         <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={getTtl('FinalSettlmnt', ln)} w='max-w-6xl'>
             <div className='flex flex-col p-1 justify-between gap-4 max-h-[50rem] overflow-y-auto'>
                 {isDraft &&
-                    <div className='rounded-xl px-3 py-2 responsiveTextTable font-medium' style={{ background: '#fffbeb', border: '1px solid #fde68a', color: '#b45309' }}>
+                    <div className='rounded-xl px-3 py-2 responsiveTextTable font-medium' style={{ background: '#FDF3E1', border: '1px solid #F5DFAE', color: '#9A6215' }}>
                         Draft mode — these settlement figures are held back and won’t affect cashflow or stocks until you turn off Draft and save.
                     </div>
                 }
                 {data.map((x, i) => {
                     return (
-                        <div className='grid grid-cols-12 p-1 gap-2 border border-[#b8ddf8] rounded-2xl bg-[#f4f9ff]' key={i}>
+                        <div className='grid grid-cols-12 p-1 gap-2 border border-[var(--line)] rounded-2xl bg-[var(--bg-subtle)]' key={i}>
                             <div className='col-span-3 flex'>
                                 <div className='items-center flex pt-3 pr-2'>
                                     <ChkBox checked={checkedItems.includes(x.id)} size='h-5 w-5' onChange={() => checkItem(x.id)} />
@@ -277,7 +277,7 @@ const FinalSettlmentModal = ({ isOpen, setIsOpen, setShowPoInvModal }) => {
                 </div>
 
                 {/* Live settlement summary — totals update as you edit; add custom lines for splits/adjustments */}
-                <div className='border border-[#b8ddf8] rounded-2xl bg-white p-3'>
+                <div className='border border-[var(--line)] rounded-2xl bg-white p-3'>
                     <div className='flex items-center justify-between mb-2'>
                         <span className='responsiveText font-semibold text-[var(--chathams-blue)]'>Settlement summary</span>
                         <button type='button' onClick={addCalc} className='flex items-center gap-1 rounded-full px-3 h-7 text-white hover:opacity-90' style={{ fontSize: '0.66rem', background: 'var(--endeavour)' }}>
@@ -298,14 +298,14 @@ const FinalSettlmentModal = ({ isOpen, setIsOpen, setShowPoInvModal }) => {
                                 <input type='text' placeholder='Label (e.g. Half balance)' value={c.label} onChange={e => updateCalc(c.id, 'label', e.target.value)}
                                     className='input h-7 responsiveTextTable border-slate-300 flex-1 shadow-sm' style={{ fontFamily: 'inherit' }} />
                                 <Tltip direction='top' tltpText='Set to half of the items total'>
-                                    <button type='button' onClick={() => updateCalc(c.id, 'amount', (sumTotal / 2).toFixed(2))} className='rounded-md px-2 h-7 border border-[#d8e8f5] text-[var(--endeavour)] font-medium hover:bg-[#dbeeff]' style={{ fontSize: '0.7rem' }}>½</button>
+                                    <button type='button' onClick={() => updateCalc(c.id, 'amount', (sumTotal / 2).toFixed(2))} className='rounded-md px-2 h-7 border border-[var(--line-strong)] text-[var(--endeavour)] font-medium hover:bg-[var(--bg-subtle)]' style={{ fontSize: '0.7rem' }}>½</button>
                                 </Tltip>
                                 <input type='text' placeholder='Amount' value={c.amount} onChange={e => updateCalc(c.id, 'amount', e.target.value)}
                                     className='input h-7 responsiveTextTable border-slate-300 w-28 text-right shadow-sm' style={{ fontFamily: 'inherit' }} />
                                 <button type='button' onClick={() => removeCalc(c.id)} className='text-[var(--regent-gray)] hover:text-red-500'><X className='w-3.5 h-3.5' /></button>
                             </div>
                         ))}
-                        <div className='flex items-center justify-between border-t border-[#dbeeff] pt-2 mt-1'>
+                        <div className='flex items-center justify-between border-t border-[var(--bg-subtle)] pt-2 mt-1'>
                             <span className='responsiveText font-semibold text-[var(--chathams-blue)]'>Settlement total</span>
                             <span className='responsiveText font-bold text-[var(--endeavour)]'>{money(grandTotal)}</span>
                         </div>
@@ -320,10 +320,10 @@ const FinalSettlmentModal = ({ isOpen, setIsOpen, setShowPoInvModal }) => {
                         ? 'Draft ON — saving keeps this settlement out of cashflow & stocks until you turn Draft off and save.'
                         : 'Draft OFF — saving applies this settlement to cashflow & stocks (original).'}>
                         <div className='flex items-center gap-2 px-3 h-8 rounded-full border cursor-pointer'
-                            style={{ background: isDraft ? '#fffbeb' : '#f8fbff', borderColor: isDraft ? '#fde68a' : '#d8e8f5' }}
+                            style={{ background: isDraft ? '#FDF3E1' : 'var(--bg-subtle)', borderColor: isDraft ? '#F5DFAE' : 'var(--line-strong)' }}
                             onClick={() => setIsDraft(!isDraft)}>
                             <ChkBox checked={isDraft} size='h-5 w-5' onChange={() => setIsDraft(!isDraft)} />
-                            <span className='responsiveTextTable font-medium' style={{ color: isDraft ? '#b45309' : 'var(--chathams-blue)' }}>Draft</span>
+                            <span className='responsiveTextTable font-medium' style={{ color: isDraft ? '#9A6215' : 'var(--chathams-blue)' }}>Draft</span>
                         </div>
                     </Tltip>
                     <Tltip direction='top' tltpText={isDraft ? 'Save as draft (held back)' : 'Save & apply (original)'}>

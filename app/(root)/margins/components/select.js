@@ -38,19 +38,19 @@ const SelectEnt = memo(({ props, data, handleChangeSelect, month, name, plHolder
                         aria-expanded={open}
                         className="
                           group w-full flex items-center justify-between
-                          bg-[#f8fbff] rounded-lg px-2
+                          bg-[var(--bg-subtle)] rounded-[8px] px-2
                           text-[0.68rem] xl:text-[0.72rem] 2xl:text-[0.75rem] 3xl:text-[0.8125rem]
-                          text-[var(--port-gore)]
-                          border border-[#d8e8f5]
-                          focus:border-[var(--endeavour)]
-                          focus:ring-1 focus:ring-[var(--endeavour)]
+                          text-[var(--ink)]
+                          border border-[var(--line-strong)]
+                          focus:border-[var(--brand)]
+                          focus:ring-2 focus:ring-[var(--brand-soft)]
                           focus:outline-none
                         "
                         style={{ minHeight: '26px', fontFamily: "var(--font-poppins), 'Poppins', sans-serif" }}
                       >
                         <span className={cn(
                           "flex-1 text-center truncate",
-                          !fullName && "text-slate-400"
+                          !fullName && "text-[var(--ink-muted)]"
                         )}>
                           {fullName || plHolder}
                         </span>
@@ -60,7 +60,7 @@ const SelectEnt = memo(({ props, data, handleChangeSelect, month, name, plHolder
                     <PopoverContent
                       align="start"
                       sideOffset={4}
-                      className="p-0 w-[var(--radix-popover-trigger-width)] min-w-[180px] z-40 bg-[#f8fbff] rounded-xl border border-[#d8e8f5] shadow-lg"
+                      className="p-0 w-[var(--radix-popover-trigger-width)] min-w-[180px] z-40 bg-white rounded-xl border border-[var(--line)] shadow-pop"
                     >
                       <Command className="bg-transparent">
                         <CommandInput
@@ -68,7 +68,7 @@ const SelectEnt = memo(({ props, data, handleChangeSelect, month, name, plHolder
                           className="text-[0.72rem] h-8"
                         />
                         <CommandList style={{ maxHeight: '200px' }}>
-                          <CommandEmpty className="py-3 text-center text-[0.7rem] text-[var(--regent-gray)]">
+                          <CommandEmpty className="py-3 text-center text-[0.7rem] text-[var(--ink-muted)]">
                             No match
                           </CommandEmpty>
                           <CommandGroup>
@@ -80,7 +80,7 @@ const SelectEnt = memo(({ props, data, handleChangeSelect, month, name, plHolder
                                   handleChangeSelect(z.id, props.row.original.id, month, name);
                                   setOpen(false);
                                 }}
-                                className="text-[0.7rem] xl:text-[0.72rem] 2xl:text-[0.75rem] px-2 py-1.5 hover:bg-blue-50 cursor-pointer text-[var(--port-gore)] data-[selected=true]:bg-[#dbeeff] data-[selected=true]:text-[var(--endeavour)]"
+                                className="text-[0.7rem] xl:text-[0.72rem] 2xl:text-[0.75rem] px-2 py-1.5 hover:bg-[var(--bg-subtle)] cursor-pointer text-[var(--ink)] data-[selected=true]:bg-[var(--brand-soft)] data-[selected=true]:text-[var(--brand)]"
                               >
                                 <Check
                                   className={cn(
@@ -101,7 +101,7 @@ const SelectEnt = memo(({ props, data, handleChangeSelect, month, name, plHolder
               {fullName && !open && (
                 <TooltipContent
                   side="top"
-                  className="bg-[var(--chathams-blue)] text-white text-[0.72rem] rounded-lg px-2.5 py-1 border-0 shadow-md"
+                  className="bg-[var(--ink)] text-white text-[0.72rem] rounded-lg px-2.5 py-1 border-0 shadow-pop"
                   style={{ fontFamily: "var(--font-poppins), 'Poppins', sans-serif" }}
                 >
                   {fullName}

@@ -6,6 +6,7 @@ import Tltip from '@components/tlTip'
 import { NumericFormat } from 'react-number-format'
 import dateFormat from 'dateformat'
 import { filteredArray } from '@utils/utils'
+import { TONES } from '@components/statusUtils'
 
 const tabs = [
   { id: 'dupes', label: 'Duplicate OUT' },
@@ -138,18 +139,21 @@ const fmtDate = (d) => {
 }
 
 const cellTh = {
-  background: '#dbeeff',
-  color: 'var(--chathams-blue)',
+  background: 'var(--bg-subtle)',
+  color: 'var(--ink-muted)',
   padding: '6px 10px',
-  borderBottom: '1px solid #b8ddf8',
+  borderBottom: '1px solid var(--line)',
   fontWeight: 500,
+  fontSize: '11px',
+  textTransform: 'uppercase',
+  letterSpacing: '0.04em',
   textAlign: 'left',
   whiteSpace: 'nowrap',
 }
 const cellTd = {
-  color: 'var(--port-gore)',
+  color: 'var(--ink)',
   padding: '6px 10px',
-  borderBottom: '1px solid #eef4fb',
+  borderBottom: '1px solid var(--line)',
   whiteSpace: 'nowrap',
 }
 
@@ -178,7 +182,7 @@ const DescCell = ({ text }) => (
 )
 
 const ShortId = ({ id }) => (
-  <span title={id} style={{ fontFamily: 'monospace', fontSize: '0.7rem', color: 'var(--regent-gray)' }}>
+  <span title={id} style={{ fontFamily: 'monospace', fontSize: '0.7rem', color: 'var(--ink-muted)' }}>
     {id ? id.slice(0, 8) : ''}
   </span>
 )
@@ -197,7 +201,7 @@ const StockAudit = ({ isOpen, setIsOpen, stockData, settings }) => {
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} title="Stock Audit" w="max-w-7xl">
       <div className="p-4">
-        <p className="responsiveTextTable mb-3" style={{ color: 'var(--regent-gray)' }}>
+        <p className="responsiveTextTable mb-3" style={{ color: 'var(--ink-muted)' }}>
           Read-only report. Scanned {audit.total} stock records. Use record IDs / PO# / dates to find and fix entries in the corresponding contract or invoice.
         </p>
 
@@ -210,7 +214,7 @@ const StockAudit = ({ isOpen, setIsOpen, stockData, settings }) => {
                 type="button"
                 onClick={() => setTab(t.id)}
                 className={active
-                  ? 'whiteButton whitespace-nowrap !bg-[var(--chathams-blue)] !text-white !border-[#b8ddf8]'
+                  ? 'whiteButton whitespace-nowrap !bg-[var(--brand)] !text-white !border-[var(--brand)]'
                   : 'whiteButton whitespace-nowrap'}
               >
                 {t.label}
@@ -220,7 +224,7 @@ const StockAudit = ({ isOpen, setIsOpen, stockData, settings }) => {
           })}
         </div>
 
-        <div className="rounded-xl border border-[#b8ddf8] overflow-hidden">
+        <div className="rounded-xl border border-[var(--line)] overflow-hidden">
           <div className="overflow-auto" style={{ maxHeight: '60vh' }}>
             {tab === 'dupes' && (
               <table className="w-full responsiveTextTable" style={{ borderCollapse: 'collapse' }}>
@@ -277,7 +281,7 @@ const StockAudit = ({ isOpen, setIsOpen, stockData, settings }) => {
                       <td style={cellTd}>{g.stockNm}</td>
                       <td style={cellTd}>{fmtQ(g.inQty)}</td>
                       <td style={cellTd}>{fmtQ(g.outQty)}</td>
-                      <td style={{ ...cellTd, color: '#dc2626', fontWeight: 500 }}>{fmtQ(g.outQty - g.inQty)}</td>
+                      <td style={{ ...cellTd, color: TONES.red.text, fontWeight: 500 }}>{fmtQ(g.outQty - g.inQty)}</td>
                       <td style={cellTd}>{g.inRows}</td>
                       <td style={cellTd}>{g.outRows}</td>
                       <td style={cellTd}><ShortId id={g.descId} /></td>

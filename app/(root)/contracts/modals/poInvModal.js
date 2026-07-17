@@ -9,7 +9,7 @@ import ChkBox from '@components/checkbox';
 import { v4 as uuidv4 } from 'uuid';
 import { getTtl } from '@utils/languages';
 import Datepicker from "react-tailwindcss-datepicker";
-import { Button } from '@components/ui/button.jsx';
+import { Button } from '@components/ui/button';
 import { Save, CirclePlus, CircleMinus, Trash, ArrowBigRight, FileText } from "lucide-react";
 import DocumentImportOverlay from '@components/DocumentImportOverlay';
 
@@ -316,7 +316,7 @@ console.log(valueCon.poInvoices)
                 {valueCon.poInvoices.map((x, i) => {
 
                     return (
-                        <div className='flex gap-4 p-1 border border-[#b8ddf8] rounded-2xl flex-col bg-[#f4f9ff]' key={x.id}>
+                        <div className='flex gap-4 p-1 border border-[var(--line)] rounded-2xl flex-col bg-[var(--bg-subtle)]' key={x.id}>
                             <div className=''>
                                 <div className='flex items-center'>
                                     <div className='items-center flex pt-3 pr-2'>
@@ -349,7 +349,7 @@ console.log(valueCon.poInvoices)
                                             <p className='flex responsiveTextTable font-medium whitespace-nowrap text-[var(--chathams-blue)]' >{getTtl('Balance', ln)}:</p>
                                             <div className='flex pr-3'>
                                                 <input type='text' disabled className="number-separator input border-slate-300 h-7 responsiveTextTable" name='blnc'
-                                                    style={{ color: Number(x.blnc) > 0 ? '#dc2626' : undefined }}
+                                                    style={{ color: Number(x.blnc) > 0 ? '#B42332' : undefined }}
                                                     value={addComma(x.blnc, true, 'total')} />
                                                 <div className='group relative'>
                                                     <ArrowBigRight className='text-[var(--regent-gray)] ml-3 cursor-pointer' onClick={switchToStocks} />
@@ -363,7 +363,7 @@ console.log(valueCon.poInvoices)
                                             <p className='flex responsiveTextTable font-medium whitespace-nowrap text-[var(--chathams-blue)]'>Draft:</p>
                                             <label className='flex items-center gap-1.5 h-7 cursor-pointer' title='Draft — keep this purchase invoice off the Cashflow'>
                                                 <input type='checkbox' checked={!!x.draft} onChange={() => toggleDraft(x)} className='w-4 h-4 accent-[var(--endeavour)]' />
-                                                <span className='responsiveTextTable' style={{ color: x.draft ? '#b45309' : 'var(--regent-gray)' }}>{x.draft ? 'Hidden from Cashflow' : 'On Cashflow'}</span>
+                                                <span className='responsiveTextTable' style={{ color: x.draft ? '#9A6215' : 'var(--regent-gray)' }}>{x.draft ? 'Hidden from Cashflow' : 'On Cashflow'}</span>
                                             </label>
                                         </div>
                                     </div>

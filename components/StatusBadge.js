@@ -6,8 +6,8 @@ import { TONES, statusTone } from './statusUtils';
 export default function StatusBadge({ label, tone, size = 'sm', className = '', style = {} }) {
     if (label == null || label === '') return null;
     const t = TONES[tone || statusTone(label)] || TONES.gray;
-    const pad = size === 'xs' ? 'px-2 py-0.5' : 'px-3 py-1';
-    const fontSize = size === 'xs' ? '0.55rem' : '0.65rem';
+    const pad = size === 'xs' ? 'px-2 py-0.5' : 'px-2.5 py-1';
+    const fontSize = size === 'xs' ? '0.625rem' : '0.65625rem';
     return (
         <span
             className={`inline-flex items-center justify-center rounded-full font-medium whitespace-nowrap ${pad} ${className}`}

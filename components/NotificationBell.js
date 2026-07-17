@@ -7,19 +7,20 @@ import {
     Bell, BellOff, Check, CheckCheck, Clock, Activity, FileText, Receipt, Banknote, Package, Settings as SettingsIcon,
     AlertTriangle, ArrowUp, Minus, Circle, CheckCircle2, ChevronLeft, ExternalLink,
 } from 'lucide-react';
+import { TONES } from './statusUtils';
 
 const ENTITY = {
-    contract: { icon: FileText, color: '#0366ae', bg: '#dbeeff', route: (id) => `/contracts?openId=${id}` },
-    invoice: { icon: Receipt, color: '#15803d', bg: '#f0fdf4', route: (id) => `/invoices?openId=${id}` },
-    expense: { icon: Banknote, color: '#b45309', bg: '#fffbeb', route: (id) => `/expenses?openId=${id}` },
-    companyexpense: { icon: Banknote, color: '#b45309', bg: '#fffbeb', route: () => `/companyexpenses` },
+    contract: { icon: FileText, color: 'var(--brand)', bg: 'var(--brand-soft)', route: (id) => `/contracts?openId=${id}` },
+    invoice: { icon: Receipt, color: TONES.green.text, bg: TONES.green.bg, route: (id) => `/invoices?openId=${id}` },
+    expense: { icon: Banknote, color: TONES.amber.text, bg: TONES.amber.bg, route: (id) => `/expenses?openId=${id}` },
+    companyexpense: { icon: Banknote, color: TONES.amber.text, bg: TONES.amber.bg, route: () => `/companyexpenses` },
     stock: { icon: Package, color: '#7c3aed', bg: '#f5f3ff', route: () => `/stocks` },
-    settings: { icon: SettingsIcon, color: '#475569', bg: '#f1f5f9', route: () => `/settings` },
+    settings: { icon: SettingsIcon, color: TONES.gray.text, bg: TONES.gray.bg, route: () => `/settings` },
 };
-const FALLBACK = { icon: Activity, color: '#475569', bg: '#f1f5f9', route: () => `/activity` };
+const FALLBACK = { icon: Activity, color: TONES.gray.text, bg: TONES.gray.bg, route: () => `/activity` };
 const metaFor = (t) => ENTITY[t] || FALLBACK;
 
-const SEVERITY_DOT = { success: '#16a34a', warning: '#d97706', error: '#dc2626', info: 'var(--endeavour)' };
+const SEVERITY_DOT = { success: TONES.green.text, warning: TONES.amber.text, error: TONES.red.text, info: 'var(--brand)' };
 const PRIORITY_ICON = { high: AlertTriangle, medium: ArrowUp, low: Minus };
 
 // Group notifications by subject so the stream stays organized rather than mixed.
@@ -61,13 +62,13 @@ function Chip({ active, onClick, label, count, unread }) {
             className='flex items-center gap-1 px-2 py-0.5 rounded-full whitespace-nowrap flex-shrink-0 transition-colors'
             style={{
                 fontSize: '0.58rem',
-                border: `1px solid ${active ? 'var(--endeavour)' : '#dbeeff'}`,
-                background: active ? 'var(--endeavour)' : 'white',
-                color: active ? 'white' : 'var(--chathams-blue)',
+                border: `1px solid ${active ? 'var(--brand)' : 'var(--line)'}`,
+                background: active ? 'var(--brand)' : 'white',
+                color: active ? 'white' : 'var(--ink-secondary)',
             }}
         >
             {label}
-            <span className='px-1 rounded-full' style={{ fontSize: '0.5rem', background: active ? 'rgba(255,255,255,0.25)' : '#eef5fc', color: active ? 'white' : 'var(--regent-gray)' }}>
+            <span className='px-1 rounded-full' style={{ fontSize: '0.5rem', background: active ? 'rgba(255,255,255,0.25)' : 'var(--bg-subtle)', color: active ? 'white' : 'var(--ink-muted)' }}>
                 {unread > 0 ? unread : count}
             </span>
         </button>
@@ -166,9 +167,9 @@ const NotificationBell = () => {
         return (
             <div
                 key={n.id}
-                className='group relative flex items-start gap-2.5 px-3 py-2.5 border-b border-[#eef5fc] hover:bg-[#f8fbff] transition-colors'
+                className='group relative flex items-start gap-2.5 px-3 py-2.5 border-b border-[var(--line)] hover:bg-[var(--bg-subtle)] transition-colors'
                 style={{
-                    background: isSelected ? '#dbeeff' : unreadFlag ? '#f8fbff' : 'white',
+                    background: isSelected ? 'var(--brand-soft)' : unreadFlag ? 'var(--bg-subtle)' : 'white',
                     borderLeft: `3px solid ${pr.color}`,
                     cursor: selectMode ? 'pointer' : undefined,
                 }}
@@ -177,28 +178,28 @@ const NotificationBell = () => {
                 {selectMode && (
                     <span className='flex-shrink-0 mt-1'>
                         {isSelected
-                            ? <CheckCircle2 className='w-4 h-4' style={{ color: 'var(--endeavour)' }} />
-                            : <Circle className='w-4 h-4' style={{ color: '#b8ddf8' }} />}
+                            ? <CheckCircle2 className='w-4 h-4' style={{ color: 'var(--brand)' }} />
+                            : <Circle className='w-4 h-4' style={{ color: 'var(--line-strong)' }} />}
                     </span>
                 )}
                 <span className='inline-flex items-center justify-center rounded-full flex-shrink-0 mt-0.5' style={{ width: 26, height: 26, background: meta.bg }}>
                     <Icon className='w-3.5 h-3.5' style={{ color: meta.color }} />
                 </span>
                 <button onClick={() => onOpenItem(n)} className='min-w-0 flex-1 text-left'>
-                    <p className='break-words' style={{ fontSize: '0.72rem', color: 'var(--port-gore)' }}>
+                    <p className='break-words' style={{ fontSize: '0.72rem', color: 'var(--ink)' }}>
                         {n.message || `${n.entityType || 'Item'} ${n.action || 'updated'}`}
                     </p>
                     {/* Calm meta line — priority is already carried by the section header
                         and the row's left accent; repeating a red pill on every row made
                         the whole panel read as one long alarm. */}
-                    <div className='flex items-center gap-1.5 mt-0.5' style={{ fontSize: '0.6rem', color: 'var(--regent-gray)' }}>
-                        <span className='rounded-full shrink-0' style={{ width: 5, height: 5, background: SEVERITY_DOT[n.severity] || '#cbd5e1' }} />
+                    <div className='flex items-center gap-1.5 mt-0.5' style={{ fontSize: '0.6rem', color: 'var(--ink-muted)' }}>
+                        <span className='rounded-full shrink-0' style={{ width: 5, height: 5, background: SEVERITY_DOT[n.severity] || 'var(--line-strong)' }} />
                         <span className='truncate'>{n.actorName || 'System'}</span>
                         <span>·</span>
                         <span className='whitespace-nowrap' title={n.createdAt}>{relativeTime(n.createdAtMs)}</span>
                     </div>
                     {receipts.length > 0 && (
-                        <div className='flex items-center gap-1 mt-0.5' style={{ fontSize: '0.55rem', color: '#16a34a' }} title={seenTitle}>
+                        <div className='flex items-center gap-1 mt-0.5' style={{ fontSize: '0.55rem', color: TONES.green.text }} title={seenTitle}>
                             <CheckCheck className='w-2.5 h-2.5' /> Seen by {seenSummary}
                         </div>
                     )}
@@ -207,22 +208,22 @@ const NotificationBell = () => {
                     /* Actions reveal on hover (always visible on touch screens) — keeps
                        rows clean without hiding functionality. */
                     <div className='flex flex-col items-center gap-1 flex-shrink-0 md:opacity-0 md:group-hover:opacity-100 transition-opacity'>
-                        <button onClick={() => markRead?.(n.id)} title='Mark as read' className='p-0.5 rounded hover:bg-[#dbeeff]'>
-                            <Check className='w-3.5 h-3.5' style={{ color: 'var(--endeavour)' }} />
+                        <button onClick={() => markRead?.(n.id)} title='Mark as read' className='p-0.5 rounded hover:bg-[var(--bg-sunken)]'>
+                            <Check className='w-3.5 h-3.5' style={{ color: 'var(--brand)' }} />
                         </button>
-                        <button onClick={() => setSnoozeFor(snoozeFor === n.id ? null : n.id)} title='Snooze' className='p-0.5 rounded hover:bg-[#dbeeff]'>
-                            <Clock className='w-3.5 h-3.5' style={{ color: 'var(--regent-gray)' }} />
+                        <button onClick={() => setSnoozeFor(snoozeFor === n.id ? null : n.id)} title='Snooze' className='p-0.5 rounded hover:bg-[var(--bg-sunken)]'>
+                            <Clock className='w-3.5 h-3.5' style={{ color: 'var(--ink-muted)' }} />
                         </button>
                     </div>
                 )}
                 {snoozeFor === n.id && (
-                    <div className='absolute right-2 top-9 z-10 bg-white rounded-lg shadow-lg border border-[var(--selago)] py-1'>
+                    <div className='absolute right-2 top-9 z-10 bg-white rounded-lg border border-[var(--line)] py-1' style={{ boxShadow: 'var(--shadow-md)' }}>
                         {SNOOZE_OPTS.map(opt => (
                             <button
                                 key={opt.label}
                                 onClick={() => { snooze?.(n.id, opt.ms); setSnoozeFor(null); }}
-                                className='block w-full text-left px-3 py-1 hover:bg-[var(--selago)] whitespace-nowrap'
-                                style={{ fontSize: '0.65rem', color: 'var(--port-gore)' }}
+                                className='block w-full text-left px-3 py-1 hover:bg-[var(--bg-subtle)] whitespace-nowrap'
+                                style={{ fontSize: '0.65rem', color: 'var(--ink)' }}
                             >
                                 Remind me in {opt.label}
                             </button>
@@ -244,7 +245,7 @@ const NotificationBell = () => {
                 {unreadCount > 0 && (
                     <span
                         className='absolute top-1 right-1 min-w-[15px] h-[15px] px-1 rounded-full text-white flex items-center justify-center'
-                        style={{ background: '#dc2626', fontSize: '0.55rem', fontWeight: 700, lineHeight: 1 }}
+                        style={{ background: 'var(--bad-text)', fontSize: '0.55rem', fontWeight: 700, lineHeight: 1 }}
                     >
                         {unreadCount > 99 ? '99+' : unreadCount}
                     </span>
@@ -252,26 +253,26 @@ const NotificationBell = () => {
             </button>
 
             {open && (
-                <div className='absolute right-0 top-full mt-2 w-[360px] bg-white rounded-xl shadow-lg border border-[var(--selago)] z-[9999] overflow-hidden'>
+                <div className='absolute right-0 top-full mt-2 w-[360px] bg-white rounded-xl border border-[var(--line)] z-[9999] overflow-hidden' style={{ boxShadow: 'var(--shadow-md)' }}>
                     {/* Header */}
-                    <div className='flex items-center justify-between px-3 py-2' style={{ background: '#dbeeff', borderBottom: '1px solid #b8ddf8' }}>
-                        <span className='font-semibold' style={{ fontSize: '0.72rem', color: 'var(--chathams-blue)' }}>
+                    <div className='flex items-center justify-between px-3 py-2' style={{ background: 'white', borderBottom: '1px solid var(--line)' }}>
+                        <span className='font-semibold' style={{ fontSize: '0.72rem', color: 'var(--ink)' }}>
                             Notifications{unreadCount > 0 ? ` · ${unreadCount} new` : ''}
                         </span>
                         <div className='flex items-center gap-1'>
-                            <button onClick={toggleMute} title={muted ? 'Unmute sound' : 'Mute sound'} className='p-1 rounded-full hover:bg-white/60'>
+                            <button onClick={toggleMute} title={muted ? 'Unmute sound' : 'Mute sound'} className='p-1 rounded-full hover:bg-[var(--bg-subtle)]'>
                                 {muted
-                                    ? <BellOff className='w-3.5 h-3.5' style={{ color: 'var(--regent-gray)' }} />
-                                    : <Bell className='w-3.5 h-3.5' style={{ color: 'var(--chathams-blue)' }} />}
+                                    ? <BellOff className='w-3.5 h-3.5' style={{ color: 'var(--ink-muted)' }} />
+                                    : <Bell className='w-3.5 h-3.5' style={{ color: 'var(--ink-secondary)' }} />}
                             </button>
                             <button
                                 onClick={() => { setSelectMode(v => !v); setSelected(new Set()); setDetail(null); }}
                                 className='px-2 py-0.5 rounded-full font-medium transition-colors'
                                 style={{
                                     fontSize: '0.6rem',
-                                    background: selectMode ? 'var(--chathams-blue)' : 'white',
-                                    color: selectMode ? 'white' : 'var(--chathams-blue)',
-                                    border: '1px solid #b8ddf8',
+                                    background: selectMode ? 'var(--brand)' : 'white',
+                                    color: selectMode ? 'white' : 'var(--ink-secondary)',
+                                    border: '1px solid var(--line-strong)',
                                 }}
                             >
                                 {selectMode ? 'Cancel' : 'Select'}
@@ -281,7 +282,7 @@ const NotificationBell = () => {
                                 disabled={unreadCount === 0}
                                 title='Mark every notification as read'
                                 className='flex items-center gap-1 px-2 py-0.5 rounded-full font-medium disabled:opacity-40 transition-colors hover:opacity-90'
-                                style={{ fontSize: '0.6rem', background: 'var(--endeavour)', color: 'white' }}
+                                style={{ fontSize: '0.6rem', background: 'var(--brand)', color: 'white' }}
                             >
                                 <CheckCheck className='w-3 h-3' /> Read all
                             </button>
@@ -296,11 +297,11 @@ const NotificationBell = () => {
                         const receipts = Object.values(detail.readReceipts || {});
                         return (
                             <div>
-                                <div className='flex items-center gap-1.5 px-2 py-1.5' style={{ borderBottom: '1px solid #eef5fc' }}>
-                                    <button onClick={() => setDetail(null)} className='p-1 rounded-full hover:bg-[#dbeeff]' aria-label='Back to list'>
-                                        <ChevronLeft className='w-4 h-4' style={{ color: 'var(--chathams-blue)' }} />
+                                <div className='flex items-center gap-1.5 px-2 py-1.5' style={{ borderBottom: '1px solid var(--line)' }}>
+                                    <button onClick={() => setDetail(null)} className='p-1 rounded-full hover:bg-[var(--bg-subtle)]' aria-label='Back to list'>
+                                        <ChevronLeft className='w-4 h-4' style={{ color: 'var(--ink-secondary)' }} />
                                     </button>
-                                    <span style={{ fontSize: '0.68rem', fontWeight: 600, color: 'var(--chathams-blue)' }}>Notification</span>
+                                    <span style={{ fontSize: '0.68rem', fontWeight: 600, color: 'var(--ink)' }}>Notification</span>
                                 </div>
                                 <div className='p-4'>
                                     <div className='flex items-center gap-2.5'>
@@ -308,7 +309,7 @@ const NotificationBell = () => {
                                             <DIcon className='w-4.5 h-4.5 w-[18px] h-[18px]' style={{ color: meta.color }} />
                                         </span>
                                         <div className='min-w-0'>
-                                            <p className='font-semibold truncate' style={{ fontSize: '0.78rem', color: 'var(--chathams-blue)' }}>
+                                            <p className='font-semibold truncate' style={{ fontSize: '0.78rem', color: 'var(--ink)' }}>
                                                 {detail.entityLabel || detail.entityType || 'Notification'}
                                             </p>
                                             <span className='inline-flex items-center gap-1 px-1.5 rounded-full font-semibold mt-0.5'
@@ -317,18 +318,18 @@ const NotificationBell = () => {
                                             </span>
                                         </div>
                                     </div>
-                                    <p className='mt-3 break-words' style={{ fontSize: '0.74rem', color: 'var(--port-gore)', lineHeight: 1.55 }}>
+                                    <p className='mt-3 break-words' style={{ fontSize: '0.74rem', color: 'var(--ink)', lineHeight: 1.55 }}>
                                         {detail.message || `${detail.entityType || 'Item'} ${detail.action || 'updated'}`}
                                     </p>
-                                    <div className='mt-3 rounded-xl p-2.5' style={{ background: '#f8fbff', border: '1px solid #eef5fc' }}>
-                                        <p style={{ fontSize: '0.62rem', color: 'var(--regent-gray)' }}>
-                                            From: <span style={{ color: 'var(--port-gore)' }}>{detail.actorName || 'System'}</span>
+                                    <div className='mt-3 rounded-xl p-2.5' style={{ background: 'var(--bg-subtle)', border: '1px solid var(--line)' }}>
+                                        <p style={{ fontSize: '0.62rem', color: 'var(--ink-muted)' }}>
+                                            From: <span style={{ color: 'var(--ink)' }}>{detail.actorName || 'System'}</span>
                                         </p>
-                                        <p className='mt-0.5' style={{ fontSize: '0.62rem', color: 'var(--regent-gray)' }}>
-                                            When: <span style={{ color: 'var(--port-gore)' }}>{detail.createdAtMs ? new Date(detail.createdAtMs).toLocaleString() : detail.createdAt || '—'}</span>
+                                        <p className='mt-0.5' style={{ fontSize: '0.62rem', color: 'var(--ink-muted)' }}>
+                                            When: <span style={{ color: 'var(--ink)' }}>{detail.createdAtMs ? new Date(detail.createdAtMs).toLocaleString() : detail.createdAt || '—'}</span>
                                         </p>
                                         {receipts.length > 0 && (
-                                            <p className='mt-0.5 flex items-center gap-1' style={{ fontSize: '0.62rem', color: '#16a34a' }}>
+                                            <p className='mt-0.5 flex items-center gap-1' style={{ fontSize: '0.62rem', color: TONES.green.text }}>
                                                 <CheckCheck className='w-3 h-3' /> Seen by {receipts.map(r => r.name).join(', ')}
                                             </p>
                                         )}
@@ -337,14 +338,14 @@ const NotificationBell = () => {
                                         <button
                                             onClick={() => openRecord(detail)}
                                             className='flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-full font-medium text-white hover:opacity-90 transition-opacity'
-                                            style={{ fontSize: '0.68rem', background: 'var(--endeavour)' }}
+                                            style={{ fontSize: '0.68rem', background: 'var(--brand)' }}
                                         >
                                             <ExternalLink className='w-3.5 h-3.5' /> Open record
                                         </button>
                                         <button
                                             onClick={() => setDetail(null)}
-                                            className='px-4 py-1.5 rounded-full font-medium transition-colors hover:bg-[#dbeeff]'
-                                            style={{ fontSize: '0.68rem', color: 'var(--chathams-blue)', border: '1px solid #b8ddf8' }}
+                                            className='px-4 py-1.5 rounded-full font-medium transition-colors hover:bg-[var(--bg-subtle)]'
+                                            style={{ fontSize: '0.68rem', color: 'var(--ink-secondary)', border: '1px solid var(--line-strong)' }}
                                         >
                                             Close
                                         </button>
@@ -356,7 +357,7 @@ const NotificationBell = () => {
 
                     {/* Subject filter chips */}
                     {!detail && chips.length > 1 && (
-                        <div className='flex gap-1 px-2 py-1.5 overflow-x-auto' style={{ borderBottom: '1px solid #eef5fc' }}>
+                        <div className='flex gap-1 px-2 py-1.5 overflow-x-auto' style={{ borderBottom: '1px solid var(--line)' }}>
                             <Chip active={catFilter === 'all'} onClick={() => setCatFilter('all')} label='All' count={notifications.length} unread={unreadCount} />
                             {chips.map(c => (
                                 <Chip key={c.key} active={catFilter === c.key} onClick={() => setCatFilter(c.key)} label={categoryLabel(c.key)} count={c.total} unread={c.unread} />
@@ -369,8 +370,8 @@ const NotificationBell = () => {
                     <div className='max-h-[60vh] overflow-y-auto'>
                         {visible.length === 0 ? (
                             <div className='flex flex-col items-center justify-center py-8 gap-1'>
-                                <Bell className='w-5 h-5' style={{ color: '#b8ddf8' }} />
-                                <span style={{ fontSize: '0.7rem', color: 'var(--regent-gray)' }}>You&apos;re all caught up.</span>
+                                <Bell className='w-5 h-5' style={{ color: 'var(--ink-muted)' }} />
+                                <span style={{ fontSize: '0.7rem', color: 'var(--ink-muted)' }}>You&apos;re all caught up.</span>
                             </div>
                         ) : catFilter === 'all' ? (
                             groups.map(([key, items]) => {
@@ -397,15 +398,15 @@ const NotificationBell = () => {
 
                     {/* Footer: selection action bar while selecting, otherwise activity link */}
                     {!detail && (selectMode ? (
-                        <div className='flex items-center justify-between px-3 py-2' style={{ borderTop: '1px solid #eef5fc', background: '#f8fbff' }}>
-                            <span style={{ fontSize: '0.68rem', fontWeight: 600, color: 'var(--chathams-blue)' }}>
+                        <div className='flex items-center justify-between px-3 py-2' style={{ borderTop: '1px solid var(--line)', background: 'var(--bg-subtle)' }}>
+                            <span style={{ fontSize: '0.68rem', fontWeight: 600, color: 'var(--ink)' }}>
                                 {selected.size} selected
                             </span>
                             <button
                                 onClick={readSelected}
                                 disabled={selected.size === 0}
                                 className='flex items-center gap-1.5 px-3 py-1 rounded-full font-medium text-white disabled:opacity-40 hover:opacity-90 transition-opacity'
-                                style={{ fontSize: '0.66rem', background: 'var(--endeavour)' }}
+                                style={{ fontSize: '0.66rem', background: 'var(--brand)' }}
                             >
                                 <CheckCheck className='w-3.5 h-3.5' /> Mark {selected.size > 0 ? selected.size + ' ' : ''}as read
                             </button>
@@ -413,8 +414,8 @@ const NotificationBell = () => {
                     ) : (
                         <button
                             onClick={() => { setOpen(false); router.push('/activity'); }}
-                            className='w-full flex items-center justify-center gap-1.5 py-2 hover:bg-[var(--selago)] transition-colors'
-                            style={{ fontSize: '0.68rem', color: 'var(--chathams-blue)', borderTop: '1px solid #eef5fc' }}
+                            className='w-full flex items-center justify-center gap-1.5 py-2 hover:bg-[var(--bg-subtle)] transition-colors'
+                            style={{ fontSize: '0.68rem', color: 'var(--brand-strong)', borderTop: '1px solid var(--line)' }}
                         >
                             <Activity className='w-3.5 h-3.5' /> View all activity
                         </button>

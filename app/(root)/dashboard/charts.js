@@ -469,14 +469,14 @@ export const HorizontalBar = (arr, text) => {
         arrNames = []
     }
 
-    // Generate gradient colors based on site color palette
+    // Generate gradient colors based on the chart palette (see design tokens)
     const generateGradientColors = (length) => {
         const colors = [
-            '#0ea5e9', // Sky blue
-            '#38bdf8', // Light sky blue  
-            '#7dd3fc', // Very light sky blue
-            '#6366f1', // Indigo
-            '#818cf8', // Light indigo
+            '#0B6BB8', // blue
+            '#0E9888', // teal
+            '#7A6FE3', // violet
+            '#E8A23D', // amber
+            '#D9557B', // rose
         ];
         return Array.from({ length }, (_, i) => colors[i % colors.length]);
     };
@@ -488,7 +488,7 @@ export const HorizontalBar = (arr, text) => {
             borderRadius: 8,
             borderSkipped: false,
             backgroundColor: generateGradientColors(arrNums.length),
-            hoverBackgroundColor: '#0366ae',
+            hoverBackgroundColor: '#0A5A9C',
         }]
     };
 
@@ -511,9 +511,9 @@ export const HorizontalBar = (arr, text) => {
             },
             tooltip: {
                 backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                titleColor: '#28264f',
-                bodyColor: '#838ca7',
-                borderColor: '#ebf2fc',
+                titleColor: '#171E2E',
+                bodyColor: '#8A93A3',
+                borderColor: '#E8EBF0',
                 borderWidth: 1,
                 cornerRadius: 10,
                 padding: 12,
@@ -535,7 +535,7 @@ export const HorizontalBar = (arr, text) => {
                 beginAtZero: true,
                 ticks: {
                     font: { size: 11 },
-                    color: '#28264f'
+                    color: '#171E2E'
                 },
                 grid: {
                     display: false
@@ -544,7 +544,7 @@ export const HorizontalBar = (arr, text) => {
             x: {
                 ticks: { 
                     font: { size: 11 }, 
-                    color: '#838ca7',
+                    color: '#8A93A3',
                     callback: function (value) {
                         if (value >= 1000000) {
                             return (value / 1000000).toFixed(1) + 'M';
@@ -555,7 +555,7 @@ export const HorizontalBar = (arr, text) => {
                     }
                 },
                 grid: {
-                    color: 'rgba(159, 184, 212, 0.2)',
+                    color: '#E8EBF0',
                 },
                 border: {
                     display: false,

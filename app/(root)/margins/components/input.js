@@ -17,16 +17,16 @@ const showAmount = (nStr) => {
 
 const INPUT_CLASS = `
   w-full
-  bg-[#f8fbff]
-  rounded-lg
+  bg-[var(--bg-subtle)]
+  rounded-[8px]
   px-2
   text-[0.68rem] xl:text-[0.72rem] 2xl:text-[0.75rem] 3xl:text-[0.8125rem]
-  !text-[var(--port-gore)]
-  border border-[#d8e8f5]
+  !text-[var(--ink)]
+  border border-[var(--line-strong)]
   outline-none
-  focus:ring-1
-  focus:ring-[var(--endeavour)]
-  focus:border-[var(--endeavour)]
+  focus:ring-2
+  focus:ring-[var(--brand-soft)]
+  focus:border-[var(--brand)]
   shadow-none
   transition
 `;

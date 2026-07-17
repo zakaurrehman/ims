@@ -1,13 +1,20 @@
 import './globals.css';
-import { Poppins } from 'next/font/google';
+import { Inter, Manrope } from 'next/font/google';
 import Provider from './providers'
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GlobalSearchProvider } from '../contexts/useGlobalSearchContext';
 
-const poppins = Poppins({
-	weight: ['300', '400', '500', '600', '700'],
+// Inter = UI / body / tables (tabular numerals); Manrope = headings & stat numbers.
+const inter = Inter({
+	weight: ['400', '500', '600'],
 	subsets: ['latin'],
-	variable: '--font-poppins',
+	variable: '--font-inter',
+});
+
+const manrope = Manrope({
+	weight: ['600', '700', '800'],
+	subsets: ['latin'],
+	variable: '--font-manrope',
 });
 
 export const metadata = {
@@ -29,7 +36,9 @@ export default function RootLayout({ children }) {
 
 	return (
 		<html lang="en">
-			<body className={poppins.className} style={{ '--font-poppins': poppins.style.fontFamily }}>
+			{/* --font-poppins is aliased to Inter so legacy font-poppins/var(--font-poppins)
+			    call sites render the new font until they are migrated (Phase 3). */}
+			<body className={`${inter.variable} ${manrope.variable} ${inter.className}`} style={{ '--font-poppins': inter.style.fontFamily }}>
 				<Provider>
 					<GlobalSearchProvider>
 						<div>{children}</div>

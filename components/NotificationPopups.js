@@ -8,20 +8,21 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { X, FileText, Receipt, Banknote, Package, Settings as SettingsIcon, Activity } from 'lucide-react';
 import { routeFor } from '../utils/notificationRouting';
+import { TONES } from './statusUtils';
 
 const AUTO_DISMISS_MS = 8000;
 
 // Same entity iconography + tints as the bell dropdown, so the pop-up reads as
 // part of the same system.
 const ENTITY_ICON = {
-    contract: { Icon: FileText, color: '#0366ae', bg: '#dbeeff' },
-    invoice: { Icon: Receipt, color: '#15803d', bg: '#f0fdf4' },
-    expense: { Icon: Banknote, color: '#b45309', bg: '#fffbeb' },
-    companyexpense: { Icon: Banknote, color: '#b45309', bg: '#fffbeb' },
+    contract: { Icon: FileText, color: 'var(--brand)', bg: 'var(--brand-soft)' },
+    invoice: { Icon: Receipt, color: TONES.green.text, bg: TONES.green.bg },
+    expense: { Icon: Banknote, color: TONES.amber.text, bg: TONES.amber.bg },
+    companyexpense: { Icon: Banknote, color: TONES.amber.text, bg: TONES.amber.bg },
     stock: { Icon: Package, color: '#7c3aed', bg: '#f5f3ff' },
-    settings: { Icon: SettingsIcon, color: '#475569', bg: '#f1f5f9' },
+    settings: { Icon: SettingsIcon, color: TONES.gray.text, bg: TONES.gray.bg },
 };
-const SEVERITY_ACCENT = { success: '#16a34a', warning: '#d97706', error: '#dc2626', info: 'var(--endeavour)' };
+const SEVERITY_ACCENT = { success: TONES.green.text, warning: TONES.amber.text, error: TONES.red.text, info: TONES.blue.text };
 
 function PopupCard({ n, onDismiss, onOpen }) {
     const [hovered, setHovered] = useState(false);
@@ -41,7 +42,7 @@ function PopupCard({ n, onDismiss, onOpen }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hovered, n.popupId]);
 
-    const { Icon, color, bg } = ENTITY_ICON[n.entityType] || { Icon: Activity, color: '#475569', bg: '#f1f5f9' };
+    const { Icon, color, bg } = ENTITY_ICON[n.entityType] || { Icon: Activity, color: TONES.gray.text, bg: TONES.gray.bg };
     const accent = SEVERITY_ACCENT[n.severity] || SEVERITY_ACCENT.info;
 
     return (
@@ -52,10 +53,8 @@ function PopupCard({ n, onDismiss, onOpen }) {
                 background: 'rgba(255,255,255,0.92)',
                 backdropFilter: 'blur(10px)',
                 WebkitBackdropFilter: 'blur(10px)',
-                border: '1px solid #d8e8f5',
-                boxShadow: hovered
-                    ? '0 14px 38px rgba(16,58,122,0.18), 0 2px 8px rgba(16,58,122,0.08)'
-                    : '0 10px 30px rgba(16,58,122,0.12), 0 2px 6px rgba(16,58,122,0.06)',
+                border: '1px solid var(--line)',
+                boxShadow: 'var(--shadow-md)',
             }}
             onClick={() => onOpen(n)}
             onMouseEnter={() => setHovered(true)}
@@ -76,7 +75,7 @@ function PopupCard({ n, onDismiss, onOpen }) {
                     <div className='min-w-0 flex-1'>
                         <div className='flex items-center justify-between gap-2'>
                             <span className='font-semibold truncate font-poppins'
-                                style={{ fontSize: '0.72rem', color: 'var(--chathams-blue)' }}>
+                                style={{ fontSize: '0.72rem', color: 'var(--ink)' }}>
                                 {n.entityLabel || 'Notification'}
                             </span>
                             <span className='shrink-0 rounded-full px-1.5 py-[1px] font-medium uppercase tracking-wide'
@@ -84,14 +83,14 @@ function PopupCard({ n, onDismiss, onOpen }) {
                                 {n.severity || 'info'}
                             </span>
                         </div>
-                        <p className='mt-0.5' style={{ fontSize: '0.68rem', color: 'var(--port-gore)', lineHeight: 1.4 }}>
+                        <p className='mt-0.5' style={{ fontSize: '0.68rem', color: 'var(--ink)', lineHeight: 1.4 }}>
                             {n.message || n.type}
                         </p>
                         <div className='mt-1 flex items-center justify-between'>
-                            <span style={{ fontSize: '0.56rem', color: 'var(--regent-gray)' }}>
+                            <span style={{ fontSize: '0.56rem', color: 'var(--ink-muted)' }}>
                                 {n.actorName && n.actorName !== 'System' ? `by ${n.actorName}` : 'System'} · just now
                             </span>
-                            <span className='font-medium' style={{ fontSize: '0.58rem', color: 'var(--endeavour)' }}>
+                            <span className='font-medium' style={{ fontSize: '0.58rem', color: 'var(--brand)' }}>
                                 Open →
                             </span>
                         </div>
@@ -99,16 +98,16 @@ function PopupCard({ n, onDismiss, onOpen }) {
 
                     <button
                         onClick={(e) => { e.stopPropagation(); onDismiss(n.popupId); }}
-                        className='p-1 -mt-1 -mr-1 rounded-full hover:bg-[#dbeeff] shrink-0 transition-colors'
+                        className='p-1 -mt-1 -mr-1 rounded-full hover:bg-[var(--bg-subtle)] shrink-0 transition-colors'
                         aria-label='Dismiss notification'
                     >
-                        <X className='w-3.5 h-3.5' style={{ color: 'var(--regent-gray)' }} />
+                        <X className='w-3.5 h-3.5' style={{ color: 'var(--ink-muted)' }} />
                     </button>
                 </div>
             </div>
 
             {/* Auto-dismiss progress — pauses with the countdown while hovered */}
-            <div className='h-[3px] w-full' style={{ background: '#eef5fc' }}>
+            <div className='h-[3px] w-full' style={{ background: 'var(--bg-sunken)' }}>
                 <div
                     key={hovered ? 'paused' : 'running'}
                     className='h-full'

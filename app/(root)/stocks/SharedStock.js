@@ -24,6 +24,7 @@ import { UserAuth } from '@contexts/useAuthContext';
 import { loadSharedStock, saveSharedStock, deleteSharedStock, loadAllStockData, filteredArray } from '@utils/utils';
 import { getTtl } from '@utils/languages';
 import { TableSkeleton } from "@components/skeletons";
+import { TONES } from '@components/statusUtils';
 
 const OWNERS = ['IMS', 'GIS'];
 const blankLot = () => ({ id: '', descriptionText: '', qnty: '', unitPrc: '', stock: '', supplier: '', cur: 'us', status: '', owners: ['IMS', 'GIS'], sourceId: '', sourceAccount: '', sourcePo: '' });
@@ -142,7 +143,7 @@ const SharedStock = () => {
             accessorKey: 'ownersLabel', header: 'Owners',
             cell: p => (
                 <span className='inline-flex items-center gap-1 px-2 py-0.5 rounded-full font-semibold whitespace-nowrap'
-                    style={{ fontSize: '0.6rem', background: '#eef2ff', color: '#3730a3', border: '1px solid #c7d2fe' }}>
+                    style={{ fontSize: '0.6rem', background: TONES.blue.bg, color: TONES.blue.text, border: `1px solid ${TONES.blue.border}` }}>
                     <Share2 className='w-2.5 h-2.5' />{p.getValue()}
                 </span>
             ),
@@ -206,16 +207,16 @@ const SharedStock = () => {
     };
 
     const totalMt = rows.reduce((s, r) => s + (parseFloat(r.qnty) || 0), 0);
-    const inputCls = 'w-full rounded-lg bg-[#f8fbff] border border-[#d8e8f5] px-2 h-8 text-xs text-[var(--chathams-blue)] focus:outline-none focus:border-[var(--endeavour)]';
-    const labelCls = 'text-[11px] font-medium text-[var(--chathams-blue)] mb-0.5 block';
+    const inputCls = 'w-full rounded-[10px] bg-white border border-[var(--line-strong)] px-2 h-8 text-xs text-[var(--ink)] focus:outline-none focus:border-[var(--brand)]';
+    const labelCls = 'text-[11px] font-medium text-[var(--ink-secondary)] mb-0.5 block';
 
     if (loading) return <div className='p-6'><TableSkeleton rows={6} title={false} /></div>;
 
     return (
         <div>
             <div className='flex items-center justify-between flex-wrap gap-2 mb-3'>
-                <div className='flex items-center gap-2 responsiveTextTable text-[var(--regent-gray)]'>
-                    <Share2 className='w-4 h-4 text-[var(--endeavour)]' />
+                <div className='flex items-center gap-2 responsiveTextTable text-[var(--ink-muted)]'>
+                    <Share2 className='w-4 h-4 text-[var(--brand)]' />
                     <span>Inventory shared between IMS &amp; GIS · {rows.length} lot{rows.length !== 1 ? 's' : ''} · {new Intl.NumberFormat('en-US', { maximumFractionDigits: 3 }).format(totalMt)} MT</span>
                 </div>
                 <button onClick={openAdd} className='blackButton flex items-center gap-1 text-xs'>
@@ -224,7 +225,7 @@ const SharedStock = () => {
             </div>
 
             {rows.length === 0 ? (
-                <div className='rounded-2xl border border-dashed border-[#b8ddf8] bg-white p-8 text-center responsiveTextTable text-[var(--regent-gray)]'>
+                <div className='rounded-2xl border border-dashed border-[var(--line)] bg-white p-8 text-center responsiveTextTable text-[var(--ink-muted)]'>
                     No shared stock yet. Use <b>Add shared stock</b> to record inventory jointly held by IMS &amp; GIS —
                     no contract or invoice needed. It appears here for both accounts.
                 </div>
@@ -235,7 +236,7 @@ const SharedStock = () => {
             <Modal isOpen={open} setIsOpen={setOpen} title={lot.id ? 'Edit shared stock' : 'Add shared stock'} w='max-w-2xl'>
                 <div className='p-3'>
                     <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
-                        <div className='sm:col-span-2 rounded-xl border border-[#b8ddf8] bg-[#f4f9ff] p-2.5'>
+                        <div className='sm:col-span-2 rounded-xl border border-[var(--line)] bg-[var(--bg-subtle)] p-2.5'>
                             <label className={labelCls}>Pick from my current stock</label>
                             <Selector
                                 arr={pickOptions}
@@ -245,7 +246,7 @@ const SharedStock = () => {
                                 secondaryName='_label'
                                 clear={() => setLot(prev => ({ ...prev, sourceId: '', sourceAccount: '', sourcePo: '' }))}
                             />
-                            <p className='text-[10px] text-[var(--regent-gray)] mt-1'>
+                            <p className='text-[10px] text-[var(--ink-muted)] mt-1'>
                                 Selecting a lot fills everything in from your inventory ({accountName}) — lower the quantity if you&apos;re sharing only part of it. The lot also stays in your own stock list.
                             </p>
                         </div>
@@ -281,12 +282,12 @@ const SharedStock = () => {
                             <label className={labelCls}>Owners</label>
                             <div className='flex items-center gap-3'>
                                 {OWNERS.map(o => (
-                                    <label key={o} className='flex items-center gap-1.5 text-xs text-[var(--port-gore)] cursor-pointer'>
-                                        <input type='checkbox' checked={lot.owners.includes(o)} onChange={() => toggleOwner(o)} className='w-3.5 h-3.5 accent-[var(--endeavour)]' />
+                                    <label key={o} className='flex items-center gap-1.5 text-xs text-[var(--ink)] cursor-pointer'>
+                                        <input type='checkbox' checked={lot.owners.includes(o)} onChange={() => toggleOwner(o)} className='w-3.5 h-3.5 accent-[var(--brand)]' />
                                         {o}
                                     </label>
                                 ))}
-                                <span className='text-[10px] text-[var(--regent-gray)]'>Both accounts see this lot regardless; owners records who holds it.</span>
+                                <span className='text-[10px] text-[var(--ink-muted)]'>Both accounts see this lot regardless; owners records who holds it.</span>
                             </div>
                         </div>
                     </div>

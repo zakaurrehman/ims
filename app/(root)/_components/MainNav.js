@@ -5,7 +5,7 @@ import { UserAuth } from '../../../contexts/useAuthContext'
 import { SettingsContext } from '../../../contexts/useSettingsContext'
 import { getTtl } from '../../../utils/languages'
 import { useRouter } from 'next/navigation'
-import { IoClose } from 'react-icons/io5';
+import { X, Search, Bot, LogOut as LogOutIcon, Settings } from 'lucide-react';
 import Image from 'next/image';
 import { useGlobalSearch } from '../../../contexts/useGlobalSearchContext'
 import Tltip from '../../../components/tlTip'
@@ -26,11 +26,11 @@ const Clock = () => {
 
   if (!now) return null
   return (
-    <div className='flex flex-col items-end leading-tight select-none pointer-events-none pl-4 border-l border-[#b8ddf8]'>
-      <span style={{ fontSize: '0.68rem', color: 'var(--chathams-blue)', fontWeight: 500, opacity: 0.8 }}>
+    <div className='flex flex-col items-end leading-tight select-none pointer-events-none pl-4 border-l border-[var(--line)]'>
+      <span style={{ fontSize: '0.68rem', color: 'var(--ink-muted)', fontWeight: 500 }}>
         {now.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' })}
       </span>
-      <span style={{ fontSize: '0.85rem', color: 'var(--chathams-blue)', fontWeight: 600, letterSpacing: '0.05em' }}>
+      <span style={{ fontSize: '0.85rem', color: 'var(--ink)', fontWeight: 600, letterSpacing: '0.05em', fontVariantNumeric: 'tabular-nums' }}>
         {now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
       </span>
     </div>
@@ -85,11 +85,12 @@ export const MainNav = () => {
 
   return (
     <div
-      className='fixed top-0 left-0 right-0 px-1 md:px-2 xl:px-3 py-3 hidden md:flex items-center bg-[#e3f3ff] z-[100] rounded-lg'
+      className='fixed top-0 left-0 right-0 px-1 md:px-2 xl:px-3 py-3 hidden md:flex items-center bg-white z-[100] rounded-lg'
       style={{
         height: 'clamp(56px, 7vh, 80px)',
         borderRadius: '12px',
-        border: '1.5px solid #b8ddf8',
+        border: '1px solid var(--line)',
+        boxShadow: 'var(--shadow-xs)',
         padding: '0 clamp(8px, 1vw, 16px)', // reduced horizontal padding
       }}
     >
@@ -130,11 +131,11 @@ export const MainNav = () => {
           {!openSearch ? (
             <Tltip tltpText={getTtl('Search', ln) || 'Search'} direction='bottom'>
               <button
-                className='flex items-center justify-center w-10 h-10'
+                className='flex items-center justify-center w-9 h-9 rounded-[10px] text-[var(--ink-secondary)] hover:bg-[var(--bg-subtle)] hover:text-[var(--ink)] transition-colors'
                 onClick={() => setOpenSearch(true)}
                 aria-label='Search'
               >
-                <img src='/logo/search.svg' alt='Search' className='w-5 h-5' />
+                <Search size={18} strokeWidth={1.75} />
               </button>
             </Tltip>
           ) : (
@@ -146,24 +147,24 @@ export const MainNav = () => {
                 autoFocus
                 onBlur={() => setOpenSearch(false)}
                 onChange={(e) => setQuery(e.target.value)}
-                className='ml-2 w-60 pl-3 pr-8 py-2 rounded-full bg-gray-50 border border-gray-200 shadow-sm focus:border-[var(--rock-blue)] focus:bg-white focus:outline-none placeholder:text-[var(--regent-gray)] placeholder:opacity-100 transition-all'
-                style={{ fontSize: 'inherit', color: query ? 'var(--port-gore)' : 'var(--port-gore)' }}
+                className='ml-2 w-60 pl-3 pr-8 py-2 rounded-[10px] bg-[var(--bg-subtle)] border border-[var(--line)] focus:border-[var(--brand)] focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-[var(--brand-soft)] placeholder:text-[var(--ink-muted)] placeholder:opacity-100 transition-all'
+                style={{ fontSize: 'inherit', color: 'var(--ink)' }}
               />
               <button
                 type="button"
                 onClick={() => { setOpenSearch(false); setQuery(''); }}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--regent-gray)] hover:text-red-500 transition-colors"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--ink-muted)] hover:text-[var(--ink)] transition-colors"
                 tabIndex={-1}
                 aria-label="Close search"
               >
-                <IoClose size={20} />
+                <X size={18} />
               </button>
             </div>
           )}
 
           {/* Results dropdown, only if openSearch and query */}
           {openSearch && query && (
-            <div className='absolute left-0 top-full mt-2 w-72 bg-white rounded-xl shadow-lg border border-[var(--selago)] z-[9999] max-h-96 overflow-y-auto p-3'>
+            <div className='absolute left-0 top-full mt-2 w-72 bg-white rounded-xl border border-[var(--line)] z-[9999] max-h-96 overflow-y-auto p-2' style={{ boxShadow: 'var(--shadow-md)' }}>
               {searchResults.length > 0 ? (
                 searchResults.map((r) => (
                   <button
@@ -171,14 +172,14 @@ export const MainNav = () => {
                     type='button'
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={() => onPickResult(r)}
-                    className='w-full text-left px-4 py-3 hover:bg-[var(--selago)] transition-all rounded-lg'
+                    className='w-full text-left px-3 py-2.5 hover:bg-[var(--bg-subtle)] transition-all rounded-lg'
                   >
-                    <div className='responsiveText font-medium text-[var(--port-gore)]'>{r.title}</div>
-                    <div className='responsiveText text-[var(--regent-gray)] truncate'>{r.subtitle}</div>
+                    <div className='responsiveText font-medium text-[var(--ink)]'>{r.title}</div>
+                    <div className='responsiveText text-[var(--ink-muted)] truncate'>{r.subtitle}</div>
                   </button>
                 ))
               ) : (
-                <div className='responsiveText text-[var(--regent-gray)] px-4 py-2'>No results</div>
+                <div className='responsiveText text-[var(--ink-muted)] px-4 py-2'>No results</div>
               )}
             </div>
           )}
@@ -186,13 +187,13 @@ export const MainNav = () => {
 
         <Tltip tltpText={getTtl('Ask question', ln) || 'Ask question'} direction='bottom'>
           <button
-            className='flex items-center justify-center w-10 h-10'
+            className='flex items-center justify-center w-9 h-9 rounded-[10px] text-[var(--ink-secondary)] hover:bg-[var(--bg-subtle)] hover:text-[var(--ink)] transition-colors'
             onClick={() => {
               if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('ims:openChat'))
             }}
             aria-label='Ask question'
           >
-            <img src='/logo/Ai bot.svg' alt='Chatbot' className='w-5 h-5' />
+            <Bot size={18} strokeWidth={1.75} />
           </button>
         </Tltip>
         {/* Notification center — live bell with unread badge, snooze & sound */}
@@ -200,44 +201,35 @@ export const MainNav = () => {
         {/* Logout Icon */}
         <Tltip tltpText={getTtl('Logout', ln) || 'Logout'} direction='bottom'>
           <button
-            className='flex items-center justify-center w-10 h-10'
+            className='flex items-center justify-center w-9 h-9 rounded-[10px] text-[var(--ink-secondary)] hover:bg-[var(--bg-subtle)] hover:text-[var(--ink)] transition-colors'
             onClick={LogOut}
             aria-label='Logout'
           >
-            <img src='/logo/logout.svg' alt='Logout' className='w-5 h-5' />
+            <LogOutIcon size={18} strokeWidth={1.75} />
           </button>
         </Tltip>
         {/* User Role Button and Profile Icon: no gap between */}
         <div className="flex items-center ml-2">
-          <span
-            className="inline-flex items-center px-2 py-1.5 rounded-md bg-[var(--endeavour)] text-white responsiveText font-medium shadow-md"
-            style={{
-              minWidth: 60,
-              justifyContent: 'center',
-              marginRight: 0,
-              borderTopRightRadius: 0,
-              borderBottomRightRadius: 0
-            }}
-          >
-            {user?.displayName || user?.email?.split('@')[0] || 'User'}
-          </span>
-          <div className='relative' ref={dropdownRef} style={{ marginLeft: 0 }}>
+          <div className='relative' ref={dropdownRef}>
             <button
               onClick={() => setShowDropdown(!showDropdown)}
-              className='flex items-center bg-white gap-2 p-1 rounded-md hover:bg-[var(--selago)] transition-all'
+              className='flex items-center gap-2 pl-1.5 pr-2.5 py-1 rounded-[10px] border border-[var(--line)] bg-white hover:bg-[var(--bg-subtle)] transition-colors'
               aria-label='User menu'
             >
-              <div className='w-6  flex items-center justify-center text-white overflow-hidden'>
-                <img src="/logo/person.svg" alt="Profile" className="w-6 h-6 inline-block align-middle" />
-              </div>
+              <span className='w-6 h-6 rounded-full bg-[var(--brand-soft)] text-[var(--brand)] flex items-center justify-center text-[0.6875rem] font-semibold uppercase'>
+                {(user?.displayName || user?.email || 'U').charAt(0)}
+              </span>
+              <span className='responsiveText font-medium text-[var(--ink)]' style={{ maxWidth: 120, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {user?.displayName || user?.email?.split('@')[0] || 'User'}
+              </span>
             </button>
             {showDropdown && (
-              <div className='absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-lg border border-[var(--selago)] py-2 z-[9999] overflow-visible'>
-                <div className='px-4 py-3 border-b border-[var(--selago)]'>
-                  <p className='responsiveTextTable font-medium text-[var(--port-gore)]'>
+              <div className='absolute right-0 top-full mt-2 w-56 bg-white rounded-xl border border-[var(--line)] py-2 z-[9999] overflow-visible' style={{ boxShadow: 'var(--shadow-md)' }}>
+                <div className='px-4 py-3 border-b border-[var(--line)]'>
+                  <p className='responsiveTextTable font-medium text-[var(--ink)]'>
                     {user?.displayName || user?.email?.split('@')[0] || 'User'}
                   </p>
-                  <p className='responsiveTextTable text-[var(--regent-gray)] truncate'>{user?.email || ''}</p>
+                  <p className='responsiveTextTable text-[var(--ink-muted)] truncate'>{user?.email || ''}</p>
                 </div>
                 <div className='py-1'>
                   <button
@@ -245,16 +237,16 @@ export const MainNav = () => {
                       router.push('/settings')
                       setShowDropdown(false)
                     }}
-                    className='w-full flex items-center gap-3 px-4 py-2 text-[0.5625rem] xl:text-[0.657rem] 2xl:text-[0.71875rem] 3xl:text-[0.75rem] text-[var(--port-gore)] hover:bg-[var(--selago)] hover:text-[var(--endeavour)] transition-all'
+                    className='w-full flex items-center gap-2 px-4 py-2 text-xs text-[var(--ink-secondary)] hover:bg-[var(--bg-subtle)] hover:text-[var(--ink)] transition-all'
                   >
-                    <img src='/logo/Settings.svg' alt='Settings' className='w-4 h-4 mr-2' />
+                    <Settings size={14} strokeWidth={1.75} />
                     {getTtl('Settings', ln) || 'Settings'}
                   </button>
                   <button
                     onClick={LogOut}
-                    className='w-full flex items-center gap-3 px-4 py-2 text-[0.5625rem] xl:text-[0.657rem] 2xl:text-[0.71875rem] 3xl:text-[0.75rem] text-red-500 hover:bg-red-50 transition-all'
+                    className='w-full flex items-center gap-2 px-4 py-2 text-xs text-[var(--bad-text)] hover:bg-[var(--bad-bg)] transition-all'
                   >
-                    <img src='/logo/logout.svg' alt='Logout' className='w-4 h-4 mr-2' />
+                    <LogOutIcon size={14} strokeWidth={1.75} />
                     {getTtl('Logout', ln) || 'Logout'}
                   </button>
                 </div>

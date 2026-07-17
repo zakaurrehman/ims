@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { SettingsContext } from "../contexts/useSettingsContext";
-import { FaRegCheckCircle, FaRegTimesCircle } from 'react-icons/fa';
+import { CheckCircle2, XCircle } from 'lucide-react';
 
 const Toast = () => {
     const { setToast, toast } = useContext(SettingsContext);
@@ -30,19 +30,20 @@ const Toast = () => {
     return (
         <div>
             {toast?.show && (
-                <div className={`gap-3 flex text-sm px-4 py-3 bottom-4 right-4 z-[70] fixed rounded-xl items-center shadow-lg fadeInToast border
-                ${toast?.clr === 'success'
-                    ? 'bg-[var(--endeavour)] border-[#0255a3] text-white'
-                    : 'bg-red-600 border-red-700 text-white'}`}>
+                <div className={`gap-3 flex text-[0.8125rem] font-medium px-4 py-3 bottom-4 right-4 z-[70] fixed rounded-xl items-center fadeInToast border bg-white text-[var(--ink)]
+                ${toast?.clr === 'success' ? 'border-[var(--ok-border)]' : 'border-[var(--bad-border)]'}`}
+                    style={{ boxShadow: 'var(--shadow-md)' }}>
+                    <span className={`w-1 self-stretch rounded-full flex-shrink-0 ${toast?.clr === 'success' ? 'bg-[var(--ok-text)]' : 'bg-[var(--bad-text)]'}`} />
                     {toast?.clr === 'success'
-                        ? <FaRegCheckCircle className='scale-150 text-white flex-shrink-0' />
-                        : <FaRegTimesCircle className='scale-150 text-white flex-shrink-0' />}
+                        ? <CheckCircle2 size={18} className='text-[var(--ok-text)] flex-shrink-0' />
+                        : <XCircle size={18} className='text-[var(--bad-text)] flex-shrink-0' />}
                     <div>{toast?.text || ''}</div>
                 </div>
             )}
             {secondaryToast && toast?.clr === 'success' && (
-                <div className="gap-3 flex text-sm px-4 py-3 bottom-4 right-4 z-[70] fixed rounded-xl items-center shadow-lg fadeInToast border border-[#b8ddf8] bg-[#ebf2fc] text-[var(--chathams-blue)]">
-                    <FaRegCheckCircle className='scale-125 text-[var(--endeavour)] flex-shrink-0' />
+                <div className="gap-3 flex text-[0.8125rem] font-medium px-4 py-3 bottom-4 right-4 z-[70] fixed rounded-xl items-center fadeInToast border border-[var(--line)] bg-white text-[var(--ink-secondary)]"
+                    style={{ boxShadow: 'var(--shadow-md)' }}>
+                    <CheckCircle2 size={16} className='text-[var(--brand)] flex-shrink-0' />
                     <div>Please verify the saved data again!</div>
                 </div>
             )}

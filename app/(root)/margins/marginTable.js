@@ -31,7 +31,7 @@ const MarginTable = memo(function MarginTable(props) {
                 style={{
                     background: '#ffffff',
                     borderRadius: '12px',
-                    border: '1px solid #b8ddf8',
+                    border: '1px solid var(--line)',
                     marginBottom: '0px',
                     padding: '4px 8px'
                 }}
@@ -49,24 +49,24 @@ const MarginTable = memo(function MarginTable(props) {
                                 minHeight: '32px'
                             }}
                         >
-                            <div className="bg-[#dbeeff] rounded-full px-3 py-1 flex items-center gap-2 w-fit">
+                            <div className="bg-[var(--bg-subtle)] rounded-full px-3 py-1 flex items-center gap-2 w-fit">
 
   <DisclosureButton className="flex items-center justify-center hover:opacity-80 transition-all" onClick={() => saveOpenClose(!open)}>
     {!open ? (
       <IoAddCircleOutline
         className="text-[14px]"
-        style={{ color: 'var(--chathams-blue)' }}
+        style={{ color: 'var(--ink)' }}
       />
     ) : (
       <FiMinusCircle
         className="text-[14px]"
-        style={{ color: 'var(--chathams-blue)' }}
+        style={{ color: 'var(--ink)' }}
       />
     )}
   </DisclosureButton>
 
   <span
-    className="text-[var(--chathams-blue)] responsiveText font-medium"
+    className="text-[var(--ink)] responsiveText font-medium"
   >
     {`${month}-${year}`}
   </span>
@@ -80,7 +80,7 @@ const MarginTable = memo(function MarginTable(props) {
                                         <div 
                                             className="font-medium mb-0.5 responsiveText font-poppins"
                                             style={{
-                                                color: 'var(--endeavour)',
+                                                color: 'var(--brand)',
                                                                                                 lineHeight: '1.1'
                                             }}
                                         >
@@ -97,7 +97,7 @@ const MarginTable = memo(function MarginTable(props) {
                                                 decimalScale={3}
                                                 fixedDecimalScale
                                                 style={{
-                                                    color: 'var(--chathams-blue)',
+                                                    color: 'var(--ink)',
                                                     lineHeight: '1.2'
                                                 }}
                                             />
@@ -108,7 +108,7 @@ const MarginTable = memo(function MarginTable(props) {
                                         <div 
                                             className="font-medium mb-0.5 responsiveText font-poppins"
                                             style={{
-                                                color: 'var(--endeavour)',
+                                                color: 'var(--brand)',
                                                                                                 lineHeight: '1.1'
                                             }}
                                         >
@@ -126,7 +126,7 @@ const MarginTable = memo(function MarginTable(props) {
                                                 decimalScale={2}
                                                 fixedDecimalScale
                                                 style={{
-                                                    color: 'var(--chathams-blue)',
+                                                    color: 'var(--ink)',
                                                     lineHeight: '1.2'
                                                 }}
                                             />
@@ -137,7 +137,7 @@ const MarginTable = memo(function MarginTable(props) {
                                         <div 
                                             className="font-medium mb-0.5 responsiveText font-poppins"
                                             style={{
-                                                color: 'var(--endeavour)',
+                                                color: 'var(--brand)',
                                                                                                 lineHeight: '1.1'
                                             }}
                                         >
@@ -154,7 +154,7 @@ const MarginTable = memo(function MarginTable(props) {
                                                 decimalScale={3}
                                                 fixedDecimalScale
                                                 style={{
-                                                    color: totalOpenShip > 0 ? '#dc2626' : 'var(--chathams-blue)',
+                                                    color: totalOpenShip > 0 ? 'var(--bad-text)' : 'var(--ink)',
                                                     lineHeight: '1.2'
                                                 }}
                                             />
@@ -165,7 +165,7 @@ const MarginTable = memo(function MarginTable(props) {
                                         <div 
                                             className="font-medium mb-0.5 responsiveText font-poppins"
                                             style={{
-                                                color: 'var(--endeavour)',
+                                                color: 'var(--brand)',
                                                                                                 lineHeight: '1.1'
                                             }}
                                         >
@@ -183,7 +183,7 @@ const MarginTable = memo(function MarginTable(props) {
                                                 decimalScale={2}
                                                 fixedDecimalScale
                                                 style={{
-                                                    color: remaining > 0 ? '#dc2626' : 'var(--chathams-blue)',
+                                                    color: remaining > 0 ? 'var(--bad-text)' : 'var(--ink)',
                                                     lineHeight: '1.2'
                                                 }}
                                             />
@@ -195,35 +195,17 @@ const MarginTable = memo(function MarginTable(props) {
 
                             <div className="flex items-center gap-1.5">
                                 <button
-                                    className="px-3 py-1.5 rounded-full font-normal transition-all duration-150 hover:opacity-90"
-                                    style={{
-                                        background: 'var(--endeavour)',
-                                        color: '#FFFFFF',
-                                        fontSize: '0.62rem',
-                                        fontWeight: '400',
-                                        border: '1px solid transparent',
-                                        minWidth: '45px',
-                                        height: '28px',
-                                        lineHeight: '1'
-                                    }}
+                                    className="whiteButton"
                                     onClick={() => addItem(month)}
-                                    onMouseEnter={(e) => {
-                                        e.target.style.transform = 'translateY(-1px)';
-                                        e.target.style.boxShadow = '0 3px 8px rgba(24, 61, 121, 0.3)';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.target.style.transform = 'translateY(0)';
-                                        e.target.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
-                                    }}
                                 >
                                     Add
                                 </button>
                                 <button
-                                    className="p-1.5 rounded-lg transition-colors duration-150 hover:bg-red-50"
+                                    className="p-1.5 rounded-lg transition-colors duration-150 hover:bg-[var(--bad-bg)]"
                                     onClick={() => deleteMonth(month)}
                                     title="Delete month"
                                     style={{
-                                        color: '#ef4444',
+                                        color: 'var(--bad-text)',
                                         width: '28px',
                                         height: '28px',
                                         display: 'flex',
@@ -241,7 +223,7 @@ const MarginTable = memo(function MarginTable(props) {
                             <div 
                                 className="mt-1 w-full"
                                 style={{
-                                    borderTop: '1px solid #b8ddf8',
+                                    borderTop: '1px solid var(--line)',
                                     paddingTop: '8px'
                                 }}
                             >

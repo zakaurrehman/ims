@@ -1,12 +1,13 @@
 // Pure status → color helpers (no JSX/React) so they're unit-testable in isolation
 // and reusable anywhere. The <StatusBadge> component in StatusBadge.js renders these.
 
+// One pastel system: soft bg, dark text, faint border (see globals.css :root tokens).
 export const TONES = {
-    green: { bg: '#dcfce7', text: '#15803d', border: '#86efac' },
-    amber: { bg: '#fef3c7', text: '#92400e', border: '#fde68a' },
-    red: { bg: '#fee2e2', text: '#991b1b', border: '#fca5a5' },
-    blue: { bg: '#dbeeff', text: '#0366ae', border: '#b8ddf8' },
-    gray: { bg: '#f1f5f9', text: '#475569', border: '#e2e8f0' },
+    green: { bg: '#E5F6EC', text: '#177245', border: '#BFE8D0' },
+    amber: { bg: '#FDF3E1', text: '#9A6215', border: '#F5DFAE' },
+    red: { bg: '#FDEAEA', text: '#B42332', border: '#F5C6C9' },
+    blue: { bg: '#E8F2FB', text: '#0B5C99', border: '#C5DEF2' },
+    gray: { bg: '#F0F2F5', text: '#5B6472', border: '#DDE1E8' },
 };
 
 // Map a free-text status label to a tone. Order matters: negative/partial checks

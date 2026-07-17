@@ -315,8 +315,8 @@ const ContractModal = () => {
 				<div className="mb-2">
 					<button
 						onClick={() => setDocsOpen(v => !v)}
-						className="flex items-center gap-2 w-full px-3 py-1.5 rounded-full border border-[#b8ddf8]
-							bg-[#f8fbff] text-[0.72rem] font-medium text-[var(--chathams-blue)] hover:bg-[var(--selago)] transition-all"
+						className="flex items-center gap-2 w-full px-3 py-1.5 rounded-full border border-[var(--line)]
+							bg-[var(--bg-subtle)] text-[0.72rem] font-medium text-[var(--chathams-blue)] hover:bg-[var(--selago)] transition-all"
 					>
 						<ScrollText size={13} />
 						<span>Annex VII / ISF Documents</span>
@@ -331,7 +331,7 @@ const ContractModal = () => {
 				</div>
 
 				<div className='grid grid-cols-12 gap-3 pt-1'>
-					<div className='col-span-1  border border-[#b8ddf8] p-2 rounded-2xl'>
+					<div className='col-span-1  border border-[var(--line)] p-2 rounded-2xl'>
 						<p className='responsiveText font-medium text-[var(--chathams-blue)] text-[0.75rem]'>{getTtl('Invoices', ln)}:</p>
 						{valueCon.invoices.length > 0 &&
 							<ul className="flex flex-col mt-1 overflow-auto rounded-2xl divide-y max-h-32" >
@@ -340,7 +340,7 @@ const ContractModal = () => {
 										<li key={i} onClick={() => selectRow(i)}
 											className={`shrink-0 items-center py-1 px-1.5 responsiveTextTable truncate
 									${valueCon.invoices[i]['id'] === valueInv.id && 'font-medium bg-slate-100 '}
-									${(isInvCreationCNFL && x.invType !== '1111') ? 'bg-[#f3f4f6] pointer-events-none cursor-not-allowed text-[var(--regent-gray)]' : 'cursor-pointer text-[var(--port-gore)]'}
+									${(isInvCreationCNFL && x.invType !== '1111') ? 'bg-[#F0F2F5] pointer-events-none cursor-not-allowed text-[var(--regent-gray)]' : 'cursor-pointer text-[var(--port-gore)]'}
 								
 								}
 									`}
@@ -351,7 +351,7 @@ const ContractModal = () => {
 								})}
 							</ul>}
 					</div>
-					<div className='col-span-3 border border-[#b8ddf8] p-2 rounded-2xl'>
+					<div className='col-span-3 border border-[var(--line)] p-2 rounded-2xl'>
 						<p className='flex items-center responsiveText font-medium text-[var(--chathams-blue)] text-[0.75rem]'>{getTtl('Consignee', ln)}:</p>
 						<div>
 							<Selector arr={clts} value={valueInv}
@@ -381,7 +381,7 @@ const ContractModal = () => {
 									{valueInv.salesContractId ?
 										// Auto-matched from the Client Contract # — compact confirmation instead of
 										// repeating the same number (shows the sales-contract # only if it differs).
-										<span className='responsiveText font-medium flex items-center gap-1.5' style={{ color: '#15803d' }}>
+										<span className='responsiveText font-medium flex items-center gap-1.5' style={{ color: '#177245' }}>
 											✓ Linked to sales contract{(() => { const n = (Array.isArray(salesContracts) ? salesContracts : []).find(s => s.id === valueInv.salesContractId)?.contractNo; return n && n !== valueInv.clientContractNo ? ` · ${n}` : ''; })()}
 											<button type='button' onClick={() => clear('salesContractId')} title='Unlink' className='text-[var(--regent-gray)] hover:text-red-500'>✕</button>
 										</span>
@@ -409,7 +409,7 @@ const ContractModal = () => {
 							</>
 						)}
 					</div>
-					<div className='col-span-2 border border-[#b8ddf8] p-2 rounded-2xl flex flex-col'>
+					<div className='col-span-2 border border-[var(--line)] p-2 rounded-2xl flex flex-col'>
 						<p className='responsiveText font-medium indent-1 text-[var(--chathams-blue)] text-[0.75rem]'>{getTtl('Invoice Type', ln)}:</p>
 						{!fnl ?
 							<div>
@@ -422,7 +422,7 @@ const ContractModal = () => {
 							<p className='pt-2 pl-1 responsiveText'>{valueInv.invType}</p>
 						}
 					</div>
-					<div className='col-span-2 border border-[#b8ddf8] p-2 rounded-2xl flex flex-col'>
+					<div className='col-span-2 border border-[var(--line)] p-2 rounded-2xl flex flex-col'>
 						<p className='responsiveText font-medium indent-1 text-[var(--chathams-blue)] text-[0.75rem]'>{getTtl('PO', ln)}#:</p>
 						{valueInv.productsDataInvoice.length > 0 && <ul className="flex flex-col mt-1 rounded-2xl divide-y max-h-20 overflow-y-auto" >
 							{poArr.map((x, i) => {
@@ -437,7 +437,7 @@ const ContractModal = () => {
 						</ul>}
 
 					</div>
-					<div className='col-span-4 border border-[#b8ddf8] p-2 rounded-2xl flex flex-col gap-1.5'>
+					<div className='col-span-4 border border-[var(--line)] p-2 rounded-2xl flex flex-col gap-1.5'>
 						<div className='flex items-center gap-2'>
 							<p className='responsiveText font-medium whitespace-nowrap text-[var(--chathams-blue)] text-[0.75rem]'>{getTtl('Date', ln)}:</p>
 							<div className='flex-1'>
@@ -482,7 +482,7 @@ const ContractModal = () => {
 
 
 				<div className='grid grid-cols-1 md:grid-cols-3 gap-3 pt-2'>
-					<div className='border border-[#b8ddf8] p-2 rounded-2xl'>
+					<div className='border border-[var(--line)] p-2 rounded-2xl'>
 						<div className='flex gap-2 md:items-center justify-between'>
 							<p className='flex items-center responsiveText font-medium whitespace-nowrap text-[var(--chathams-blue)] text-[0.75rem]'>{getTtl('Shipment', ln)}:</p>
 							<div className='flex-1 min-w-0 max-w-[15rem]'>
@@ -529,7 +529,7 @@ const ContractModal = () => {
 						</div>
 					</div>
 
-					<div className='border border-[#b8ddf8] p-2 rounded-2xl'>
+					<div className='border border-[var(--line)] p-2 rounded-2xl'>
 						<div className='flex flex-col md:flex-row gap-2 md:items-center  justify-between'>
 							<p className='flex items-center responsiveText font-medium whitespace-nowrap text-[var(--chathams-blue)] text-[0.75rem]'>{getTtl('POL', ln)}:</p>
 							<div className='flex-1 min-w-0 max-w-[15rem]'>
@@ -560,7 +560,7 @@ const ContractModal = () => {
 							</div>}
 					</div>
 
-					<div className='border border-[#b8ddf8] p-2 rounded-2xl'>
+					<div className='border border-[var(--line)] p-2 rounded-2xl'>
 						<div className={`flex flex-col md:flex-row gap-2 md:items-center ${fnl ? 'py-0.5' : 'py-1.5'} justify-between`}>
 							<p className='flex items-center responsiveText font-medium whitespace-nowrap text-[var(--chathams-blue)] text-[0.75rem]'>{getTtl('totalNet', ln)}:</p>
 							<p className='responsiveText pr-6 text-[var(--port-gore)]'>
@@ -606,7 +606,7 @@ const ContractModal = () => {
 				</div>
 
 				<div className='grid grid-cols-1 md:grid-cols-2 gap-3 mt-2'>
-					<div className='flex flex-col md:flex-row border items-start md:items-center border-[#b8ddf8] p-2 rounded-2xl gap-1 md:gap-0'>
+					<div className='flex flex-col md:flex-row border items-start md:items-center border-[var(--line)] p-2 rounded-2xl gap-1 md:gap-0'>
 						<p className='flex items-center responsiveText font-medium whitespace-nowrap text-[var(--chathams-blue)] text-[0.75rem]'>{getTtl('Bank Account', ln)}:</p>
 						<div className='w-full md:pl-4'>
 							<Selector arr={settings['Bank Account']['Bank Account']} value={valueInv}
@@ -616,7 +616,7 @@ const ContractModal = () => {
 						</div>
 					</div>
 
-					<div className='flex col-span-1 border items-center border-[#b8ddf8] p-2 rounded-2xl'>
+					<div className='flex col-span-1 border items-center border-[var(--line)] p-2 rounded-2xl'>
 						<p className='flex items-center responsiveText font-medium whitespace-nowrap text-[var(--chathams-blue)] text-[0.75rem]'>HS Code:</p>
 						<div className='w-full pl-4'>
 
@@ -647,7 +647,7 @@ const ContractModal = () => {
 				</div>
 
 
-				<div className='w-full border border-[#b8ddf8] p-2 rounded-2xl mt-2'>
+				<div className='w-full border border-[var(--line)] p-2 rounded-2xl mt-2'>
 					<ProductsTable value={valueInv} setValue={setValueInv}
 						currency={settings.Currency.Currency} uidCollection={uidCollection}
 						setDeleteProducts={setDeleteProducts} settings={settings}
@@ -658,11 +658,11 @@ const ContractModal = () => {
 
 
 				<div className='grid grid-cols-1 md:grid-cols-8 gap-3 mt-2'>
-					<div className='md:col-span-5 border border-[#b8ddf8] p-2 rounded-2xl'>
+					<div className='md:col-span-5 border border-[var(--line)] p-2 rounded-2xl'>
 						<Remarks value={valueInv} setValue={setValueInv} ln={ln} />
 					</div>
 
-					<div className='md:col-span-2 border border-[#b8ddf8] p-2 py-1 pb-0 rounded-2xl'>
+					<div className='md:col-span-2 border border-[var(--line)] p-2 py-1 pb-0 rounded-2xl'>
 						<p className='flex responsiveText font-medium text-[var(--chathams-blue)] text-[0.75rem]'>{getTtl('Comments', ln)}:</p>
 						<textarea rows="2" name="comments"
 							className={`input w-full p-1 !rounded-full`}
@@ -672,7 +672,7 @@ const ContractModal = () => {
 						/>
 					</div>
 
-					<div className='md:col-span-1 border border-[#b8ddf8] p-2 rounded-2xl gap-4'>
+					<div className='md:col-span-1 border border-[var(--line)] p-2 rounded-2xl gap-4'>
 						<p className='flex responsiveText font-medium whitespace-nowrap text-[var(--chathams-blue)] text-[0.75rem]'>{getTtl('Currency', ln)}:</p>
 						<div className='w-full '>
 							<Selector arr={settings.Currency.Currency} value={valueInv}

@@ -6,20 +6,21 @@ import { SettingsContext } from '@contexts/useSettingsContext';
 import { UserAuth } from '@contexts/useAuthContext';
 import { loadData, loadMarginsRange, ensureNotificationsBatch, reconcileSystemNotifications } from '@utils/utils';
 import { receivables as financeReceivables, groupInvoices, isOverdue, invoiceBalance, isIssued, resolveInvoiceDate, effectiveDueDate } from '@utils/finance';
+import { TONES } from '../statusUtils';
 
 // Compact pill button used for each alert chip
 function AlertPill({ icon: Icon, label, count, severity, onClick }) {
     const palette = {
-        red: { bg: '#fee2e2', border: '#fca5a5', text: '#991b1b' },
-        amber: { bg: '#fff3cd', border: '#ffc107', text: '#92400e' },
-        green: { bg: '#d1fae5', border: '#86efac', text: '#065f46' },
-        blue: { bg: '#dbeeff', border: '#b8ddf8', text: 'var(--chathams-blue)' },
+        red: TONES.red,
+        amber: TONES.amber,
+        green: TONES.green,
+        blue: TONES.blue,
     }[severity];
     return (
         <button
             onClick={onClick}
             aria-label={`${label}: ${count}`}
-            className='flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--endeavour)]/30'
+            className='flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--brand)]/30'
             style={{
                 background: palette.bg,
                 border: `1px solid ${palette.border}`,
@@ -175,9 +176,9 @@ const AIAlertsBar = () => {
 
     if (loading) {
         return (
-            <div className='flex items-center gap-2 px-3 py-2.5 rounded-xl mb-3 shadow-sm' style={{ border: '1px solid #e6eef8', background: '#ffffff' }}>
-                <Loader2 className='w-3.5 h-3.5 animate-spin' style={{ color: 'var(--endeavour)' }} />
-                <span style={{ fontSize: '0.65rem', color: 'var(--regent-gray)' }}>Checking alerts…</span>
+            <div className='flex items-center gap-2 px-3 py-2.5 rounded-xl mb-3 shadow-sm' style={{ border: '1px solid var(--line)', background: '#ffffff' }}>
+                <Loader2 className='w-3.5 h-3.5 animate-spin' style={{ color: 'var(--brand)' }} />
+                <span style={{ fontSize: '0.65rem', color: 'var(--ink-muted)' }}>Checking alerts…</span>
             </div>
         );
     }
@@ -185,9 +186,9 @@ const AIAlertsBar = () => {
     const hasAny = counts.balance > 0 || counts.due > 0 || counts.marginAlerts > 0 || counts.recentReminders > 0;
     if (!hasAny) {
         return (
-            <div className='flex items-center gap-2 px-3 py-2 rounded-xl mb-3' style={{ border: '1px solid #86efac', background: '#f0fdf4' }}>
-                <AlertTriangle className='w-3.5 h-3.5' style={{ color: '#16a34a' }} />
-                <span style={{ fontSize: '0.65rem', color: '#15803d', fontWeight: 600 }}>
+            <div className='flex items-center gap-2 px-3 py-2 rounded-xl mb-3' style={{ border: `1px solid ${TONES.green.border}`, background: TONES.green.bg }}>
+                <AlertTriangle className='w-3.5 h-3.5' style={{ color: TONES.green.text }} />
+                <span style={{ fontSize: '0.65rem', color: TONES.green.text, fontWeight: 600 }}>
                     All clear — no outstanding receivables or margin alerts.
                 </span>
             </div>
@@ -197,11 +198,11 @@ const AIAlertsBar = () => {
     return (
         <div
             className='flex flex-wrap items-center gap-2 px-3 py-2.5 rounded-xl mb-3 shadow-sm'
-            style={{ border: '1px solid #e6eef8', background: '#ffffff' }}
+            style={{ border: '1px solid var(--line)', background: '#ffffff' }}
             role='region'
             aria-label='AI alerts summary'
         >
-            <span className='flex items-center gap-1.5' style={{ fontSize: '0.65rem', color: 'var(--chathams-blue)', fontWeight: 600 }}>
+            <span className='flex items-center gap-1.5' style={{ fontSize: '0.65rem', color: 'var(--ink)', fontWeight: 600 }}>
                 <span className='relative flex h-2 w-2'>
                     <span className='absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping' />
                     <span className='relative inline-flex rounded-full h-2 w-2 bg-emerald-500' />

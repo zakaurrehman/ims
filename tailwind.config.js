@@ -10,7 +10,11 @@ module.exports = {
 	theme: {
 		extend: {
 			fontFamily: {
-				poppins: ['var(--font-poppins)', 'sans-serif'],
+				sans: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
+				inter: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
+				display: ['var(--font-manrope)', 'Manrope', 'var(--font-inter)', 'sans-serif'],
+				// Legacy alias — Poppins was replaced by Inter; retire in Phase 3
+				poppins: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
 			},
 			gridTemplateColumns: {
 				'21': 'repeat(21, minmax(0, 1fr))'
@@ -18,7 +22,37 @@ module.exports = {
 			backgroundImage: {
 				LoginBG: "url('/login/loginBG.jpg')",
 			},
+			boxShadow: {
+				'card': 'var(--shadow-xs)',
+				'raised': 'var(--shadow-sm)',
+				'pop': 'var(--shadow-md)',
+			},
 			colors: {
+				// IMS design tokens (globals.css :root)
+				page: 'var(--bg-page)',
+				surface: 'var(--bg-card)',
+				subtle: 'var(--bg-subtle)',
+				sunken: 'var(--bg-sunken)',
+				line: {
+					DEFAULT: 'var(--line)',
+					strong: 'var(--line-strong)',
+				},
+				ink: {
+					DEFAULT: 'var(--ink)',
+					secondary: 'var(--ink-secondary)',
+					muted: 'var(--ink-muted)',
+				},
+				brand: {
+					DEFAULT: 'var(--brand)',
+					strong: 'var(--brand-strong)',
+					soft: 'var(--brand-soft)',
+					line: 'var(--brand-border)',
+				},
+				ok: { bg: 'var(--ok-bg)', text: 'var(--ok-text)', line: 'var(--ok-border)' },
+				warn: { bg: 'var(--warn-bg)', text: 'var(--warn-text)', line: 'var(--warn-border)' },
+				bad: { bg: 'var(--bad-bg)', text: 'var(--bad-text)', line: 'var(--bad-border)' },
+				info: { bg: 'var(--info-bg)', text: 'var(--info-text)', line: 'var(--info-border)' },
+				// Legacy one-offs — retire in Phase 3
 				customBlue: '#096EB6',
 				customLavender: '#B1A0C7',
 				customOrange: '#E26B0A',
@@ -111,7 +145,10 @@ module.exports = {
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
+				sm: 'calc(var(--radius) - 4px)',
+				card: 'var(--radius-card)',
+				panel: 'var(--radius-panel)',
+				control: 'var(--radius-control)',
 			},
 			screens: {
 				'3xl': '1920px',

@@ -75,8 +75,8 @@ export default function SumBasket({ items = [], onRemove, onClear }) {
         <div
             ref={ref}
             className={`fixed z-40 w-[19rem] rounded-2xl overflow-hidden font-poppins
-                ring-1 ring-[#cfe3f5] border border-white/60
-                bg-white/85 backdrop-blur-md shadow-[0_16px_50px_rgba(3,102,174,0.28)]
+                border border-[var(--line)]
+                bg-white/90 backdrop-blur-md shadow-pop
                 animate-in fade-in slide-in-from-bottom-3 duration-300
                 ${pos ? '' : 'bottom-4 left-1/2 -translate-x-1/2'}`}
             style={pos ? { left: pos.left, top: pos.top } : undefined}
@@ -85,40 +85,40 @@ export default function SumBasket({ items = [], onRemove, onClear }) {
             <div
                 onPointerDown={startDrag}
                 className="flex items-center justify-between gap-2 px-3 py-2 cursor-grab active:cursor-grabbing select-none
-                    bg-gradient-to-br from-[var(--endeavour)] via-[#0a52a0] to-[var(--chathams-blue)] text-white"
+                    bg-white border-b border-[var(--line)] text-[var(--ink)]"
             >
                 <div className="flex items-center gap-2 min-w-0">
-                    <span className="grid place-items-center w-6 h-6 rounded-lg bg-white/20 shrink-0">
+                    <span className="grid place-items-center w-6 h-6 rounded-lg bg-[var(--brand-soft)] text-[var(--brand)] shrink-0">
                         <Sigma className="w-3.5 h-3.5" />
                     </span>
                     <span className="font-semibold text-[0.78rem] truncate">Selected invoices</span>
-                    <span className="shrink-0 text-[0.64rem] font-bold px-1.5 py-0.5 rounded-full bg-white/25">
+                    <span className="shrink-0 text-[0.64rem] font-bold px-1.5 py-0.5 rounded-full bg-[var(--bg-subtle)] text-[var(--ink-secondary)]">
                         {items.length}
                     </span>
                 </div>
-                <div className="flex items-center gap-0.5 shrink-0">
+                <div className="flex items-center gap-0.5 shrink-0 text-[var(--ink-secondary)]">
                     <button onPointerDown={e => e.stopPropagation()} onClick={copySummary}
-                        title="Copy summary" className="p-1 rounded-md hover:bg-white/20 transition-colors">
+                        title="Copy summary" className="p-1 rounded-md hover:bg-[var(--bg-subtle)] transition-colors">
                         {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                     </button>
                     <button onPointerDown={e => e.stopPropagation()} onClick={() => setCollapsed(c => !c)}
-                        title={collapsed ? 'Show list' : 'Hide list'} className="p-1 rounded-md hover:bg-white/20 transition-colors">
+                        title={collapsed ? 'Show list' : 'Hide list'} className="p-1 rounded-md hover:bg-[var(--bg-subtle)] transition-colors">
                         {collapsed ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                     </button>
                     <button onPointerDown={e => e.stopPropagation()} onClick={onClear}
-                        title="Clear all" className="p-1 rounded-md hover:bg-white/20 transition-colors">
+                        title="Clear all" className="p-1 rounded-md hover:bg-[var(--bg-subtle)] transition-colors">
                         <X className="w-3.5 h-3.5" />
                     </button>
                 </div>
             </div>
 
             {/* Metric switcher */}
-            <div className="flex items-center gap-1 px-2 py-1.5 bg-white/60 border-b border-[#eef5fc]">
+            <div className="flex items-center gap-1 px-2 py-1.5 bg-white/60 border-b border-[var(--line)]">
                 {METRICS.map(m => (
                     <button key={m} onClick={() => setMetric(m)}
                         className={`flex-1 text-[0.62rem] font-semibold py-1 rounded-lg transition-colors ${metric === m
-                            ? 'bg-[var(--endeavour)] text-white shadow-sm'
-                            : 'text-[var(--chathams-blue)] hover:bg-[#dbeeff]'}`}>
+                            ? 'bg-[var(--brand)] text-white shadow-card'
+                            : 'text-[var(--ink-secondary)] hover:bg-[var(--bg-subtle)]'}`}>
                         {metricLabel[m]}
                     </button>
                 ))}
@@ -127,29 +127,29 @@ export default function SumBasket({ items = [], onRemove, onClear }) {
             {/* Subtotals — always visible, shown as soft stat pills */}
             <div className="px-3 py-2.5 flex flex-col gap-1.5 bg-white/70">
                 {hasUsd &&
-                    <div className="flex items-center justify-between rounded-xl px-2.5 py-1.5 bg-gradient-to-r from-[#f0f7ff] to-[#dbeeff]/70 border border-[#cfe3f5]">
-                        <span className="flex items-center gap-1.5 text-[0.6rem] font-semibold tracking-wide uppercase text-[var(--regent-gray)]">
-                            <span className="grid place-items-center w-4 h-4 rounded-full bg-[var(--endeavour)] text-white text-[0.62rem] font-bold leading-none">$</span>
+                    <div className="flex items-center justify-between rounded-xl px-2.5 py-1.5 bg-[var(--bg-subtle)] border border-[var(--line)]">
+                        <span className="flex items-center gap-1.5 text-[0.6rem] font-semibold tracking-wide uppercase text-[var(--ink-muted)]">
+                            <span className="grid place-items-center w-4 h-4 rounded-full bg-[var(--brand)] text-white text-[0.62rem] font-bold leading-none">$</span>
                             {metricLabel[metric]}
                         </span>
                         <NumericFormat value={usd} displayType="text" thousandSeparator prefix="$"
                             decimalScale={2} fixedDecimalScale
-                            className="tabular-nums text-[1rem] font-bold text-[var(--chathams-blue)] leading-none" />
+                            className="tabular-nums text-[1rem] font-bold text-[var(--ink)] leading-none" />
                     </div>
                 }
                 {hasEur &&
-                    <div className="flex items-center justify-between rounded-xl px-2.5 py-1.5 bg-gradient-to-r from-[#f0f7ff] to-[#dbeeff]/70 border border-[#cfe3f5]">
-                        <span className="flex items-center gap-1.5 text-[0.6rem] font-semibold tracking-wide uppercase text-[var(--regent-gray)]">
-                            <span className="grid place-items-center w-4 h-4 rounded-full bg-[var(--chathams-blue)] text-white text-[0.62rem] font-bold leading-none">€</span>
+                    <div className="flex items-center justify-between rounded-xl px-2.5 py-1.5 bg-[var(--bg-subtle)] border border-[var(--line)]">
+                        <span className="flex items-center gap-1.5 text-[0.6rem] font-semibold tracking-wide uppercase text-[var(--ink-muted)]">
+                            <span className="grid place-items-center w-4 h-4 rounded-full bg-[var(--brand-strong)] text-white text-[0.62rem] font-bold leading-none">€</span>
                             {metricLabel[metric]}
                         </span>
                         <NumericFormat value={eur} displayType="text" thousandSeparator prefix="€"
                             decimalScale={2} fixedDecimalScale
-                            className="tabular-nums text-[1rem] font-bold text-[var(--chathams-blue)] leading-none" />
+                            className="tabular-nums text-[1rem] font-bold text-[var(--ink)] leading-none" />
                     </div>
                 }
                 {naCount > 0 &&
-                    <div className="text-[0.6rem] text-[var(--regent-gray)] italic">
+                    <div className="text-[0.6rem] text-[var(--ink-muted)] italic">
                         {naCount} item{naCount > 1 ? 's' : ''} ha{naCount > 1 ? 've' : 's'} no {metricLabel[metric].toLowerCase()} — excluded
                     </div>
                 }
@@ -157,23 +157,23 @@ export default function SumBasket({ items = [], onRemove, onClear }) {
 
             {/* Selected line items — collapsible */}
             {!collapsed &&
-                <div className="max-h-52 overflow-y-auto border-t border-[#eef5fc] bg-white/40">
+                <div className="max-h-52 overflow-y-auto border-t border-[var(--line)] bg-white/40">
                     {rows.map(r => (
                         <div key={r.key}
-                            className="group flex items-center justify-between gap-2 px-3 py-1.5 hover:bg-[#eef6ff] transition-colors text-[0.7rem]">
+                            className="group flex items-center justify-between gap-2 px-3 py-1.5 hover:bg-[var(--bg-subtle)] transition-colors text-[0.7rem]">
                             <div className="min-w-0">
-                                <div className="truncate text-[var(--port-gore)] font-medium leading-tight">{r.label || kindLabel[r.kind]}</div>
-                                {r.sub && <div className="truncate text-[0.62rem] text-[var(--regent-gray)] leading-tight">{r.sub}</div>}
+                                <div className="truncate text-[var(--ink)] font-medium leading-tight">{r.label || kindLabel[r.kind]}</div>
+                                {r.sub && <div className="truncate text-[0.62rem] text-[var(--ink-muted)] leading-tight">{r.sub}</div>}
                             </div>
                             <div className="flex items-center gap-1.5 shrink-0">
                                 {r.v == null
-                                    ? <span className="text-[var(--regent-gray)]">—</span>
+                                    ? <span className="text-[var(--ink-muted)]">—</span>
                                     : <NumericFormat value={r.v} displayType="text" thousandSeparator
                                         prefix={r.cur === 'us' ? '$' : '€'} decimalScale={2} fixedDecimalScale
-                                        className="tabular-nums text-[var(--port-gore)]" />
+                                        className="tabular-nums text-[var(--ink)]" />
                                 }
                                 <button onClick={() => onRemove(r.key)} title="Remove"
-                                    className="grid place-items-center w-4 h-4 rounded-full text-[var(--regent-gray)] hover:text-white hover:bg-red-400 opacity-0 group-hover:opacity-100 transition-all">
+                                    className="grid place-items-center w-4 h-4 rounded-full text-[var(--ink-muted)] hover:text-white hover:bg-red-400 opacity-0 group-hover:opacity-100 transition-all">
                                     <X className="w-2.5 h-2.5" />
                                 </button>
                             </div>

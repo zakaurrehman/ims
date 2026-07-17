@@ -1,44 +1,86 @@
 
-/* Site Color Palette as CSS Variables */
+/* ============================================================
+   IMS Design Tokens — single source of truth.
+   Neutral surfaces + one refined brand-blue accent.
+   ============================================================ */
 :root {
-  --endeavour: #0366ae;
-  --rock-blue: #9fb8d4;
-  --selago: #ebf2fc;
-  --port-gore: #28264f;
-  --bunting: #1c134d;
-  --chathams-blue: #103a7a;
-  --regent-gray: #838ca7;
+  /* Surfaces */
+  --bg-page:    #F6F7F9;   /* app background */
+  --bg-card:    #FFFFFF;   /* cards / panels / tables */
+  --bg-subtle:  #F3F5F8;   /* input bg, table header bg, hover fills */
+  --bg-sunken:  #EDF0F4;   /* pressed / selected-row */
+
+  /* Borders ("line" — --border is reserved by the shadcn HSL tokens below) */
+  --line:        #E8EBF0;  /* default card/table border */
+  --line-strong: #D7DCE4;  /* inputs, interactive outlines */
+
+  /* Ink */
+  --ink:           #171E2E;
+  --ink-secondary: #5B6472;
+  --ink-muted:     #8A93A3;
+
+  /* Brand accent — refined blue */
+  --brand:        #0B6BB8;
+  --brand-strong: #0A5A9C;  /* hover */
+  --brand-soft:   #E8F2FB;  /* active-nav pill bg, selected fills */
+  --brand-border: #C5DEF2;
+
+  /* Status — one pastel system, dark text on soft bg */
+  --ok-bg: #E5F6EC;      --ok-text: #177245;      --ok-border: #BFE8D0;
+  --warn-bg: #FDF3E1;    --warn-text: #9A6215;    --warn-border: #F5DFAE;
+  --bad-bg: #FDEAEA;     --bad-text: #B42332;     --bad-border: #F5C6C9;
+  --info-bg: #E8F2FB;    --info-text: #0B5C99;    --info-border: #C5DEF2;
+  --neutral-bg: #F0F2F5; --neutral-text: #5B6472; --neutral-border: #DDE1E8;
+
+  /* Radii */
+  --radius-card: 16px;
+  --radius-panel: 12px;
+  --radius-control: 10px;
+  --radius-pill: 999px;
+
+  /* Shadows — single ink-tinted recipe, 3 tiers */
+  --shadow-xs: 0 1px 2px rgba(23, 30, 46, 0.05);
+  --shadow-sm: 0 2px 8px rgba(23, 30, 46, 0.06);
+  --shadow-md: 0 8px 24px rgba(23, 30, 46, 0.09);
+
+  /* ---- Legacy palette names — aliased to the new tokens so every existing
+     var(--endeavour) etc. call site renders the new system. Retire in Phase 3. */
+  --endeavour: var(--brand);
+  --rock-blue: var(--line-strong);
+  --selago: var(--bg-subtle);
+  --port-gore: var(--ink);
+  --bunting: var(--ink);
+  --chathams-blue: var(--ink);
+  --regent-gray: var(--ink-muted);
   --radius: 0.75rem;
 
   /* shadcn/Radix design tokens — referenced by tailwind.config.js (hsl(var(--x)))
-     and the components/ui/* primitives. Mapped to the brand palette so bg-primary,
-     text-muted-foreground, border-input, ring-ring, hover:bg-accent, etc. resolve
-     correctly instead of computing hsl(var(--undefined)) and rendering broken.
-     Light theme only (no dark mode in use). Values are HSL channels (no hsl()). */
+     and the components/ui/* primitives. Mapped to the NEW palette.
+     Light theme only. Values are HSL channels (no hsl()). */
   --background: 0 0% 100%;
-  --foreground: 222 84% 5%;
+  --foreground: 222 33% 14%;         /* --ink #171E2E */
   --card: 0 0% 100%;
-  --card-foreground: 222 84% 5%;
+  --card-foreground: 222 33% 14%;
   --popover: 0 0% 100%;
-  --popover-foreground: 222 84% 5%;
-  --primary: 205 96% 35%;            /* #0366ae endeavour */
+  --popover-foreground: 222 33% 14%;
+  --primary: 207 89% 38%;            /* --brand #0B6BB8 */
   --primary-foreground: 0 0% 100%;
-  --secondary: 210 40% 96%;
-  --secondary-foreground: 222 47% 11%;
-  --muted: 210 40% 96%;
-  --muted-foreground: 215 16% 47%;
-  --accent: 207 100% 93%;            /* #dbeeff app accent */
-  --accent-foreground: 216 77% 27%;  /* #103a7a chathams-blue */
-  --destructive: 0 84% 60%;
+  --secondary: 216 26% 96%;          /* --bg-subtle */
+  --secondary-foreground: 222 33% 14%;
+  --muted: 216 26% 96%;
+  --muted-foreground: 217 11% 40%;   /* --ink-secondary */
+  --accent: 208 70% 95%;             /* --brand-soft #E8F2FB */
+  --accent-foreground: 206 87% 32%;  /* #0B5C99 */
+  --destructive: 0 66% 42%;          /* --bad-text family */
   --destructive-foreground: 0 0% 98%;
-  --border: 214 32% 91%;
-  --input: 214 32% 91%;
-  --ring: 205 96% 35%;               /* brand-blue focus ring */
-  --chart-1: 12 76% 61%;
-  --chart-2: 173 58% 39%;
-  --chart-3: 197 37% 24%;
-  --chart-4: 43 74% 66%;
-  --chart-5: 27 87% 67%;
+  --border: 218 21% 93%;             /* --line #E8EBF0 */
+  --input: 219 18% 87%;              /* --line-strong #D7DCE4 */
+  --ring: 207 89% 38%;               /* brand focus ring */
+  --chart-1: 207 89% 38%;            /* brand blue */
+  --chart-2: 173 83% 33%;            /* teal #0E9888 */
+  --chart-3: 246 67% 66%;            /* violet #7A6FE3 */
+  --chart-4: 35 79% 57%;             /* amber #E8A23D */
+  --chart-5: 343 63% 59%;            /* rose #D9557B */
 }
 
 /* Example usage:
@@ -55,24 +97,31 @@ body,
 :root {
   height: 100%;
   overflow-x: hidden;
-  font-family: var(--font-poppins), 'Poppins', sans-serif;
+  font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+  color: var(--ink);
+}
+
+/* Numeric data aligns in columns everywhere */
+table,
+.tnum {
+  font-variant-numeric: tabular-nums;
 }
 
 /* Row hover: ensure all tds inherit tr hover background */
 tr.cursor-pointer:hover td,
 tr.hover-row:hover td {
-  background-color: #dbeeff !important;
+  background-color: var(--bg-subtle) !important;
 }
 
 /* Cell hover: slightly darker on the specific cell under cursor */
 tr.cursor-pointer:hover td:hover,
 tr.hover-row:hover td:hover {
-  background-color: #b8ddf8 !important;
+  background-color: var(--bg-sunken) !important;
 }
 
 /* Row selected: persistent click highlight */
 tr.selected-row td {
-  background-color: #b8ddf8 !important;
+  background-color: var(--brand-soft) !important;
 }
 
 /* Smooth transitions on all table rows */
@@ -88,7 +137,7 @@ tr td {
 }
 
 thead th {
-  color: var(--chathams-blue) !important;
+  color: var(--ink-secondary) !important;
 }
 
 .inv-preview-table thead th {
@@ -97,96 +146,135 @@ thead th {
 
 @layer components {
   .table_cell {
-    @apply px-6 py-3 whitespace-nowrap text-[0.75rem] 2xl:text-[0.8rem] 3xl:text-[0.875rem] text-[var(--port-gore)] leading-4;
+    @apply px-6 py-2.5 whitespace-nowrap text-[0.75rem] text-[var(--ink)] leading-4;
   }
 
   .paginator_arrow {
-    @apply text-[var(--regent-gray)] hover:text-[var(--endeavour)] font-medium cursor-pointer transition-colors;
+    @apply text-[var(--ink-muted)] hover:text-[var(--brand)] font-medium cursor-pointer transition-colors;
   }
 
   .input {
-    @apply w-full border rounded-full border-[#d8e8f5] h-10 focus:outline-0 focus:border-[var(--endeavour)] indent-1.5 text-[0.72rem] text-[var(--port-gore)] bg-[#f8fbff];
+    @apply w-full border rounded-[10px] border-[var(--line-strong)] h-8 focus:outline-0 focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] indent-2 text-[0.8125rem] text-[var(--ink)] bg-white transition-colors;
     font-family: inherit;
   }
 
   .dashBox {
-    @apply col-span-12 md:col-span-1 border border-[var(--selago)] rounded-2xl bg-white justify-center flex shadow-lg text-[15px] flex-col p-4;
+    @apply col-span-12 md:col-span-1 border border-[var(--line)] rounded-2xl bg-white justify-center flex text-[15px] flex-col p-4;
+    box-shadow: var(--shadow-xs);
   }
 
   .dashCard {
-    @apply rounded-2xl bg-white shadow-lg p-5 border border-[var(--selago)];
+    @apply rounded-2xl bg-white p-5 border border-[var(--line)];
+    box-shadow: var(--shadow-xs);
   }
 
   .dashStatCard {
-    @apply rounded-2xl p-5 flex flex-col justify-between min-h-[120px] shadow-lg border border-[var(--selago)];
+    @apply rounded-2xl p-5 flex flex-col justify-between min-h-[120px] border border-[var(--line)] bg-white;
+    box-shadow: var(--shadow-xs);
   }
 
   .blackButton {
-    @apply bg-[var(--endeavour)] hover:opacity-90 text-white flex items-center gap-2 justify-center rounded-full border-0 px-3 py-1.5 text-[0.5625rem] xl:text-[0.657rem] 2xl:text-[0.71875rem] 3xl:text-[0.75rem] font-medium focus:outline-none shadow-lg transition-all
+    @apply bg-[var(--brand)] hover:bg-[var(--brand-strong)] text-white flex items-center gap-2 justify-center rounded-[10px] border-0 px-3 h-8 text-xs font-medium focus:outline-none transition-colors;
+    box-shadow: var(--shadow-xs);
   }
 
   .whiteButton {
-    @apply bg-white border-[#b8ddf8] hover:bg-[var(--selago)] text-[var(--chathams-blue)] flex items-center gap-2 justify-center rounded-full border px-3 h-7 text-[0.5625rem] xl:text-[0.657rem] 2xl:text-[0.71875rem] 3xl:text-[0.75rem] font-medium focus:outline-none shadow-sm transition-colors
+    @apply bg-white border-[var(--line-strong)] hover:bg-[var(--bg-subtle)] text-[var(--ink)] flex items-center gap-2 justify-center rounded-[10px] border px-3 h-8 text-xs font-medium focus:outline-none transition-colors;
+    box-shadow: var(--shadow-xs);
   }
-    .supplierButton {
-    @apply bg-[#dbeeff] hover:bg-[var(--selago)] text-[var(--endeavour)] flex items-center gap-2 justify-center rounded-full border-0 px-3 py-1 text-[0.5625rem] xl:text-[0.657rem] 2xl:text-[0.71875rem] 3xl:text-[0.75rem] focus:outline-none shadow-md transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed
+  .supplierButton {
+    @apply bg-[var(--brand-soft)] hover:bg-[var(--bg-sunken)] text-[var(--brand)] flex items-center gap-2 justify-center rounded-[10px] border-0 px-3 h-8 text-xs font-medium focus:outline-none transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed;
+    box-shadow: var(--shadow-xs);
   }
-   .supplierAddButton {
-    @apply bg-[var(--endeavour)] hover:opacity-90 text-white flex items-center gap-2 justify-center rounded-full border-0 px-3 py-1 text-[0.5625rem] xl:text-[0.657rem] 2xl:text-[0.71875rem] 3xl:text-[0.75rem] focus:outline-none shadow-md transition-opacity cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed
+  .supplierAddButton {
+    @apply bg-[var(--brand)] hover:bg-[var(--brand-strong)] text-white flex items-center gap-2 justify-center rounded-[10px] border-0 px-3 h-8 text-xs font-medium focus:outline-none transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed;
+    box-shadow: var(--shadow-xs);
   }
 }
 
 @layer components {
   .title_style {
-    @apply text-[var(--port-gore)] border-b border-[var(--rock-blue)] items-center flex justify-center text-[0.75rem] 2xl:text-[0.8rem] 3xl:text-[0.875rem] font-semibold;
+    @apply text-[var(--ink)] border-b border-[var(--line-strong)] items-center flex justify-center text-[0.75rem] font-semibold;
   }
 
   .input_style {
-    @apply text-[0.72rem] 2xl:text-[0.78rem] 3xl:text-[0.8125rem] py-0.5 text-center border-0 rounded-none w-full focus:outline-0 focus:border-[var(--endeavour)] text-[var(--port-gore)];
+    @apply text-[0.75rem] py-0.5 text-center border-0 rounded-none w-full focus:outline-0 focus:border-[var(--brand)] text-[var(--ink)];
   }
 }
 
 @layer app {
-  /* Standard body / cell text — px-aligned: 11 / 12 / 13 / 14 */
+  /* ============ Type scale (fixed, role-based) ============
+     Inter = UI/body/tables (tabular numerals), Manrope = headings/stats.
+     Legacy responsive* class names are kept as aliases onto this scale. */
+
+  /* Page titles — Manrope 22px */
+  .text-display {
+    @apply text-[1.375rem] font-bold text-[var(--ink)];
+    font-family: var(--font-manrope), 'Manrope', var(--font-inter), sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  /* Card / modal / section titles — Manrope 16px */
+  .text-title {
+    @apply text-[1rem] font-semibold text-[var(--ink)];
+    font-family: var(--font-manrope), 'Manrope', var(--font-inter), sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  /* KPI / stat numbers — Manrope, tabular */
+  .text-stat {
+    @apply text-[1.5rem] font-bold text-[var(--ink)];
+    font-family: var(--font-manrope), 'Manrope', var(--font-inter), sans-serif;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+
+  /* Table column headers — 11px uppercase muted */
+  .text-caption {
+    @apply text-[0.6875rem] font-medium uppercase text-[var(--ink-muted)];
+    letter-spacing: 0.04em;
+  }
+
+  /* Chips / timestamps */
+  .text-micro {
+    @apply text-[0.65625rem] font-medium;
+  }
+
+  /* ---- Legacy aliases (retire in Phase 3) ---- */
+
+  /* Standard body / cell text — 13px */
   .responsiveText {
-    @apply text-[0.6875rem] xl:text-[0.75rem] 2xl:text-[0.8125rem] 3xl:text-[0.875rem]
-           break-words min-w-0 whitespace-normal;
+    @apply text-[0.8125rem] break-words min-w-0 whitespace-normal;
   }
 
-  /* Dense table cell text — 10 / 11 / 12 / 13 */
-  .responsiveTextTable {
-    @apply text-[0.625rem] xl:text-[0.6875rem] 2xl:text-[0.75rem] 3xl:text-[0.8125rem]
-           break-words min-w-0 whitespace-normal;
-  }
-
-  /* Summary table card title — 1px smaller than responsiveTextTable: 9 / 10 / 11 / 12 */
-  .responsiveTextTableTitle {
-    @apply text-[0.5625rem] xl:text-[0.625rem] 2xl:text-[0.6875rem] 3xl:text-[0.75rem]
-           break-words min-w-0 whitespace-normal;
-  }
-
-  /* Same as responsiveTextTable — kept separate for targeted overrides */
+  /* Table cell text — 12px tabular */
+  .responsiveTextTable,
   .responsiveTextTable1 {
-    @apply text-[0.625rem] xl:text-[0.6875rem] 2xl:text-[0.75rem] 3xl:text-[0.8125rem]
-           break-words min-w-0 whitespace-normal;
+    @apply text-[0.75rem] break-words min-w-0 whitespace-normal;
+    font-variant-numeric: tabular-nums;
   }
 
-  /* Totals row — same size as body but bold */
+  /* Summary table card title — 11px */
+  .responsiveTextTableTitle {
+    @apply text-[0.6875rem] break-words min-w-0 whitespace-normal;
+  }
+
+  /* Totals row — body size, medium */
   .responsiveTextTotal {
-    @apply text-[0.6875rem] xl:text-[0.75rem] 2xl:text-[0.8125rem] 3xl:text-[0.875rem]
-           font-medium break-words min-w-0 whitespace-normal;
+    @apply text-[0.8125rem] font-medium break-words min-w-0 whitespace-normal;
+    font-variant-numeric: tabular-nums;
   }
 
-  /* Pill/inline inputs — 12 / 13 / 14 / 15 */
+  /* Pill/inline inputs — 13px */
   .responsiveTextInput {
-    @apply text-[0.75rem] xl:text-[0.8125rem] 2xl:text-[0.875rem] 3xl:text-[0.9375rem]
-           break-words min-w-0 whitespace-normal;
+    @apply text-[0.8125rem] break-words min-w-0 whitespace-normal;
   }
 
-  /* Section headings / column headers — 13 / 14 / 15 / 16 */
+  /* Section headings / page titles — Manrope 16px */
   .responsiveTextTitle {
-    @apply text-[0.8125rem] xl:text-[0.875rem] 2xl:text-[0.9375rem] 3xl:text-[1rem]
-           break-words min-w-0 whitespace-normal;
+    @apply text-[1rem] font-semibold break-words min-w-0 whitespace-normal;
+    font-family: var(--font-manrope), 'Manrope', var(--font-inter), sans-serif;
+    letter-spacing: -0.01em;
   }
 
   /* Cashflow card overflow wrapper — unchanged */
@@ -198,7 +286,7 @@ thead th {
 
 /******** skeleton loaders ****/
 .skel {
-  background: linear-gradient(90deg, #e9f1f9 25%, #f6fafd 50%, #e9f1f9 75%);
+  background: linear-gradient(90deg, #EEF0F4 25%, #F7F8FA 50%, #EEF0F4 75%);
   background-size: 200% 100%;
   animation: skel-shimmer 1.4s ease-in-out infinite;
 }
@@ -279,27 +367,8 @@ thead th {
 }
 
 /*******************/
-.animate-spin {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/*******************/
-
-@media (min-width: 1280px) {
-  .container {
-    max-width: 1200px;
-  }
-}
+/* animate-spin comes from Tailwind core — the duplicate global copy was removed. */
+/* Container width comes from tailwind.config.js (1700px) — the 1200px override was removed. */
 
 .dropDownHeight {
   max-height: 15rem !important;
@@ -354,40 +423,40 @@ input::-webkit-inner-spin-button {
 .cashflow-detail-table td {
   vertical-align: middle;
   line-height: 1.3;
-  padding: 4px 8px;
-  font-size: 0.72rem;
+  padding: 5px 10px;
+  font-size: 0.75rem;
 }
 
 .cashflow-detail-table thead tr {
-  background: #dbeeff;
+  background: var(--bg-subtle);
 }
 
 .cashflow-detail-table thead th {
   font-weight: 500;
-  color: var(--chathams-blue);
-  border-bottom: 1.5px solid #b8ddf8;
-  padding: 6px 8px;
+  color: var(--ink-secondary);
+  border-bottom: 1px solid var(--line);
+  padding: 6px 10px;
   white-space: nowrap;
 }
 
 .cashflow-detail-table tbody td {
-  color: #1F2937;
-  border-bottom: 1px solid #e8f0f8;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
 }
 
 .cashflow-detail-table tbody td.text-\[var\(--endeavour\)\] {
-  color: var(--endeavour);
+  color: var(--brand);
 }
 
 .cashflow-detail-table tbody tr:hover td {
-  background-color: #f0f7ff;
+  background-color: var(--bg-subtle);
 }
 
 .cashflow-detail-table tfoot th {
   font-weight: 500;
-  color: var(--chathams-blue);
-  font-size: 0.72rem;
-  border-top: 1.5px solid #b8ddf8;
+  color: var(--ink);
+  font-size: 0.75rem;
+  border-top: 1px solid var(--line-strong);
 }
 
 .cashflow-detail-table tbody td > div {
@@ -412,16 +481,16 @@ div.relative.w-full.text-gray-700 > div.absolute.z-10:not(.right-0) > div.absolu
 /* ========== Datepicker Global Theme ========== */
 .header-datepicker input,
 .react-tailwindcss-datepicker-container input {
-  font-size: 0.72rem !important;
+  font-size: 0.75rem !important;
   font-weight: 500 !important;
-  color: var(--chathams-blue) !important;
+  color: var(--ink) !important;
 }
 
 .react-tailwindcss-datepicker-container > div:not(:first-child),
 .shadow-sm.border.border-gray-300.px-1.py-0\.5.bg-white.rounded-lg {
-  border-radius: 1.25rem !important;
-  border: 1px solid #e6eef8 !important;
-  box-shadow: 0 12px 40px rgba(16,58,122,0.12) !important;
+  border-radius: 12px !important;
+  border: 1px solid var(--line) !important;
+  box-shadow: var(--shadow-md) !important;
   overflow: hidden !important;
   z-index: 9999 !important;
 }
@@ -431,28 +500,28 @@ div.relative.w-full.text-gray-700 > div.absolute.z-10:not(.right-0) > div.absolu
   display: none !important;
 }
 .flex.items-center.space-x-1\.5.border.border-gray-300.rounded-md.px-2.py-1\.5 {
-  background: #dbeeff !important;
-  border: 1px solid #b8ddf8 !important;
+  background: var(--bg-subtle) !important;
+  border: 1px solid var(--line) !important;
   border-radius: 999px !important;
-  color: var(--chathams-blue) !important;
+  color: var(--ink) !important;
   font-size: 11px !important;
   padding: 3px 8px !important;
 }
 .rounded-full.p-\[0\.45rem\]:hover {
-  background: #dbeeff !important;
+  background: var(--bg-subtle) !important;
 }
 .tracking-wide.px-3.py-\[0\.55rem\].uppercase.hover\:bg-gray-100.rounded-md {
   border-radius: 999px !important;
-  color: var(--chathams-blue) !important;
+  color: var(--ink) !important;
 }
 .tracking-wide.px-3.py-\[0\.55rem\].uppercase.hover\:bg-gray-100.rounded-md:hover {
-  background: #dbeeff !important;
+  background: var(--bg-subtle) !important;
 }
 .grid.grid-cols-7.border-b.border-gray-300.py-2 {
-  border-color: #e8f0f8 !important;
+  border-color: var(--line) !important;
 }
 .grid.grid-cols-7.border-b.border-gray-300.py-2 > div {
-  color: var(--chathams-blue) !important;
+  color: var(--ink-muted) !important;
   font-size: 11px !important;
   font-weight: 600 !important;
 }
@@ -467,14 +536,14 @@ div.relative.w-full.text-gray-700 > div.absolute.z-10:not(.right-0) > div.absolu
 }
 .flex.items-center.justify-center.w-12.h-12:hover,
 .flex.items-center.justify-center.lg\:w-10.lg\:h-10:hover {
-  background: #dbeeff !important;
-  color: var(--chathams-blue) !important;
+  background: var(--brand-soft) !important;
+  color: var(--brand) !important;
 }
 .rounded-r-full, .rounded-l-full {
   border-radius: 999px !important;
 }
 .bg-blue-100 {
-  background-color: #eef5fd !important;
+  background-color: var(--brand-soft) !important;
 }
 
 /* ========== Custom Scrollbar (always-visible) ========== */
@@ -485,27 +554,27 @@ div.relative.w-full.text-gray-700 > div.absolute.z-10:not(.right-0) > div.absolu
 }
 
 .custom-scroll::-webkit-scrollbar-track {
-  background: #f1f5fb;
+  background: #F1F2F5;
   border-radius: 4px;
 }
 
 .custom-scroll::-webkit-scrollbar-thumb {
-  background: #b8d4ee;
+  background: #C9CFD9;
   border-radius: 4px;
   min-height: 30px;
 }
 
 .custom-scroll::-webkit-scrollbar-thumb:hover {
-  background: #7aaed6;
+  background: #A9B2C0;
 }
 
 .custom-scroll::-webkit-scrollbar-corner {
-  background: #f1f5fb;
+  background: #F1F2F5;
 }
 
 .custom-scroll {
   scrollbar-width: auto;
-  scrollbar-color: #b8d4ee #f1f5fb;
+  scrollbar-color: #C9CFD9 #F1F2F5;
 }
 /* ========== End Custom Scrollbar ========== */
 
@@ -518,23 +587,23 @@ div.relative.w-full.text-gray-700 > div.absolute.z-10:not(.right-0) > div.absolu
   -webkit-appearance: none;
 }
 *::-webkit-scrollbar-track {
-  background: #f1f5fb;
+  background: #F1F2F5;
   border-radius: 4px;
 }
 *::-webkit-scrollbar-thumb {
-  background: #b8d4ee;
+  background: #C9CFD9;
   border-radius: 4px;
   min-height: 30px;
 }
 *::-webkit-scrollbar-thumb:hover {
-  background: #7aaed6;
+  background: #A9B2C0;
 }
 *::-webkit-scrollbar-corner {
-  background: #f1f5fb;
+  background: #F1F2F5;
 }
 * {
   scrollbar-width: auto;
-  scrollbar-color: #b8d4ee #f1f5fb;
+  scrollbar-color: #C9CFD9 #F1F2F5;
 }
 /* ========== End Global Always-Visible Scrollbar ========== */
 

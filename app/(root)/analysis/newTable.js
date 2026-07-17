@@ -53,7 +53,7 @@ const Customtable = ({
             }}
             onChange={table.getToggleAllPageRowsSelectedHandler()}
             className="w-4 h-4 cursor-pointer rounded"
-            style={{ accentColor: '#BCE1FE' }}
+            style={{ accentColor: 'var(--brand)' }}
           />
         </div>
       ),
@@ -65,7 +65,7 @@ const Customtable = ({
             disabled={!row.getCanSelect()}
             onChange={row.getToggleSelectedHandler()}
             className="w-4 h-4 cursor-pointer rounded"
-            style={{ accentColor: '#BCE1FE' }}
+            style={{ accentColor: 'var(--brand)' }}
           />
         </div>
       ),
@@ -115,17 +115,17 @@ const Customtable = ({
       <style jsx global>{`
         .dashboard-scroll::-webkit-scrollbar { width: 10px; height: 10px; }
         .dashboard-scroll::-webkit-scrollbar-track { 
-          background: linear-gradient(180deg, #F5F5F5, #FAFAFA); 
+          background: linear-gradient(180deg, #F3F5F8, #F3F5F8); 
           border-radius: 6px; 
         }
         .dashboard-scroll::-webkit-scrollbar-thumb { 
           background: linear-gradient(180deg, #6366F1, #4338CA); 
           border-radius: 6px; 
-          border: 2px solid #F5F5F5;
+          border: 2px solid #F3F5F8;
         }
         .dashboard-scroll::-webkit-scrollbar-thumb:hover { 
           background: linear-gradient(180deg, #A855F7, #7E22CE);
-          border-color: #FAFAFA;
+          border-color: #F3F5F8;
         }
         .glass-table {
           background: linear-gradient(135deg, 
@@ -141,8 +141,8 @@ const Customtable = ({
           transition-timing-function: ease-in-out !important;
         }
         .custom-table th, .custom-table td {
-          border: 1px solid #d8e8f5;
-          background-color: #f8fbff;
+          border: 1px solid var(--line-strong);
+          background-color: var(--bg-subtle);
           text-align: center;
           vertical-align: middle;
           padding: 6px;
@@ -154,14 +154,14 @@ const Customtable = ({
         .custom-table td {
           background-color: #fff;
           border: 1px solid #e0e0e0;
-          font-size: 9px !important;
+          font-size: 0.75rem;
         }
       `}</style>
 
       <div className="custom-table">
         <div className="flex flex-col" style={{ boxShadow: '0 20px 60px rgba(0, 0, 0, 0.08), 0 0 1px rgba(99, 102, 241, 0.1) inset' }}>
           {/* HEADER */}
-          <div className="flex-shrink-0" style={{ borderBottom: '2px solid #b8ddf8', background: 'linear-gradient(90deg, rgba(255,255,255,0.95), rgba(250,250,250,0.98))' }}>
+          <div className="flex-shrink-0" style={{ borderBottom: '2px solid var(--line)', background: 'linear-gradient(90deg, rgba(255,255,255,0.95), rgba(250,250,250,0.98))' }}>
             <Header
               globalFilter={globalFilter}
               setGlobalFilter={setGlobalFilter}
@@ -180,7 +180,7 @@ const Customtable = ({
 
           {/* DESKTOP TABLE */}
           <div className="hidden md:block">
-            <div className="overflow-auto dashboard-scroll" style={{ maxHeight: dynamicMaxHeight, borderRadius: '24px', border: '1px solid #d8e8f5' }}>
+            <div className="overflow-auto dashboard-scroll" style={{ maxHeight: dynamicMaxHeight, borderRadius: '24px', border: '1px solid var(--line-strong)' }}>
               <table className="w-full" style={{ tableLayout: 'auto' }}>
                 <thead className="sticky top-0 z-10">
                   {table.getHeaderGroups().map(hdGroup => (
@@ -191,7 +191,7 @@ const Customtable = ({
                           className={`px-2 py-2 font-poppins responsiveTextTable font-medium`}
                           style={{
                             color: 'var(--chathams-blue)',
-                            backgroundColor: '#dbeeff',
+                            backgroundColor: 'var(--bg-subtle)',
                             minWidth: header.column.id === 'select' ? '50px' : '60px',
                             letterSpacing: '0.05em',
                             textAlign: header.column.id === 'select' ? 'left' : 'center',
@@ -216,7 +216,7 @@ const Customtable = ({
                       <tr
                         key={row.id}
                         onDoubleClick={() => SelectRow?.(row.original)}
-                        className={`border-b ${borderColor} cursor-pointer transition-colors ${isAverageRow ? "bg-orange-100 hover:bg-orange-200" : "hover:bg-[#dbeeff]"}`}
+                        className={`border-b ${borderColor} cursor-pointer transition-colors ${isAverageRow ? "bg-orange-100 hover:bg-orange-200" : "hover:bg-[var(--bg-subtle)]"}`}
                       >
                         {row.index === firstOccurrenceOrder && (
                           <td
@@ -258,7 +258,7 @@ const Customtable = ({
                           className={`px-2 py-2 font-poppins responsiveTextTable font-medium`}
                           style={{
                             color: 'var(--chathams-blue)',
-                            backgroundColor: '#dbeeff',
+                            backgroundColor: 'var(--bg-subtle)',
                             minWidth: header.column.id === 'select' ? '50px' : '60px',
                             letterSpacing: '0.05em',
                             textAlign: header.column.id === 'select' ? 'left' : 'center',
@@ -283,7 +283,7 @@ const Customtable = ({
                       <tr
                         key={row.id}
                         onDoubleClick={() => SelectRow?.(row.original)}
-                        className={`border-b ${borderColor} cursor-pointer transition-colors ${isAverageRow ? "bg-orange-100 hover:bg-orange-200" : "hover:bg-[#dbeeff]"}`}
+                        className={`border-b ${borderColor} cursor-pointer transition-colors ${isAverageRow ? "bg-orange-100 hover:bg-orange-200" : "hover:bg-[var(--bg-subtle)]"}`}
                       >
                         {row.index === firstOccurrenceOrder && (
                           <td
@@ -314,7 +314,7 @@ const Customtable = ({
 
           {/* FOOTER */}
           <div className="flex-shrink-0">
-            <div className="flex items-center justify-between p-4" style={{ borderTop: '2px solid #b8ddf8', background: 'linear-gradient(90deg, rgba(255,255,255,0.95), rgba(250,250,250,0.98))' }}>
+            <div className="flex items-center justify-between p-4" style={{ borderTop: '2px solid var(--line)', background: 'linear-gradient(90deg, rgba(255,255,255,0.95), rgba(250,250,250,0.98))' }}>
               <RowsIndicator
                 table={table}
                 quickSumEnabled={quickSumEnabled}
@@ -326,7 +326,7 @@ const Customtable = ({
                 buttonClassName="px-3 py-1 responsiveText"
                 disabledClassName="opacity-50 cursor-not-allowed"
                 activeClassName="bg-blue-600 text-white"
-                inactiveClassName="bg-[#f3f4f6] text-[var(--port-gore)]"
+                inactiveClassName="bg-[#F0F2F5] text-[var(--port-gore)]"
               />
             </div>
           </div>

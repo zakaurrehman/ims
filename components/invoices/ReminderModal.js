@@ -4,6 +4,7 @@ import { Bell, Loader2, Send, X, Sparkles, CheckCircle2, AlertTriangle, Mail, Pa
 import { jsPDF } from 'jspdf';
 import { authedFetch } from '../../utils/aiClient';
 import { resolveDueDate, resolveInvoiceDate } from '../../utils/utils';
+import { TONES } from '../statusUtils';
 
 const ReminderModal = ({ invoice, clientEmail: initialEmail, companyName, language, onClose }) => {
     const [email, setEmail] = useState(initialEmail || '');
@@ -128,22 +129,22 @@ const ReminderModal = ({ invoice, clientEmail: initialEmail, companyName, langua
     return (
         <div
             className='fixed inset-0 z-[100000] flex items-center justify-center p-3 sm:p-4'
-            style={{ background: 'rgba(0,0,0,0.5)' }}
+            style={{ background: 'rgba(23,30,46,0.4)' }}
             role='dialog'
             aria-modal='true'
             aria-labelledby='reminder-modal-title'
         >
-            <div className='w-full max-w-lg rounded-2xl bg-white shadow-2xl overflow-hidden' style={{ border: '1px solid #b8ddf8', maxHeight: '92vh' }}>
+            <div className='w-full max-w-lg rounded-2xl bg-white overflow-hidden' style={{ border: '1px solid var(--line)', boxShadow: 'var(--shadow-md)', maxHeight: '92vh' }}>
 
                 {/* Header */}
-                <div className='flex items-center justify-between px-4 py-3' style={{ background: '#dbeeff', borderBottom: '1px solid #b8ddf8' }}>
+                <div className='flex items-center justify-between px-4 py-3' style={{ background: 'white', borderBottom: '1px solid var(--line)' }}>
                     <div className='flex items-center gap-2'>
-                        <Bell className='w-4 h-4' style={{ color: 'var(--endeavour)' }} />
+                        <Bell className='w-4 h-4' style={{ color: 'var(--brand)' }} />
                         <div>
-                            <p id='reminder-modal-title' className='font-semibold' style={{ fontSize: '0.75rem', color: 'var(--chathams-blue)' }}>
+                            <p id='reminder-modal-title' className='font-semibold' style={{ fontSize: '0.75rem', color: 'var(--ink)' }}>
                                 Payment Reminder — Invoice #{invoice.number}
                             </p>
-                            <p style={{ fontSize: '0.6rem', color: 'var(--regent-gray)' }}>
+                            <p style={{ fontSize: '0.6rem', color: 'var(--ink-muted)' }}>
                                 {invoice.client} · {invoice.currency} {Number(invoice.balanceDue || 0).toFixed(2)} outstanding · {invoice.paymentStatus}
                             </p>
                         </div>
@@ -151,9 +152,9 @@ const ReminderModal = ({ invoice, clientEmail: initialEmail, companyName, langua
                     <button
                         onClick={onClose}
                         aria-label='Close reminder modal'
-                        className='p-1 rounded-full hover:bg-[#b8ddf8] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--endeavour)]/40'
+                        className='p-1 rounded-full hover:bg-[var(--bg-subtle)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--brand)]/40'
                     >
-                        <X className='w-4 h-4' style={{ color: 'var(--chathams-blue)' }} />
+                        <X className='w-4 h-4' style={{ color: 'var(--ink-secondary)' }} />
                     </button>
                 </div>
 
@@ -162,14 +163,14 @@ const ReminderModal = ({ invoice, clientEmail: initialEmail, companyName, langua
                     {/* Last reminder notice */}
                     {lastReminder && (
                         <div className='flex items-center gap-2 px-3 py-2 rounded-lg' style={{
-                            background: onCooldown ? '#fef3c7' : '#f0fdf4',
-                            border: onCooldown ? '1px solid #fcd34d' : '1px solid #86efac'
+                            background: onCooldown ? TONES.amber.bg : TONES.green.bg,
+                            border: onCooldown ? `1px solid ${TONES.amber.border}` : `1px solid ${TONES.green.border}`
                         }}>
                             {onCooldown
-                                ? <AlertTriangle className='w-3 h-3 flex-shrink-0' style={{ color: '#d97706' }} />
-                                : <CheckCircle2 className='w-3 h-3 flex-shrink-0' style={{ color: '#16a34a' }} />
+                                ? <AlertTriangle className='w-3 h-3 flex-shrink-0' style={{ color: TONES.amber.text }} />
+                                : <CheckCircle2 className='w-3 h-3 flex-shrink-0' style={{ color: TONES.green.text }} />
                             }
-                            <span style={{ fontSize: '0.6rem', color: onCooldown ? '#92400e' : '#15803d' }}>
+                            <span style={{ fontSize: '0.6rem', color: onCooldown ? TONES.amber.text : TONES.green.text }}>
                                 {onCooldown
                                     ? `Reminder sent ${Math.round(hoursSinceLastReminder)}h ago to ${lastReminder.to}. Wait ${cooldownHoursLeft}h to send another.`
                                     : `Last reminder sent ${new Date(lastReminder.sentAt).toLocaleDateString()} to ${lastReminder.to}`}
@@ -179,23 +180,23 @@ const ReminderModal = ({ invoice, clientEmail: initialEmail, companyName, langua
 
                     {/* Recipient email */}
                     <div>
-                        <label className='block font-semibold mb-1' style={{ fontSize: '0.65rem', color: 'var(--chathams-blue)' }}>
+                        <label className='block font-semibold mb-1' style={{ fontSize: '0.65rem', color: 'var(--ink)' }}>
                             Recipient Email
                         </label>
-                        <div className='flex items-center gap-2 px-3 py-1.5 rounded-full border focus-within:border-[var(--endeavour)] transition-colors'
-                            style={{ borderColor: '#b8ddf8', background: '#f8fbff' }}>
-                            <Mail className='w-3 h-3 flex-shrink-0' style={{ color: 'var(--regent-gray)' }} />
+                        <div className='flex items-center gap-2 px-3 py-1.5 rounded-full border focus-within:border-[var(--brand)] transition-colors'
+                            style={{ borderColor: 'var(--line-strong)', background: 'var(--bg-subtle)' }}>
+                            <Mail className='w-3 h-3 flex-shrink-0' style={{ color: 'var(--ink-muted)' }} />
                             <input
                                 type='email'
                                 value={email}
                                 onChange={e => setEmail(e.target.value)}
                                 placeholder='client@email.com'
                                 className='flex-1 outline-none bg-transparent'
-                                style={{ fontSize: '0.68rem', color: 'var(--port-gore)' }}
+                                style={{ fontSize: '0.68rem', color: 'var(--ink)' }}
                             />
                         </div>
                         {!initialEmail && (
-                            <p style={{ fontSize: '0.57rem', color: '#d97706', marginTop: '3px' }}>
+                            <p style={{ fontSize: '0.57rem', color: TONES.amber.text, marginTop: '3px' }}>
                                 Add client email in Settings → Clients to pre-fill this field.
                             </p>
                         )}
@@ -205,7 +206,7 @@ const ReminderModal = ({ invoice, clientEmail: initialEmail, companyName, langua
                     {!body && (
                         <button onClick={generate} disabled={generating || !email.trim()}
                             className='w-full flex items-center justify-center gap-2 py-2 rounded-xl font-medium transition-all disabled:opacity-50'
-                            style={{ background: 'var(--endeavour)', color: 'white', fontSize: '0.72rem' }}>
+                            style={{ background: 'var(--brand)', color: 'white', fontSize: '0.72rem' }}>
                             {generating ? <><Loader2 className='w-4 h-4 animate-spin' /> Generating email…</> : <><Sparkles className='w-4 h-4' /> Generate Reminder Email</>}
                         </button>
                     )}
@@ -214,21 +215,21 @@ const ReminderModal = ({ invoice, clientEmail: initialEmail, companyName, langua
                     {(subject || body) && (
                         <div className='space-y-2'>
                             <div>
-                                <label className='block font-semibold mb-1' style={{ fontSize: '0.65rem', color: 'var(--chathams-blue)' }}>Subject</label>
+                                <label className='block font-semibold mb-1' style={{ fontSize: '0.65rem', color: 'var(--ink)' }}>Subject</label>
                                 <input
                                     type='text'
                                     value={subject}
                                     onChange={e => setSubject(e.target.value)}
-                                    className='w-full px-3 py-1.5 rounded-full border outline-none focus:border-[var(--endeavour)] transition-colors'
-                                    style={{ fontSize: '0.68rem', borderColor: '#b8ddf8', background: '#f8fbff', color: 'var(--port-gore)' }}
+                                    className='w-full px-3 py-1.5 rounded-full border outline-none focus:border-[var(--brand)] transition-colors'
+                                    style={{ fontSize: '0.68rem', borderColor: 'var(--line-strong)', background: 'var(--bg-subtle)', color: 'var(--ink)' }}
                                 />
                             </div>
                             <div>
                                 <div className='flex items-center justify-between mb-1'>
-                                    <label className='font-semibold' style={{ fontSize: '0.65rem', color: 'var(--chathams-blue)' }}>Email Body</label>
+                                    <label className='font-semibold' style={{ fontSize: '0.65rem', color: 'var(--ink)' }}>Email Body</label>
                                     <button onClick={generate} disabled={generating}
                                         className='flex items-center gap-1 px-2 py-0.5 rounded-full transition-colors disabled:opacity-50'
-                                        style={{ fontSize: '0.58rem', background: '#f8fbff', border: '1px solid #b8ddf8', color: 'var(--chathams-blue)' }}>
+                                        style={{ fontSize: '0.58rem', background: 'var(--bg-subtle)', border: '1px solid var(--line-strong)', color: 'var(--ink-secondary)' }}>
                                         {generating ? <Loader2 className='w-2.5 h-2.5 animate-spin' /> : <Sparkles className='w-2.5 h-2.5' />}
                                         Regenerate
                                     </button>
@@ -237,8 +238,8 @@ const ReminderModal = ({ invoice, clientEmail: initialEmail, companyName, langua
                                     rows={7}
                                     value={body}
                                     onChange={e => setBody(e.target.value)}
-                                    className='w-full px-3 py-2 rounded-xl border outline-none focus:border-[var(--endeavour)] transition-colors resize-none'
-                                    style={{ fontSize: '0.68rem', borderColor: '#b8ddf8', background: '#f8fbff', color: 'var(--port-gore)', fontFamily: 'inherit', lineHeight: '1.5' }}
+                                    className='w-full px-3 py-2 rounded-xl border outline-none focus:border-[var(--brand)] transition-colors resize-none'
+                                    style={{ fontSize: '0.68rem', borderColor: 'var(--line-strong)', background: 'var(--bg-subtle)', color: 'var(--ink)', fontFamily: 'inherit', lineHeight: '1.5' }}
                                 />
                             </div>
                         </div>
@@ -248,7 +249,7 @@ const ReminderModal = ({ invoice, clientEmail: initialEmail, companyName, langua
                     {body && !sent && (
                         <label
                             className='flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-colors'
-                            style={{ background: attachSummary ? '#f0fdf4' : '#f8fbff', border: `1px solid ${attachSummary ? '#86efac' : '#dbeeff'}` }}
+                            style={{ background: attachSummary ? TONES.green.bg : 'var(--bg-subtle)', border: `1px solid ${attachSummary ? TONES.green.border : 'var(--line)'}` }}
                         >
                             <input
                                 type='checkbox'
@@ -256,8 +257,8 @@ const ReminderModal = ({ invoice, clientEmail: initialEmail, companyName, langua
                                 onChange={e => setAttachSummary(e.target.checked)}
                                 className='cursor-pointer'
                             />
-                            <Paperclip className='w-3 h-3' style={{ color: attachSummary ? '#16a34a' : 'var(--regent-gray)' }} />
-                            <span style={{ fontSize: '0.62rem', color: attachSummary ? '#15803d' : 'var(--chathams-blue)' }}>
+                            <Paperclip className='w-3 h-3' style={{ color: attachSummary ? TONES.green.text : 'var(--ink-muted)' }} />
+                            <span style={{ fontSize: '0.62rem', color: attachSummary ? TONES.green.text : 'var(--ink-secondary)' }}>
                                 Attach invoice summary PDF
                             </span>
                         </label>
@@ -265,31 +266,31 @@ const ReminderModal = ({ invoice, clientEmail: initialEmail, companyName, langua
 
                     {/* Error */}
                     {error && (
-                        <div className='flex items-center gap-2 px-3 py-2 rounded-lg' style={{ background: '#fee2e2', border: '1px solid #fca5a5' }}>
-                            <AlertTriangle className='w-3.5 h-3.5 flex-shrink-0' style={{ color: '#991b1b' }} />
-                            <span style={{ fontSize: '0.65rem', color: '#991b1b' }}>{error}</span>
+                        <div className='flex items-center gap-2 px-3 py-2 rounded-lg' style={{ background: TONES.red.bg, border: `1px solid ${TONES.red.border}` }}>
+                            <AlertTriangle className='w-3.5 h-3.5 flex-shrink-0' style={{ color: TONES.red.text }} />
+                            <span style={{ fontSize: '0.65rem', color: TONES.red.text }}>{error}</span>
                         </div>
                     )}
 
                     {/* Success */}
                     {sent && (
-                        <div className='flex items-center gap-2 px-3 py-2 rounded-lg' style={{ background: '#f0fdf4', border: '1px solid #86efac' }}>
-                            <CheckCircle2 className='w-3.5 h-3.5 flex-shrink-0' style={{ color: '#16a34a' }} />
-                            <span style={{ fontSize: '0.68rem', color: '#15803d', fontWeight: 600 }}>Reminder sent to {email}</span>
+                        <div className='flex items-center gap-2 px-3 py-2 rounded-lg' style={{ background: TONES.green.bg, border: `1px solid ${TONES.green.border}` }}>
+                            <CheckCircle2 className='w-3.5 h-3.5 flex-shrink-0' style={{ color: TONES.green.text }} />
+                            <span style={{ fontSize: '0.68rem', color: TONES.green.text, fontWeight: 600 }}>Reminder sent to {email}</span>
                         </div>
                     )}
                 </div>
 
                 {/* Footer */}
-                <div className='flex items-center justify-end gap-2 px-4 py-3' style={{ borderTop: '1px solid #b8ddf8', background: '#f8fbff' }}>
-                    <button onClick={onClose} className='px-3 py-1.5 rounded-full border transition-colors hover:border-[var(--endeavour)]'
-                        style={{ fontSize: '0.65rem', borderColor: '#b8ddf8', color: 'var(--chathams-blue)' }}>
+                <div className='flex items-center justify-end gap-2 px-4 py-3' style={{ borderTop: '1px solid var(--line)', background: 'var(--bg-subtle)' }}>
+                    <button onClick={onClose} className='px-3 py-1.5 rounded-full border transition-colors hover:border-[var(--brand)]'
+                        style={{ fontSize: '0.65rem', borderColor: 'var(--line-strong)', color: 'var(--ink-secondary)' }}>
                         {sent ? 'Close' : 'Cancel'}
                     </button>
                     {!sent && body && (
                         <button onClick={send} disabled={sending || onCooldown || !email.trim() || !subject.trim() || !body.trim()}
                             className='flex items-center gap-1.5 px-3 py-1.5 rounded-full text-white font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed'
-                            style={{ fontSize: '0.65rem', background: onCooldown ? '#9ca3af' : 'var(--endeavour)' }}
+                            style={{ fontSize: '0.65rem', background: onCooldown ? 'var(--ink-muted)' : 'var(--brand)' }}
                             title={onCooldown ? `Cooldown active — wait ${cooldownHoursLeft}h` : undefined}>
                             {sending ? <Loader2 className='w-3 h-3 animate-spin' /> : <Send className='w-3 h-3' />}
                             {sending ? 'Sending…' : onCooldown ? `Wait ${cooldownHoursLeft}h` : 'Send Reminder'}

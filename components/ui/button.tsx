@@ -5,36 +5,32 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0" +
-" hover-elevate active-elevate-2",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[10px] text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[var(--brand-soft)] focus-visible:border-[var(--brand)] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         default:
-           // @replit: no hover, and add primary border
-           "bg-primary text-primary-foreground border border-primary-border",
+          "bg-[var(--brand)] text-white hover:bg-[var(--brand-strong)] shadow-card",
         destructive:
-          "bg-destructive text-destructive-foreground shadow-sm border-destructive-border",
+          "bg-[var(--bad-text)] text-white hover:opacity-90 shadow-card",
         outline:
-          // @replit Shows the background color of whatever card / sidebar / accent background it is inside of.
-          // Inherits the current text color. Uses shadow-xs. no shadow on active
-          // No hover state
-          " border [border-color:var(--button-outline)] shadow-xs active:shadow-none ",
+          "border border-[var(--line-strong)] bg-white text-[var(--ink)] hover:bg-[var(--bg-subtle)] shadow-card",
         secondary:
-          // @replit border, no hover, no shadow, secondary border.
-          "border bg-secondary text-secondary-foreground border border-secondary-border ",
-        // @replit no hover, transparent border
-        ghost: "border border-transparent",
-        link: "text-primary underline-offset-4 hover:underline",
-        customBlue: "bg-[#0366ae] text-white rounded-full text-xs px-2 gap-2",
-        customWhite: "text-[#0366ae] rounded-full text-xs px-2 gap-2 hover:bg-[#ebf2fc] border border-[#9fb8d4]",
+          "bg-[var(--bg-subtle)] text-[var(--ink)] hover:bg-[var(--bg-sunken)]",
+        ghost:
+          "border border-transparent text-[var(--ink-secondary)] hover:bg-[var(--bg-subtle)] hover:text-[var(--ink)]",
+        link: "text-[var(--brand)] underline-offset-4 hover:underline",
+        // Legacy variant names — mapped onto the new system (retire in Phase 3)
+        customBlue:
+          "bg-[var(--brand)] text-white hover:bg-[var(--brand-strong)] shadow-card",
+        customWhite:
+          "border border-[var(--line-strong)] bg-white text-[var(--brand)] hover:bg-[var(--bg-subtle)] shadow-card",
       },
       size: {
-        // @replit changed sizes
-        default: "min-h-7 px-4 py-2",
-        sm: "min-h-8 rounded-md px-3 text-xs",
-        lg: "min-h-10 rounded-md px-8",
-        icon: "h-9 w-9",
+        default: "h-8 px-3",
+        sm: "h-7 px-2.5",
+        lg: "h-9 px-4",
+        icon: "h-8 w-8",
       },
     },
     defaultVariants: {

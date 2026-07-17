@@ -4,7 +4,7 @@ import { SettingsContext } from "@contexts/useSettingsContext";
 import { getTtl } from '@utils/languages';
 import { Selector } from '@components/selectors/selectShad';
 import { X, CirclePlus, Trash } from "lucide-react"
-import { Button } from '@components/ui/button.jsx';
+import { Button } from '@components/ui/button';
 
 
 const Remraks = ({ value, setValue, settings }) => {

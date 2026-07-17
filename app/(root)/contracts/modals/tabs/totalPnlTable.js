@@ -124,7 +124,7 @@ const TotalPnlTable = ({ data, val, mult }) => {
                             x === 'debtaftr' ? frmNum(Total(data, 'totalPrepayment', val, mult, settings) - TotalArrsPmnt(data, val, mult), val, settings) :
                                 x === 'debtBlnc' ? (() => {
                                     const v = Total(data, 'totalAmount', val, mult, settings) - TotalArrsPmnt(data, val, mult);
-                                    return <span style={{ color: v > 0 ? '#dc2626' : undefined }}>{frmNum(v, val, settings)}</span>;
+                                    return <span style={{ color: v > 0 ? '#B42332' : undefined }}>{frmNum(v, val, settings)}</span>;
                                 })() :
                                     x === 'deviation' ? frmNum(Total(data, 'totalAmount', val, mult, settings) - TotalInvoice(data, 'totalAmount', val, mult, settings), val, settings) :
                                         ''
@@ -133,11 +133,11 @@ const TotalPnlTable = ({ data, val, mult }) => {
     return (
 
 
-        <div className='border border-[#b8ddf8] p-2 rounded-2xl' >
-            <div className="overflow-x-auto border-[#b8ddf8] border rounded-2xl">
+        <div className='border border-[var(--line)] p-2 rounded-2xl' >
+            <div className="overflow-x-auto border-[var(--line)] border rounded-2xl">
                 <table className="w-full ">
-                    <thead style={{ background: '#dbeeff' }} className="divide-y divide-[#b8ddf8]">
-                        <tr className='border-b border-[#b8ddf8]'>
+                    <thead style={{ background: 'var(--bg-subtle)' }} className="divide-y divide-[var(--line)]">
+                        <tr className='border-b border-[var(--line)]'>
                             {cols.map(x => x.header)
                                 .map((y, k) => (
                                     <th

@@ -322,9 +322,9 @@ const Invoices = () => {
 				const isUSD = cur === 'USD' || cur === '$' || cur.toLowerCase() === 'us';
 				const isEUR = cur === 'EUR' || cur === '€' || cur.toLowerCase() === 'eu';
 				const symbol = isUSD ? '$' : isEUR ? '€' : cur;
-				const bg = isUSD ? '#dcfce7' : isEUR ? '#dbeeff' : '#e5e7eb';
-				const border = isUSD ? '1px solid #bbf7d0' : isEUR ? '1px solid #b8ddf8' : '1px solid #d1d5db';
-				const color = isUSD ? '#166534' : 'var(--chathams-blue)';
+				const bg = isUSD ? '#E5F6EC' : isEUR ? '#E8F2FB' : '#F0F2F5';
+				const border = isUSD ? '1px solid #BFE8D0' : isEUR ? '1px solid #C5DEF2' : '1px solid #DDE1E8';
+				const color = isUSD ? '#177245' : isEUR ? '#0B5C99' : '#5B6472';
 				return (
 					<span
 						style={{
@@ -446,8 +446,8 @@ const Invoices = () => {
 				// Same status-indicator language as the Cashflow finalized chips:
 				// soft tint + 1px inset ring + matching status dot.
 				const tone = yes
-					? { dot: '#10b981', text: '#047857', bg: '#ecfdf5', ring: '#a7f3d0' }
-					: { dot: '#f59e0b', text: '#b45309', bg: '#fffbeb', ring: '#fde68a' };
+					? { dot: '#177245', text: '#177245', bg: '#E5F6EC', ring: '#BFE8D0' }
+					: { dot: '#E8A23D', text: '#9A6215', bg: '#FDF3E1', ring: '#F5DFAE' };
 				return (
 					<span
 						className="inline-flex items-center gap-1.5 rounded-full responsiveTextTable font-semibold leading-none whitespace-nowrap"
@@ -477,9 +477,9 @@ const Invoices = () => {
 						<div
 							className="px-3 py-1 rounded-xl responsiveTextTable font-normal"
 							style={{
-								backgroundColor: value ? '#dcfce7' : '#fce7f3',
-								color: value ? '#166534' : '#be185d',
-								border: `1px solid ${value ? '#bbf7d0' : '#fbcfe8'}`
+								backgroundColor: value ? '#E5F6EC' : '#FDF3E1',
+								color: value ? '#177245' : '#9A6215',
+								border: `1px solid ${value ? '#BFE8D0' : '#F5DFAE'}`
 							}}
 						>
 							{value ? 'Completed' : 'Incompleted'}
@@ -563,7 +563,7 @@ const Invoices = () => {
 						aria-label={titleText}
 						className='relative p-1 rounded-full transition-colors hover:opacity-80 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[var(--endeavour)]/30'
 						style={{
-							color: onCooldown ? '#9ca3af' : isOverdue ? '#ef4444' : '#f59e0b',
+							color: onCooldown ? '#9ca3af' : isOverdue ? '#B42332' : '#E8A23D',
 							opacity: onCooldown ? 0.4 : 1,
 						}}
 					>
@@ -575,7 +575,7 @@ const Invoices = () => {
 								style={{
 									width: '6px',
 									height: '6px',
-									background: '#ef4444',
+									background: '#B42332',
 									boxShadow: '0 0 0 1.5px white',
 								}}
 							/>
@@ -702,17 +702,17 @@ const Invoices = () => {
 	};
 
 	return (
-		<div className="w-full " style={{ background: "#f8fbff" }}>
+		<div className="w-full" style={{ background: "var(--bg-page)" }}>
 			<div className="mx-auto w-full max-w-full px-1 md:px-2 pb-4 mt-[72px]">
 				{Object.keys(settings).length === 0 ? <TableSkeleton /> :
 					<>
 						<Toast />
 						{/* Main Card */}
-						<div className="rounded-2xl p-3 sm:p-5 mt-8 border border-[#b8ddf8] w-full bg-[#f8fbff]">
+						<div className="rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] w-full bg-white shadow-card">
 
 							{/* Header Section */}
 							<div className='flex items-center justify-between flex-wrap gap-2 pb-2'>
-								<h1 className="text-[var(--chathams-blue)] font-poppins responsiveTextTitle font-medium border-l-4 border-[var(--chathams-blue)] pl-2">
+								<h1 className="text-[var(--ink)] responsiveTextTitle">
 									{getTtl('Invoices', ln)}
 								</h1>
 								{(() => {
@@ -725,14 +725,14 @@ const Invoices = () => {
 											className='inline-flex items-center gap-1.5 rounded-full transition-colors'
 											style={{
 												fontSize: '0.66rem', padding: '4px 12px',
-												color: onlyUnsplit ? 'white' : 'var(--chathams-blue)',
-												background: onlyUnsplit ? 'var(--endeavour)' : '#f8fbff',
-												border: '1px solid #b8ddf8',
+												color: onlyUnsplit ? 'white' : 'var(--ink-secondary)',
+												background: onlyUnsplit ? 'var(--brand)' : 'var(--bg-subtle)',
+												border: onlyUnsplit ? '1px solid var(--brand)' : '1px solid var(--line)',
 											}}
 										>
 											<Split className='w-3.5 h-3.5' />
 											Needs IMS/GIS split
-											<span className='rounded-full px-1.5' style={{ fontSize: '0.6rem', background: onlyUnsplit ? 'rgba(255,255,255,0.25)' : '#dbeeff', color: onlyUnsplit ? 'white' : 'var(--endeavour)' }}>
+											<span className='rounded-full px-1.5' style={{ fontSize: '0.6rem', background: onlyUnsplit ? 'rgba(255,255,255,0.25)' : 'var(--bg-sunken)', color: onlyUnsplit ? 'white' : 'var(--brand)' }}>
 												{pendingCount}
 											</span>
 										</button>
@@ -756,9 +756,9 @@ const Invoices = () => {
 						{/* Alert Section */}
 						{alertArr.length > 0 && (
 							<div className='mt-4 px-2 sm:px-3'>
-								<div className="responsiveText font-medium border border-[#b8ddf8] p-4 rounded-2xl shadow-sm bg-white w-full max-w-2xl">
+								<div className="responsiveText font-medium border border-[var(--line)] p-4 rounded-2xl shadow-sm bg-white w-full max-w-2xl">
 									<div style={{ color: 'var(--chathams-blue)' }}>
-										<span className='responsiveText border-l-4 border-[var(--chathams-blue)] pl-2'>Notification for delayed response</span>
+										<span className='responsiveText font-semibold'>Notification for delayed response</span>
 										<DlayedResponse alertArr={alertArr} setAlertArr={setAlertArr} />
 									</div>
 								</div>

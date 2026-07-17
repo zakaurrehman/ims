@@ -343,7 +343,7 @@ const Contracts = () => {
 	};
 
 	return (
-		<div className="w-full " style={{ background: "#f8fbff" }}>
+		<div className="w-full" style={{ background: "var(--bg-page)" }}>
 			<div className="mx-auto w-full max-w-full px-1 md:px-2 pb-4 mt-[72px]">
 				{Object.keys(settings).length === 0 ? <TableSkeleton /> :
 					<>
@@ -351,11 +351,11 @@ const Contracts = () => {
 						<ModalCopyInvoice />
 
 						{/* Main Card */}
-						<div className="rounded-2xl p-3 sm:p-5 mt-8 border border-[#b8ddf8] w-full bg-[#f8fbff]">
+						<div className="rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] w-full bg-white shadow-card">
 
 							{/* Header Section */}
 							<div className='flex items-center justify-between flex-wrap gap-2 pb-2'>
-								<h1 className="text-[var(--chathams-blue)] responsiveTextTitle font-medium border-l-4 border-[var(--chathams-blue)] pl-2">
+								<h1 className="text-[var(--ink)] responsiveTextTitle">
 									{getTtl('Contracts', ln)}
 								</h1>
 
@@ -410,9 +410,9 @@ const Contracts = () => {
 						{/* Alert Section */}
 						{alertArr.length > 0 && (
 							<div className='mt-4 px-2 sm:px-3'>
-								<div className="responsiveText font-medium border border-[#b8ddf8] p-4 rounded-2xl shadow-sm bg-white w-full max-w-2xl">
-									<div style={{ color: 'var(--chathams-blue)' }}>
-										<span className='responsiveText border-l-4 border-[var(--chathams-blue)] pl-2'>Notification for delayed response</span>
+								<div className="responsiveText font-medium border border-[var(--line)] p-4 rounded-2xl shadow-card bg-white w-full max-w-2xl">
+									<div style={{ color: 'var(--ink)' }}>
+										<span className='responsiveText font-semibold'>Notification for delayed response</span>
 										<DlayedResponse alertArr={alertArr} setAlertArr={setAlertArr} />
 									</div>
 								</div>

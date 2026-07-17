@@ -92,7 +92,7 @@ const DraggableRow = memo(function DraggableRow({ row, props, cName }) {
     <TableRow
       ref={setNodeRef}
       style={style}
-      className="hover:bg-[#dbeeff]/40"
+      className="hover:bg-[var(--bg-subtle)] border-b border-b-[var(--line)]"
     >
       {row.getVisibleCells().map((cell) => {
         const columnConfig = COLUMN_CONFIGS[cell.column.id] || {};
@@ -111,8 +111,7 @@ const DraggableRow = memo(function DraggableRow({ row, props, cName }) {
             }}
             className={cn(
               cellAlign === "right" && "text-center",
-              cellAlign === "center" && "text-center",
-              "border-r border-r-[#e8f0f8] last:border-r-0"
+              cellAlign === "center" && "text-center"
             )}
           >
             {cell.column.id === "drag-handle" ? (
@@ -201,7 +200,7 @@ const DraggableRow = memo(function DraggableRow({ row, props, cName }) {
             ) : cell.column.id === "del" ? (
               <div className="flex items-center justify-center">
                 <button
-                  className="p-0 bg-transparent border-0 outline-none text-[var(--endeavour)] hover:text-red-500 transition-colors"
+                  className="p-0 bg-transparent border-0 outline-none text-[var(--ink-muted)] hover:text-[var(--bad-text)] transition-colors"
                   onClick={(e) => deleteRow(e, cell.row.original.id, month)}
                 >
                   <MdDeleteOutline className="w-4 h-4" />
@@ -225,8 +224,8 @@ const DraggableRow = memo(function DraggableRow({ row, props, cName }) {
                     className={cn(
                       "w-full bg-transparent border-none outline-none px-1 text-center text-[0.68rem] xl:text-[0.72rem] 2xl:text-[0.75rem] 3xl:text-[0.8125rem]",
                       cell.column.id === "remaining" && Number(cell.getValue()) > 0
-                        ? "text-red-600"
-                        : "text-[var(--port-gore)]"
+                        ? "text-[var(--bad-text)]"
+                        : "text-[var(--ink)]"
                     )}
                     style={{ fontFamily: "var(--font-poppins), 'Poppins', sans-serif" }}
                   />
@@ -245,8 +244,8 @@ const DraggableRow = memo(function DraggableRow({ row, props, cName }) {
                 className={cn(
                   "w-full bg-transparent border-none outline-none px-1 text-center text-[0.68rem] xl:text-[0.72rem] 2xl:text-[0.75rem] 3xl:text-[0.8125rem]",
                   ["openShip", "remaining"].includes(cell.column.id) && Number(cell.getValue()) > 0
-                    ? "text-red-600"
-                    : "text-[var(--port-gore)]"
+                    ? "text-[var(--bad-text)]"
+                    : "text-[var(--ink)]"
                 )}
                 style={{ fontFamily: "var(--font-poppins), 'Poppins', sans-serif" }}
               />
@@ -361,9 +360,9 @@ const Customtable = (props) => {
         >
             <div className="flex flex-col relative w-full">
                 <style jsx global>{`
-                    .margins-data-table tbody td { font-size: 9px !important; }
+                    .margins-data-table tbody td { font-size: 0.75rem; }
                 `}</style>
-                <div className="rounded-lg border border-[#b8ddf8] overflow-x-auto relative shadow-sm">
+                <div className="rounded-lg border border-[var(--line)] overflow-x-auto relative shadow-card">
                     {/* Desktop Table - Compact Heights */}
                     <div className="hidden sm:block w-full min-w-[900px]">
                         <Table className="w-full margins-data-table" style={{ borderSpacing: '0 1px', tableLayout: 'fixed' }}>
@@ -381,12 +380,12 @@ const Customtable = (props) => {
     width: (COLUMN_CONFIGS[header.column.id] || {}).pct || 'auto',
   }}
   className={cn(
-    'bg-[#dbeeff] text-[var(--chathams-blue)] border-b border-b-[#b8ddf8]',
+    'bg-[var(--bg-subtle)] text-[var(--ink-muted)] border-b border-b-[var(--line)]',
     idx === 0 ? 'rounded-tl-lg' : '',
     idx === arr.length - 1 ? 'rounded-tr-lg' : ''
   )}
 >
-  <div className="w-full flex items-center justify-center font-medium font-poppins text-[0.72rem] xl:text-[0.75rem] 2xl:text-[0.8rem] 3xl:text-[0.875rem]">
+  <div className="w-full flex items-center justify-center font-medium uppercase tracking-[0.04em] text-[0.6875rem]">
     {header.isPlaceholder
       ? null
       : flexRender(header.column.columnDef.header, header.getContext())}
@@ -408,13 +407,9 @@ const Customtable = (props) => {
                                         ))) :
                                         (
                                             <TableRow>
-                                                <TableCell 
-                                                    colSpan={columns.length} 
-                                                    className="responsiveText text-center text-[var(--regent-gray)]"
-                                                    style={{
-                                                        height: '60px',
-                                                        padding: '16px'
-                                                    }}
+                                                <TableCell
+                                                    colSpan={columns.length}
+                                                    className="responsiveText text-center text-[var(--ink-muted)] py-10"
                                                 >
                                                     No results found.
                                                 </TableCell>
@@ -426,7 +421,7 @@ const Customtable = (props) => {
                             {data.length > 0 && (
                                 <TableFooter>
                                     {table.getFooterGroups().map((footerGroup) => (
-                                        <TableRow key={footerGroup.id} className='bg-[#dbeeff]'>
+                                        <TableRow key={footerGroup.id} className='bg-[var(--bg-subtle)]'>
                                             {footerGroup.headers.map((footer) => {
                                                 const accessorKey = footer.column.columnDef.accessorKey;
                                                 const columnConfig = COLUMN_CONFIGS[accessorKey] || {};
@@ -449,7 +444,7 @@ const Customtable = (props) => {
                                                         className={cn(
                                                             columnConfig.align === 'right' && 'text-right',
                                                             columnConfig.align === 'center' && 'text-center',
-                                                            'border-t border-t-[#b8ddf8]',
+                                                            'border-t border-t-[var(--line-strong)]',
                                                             'responsiveTextTable'
                                                         )}
                                                     >
@@ -465,7 +460,7 @@ const Customtable = (props) => {
                                                                     fixedDecimalScale
                                                                     className="text-[0.72rem] xl:text-[0.75rem] 2xl:text-[0.8rem] 3xl:text-[0.875rem]"
                                                                     style={{
-                                                                        color: ['openShip', 'remaining'].includes(accessorKey) && total > 0 ? '#dc2626' : 'var(--chathams-blue)',
+                                                                        color: ['openShip', 'remaining'].includes(accessorKey) && total > 0 ? 'var(--bad-text)' : 'var(--ink)',
                                                                         fontWeight: '500',
                                                                         lineHeight: '1.2'
                                                                     }}
@@ -488,18 +483,18 @@ const Customtable = (props) => {
                             data.map((row, rowIdx) => (
                                 <div 
                                     key={row.id || rowIdx} 
-                                    className="rounded-lg border border-[var(--selago)] bg-white shadow-sm overflow-hidden"
+                                    className="rounded-lg border border-[var(--line)] bg-white shadow-card overflow-hidden"
                                 >
                                     {/* Compact Card Header */}
-                                    <div className="bg-[#dbeeff] px-3 py-2 border-b border-[#b8ddf8] flex justify-between items-center min-h-[32px]">
+                                    <div className="bg-[var(--bg-subtle)] px-3 py-2 border-b border-[var(--line)] flex justify-between items-center min-h-[32px]">
                                         <span
-                                            className="responsiveTextTable font-normal text-[var(--chathams-blue)]"
+                                            className="responsiveTextTable font-normal text-[var(--ink)]"
                                             style={{ lineHeight: '1.2' }}
                                         >
                                             Entry #{rowIdx + 1}
                                         </span>
                                         <button
-                                            className="text-[var(--endeavour)] hover:text-red-600 transition-colors flex items-center justify-center"
+                                            className="text-[var(--ink-muted)] hover:text-[var(--bad-text)] transition-colors flex items-center justify-center"
                                             onClick={e => props.deleteRow(e, row.id, row.month)}
                                             style={{ width: '20px', height: '20px' }}
                                         >
@@ -517,7 +512,7 @@ const Customtable = (props) => {
                                                     className="flex justify-between items-center gap-2 py-1.5 border-b border-gray-100 last:border-b-0 min-h-[28px]"
                                                 >
                                                     <span
-                                                        className="responsiveTextTable font-normal text-[var(--chathams-blue)] min-w-[80px] flex-shrink-0"
+                                                        className="responsiveTextTable font-normal text-[var(--ink)] min-w-[80px] flex-shrink-0"
                                                         style={{ lineHeight: '1.2' }}
                                                     >
                                                         {typeof col.header === 'string' ? col.header : ''}
@@ -574,7 +569,7 @@ if (col.accessorKey === 'supplier' || col.accessorKey === 'client') {
 }
                                                             if (['purchase', 'description', 'margin', 'shipped'].includes(col.accessorKey)) {
                                                                 return (
-                                                                    <div className="w-full max-w-[100px] bg-[#fafafa]">
+                                                                    <div className="w-full max-w-[100px]">
                                                                         <Input 
                                                                             props={{ 
                                                                                 row: { original: row }, 
@@ -608,7 +603,7 @@ if (col.accessorKey === 'supplier' || col.accessorKey === 'client') {
                                                                         fixedDecimalScale
                                                                         className="responsiveTextTable"
                                                                         style={{
-                                                                            color: ['openShip', 'remaining'].includes(col.accessorKey) && Number(displayVal) > 0 ? '#dc2626' : 'var(--chathams-blue)',
+                                                                            color: ['openShip', 'remaining'].includes(col.accessorKey) && Number(displayVal) > 0 ? 'var(--bad-text)' : 'var(--ink)',
                                                                             fontWeight: '400',
                                                                             lineHeight: '1.2'
                                                                         }}
@@ -617,7 +612,7 @@ if (col.accessorKey === 'supplier' || col.accessorKey === 'client') {
                                                             }
                                                             return (
                                                                 <span
-                                                                    className='responsiveTextTable text-[var(--port-gore)]'
+                                                                    className='responsiveTextTable text-[var(--ink)]'
                                                                     style={{
                                                                         lineHeight: '1.2'
                                                                     }}
@@ -633,7 +628,7 @@ if (col.accessorKey === 'supplier' || col.accessorKey === 'client') {
                                 </div>
                             ))
                         ) : (
-                            <div className="responsiveText text-center py-6 text-[var(--regent-gray)]">
+                            <div className="responsiveText text-center py-10 text-[var(--ink-muted)]">
                                 No results found.
                             </div>
                         )}

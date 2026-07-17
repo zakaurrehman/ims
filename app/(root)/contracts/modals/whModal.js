@@ -11,7 +11,7 @@ import { getD, loadStockData, validate } from '@utils/utils'
 import { getTtl } from '@utils/languages';
 import Tltip from '@components/tlTip';
 import { Selector } from '@components/selectors/selectShad.js';
-import { Button } from '@components/ui/button.jsx';
+import { Button } from '@components/ui/button';
 import { Save, CirclePlus, ScrollText, Trash, FileText } from "lucide-react";
 import DocumentImportOverlay from '@components/DocumentImportOverlay';
 
@@ -332,7 +332,7 @@ const PoInvModal = ({ isOpen, setIsOpen, setShowPoInvModal }) => {
                 {data.map((x, i) => {
 
                     return (
-                        <div className='flex flex-wrap p-1 gap-2 border border-[#b8ddf8] rounded-2xl bg-[#f4f9ff]' key={x.id}>
+                        <div className='flex flex-wrap p-1 gap-2 border border-[var(--line)] rounded-2xl bg-[var(--bg-subtle)]' key={x.id}>
                             <div className='flex'>
                                 <div className='items-center flex pt-3 pr-2'>
                                     <ChkBox checked={checkedItems.includes(x.id)} size='h-5 w-5' onChange={() => checkItem(x.id)} />
