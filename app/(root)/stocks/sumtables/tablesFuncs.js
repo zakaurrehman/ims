@@ -19,7 +19,7 @@ export const detailsToolTip = (row, data, settings, dataTable,) => {
             overflow: 'hidden',
             maxHeight: '28rem',
             overflowY: 'auto',
-            boxShadow: '0 8px 32px rgba(3,102,174,0.13)',
+            boxShadow: 'var(--shadow-md)',
             border: '1px solid var(--line)',
             fontFamily: "var(--font-poppins), 'Poppins', sans-serif",
             minWidth: '400px',

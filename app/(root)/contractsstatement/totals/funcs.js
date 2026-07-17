@@ -6,15 +6,15 @@ export const expensesToolTip = (row, expensesData, settings) => {
 
     let filteredArr = expensesData.filter(z => (z.supplier === row.original.supplier && z.cur === row.original.cur))
 
-    const thStyle = { textAlign: 'center', padding: '6px 10px', color: 'var(--chathams-blue)', fontWeight: 500, fontSize: '0.68rem', border: '1px solid #EAE8F2', background: '#F4F3F9', whiteSpace: 'nowrap' }
-    const tdStyle = { textAlign: 'center', padding: '5px 10px', border: '1px solid #EAE8F2', fontSize: '0.68rem', color: 'var(--chathams-blue)', whiteSpace: 'nowrap' }
+    const thStyle = { textAlign: 'center', padding: '6px 10px', color: 'var(--ink-muted)', fontWeight: 500, fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.04em', borderBottom: '1px solid var(--line)', background: 'var(--bg-subtle)', whiteSpace: 'nowrap' }
+    const tdStyle = { textAlign: 'center', padding: '5px 10px', borderBottom: '1px solid var(--line)', fontSize: '0.75rem', color: 'var(--ink)', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }
 
     return (
         <div style={{
             background: '#fff',
             borderRadius: '16px',
             overflow: 'hidden',
-            boxShadow: '0 8px 32px rgba(3,102,174,0.13)',
+            boxShadow: 'var(--shadow-md)',
             border: '1px solid #EAE8F2',
             fontFamily: "var(--font-poppins), 'Poppins', sans-serif",
             minWidth: '400px',

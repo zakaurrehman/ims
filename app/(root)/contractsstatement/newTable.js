@@ -8,6 +8,7 @@ if (typeof window !== 'undefined') {
 }
 
 import Header from "../../../components/table/header";
+import EmptyState from "../../../components/EmptyState";
 import {
   flexRender,
   getCoreRowModel,
@@ -32,7 +33,6 @@ import ResetFilterTableIcon from '../../../components/table/filters/resetTabe';
 import dateBetweenFilterFn from '../../../components/table/filters/date-between-filter';
 import { labelAwareGlobalFilter } from '../../../components/table/filters/labelAwareGlobalFilter';
 
-const EMPTY_STATE_VIDEO_SRC = '/logo/no-data.mp4';
 
 // Expandable detail for a contract line: warehouse lots + shipments
 const DetailPanel = ({ lots = [], shipments = [] }) => {
@@ -108,7 +108,7 @@ const RowCheckbox = ({ checked = false, indeterminate = false, disabled = false,
           width: 16, height: 16, borderRadius: 5,
           border: `1px solid ${active ? 'var(--endeavour)' : '#c3d9ef'}`,
           background: active ? 'var(--endeavour)' : '#ffffff',
-          boxShadow: active ? '0 1px 2px rgba(3,102,174,0.25)' : 'none',
+          boxShadow: active ? 'var(--shadow-xs)' : 'none',
         }}
       >
         {indeterminate ? (
@@ -154,7 +154,6 @@ const Customtable = ({
   const [quickSumEnabled, setQuickSumEnabled] = useState(false)
   const [quickSumColumns, setQuickSumColumns] = useState([])
   const [rowSelection, setRowSelection] = useState({})
-  const [isEmptyStateVideoError, setIsEmptyStateVideoError] = useState(false)
 
   usePathname()
 
@@ -245,24 +244,6 @@ const Customtable = ({
     ? `${Math.min(currentRows * 40 + 180, 700)}px`
     : '320px';
 
-  const renderEmptyStateMedia = () => {
-    if (!isEmptyStateVideoError) {
-      return (
-        <video
-          className="w-24 h-24 mb-5 rounded-2xl object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
-          onError={() => setIsEmptyStateVideoError(true)}
-        >
-          <source src={EMPTY_STATE_VIDEO_SRC} type="video/mp4" />
-        </video>
-      );
-    }
-
-    return <div className="w-24 h-24 mb-5" />;
-  }
 
   return (
     <div className="w-full">
@@ -294,37 +275,42 @@ const Customtable = ({
         }
 
         .custom-table, .custom-table *, .glass-table, .glass-table * {
-          font-family: var(--font-poppins), 'Poppins', sans-serif;
+          font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
           transition-property: color, background-color, border-color, box-shadow !important;
           transition-duration: 150ms !important;
           transition-timing-function: ease-in-out !important;
         }
 
         .custom-table th {
-          border: 1px solid #DAD6E8;
-          background-color: #F4F3F9;
+          background-color: var(--bg-subtle);
+          border-bottom: 1px solid var(--line);
           text-align: center;
           vertical-align: middle;
-          padding: 6px;
-          border-radius: 4px;
+          padding: 7px 8px;
+          font-size: 0.6875rem;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+          color: var(--ink-muted);
+          font-weight: 500;
         }
 
         .custom-table td {
-          border: 1px solid #DAD6E8;
-          background-color: #F4F3F9;
+          background-color: #ffffff;
+          border-bottom: 1px solid var(--line);
           text-align: center;
           vertical-align: middle;
-          padding: 6px;
-          border-radius: 4px;
+          padding: 6px 8px;
+          font-size: 0.75rem;
+          font-variant-numeric: tabular-nums;
         }
 
         .custom-table th {
-          background-color: #F4F3F9;
+          background-color: var(--bg-subtle);
         }
 
         .custom-table td {
           background-color: #fff;
-          border: 1px solid #EAE8F2;
+          border-bottom: 1px solid var(--line);
         }
 
       `}</style>
@@ -470,13 +456,13 @@ const Customtable = ({
                                 <div className="flex justify-center">
                                   {val !== null && val !== undefined && val !== '' ? (
                                     <div
-                                      className="px-3 py-1 rounded-xl responsiveTextTable font-normal min-w-[70px] flex items-center justify-center"
+                                      className="px-1 py-1 responsiveTextTable font-normal min-w-[70px] flex items-center justify-center"
                                       style={{ backgroundColor: '#F4F3F9', border: '1px solid #DAD6E8' }}
                                     >
                                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                     </div>
                                   ) : (
-                                    <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal min-w-[70px]" style={{ backgroundColor: '#F4F3F9', border: '1px solid #DAD6E8' }}>&nbsp;</div>
+                                    <div className="px-1 py-1 responsiveTextTable font-normal min-w-[70px]" style={{ backgroundColor: '#F4F3F9', border: '1px solid #DAD6E8' }}>&nbsp;</div>
                                   )}
                                 </div>
                               )}
@@ -561,7 +547,7 @@ const Customtable = ({
                                       {hasDetail && (
                                         <IoIosArrowDown size={11} className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} style={{ color: 'var(--endeavour)', flexShrink: 0 }} />
                                       )}
-                                      <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal min-w-[70px] flex items-center justify-center" style={{ backgroundColor: '#ffffff', border: '1px solid #DAD6E8' }}>
+                                      <div className="px-1 py-1 responsiveTextTable font-normal min-w-[70px] flex items-center justify-center" style={{ backgroundColor: '#ffffff', border: '1px solid #DAD6E8' }}>
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                       </div>
                                     </div>
@@ -578,7 +564,7 @@ const Customtable = ({
                                   {isStatus ? (
                                     <div className="flex justify-center">
                                       <div
-                                        className="px-3 py-1 rounded-xl responsiveTextTable font-normal flex items-center justify-center"
+                                        className="px-1 py-1 responsiveTextTable font-normal flex items-center justify-center"
                                         style={{
                                           backgroundColor: val === 'Paid' ? '#E5F6EC' : val === 'Unpaid' ? '#FDF3E1' : '#ffffff',
                                           border: val ? `1px solid ${val === 'Paid' ? '#BFE8D0' : val === 'Unpaid' ? '#F5DFAE' : '#DAD6E8'}` : 'none',
@@ -592,13 +578,13 @@ const Customtable = ({
                                     <div className="flex justify-center">
                                       {val !== null && val !== undefined && val !== '' ? (
                                         <div
-                                          className="px-3 py-1 rounded-xl responsiveTextTable font-normal min-w-[70px] flex items-center justify-center"
+                                          className="px-1 py-1 responsiveTextTable font-normal min-w-[70px] flex items-center justify-center"
                                           style={{ backgroundColor: '#ffffff', border: '1px solid #DAD6E8' }}
                                         >
                                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </div>
                                       ) : (
-                                        <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal min-w-[70px]" style={{ backgroundColor: '#ffffff', border: '1px solid #DAD6E8' }}>&nbsp;</div>
+                                        <div className="px-1 py-1 responsiveTextTable font-normal min-w-[70px]" style={{ backgroundColor: '#ffffff', border: '1px solid #DAD6E8' }}>&nbsp;</div>
                                       )}
                                     </div>
                                   )}
@@ -626,25 +612,7 @@ const Customtable = ({
                         colSpan={columnsWithSelection.length}
                         className="py-24 text-center"
                       >
-                        <div className="flex flex-col items-center justify-center">
-                          {renderEmptyStateMedia()}
-                          <p
-                            className="responsiveText font-normal mb-2"
-                            style={{
-                              color: 'var(--port-gore)',
-                            }}
-                          >
-                            {getTtl('No data available', ln)}
-                          </p>
-                          <p
-                            className="responsiveTextTable"
-                            style={{
-                              color: 'var(--regent-gray)',
-                            }}
-                          >
-                            Try adjusting your filters or date range
-                          </p>
-                        </div>
+                        <EmptyState message={getTtl('No data available', ln)} hint="Try adjusting your filters or date range" />
                       </td>
                     </tr>
                   )}
@@ -801,8 +769,7 @@ const Customtable = ({
               {/* Empty state for mobile */}
               {table.getRowModel().rows.length === 0 && (
                 <div className="flex flex-col items-center justify-center py-24 px-3">
-                  {renderEmptyStateMedia()}
-                  <p
+                                    <p
                     className="responsiveTextTable font-normal mb-2 text-center"
                     style={{
                       color: 'var(--port-gore)',

@@ -112,12 +112,12 @@ const Customtable = ({
           <table className="w-full min-w-[700px] border-collapse text-center table-fixed border border-[var(--selago)]">
             <thead className="md:sticky md:top-0 md:z-10 bg-[#F4F3F9]">
               {table.getHeaderGroups().map((hdGroup) => (
-                <tr key={hdGroup.id} className="divide-x divide-[var(--selago)]">
+                <tr key={hdGroup.id} className="border-b border-[var(--line)]">
                   {hdGroup.headers.map((header) => (
                     <th
                       key={header.id}
-                      className="px-3 py-3 responsiveTextTable text-[var(--chathams-blue)] text-center font-medium font-poppins"
-                      style={{ width: `${header.column.getSize()}px` }}
+                      className="px-3 py-2 text-center font-medium uppercase"
+                      style={{ width: `${header.column.getSize()}px`, fontSize: '0.6875rem', letterSpacing: '0.04em', color: 'var(--ink-muted)' }}
                     >
                       {header.column.getCanSort() ? (
                         <div
@@ -149,11 +149,11 @@ const Customtable = ({
                 </tr>
               ))}
             </thead>
-            <tbody className="divide-y divide-[var(--selago)] bg-white">
+            <tbody className="divide-y divide-[var(--line)] bg-white">
               {table.getRowModel().rows.map((row) => (
                 <tr
                   key={row.id}
-                  className="cursor-pointer transition-colors divide-x divide-[var(--selago)]"
+                  className="cursor-pointer transition-colors hover-row"
                   onDoubleClick={() => Edit(row)}
                 >
                   {row.getVisibleCells().map((cell) => (
@@ -169,10 +169,7 @@ const Customtable = ({
                               {flexRender(cell.column.columnDef.cell, cell.getContext())}
                             </div>
                           ) : (
-                            <div
-                              className="px-3 py-1 rounded-xl responsiveTextTable font-normal w-full"
-                              style={{ backgroundColor: '#F4F3F9', border: '1px solid #DAD6E8' }}
-                            >
+                            <div className="px-1 py-1 responsiveTextTable font-normal w-full" style={{ color: 'var(--ink)' }}>
                               {cell.getValue() != null && cell.getValue() !== ''
                                 ? flexRender(cell.column.columnDef.cell, cell.getContext())
                                 : <>&nbsp;</>}

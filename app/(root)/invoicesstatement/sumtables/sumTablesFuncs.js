@@ -127,7 +127,7 @@ export const detailsToolTip = (row, data, settings, dataTable, rmrk) => {
         background: '#fff',
         borderRadius: '16px',
         overflow: 'hidden',
-        boxShadow: '0 8px 32px rgba(3,102,174,0.13)',
+        boxShadow: 'var(--shadow-md)',
         border: '1px solid #EAE8F2',
         minWidth: '400px',
         padding: '0',

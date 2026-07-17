@@ -20,7 +20,7 @@ export const expensesToolTip = (row, expensesData, settings, filt) => {
         border: "1px solid #EAE8F2",
         borderRadius: "16px",
         overflow: "hidden",
-        boxShadow: "0 4px 16px rgba(3,102,174,0.12)",
+        boxShadow: "var(--shadow-sm)",
         fontFamily:
           "var(--font-poppins), 'Poppins', sans-serif",
         fontSize: "0.68rem",

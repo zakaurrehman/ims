@@ -317,37 +317,11 @@ const Customtable = ({
                   {/* EMPTY STATE */}
                   {table.getRowModel().rows.length === 0 && (
                     <tr>
-                      <td
-                        colSpan={columnsWithSelection.length}
-                        className="py-24 text-center"
-                      >
-                        <div className="flex flex-col items-center justify-center">
-                          <video
-                            className="w-24 h-24 mb-5 rounded-2xl object-cover"
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                          >
-                            <source src="/logo/no-data.mp4" type="video/mp4" />
-                          </video>
-                          <p
-                            className="font-normal mb-2 responsiveText"
-                            style={{
-                              color: 'var(--ink)',
-                            }}
-                          >
-                            {getTtl('No data available', ln)}
-                          </p>
-                          <p
-                            className="responsiveTextTable"
-                            style={{
-                              color: 'var(--ink-muted)',
-                            }}
-                          >
-                            Try adjusting your filters or date range
-                          </p>
-                        </div>
+                      <td colSpan={columnsWithSelection.length}>
+                        <EmptyState
+                          message={getTtl('No data available', ln)}
+                          hint="Try adjusting your filters or date range"
+                        />
                       </td>
                     </tr>
                   )}
