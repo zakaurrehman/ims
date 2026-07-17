@@ -350,7 +350,7 @@ const MaterialTables = () => {
                     <>
                         <Toast />
                         <VideoLoader loading={loading} fullScreen={true} />
-                        <div className="rounded-2xl p-2 sm:p-3 mt-2 border border-[#E8EBF0] shadow-xl w-full bg-white relative overflow-hidden">
+                        <div className="rounded-2xl p-2 sm:p-3 mt-2 border border-[#EAE8F2] shadow-xl w-full bg-white relative overflow-hidden">
                             <div className="flex flex-col gap-2 pb-2">
                                 <div>
                                     <h1 className="text-display">{getTtl('Material Tables', ln)}</h1>
@@ -367,7 +367,7 @@ const MaterialTables = () => {
                             </div>
                             <div className="w-full overflow-x-auto mt-1">
                                 {data.map((table) => (
-                                    <div key={table.id} className="mb-2 rounded-2xl border border-[#E8EBF0] shadow-sm">
+                                    <div key={table.id} className="mb-2 rounded-2xl border border-[#EAE8F2] shadow-sm">
                                         <Table
                                             data={table.data}
                                             table1={table}
@@ -408,7 +408,7 @@ const MaterialTables = () => {
                             </div>
                             {(data.length > 0 && !Object.values(totals).some(v => isNaN(v))) && (
                                 <div className="w-full pt-3 overflow-x-auto">
-                                    <div className="rounded-2xl border border-[#E8EBF0] shadow-sm overflow-hidden">
+                                    <div className="rounded-2xl border border-[#EAE8F2] shadow-sm overflow-hidden">
                                         <TableTotals data={[totals]} columns={totalsColumns} />
                                     </div>
                                 </div>

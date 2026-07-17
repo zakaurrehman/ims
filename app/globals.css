@@ -4,33 +4,33 @@
    Neutral surfaces + one refined brand-blue accent.
    ============================================================ */
 :root {
-  /* Surfaces */
-  --bg-page:    #F6F7F9;   /* app background */
+  /* Surfaces — lavender-tinted neutrals (reference look) */
+  --bg-page:    #F7F6FB;   /* app background */
   --bg-card:    #FFFFFF;   /* cards / panels / tables */
-  --bg-subtle:  #F3F5F8;   /* input bg, table header bg, hover fills */
-  --bg-sunken:  #EDF0F4;   /* pressed / selected-row */
+  --bg-subtle:  #F4F3F9;   /* input bg, table header bg, hover fills */
+  --bg-sunken:  #ECEAF4;   /* pressed / selected-row */
 
   /* Borders ("line" — --border is reserved by the shadcn HSL tokens below) */
-  --line:        #E8EBF0;  /* default card/table border */
-  --line-strong: #D7DCE4;  /* inputs, interactive outlines */
+  --line:        #EAE8F2;  /* default card/table border */
+  --line-strong: #DAD6E8;  /* inputs, interactive outlines */
 
-  /* Ink */
-  --ink:           #171E2E;
-  --ink-secondary: #5B6472;
-  --ink-muted:     #8A93A3;
+  /* Ink — deep navy-violet */
+  --ink:           #1E1B39;
+  --ink-secondary: #5D5A74;
+  --ink-muted:     #8D8AA3;
 
-  /* Brand accent — refined blue */
-  --brand:        #0B6BB8;
-  --brand-strong: #0A5A9C;  /* hover */
-  --brand-soft:   #E8F2FB;  /* active-nav pill bg, selected fills */
-  --brand-border: #C5DEF2;
+  /* Brand accent — reference violet */
+  --brand:        #6D5CE0;
+  --brand-strong: #5A49CB;  /* hover */
+  --brand-soft:   #EEEBFC;  /* active-nav pill bg, selected fills */
+  --brand-border: #D6CFF7;
 
   /* Status — one pastel system, dark text on soft bg */
   --ok-bg: #E5F6EC;      --ok-text: #177245;      --ok-border: #BFE8D0;
   --warn-bg: #FDF3E1;    --warn-text: #9A6215;    --warn-border: #F5DFAE;
   --bad-bg: #FDEAEA;     --bad-text: #B42332;     --bad-border: #F5C6C9;
-  --info-bg: #E8F2FB;    --info-text: #0B5C99;    --info-border: #C5DEF2;
-  --neutral-bg: #F0F2F5; --neutral-text: #5B6472; --neutral-border: #DDE1E8;
+  --info-bg: #EEEBFC;    --info-text: #5A49CB;    --info-border: #D6CFF7;
+  --neutral-bg: #F1EFF6; --neutral-text: #5D5A74; --neutral-border: #DDD9EA;
 
   /* Radii */
   --radius-card: 16px;
@@ -39,9 +39,9 @@
   --radius-pill: 999px;
 
   /* Shadows — single ink-tinted recipe, 3 tiers */
-  --shadow-xs: 0 1px 2px rgba(23, 30, 46, 0.05);
-  --shadow-sm: 0 2px 8px rgba(23, 30, 46, 0.06);
-  --shadow-md: 0 8px 24px rgba(23, 30, 46, 0.09);
+  --shadow-xs: 0 1px 2px rgba(30, 27, 57, 0.05);
+  --shadow-sm: 0 2px 8px rgba(30, 27, 57, 0.06);
+  --shadow-md: 0 8px 24px rgba(30, 27, 57, 0.09);
 
   /* ---- Legacy palette names — aliased to the new tokens so every existing
      var(--endeavour) etc. call site renders the new system. Retire in Phase 3. */
@@ -58,27 +58,27 @@
      and the components/ui/* primitives. Mapped to the NEW palette.
      Light theme only. Values are HSL channels (no hsl()). */
   --background: 0 0% 100%;
-  --foreground: 222 33% 14%;         /* --ink #171E2E */
+  --foreground: 246 36% 17%;         /* --ink #1E1B39 */
   --card: 0 0% 100%;
-  --card-foreground: 222 33% 14%;
+  --card-foreground: 246 36% 17%;
   --popover: 0 0% 100%;
-  --popover-foreground: 222 33% 14%;
-  --primary: 207 89% 38%;            /* --brand #0B6BB8 */
+  --popover-foreground: 246 36% 17%;
+  --primary: 248 68% 62%;            /* --brand #6D5CE0 violet */
   --primary-foreground: 0 0% 100%;
-  --secondary: 216 26% 96%;          /* --bg-subtle */
-  --secondary-foreground: 222 33% 14%;
-  --muted: 216 26% 96%;
-  --muted-foreground: 217 11% 40%;   /* --ink-secondary */
-  --accent: 208 70% 95%;             /* --brand-soft #E8F2FB */
-  --accent-foreground: 206 87% 32%;  /* #0B5C99 */
+  --secondary: 250 33% 96%;          /* --bg-subtle */
+  --secondary-foreground: 246 36% 17%;
+  --muted: 250 33% 96%;
+  --muted-foreground: 249 12% 40%;   /* --ink-secondary */
+  --accent: 251 74% 95%;             /* --brand-soft #EEEBFC */
+  --accent-foreground: 248 56% 54%;  /* #5A49CB */
   --destructive: 0 66% 42%;          /* --bad-text family */
   --destructive-foreground: 0 0% 98%;
-  --border: 218 21% 93%;             /* --line #E8EBF0 */
-  --input: 219 18% 87%;              /* --line-strong #D7DCE4 */
-  --ring: 207 89% 38%;               /* brand focus ring */
-  --chart-1: 207 89% 38%;            /* brand blue */
+  --border: 252 26% 93%;             /* --line #EAE8F2 */
+  --input: 253 28% 87%;              /* --line-strong #DAD6E8 */
+  --ring: 248 68% 62%;               /* brand focus ring */
+  --chart-1: 248 68% 62%;            /* brand violet */
   --chart-2: 173 83% 33%;            /* teal #0E9888 */
-  --chart-3: 246 67% 66%;            /* violet #7A6FE3 */
+  --chart-3: 207 78% 55%;            /* blue #3D8FE0 */
   --chart-4: 35 79% 57%;             /* amber #E8A23D */
   --chart-5: 343 63% 59%;            /* rose #D9557B */
 }

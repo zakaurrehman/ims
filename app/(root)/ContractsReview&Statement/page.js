@@ -39,8 +39,8 @@ const fmtMT = (n) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }
 
 // Auto-derived lifecycle colours, used only when the contract has no manual shipment status set.
 const FALLBACK_STATUS_STYLES = {
-    shipped: { backgroundColor: '#E8F2FB', border: '1px solid #C5DEF2', color: '#0B5C99' },
-    partial: { backgroundColor: '#F3F5F8', border: '1px solid #E8EBF0', color: 'var(--chathams-blue)' },
+    shipped: { backgroundColor: '#EEEBFC', border: '1px solid #D6CFF7', color: '#5A49CB' },
+    partial: { backgroundColor: '#F4F3F9', border: '1px solid #EAE8F2', color: 'var(--chathams-blue)' },
     pending: { backgroundColor: '#FDF3E1', border: '1px solid #F5DFAE', color: '#9A6215' },
     unsold:  { backgroundColor: '#FDEAEA', border: '1px solid #F5C6C9', color: '#B42332' },
 };
@@ -64,7 +64,7 @@ const ProgressBar = ({ shipped, total }) => {
     const t = parseFloat(total) || 0;
     const s = parseFloat(shipped) || 0;
     const pct = t > 0 ? Math.max(0, Math.min(100, Math.round((s / t) * 100))) : 0;
-    const color = pct >= 100 ? '#177245' : pct > 0 ? 'var(--endeavour)' : '#DDE1E8';
+    const color = pct >= 100 ? '#177245' : pct > 0 ? 'var(--endeavour)' : '#DDD9EA';
     return (
         <div className="flex flex-col items-center gap-1" style={{ minWidth: 84 }}>
             <div style={{ width: '100%', height: 6, borderRadius: 9999, background: '#e6eef7', overflow: 'hidden' }}>
@@ -608,12 +608,12 @@ const ContractsMerged = () => {
                         <button
                             onClick={row.getToggleExpandedHandler()}
                             aria-label={row.getIsExpanded() ? 'Collapse details' : 'Expand details'}
-                            className={`flex items-center justify-center w-6 h-6 rounded-lg transition-all duration-200 focus:outline-none ${row.getIsExpanded() ? 'bg-[#E8F2FB] text-[var(--endeavour)]' : 'text-[var(--endeavour)] hover:bg-[#F3F5F8]'}`}
+                            className={`flex items-center justify-center w-6 h-6 rounded-lg transition-all duration-200 focus:outline-none ${row.getIsExpanded() ? 'bg-[#EEEBFC] text-[var(--endeavour)]' : 'text-[var(--endeavour)] hover:bg-[#F4F3F9]'}`}
                         >
                             <IoIosArrowDown size={13} className={`transition-transform duration-200 ${row.getIsExpanded() ? 'rotate-180' : 'rotate-0'}`} />
                         </button>
                     ) : (
-                        <span className='inline-block w-1.5 h-1.5 rounded-full' style={{ background: '#DDE1E8' }} />
+                        <span className='inline-block w-1.5 h-1.5 rounded-full' style={{ background: '#DDD9EA' }} />
                     )}
                 </div>
             ),
@@ -823,8 +823,8 @@ const ContractsMerged = () => {
                     onClick={() => setEnabledSwitch(!enabledSwitch)}
                     className="relative w-9 h-5 rounded-full focus:outline-none transition-colors duration-200 border-2 flex items-center"
                     style={{
-                        background: enabledSwitch ? "#0B6BB8" : "#8A93A3",
-                        borderColor: enabledSwitch ? "#0B6BB8" : "#8A93A3",
+                        background: enabledSwitch ? "#6D5CE0" : "#8D8AA3",
+                        borderColor: enabledSwitch ? "#6D5CE0" : "#8D8AA3",
                         minWidth: trackWidth,
                         borderWidth: 2,
                         padding: 0,
@@ -838,7 +838,7 @@ const ContractsMerged = () => {
                             width: `${knobSize}px`,
                             height: `${knobSize}px`,
                             borderRadius: "50%",
-                            background: "radial-gradient(circle at 60% 40%, #F3F5F8 70%, #E8EBF0 100%)",
+                            background: "radial-gradient(circle at 60% 40%, #F4F3F9 70%, #EAE8F2 100%)",
                             boxShadow: "0 2px 6px rgba(0,0,0,0.10)",
                             transform: `translateY(-50%) ${enabledSwitch ? `translateX(${translateX}px)` : "translateX(0)"}`,
                             transition: "transform 0.2s",
@@ -851,7 +851,7 @@ const ContractsMerged = () => {
     }
 
     return (
-        <div className="w-full " style={{ background: "#F3F5F8" }}>
+        <div className="w-full " style={{ background: "#F4F3F9" }}>
             <div className="mx-auto w-full max-w-full px-1 md:px-2 pb-4 mt-[72px]">
                 {Object.keys(settings).length === 0 ? <TableSkeleton /> :
                     <>

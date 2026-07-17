@@ -21,8 +21,8 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-[10000] transition-all duration-300 ${
         scrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-md border-b border-[#D7DCE4]'
-          : 'bg-[#F3F5F8] border-b border-[#E8EBF0] shadow-sm'
+          ? 'bg-white/95 backdrop-blur-md shadow-md border-b border-[#DAD6E8]'
+          : 'bg-[#F4F3F9] border-b border-[#EAE8F2] shadow-sm'
       }`}
       style={{ height: 'clamp(56px, 7vh, 80px)' }}
     >

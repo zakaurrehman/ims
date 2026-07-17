@@ -34,6 +34,7 @@ const ReminderModal = dynamic(() => import('../../../components/invoices/Reminde
 import StatusBadge from '../../../components/StatusBadge';
 import { Bell, Split, Receipt, FileCheck2, FilePen, FileX2 } from 'lucide-react';
 import KpiStrip from '../../../components/KpiStrip';
+import ProgressBar from '../../../components/ProgressBar';
 import SplitControl from '../../../components/SplitControl';
 import { splitStatusOf } from '../../../utils/splitUtils';
 
@@ -249,6 +250,7 @@ const Invoices = () => {
 			header: getTtl('Consignee', ln),
 			cell: EditableSelectCell,
 			meta: {
+				avatar: true,
 				filterVariant: 'selectClient',
 				options: settings.Client?.Client?.map(c => ({
 					value: c.id,
@@ -323,9 +325,9 @@ const Invoices = () => {
 				const isUSD = cur === 'USD' || cur === '$' || cur.toLowerCase() === 'us';
 				const isEUR = cur === 'EUR' || cur === '€' || cur.toLowerCase() === 'eu';
 				const symbol = isUSD ? '$' : isEUR ? '€' : cur;
-				const bg = isUSD ? '#E5F6EC' : isEUR ? '#E8F2FB' : '#F0F2F5';
-				const border = isUSD ? '1px solid #BFE8D0' : isEUR ? '1px solid #C5DEF2' : '1px solid #DDE1E8';
-				const color = isUSD ? '#177245' : isEUR ? '#0B5C99' : '#5B6472';
+				const bg = isUSD ? '#E5F6EC' : isEUR ? '#EEEBFC' : '#F1EFF6';
+				const border = isUSD ? '1px solid #BFE8D0' : isEUR ? '1px solid #D6CFF7' : '1px solid #DDD9EA';
+				const color = isUSD ? '#177245' : isEUR ? '#5A49CB' : '#5D5A74';
 				return (
 					<span
 						style={{
@@ -390,9 +392,25 @@ const Invoices = () => {
 			},
 		},
 		{
+			// Prepayment % — rendered as a slim progress bar (reference style)
 			accessorKey: 'percentage',
 			header: getTtl('Prepayment', ln),
-			cell: (props) => <span className="whitespace-nowrap">{percent(props)}</span>,
+			cell: (props) => {
+				const txt = percent(props);
+				const pct = parseFloat(props.getValue());
+				if (txt === '-' || txt === '' || !Number.isFinite(pct)) {
+					return <span className="whitespace-nowrap">{txt}</span>;
+				}
+				return (
+					<ProgressBar
+						value={pct / 100}
+						tone={pct >= 100 ? 'green' : 'brand'}
+						width="90px"
+						label={`${pct}%`}
+						className="mx-auto"
+					/>
+				);
+			},
 			meta: { excludeFromQuickSum: true },
 			size: 120
 		},

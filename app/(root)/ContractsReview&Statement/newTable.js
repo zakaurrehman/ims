@@ -74,7 +74,7 @@ const Customtable = ({
             }}
             onChange={table.getToggleAllPageRowsSelectedHandler()}
             className="w-4 h-4 cursor-pointer rounded"
-            style={{ accentColor: '#E8F2FB' }}
+            style={{ accentColor: '#EEEBFC' }}
           />
         </div>
       ),
@@ -86,7 +86,7 @@ const Customtable = ({
             disabled={!row.getCanSelect()}
             onChange={row.getToggleSelectedHandler()}
             className="w-4 h-4 cursor-pointer rounded"
-            style={{ accentColor: '#E8F2FB' }}
+            style={{ accentColor: '#EEEBFC' }}
           />
         </div>
       ),
@@ -199,17 +199,17 @@ const Customtable = ({
         /* Professional gradient scrollbar matching cards */
         .dashboard-scroll::-webkit-scrollbar { width: 10px; height: 10px; }
         .dashboard-scroll::-webkit-scrollbar-track { 
-          background: linear-gradient(180deg, #F3F5F8, #F0F2F5); 
+          background: linear-gradient(180deg, #F4F3F9, #F1EFF6); 
           border-radius: 6px; 
         }
         .dashboard-scroll::-webkit-scrollbar-thumb { 
-          background: linear-gradient(180deg, #E8EBF0, #D7DCE4); 
+          background: linear-gradient(180deg, #EAE8F2, #DAD6E8); 
           border-radius: 6px; 
-          border: 2px solid #F3F5F8;
+          border: 2px solid #F4F3F9;
         }
         .dashboard-scroll::-webkit-scrollbar-thumb:hover { 
-          background: linear-gradient(180deg, #D7DCE4, #8A93A3);
-          border-color: #F0F2F5;
+          background: linear-gradient(180deg, #DAD6E8, #8D8AA3);
+          border-color: #F1EFF6;
         }
 
         /* Glassmorphic professional table */
@@ -252,7 +252,7 @@ const Customtable = ({
         }
 
         .custom-table th {
-          background-color: #F3F5F8;
+          background-color: #F4F3F9;
         }
 
         .custom-table td {
@@ -264,13 +264,13 @@ const Customtable = ({
       <div className="custom-table">
         <div className="relative flex flex-col rounded-2xl glass-table">
           {/* Border overlay — renders above children so corners always visible */}
-          <div className="absolute inset-0 rounded-2xl border border-[#E8EBF0] pointer-events-none z-[15]" />
+          <div className="absolute inset-0 rounded-2xl border border-[#EAE8F2] pointer-events-none z-[15]" />
 
           {/* HEADER */}
           <div
             className="flex-shrink-0 rounded-t-2xl"
             style={{
-              borderBottom: '1px solid #E8EBF0',
+              borderBottom: '1px solid #EAE8F2',
               background: '#ffffff',
             }}
           >
@@ -300,7 +300,7 @@ const Customtable = ({
                     <Fragment key={hdGroup.id}>
                                             {/* Totals Row */}
                                             <tr style={{ 
-                                              background: '#F3F5F8',
+                                              background: '#F4F3F9',
                                               
                                             }}>
                                               {hdGroup.headers.map((header, idx) => (
@@ -309,7 +309,7 @@ const Customtable = ({
                                                   className="font-poppins responsiveTextTable font-medium"
                                                   style={{
                                                     color: 'var(--chathams-blue)',
-                                                    backgroundColor: '#F3F5F8',
+                                                    backgroundColor: '#F4F3F9',
                                                     border: 'none',
                                                     boxShadow: 'none',
                                                     borderRadius: 0,
@@ -324,14 +324,14 @@ const Customtable = ({
                                             </tr>
                       
                                             {/* Header Row */}
-                      <tr style={{ background: '#F3F5F8' }}>
+                      <tr style={{ background: '#F4F3F9' }}>
                         {hdGroup.headers.map(header => (
                           <th
                             key={header.id}
                             className="font-poppins responsiveTextTable font-medium"
                             style={{
                               color: 'var(--chathams-blue)',
-                              backgroundColor: '#F3F5F8',
+                              backgroundColor: '#F4F3F9',
                               minWidth: header.column.id === 'select' ? '50px' : '60px',
                               maxWidth: header.column.id === 'select' ? '50px' : 'none',
                               letterSpacing: '0.05em',
@@ -359,7 +359,7 @@ const Customtable = ({
                               className="px-2 py-1.5"
                               style={{
                                 backgroundColor: '#FFFFFF',
-                                borderBottom: '2px solid #E8EBF0',
+                                borderBottom: '2px solid #EAE8F2',
                                 minWidth: header.column.id === 'select' ? '50px' : '90px',
                                 maxWidth: header.column.id === 'select' ? '50px' : 'none',
                               }}
@@ -433,7 +433,7 @@ const Customtable = ({
                                   style={{
                                     backgroundColor: badgeConfig.bg,
                                     color: badgeConfig.color,
-                                    border: `1px solid ${badgeConfig.border || '#D7DCE4'}`
+                                    border: `1px solid ${badgeConfig.border || '#DAD6E8'}`
                                   }}
                                 >
                                   {badgeConfig.label}
@@ -491,12 +491,12 @@ const Customtable = ({
                   className="rounded-2xl overflow-hidden shadow-lg transition-colors duration-200"
                   style={{
                     backgroundColor: '#FFFFFF',
-                    border: '1px solid #E8EBF0',
+                    border: '1px solid #EAE8F2',
                     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.06)'
                   }}
                 >
                   <div 
-                    className="px-3 py-2 flex items-center justify-between bg-[#F3F5F8]"
+                    className="px-3 py-2 flex items-center justify-between bg-[#F4F3F9]"
                     // style={{ 
                     //   background: 'linear-gradient(135deg, #7A6FE3, #7A6FE3, #0E9888)',
                     // }}
@@ -533,7 +533,7 @@ const Customtable = ({
                         <div 
                           key={cell.id} 
                           className="flex flex-col space-y-1.5 pb-2.5 last:pb-0"
-                          style={{ borderBottom: '1px solid #E8EBF0' }}
+                          style={{ borderBottom: '1px solid #EAE8F2' }}
                         >
                           <div 
                             className="uppercase tracking-wider font-normal" 
@@ -548,9 +548,9 @@ const Customtable = ({
                             className="font-normal break-words px-2 py-1 rounded-xl leading-relaxed min-h-[28px] flex items-center shadow-sm" 
                             style={{ 
                               color: 'var(--port-gore)',
-                              background: 'linear-gradient(135deg, #F3F5F8, #F3F5F8)',
+                              background: 'linear-gradient(135deg, #F4F3F9, #F4F3F9)',
                               fontSize: '0.62rem',
-                              border: '1px solid #E8EBF0'
+                              border: '1px solid #EAE8F2'
                             }}
                           >
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -591,7 +591,7 @@ const Customtable = ({
           <div
             className="flex-shrink-0 rounded-b-2xl"
             style={{
-              borderTop: '1px solid #E8EBF0',
+              borderTop: '1px solid #EAE8F2',
               background: '#ffffff',
             }}
           >

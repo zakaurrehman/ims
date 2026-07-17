@@ -16,34 +16,34 @@ export const LineChart = (data1, data2) => {
             {
                 label: 'Total Sales',
                 data: data1,
-                borderColor: '#D7DCE4', // rock-blue
+                borderColor: '#DAD6E8', // rock-blue
                 backgroundColor: 'transparent',
                 borderWidth: 2.5,
                 tension: 0.4,
                 fill: false,
                 pointRadius: 4,
-                pointBackgroundColor: '#D7DCE4',
+                pointBackgroundColor: '#DAD6E8',
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
                 pointHoverRadius: 6,
-                pointHoverBackgroundColor: '#D7DCE4',
+                pointHoverBackgroundColor: '#DAD6E8',
                 pointHoverBorderColor: '#fff',
                 pointHoverBorderWidth: 2,
             },
             {
                 label: 'Total Revenue',
                 data: data2,
-                borderColor: '#171E2E', // chathams-blue
+                borderColor: '#1E1B39', // chathams-blue
                 backgroundColor: 'transparent',
                 borderWidth: 2.5,
                 tension: 0.4,
                 fill: false,
                 pointRadius: 4,
-                pointBackgroundColor: '#171E2E',
+                pointBackgroundColor: '#1E1B39',
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
                 pointHoverRadius: 6,
-                pointHoverBackgroundColor: '#171E2E',
+                pointHoverBackgroundColor: '#1E1B39',
                 pointHoverBorderColor: '#fff',
                 pointHoverBorderWidth: 2,
             },
@@ -61,9 +61,9 @@ export const LineChart = (data1, data2) => {
             },
             tooltip: {
                 backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                titleColor: '#171E2E', // port-gore
-                bodyColor: '#8A93A3', // regent-gray
-                borderColor: '#F3F5F8', // selago
+                titleColor: '#1E1B39', // port-gore
+                bodyColor: '#8D8AA3', // regent-gray
+                borderColor: '#F4F3F9', // selago
                 borderWidth: 1,
                 cornerRadius: 8,
                 padding: 12,
@@ -94,7 +94,7 @@ export const LineChart = (data1, data2) => {
                         return value;
                     },
                     font: { size: 11 },
-                    color: '#8A93A3', // regent-gray
+                    color: '#8D8AA3', // regent-gray
                     padding: 10,
                 },
                 grid: {
@@ -105,7 +105,7 @@ export const LineChart = (data1, data2) => {
             x: {
                 ticks: { 
                     font: { size: 11 }, 
-                    color: '#8A93A3', // regent-gray
+                    color: '#8D8AA3', // regent-gray
                     padding: 5,
                 },
                 grid: {
@@ -128,7 +128,7 @@ export const GroupedBarChart = (data1, data2) => {
         datasets: [
             {
                 label: 'Total Income',
-                backgroundColor: '#D7DCE4', // rock-blue
+                backgroundColor: '#DAD6E8', // rock-blue
                 data: data1,
                 borderRadius: 4,
                 borderSkipped: false,
@@ -137,7 +137,7 @@ export const GroupedBarChart = (data1, data2) => {
             },
             {
                 label: 'Total Outcome',
-                backgroundColor: '#171E2E', // chathams-blue
+                backgroundColor: '#1E1B39', // chathams-blue
                 data: data2,
                 borderRadius: 4,
                 borderSkipped: false,
@@ -158,9 +158,9 @@ export const GroupedBarChart = (data1, data2) => {
             },
             tooltip: {
                 backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                titleColor: '#171E2E', // port-gore
-                bodyColor: '#8A93A3', // regent-gray
-                borderColor: '#F3F5F8', // selago
+                titleColor: '#1E1B39', // port-gore
+                bodyColor: '#8D8AA3', // regent-gray
+                borderColor: '#F4F3F9', // selago
                 borderWidth: 1,
                 cornerRadius: 8,
                 padding: 12,
@@ -187,7 +187,7 @@ export const GroupedBarChart = (data1, data2) => {
                         return value;
                     },
                     font: { size: 11 },
-                    color: '#8A93A3', // regent-gray
+                    color: '#8D8AA3', // regent-gray
                     padding: 10,
                 },
                 grid: {
@@ -198,7 +198,7 @@ export const GroupedBarChart = (data1, data2) => {
             x: {
                 ticks: { 
                     font: { size: 11 }, 
-                    color: '#8A93A3', // regent-gray
+                    color: '#8D8AA3', // regent-gray
                     padding: 5,
                 },
                 grid: {
@@ -249,9 +249,9 @@ export const LineChartSmall = (data, color) => {
             },
             tooltip: {
                 backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                titleColor: '#171E2E',
-                bodyColor: '#171E2E',
-                borderColor: '#F3F5F8',
+                titleColor: '#1E1B39',
+                bodyColor: '#1E1B39',
+                borderColor: '#F4F3F9',
                 borderWidth: 1,
                 cornerRadius: 8,
                 padding: 10,
@@ -291,7 +291,7 @@ export const BarChart = (data, color) => {
             {
                 //label: 2021,//date.year,
                 backgroundColor: color,
-                hoverBackgroundColor: '#0B6BB8',
+                hoverBackgroundColor: '#6D5CE0',
                 data: data,
                 borderRadius: 4,
                 borderSkipped: false,
@@ -316,9 +316,9 @@ export const BarChart = (data, color) => {
             },
             tooltip: {
                 backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                titleColor: '#171E2E',
-                bodyColor: '#171E2E',
-                borderColor: '#F3F5F8',
+                titleColor: '#1E1B39',
+                bodyColor: '#1E1B39',
+                borderColor: '#F4F3F9',
                 borderWidth: 1,
                 cornerRadius: 8,
                 padding: 10,
@@ -344,7 +344,7 @@ export const BarChart = (data, color) => {
                         return YesNo ? 0 : value / 1000000;
                     },
                     font: { size: 11 },
-                    color: '#8A93A3'
+                    color: '#8D8AA3'
                 },
                 grid: {
                     color: 'rgba(159, 184, 212, 0.2)',
@@ -352,7 +352,7 @@ export const BarChart = (data, color) => {
                 }
             },
             x: {
-                ticks: { font: { size: 11 }, color: '#8A93A3' },
+                ticks: { font: { size: 11 }, color: '#8D8AA3' },
                 grid: {
                     display: false
                 },
@@ -374,7 +374,7 @@ export const BarChartContracts = (data, data1, color, color1) => {
             {
                 stack: 'Stack 0',
                 backgroundColor: color,
-                hoverBackgroundColor: '#0B6BB8',
+                hoverBackgroundColor: '#6D5CE0',
                 data: data,
                 borderRadius: 4,
                 borderSkipped: false,
@@ -382,7 +382,7 @@ export const BarChartContracts = (data, data1, color, color1) => {
             {
                 stack: 'Stack 0',
                 backgroundColor: color1,
-                hoverBackgroundColor: '#D7DCE4',
+                hoverBackgroundColor: '#DAD6E8',
                 data: data1,
                 borderRadius: 4,
                 borderSkipped: 'start',
@@ -408,9 +408,9 @@ export const BarChartContracts = (data, data1, color, color1) => {
             },
             tooltip: {
                 backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                titleColor: '#171E2E',
-                bodyColor: '#171E2E',
-                borderColor: '#F3F5F8',
+                titleColor: '#1E1B39',
+                bodyColor: '#1E1B39',
+                borderColor: '#F4F3F9',
                 borderWidth: 1,
                 cornerRadius: 8,
                 padding: 10,
@@ -436,7 +436,7 @@ export const BarChartContracts = (data, data1, color, color1) => {
                         return YesNo ? 0 : value / 1000000;
                     },
                     font: { size: 11 },
-                    color: '#8A93A3'
+                    color: '#8D8AA3'
                 },
                 grid: {
                     color: 'rgba(159, 184, 212, 0.2)',
@@ -444,7 +444,7 @@ export const BarChartContracts = (data, data1, color, color1) => {
                 }
             },
             x: {
-                ticks: { font: { size: 11 }, color: '#8A93A3' },
+                ticks: { font: { size: 11 }, color: '#8D8AA3' },
                 grid: {
                     display: false
                 },
@@ -472,7 +472,7 @@ export const HorizontalBar = (arr, text) => {
     // Generate gradient colors based on the chart palette (see design tokens)
     const generateGradientColors = (length) => {
         const colors = [
-            '#0B6BB8', // blue
+            '#6D5CE0', // blue
             '#0E9888', // teal
             '#7A6FE3', // violet
             '#E8A23D', // amber
@@ -488,7 +488,7 @@ export const HorizontalBar = (arr, text) => {
             borderRadius: 8,
             borderSkipped: false,
             backgroundColor: generateGradientColors(arrNums.length),
-            hoverBackgroundColor: '#0A5A9C',
+            hoverBackgroundColor: '#5A49CB',
         }]
     };
 
@@ -511,9 +511,9 @@ export const HorizontalBar = (arr, text) => {
             },
             tooltip: {
                 backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                titleColor: '#171E2E',
-                bodyColor: '#8A93A3',
-                borderColor: '#E8EBF0',
+                titleColor: '#1E1B39',
+                bodyColor: '#8D8AA3',
+                borderColor: '#EAE8F2',
                 borderWidth: 1,
                 cornerRadius: 10,
                 padding: 12,
@@ -535,7 +535,7 @@ export const HorizontalBar = (arr, text) => {
                 beginAtZero: true,
                 ticks: {
                     font: { size: 11 },
-                    color: '#171E2E'
+                    color: '#1E1B39'
                 },
                 grid: {
                     display: false
@@ -544,7 +544,7 @@ export const HorizontalBar = (arr, text) => {
             x: {
                 ticks: { 
                     font: { size: 11 }, 
-                    color: '#8A93A3',
+                    color: '#8D8AA3',
                     callback: function (value) {
                         if (value >= 1000000) {
                             return (value / 1000000).toFixed(1) + 'M';
@@ -555,7 +555,7 @@ export const HorizontalBar = (arr, text) => {
                     }
                 },
                 grid: {
-                    color: '#E8EBF0',
+                    color: '#EAE8F2',
                 },
                 border: {
                     display: false,

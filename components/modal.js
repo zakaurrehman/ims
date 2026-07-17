@@ -20,7 +20,7 @@ const Modal = ({ isOpen, setIsOpen, title, children, w }) => {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-[rgba(23,30,46,0.4)] backdrop-blur-[2px]" />
+                        <div className="fixed inset-0 bg-[rgba(30,27,57,0.4)] backdrop-blur-[2px]" />
                     </TransitionChild>
 
                     <div className="fixed inset-0 overflow-y-auto">

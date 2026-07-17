@@ -213,7 +213,7 @@ export default function SplitControl({
                   <div style={{ fontSize: '0.58rem', color: '#177245' }}>IMS</div>
                   <div className="font-semibold" style={{ fontSize: '0.8rem', color: '#177245' }}>{sym}{fmt(preview.imsShare)}</div>
                 </div>
-                <div className="flex-1 rounded-xl p-2 text-center" style={{ background: '#E8F2FB', border: '1px solid var(--line)' }}>
+                <div className="flex-1 rounded-xl p-2 text-center" style={{ background: '#EEEBFC', border: '1px solid var(--line)' }}>
                   <div style={{ fontSize: '0.58rem', color: 'var(--endeavour)' }}>GIS</div>
                   <div className="font-semibold" style={{ fontSize: '0.8rem', color: 'var(--endeavour)' }}>{sym}{fmt(preview.gisShare)}</div>
                 </div>

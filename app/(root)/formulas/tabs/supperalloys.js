@@ -661,22 +661,22 @@ const SupperAlloys = ({ value, handleChange }) => {
     const priceFields = ['niPrice', 'crPrice', 'MoOxideLb', 'nbPrice', 'coPrice', 'wPrice', 'hfPrice', 'taPrice', 'fePrice'];
 
         return value.supperalloys != null ? (
-        <div className="w-full bg-white rounded-xl border border-[#E8EBF0] shadow-sm p-2">
+        <div className="w-full bg-white rounded-xl border border-[#EAE8F2] shadow-sm p-2">
           <h3 className='text-xs font-medium text-[var(--endeavour)] mb-1 text-left pl-3'>Cost</h3>
 
             {/* Composition */}
             <div className="mb-2 px-2 w-fit">
-            <p className="text-xs text-[#8A93A3] mb-1 text-center">
+            <p className="text-xs text-[#8D8AA3] mb-1 text-center">
                 Composition
             </p>
 
-            <div className="rounded-xl overflow-hidden border border-[#E8EBF0] bg-[#F3F5F8]">
+            <div className="rounded-xl overflow-hidden border border-[#EAE8F2] bg-[#F4F3F9]">
                 {/* Header */}
-                <div className="grid grid-cols-[85px_85px_85px_85px_85px_85px_85px_85px_85px] bg-[#F3F5F8] text-[#0B6BB8] text-xs">
+                <div className="grid grid-cols-[85px_85px_85px_85px_85px_85px_85px_85px_85px] bg-[#F4F3F9] text-[#6D5CE0] text-xs">
                 {elementLabels.map((label, idx) => (
                   <div
                   key={label}
-                  className={`py-1 text-center ${idx > 0 ? 'border-l border-[#E8EBF0]' : ''}`}
+                  className={`py-1 text-center ${idx > 0 ? 'border-l border-[#EAE8F2]' : ''}`}
                   >
                   {label}
                   </div>
@@ -684,17 +684,17 @@ const SupperAlloys = ({ value, handleChange }) => {
                 </div>
 
                 {/* Values */}
-              <div className="grid grid-cols-[85px_85px_85px_85px_85px_85px_85px_85px_85px] bg-white text-xs border-t border-[#E8EBF0]">
+              <div className="grid grid-cols-[85px_85px_85px_85px_85px_85px_85px_85px_85px] bg-white text-xs border-t border-[#EAE8F2]">
                   {elements.map((elem, idx) => (
                   <input
                   key={elem}
                   type="text"
                   className={`w-full text-center py-1 outline-none ${
-                    idx > 0 ? 'border-l border-[#E8EBF0]' : ''
+                    idx > 0 ? 'border-l border-[#EAE8F2]' : ''
                   } ${
                     elem === 'fe'
-                    ? 'text-[#0B6BB8] bg-gray-100 cursor-not-allowed'
-                    : 'text-[#B42332] bg-[#F3F5F8]'
+                    ? 'text-[#6D5CE0] bg-gray-100 cursor-not-allowed'
+                    : 'text-[#B42332] bg-[#F4F3F9]'
                   }`}
                     name={elem}
                     value={elem === 'fe'
@@ -727,17 +727,17 @@ const SupperAlloys = ({ value, handleChange }) => {
 
             {/* Price / Lbs */}
             <div className="mb-2 px-2 w-fit">
-            <p className="text-xs text-[#8A93A3] mb-1 text-center">
+            <p className="text-xs text-[#8D8AA3] mb-1 text-center">
                 Price / Lbs
             </p>
 
-            <div className="rounded-xl overflow-hidden border border-[#E8EBF0] bg-[#F3F5F8]">
+            <div className="rounded-xl overflow-hidden border border-[#EAE8F2] bg-[#F4F3F9]">
                 {/* Header */}
-                <div className="grid grid-cols-[85px_85px_85px_85px_85px_85px_85px_85px_85px] bg-[#ECEAFB] text-[#0B6BB8] text-xs">
+                <div className="grid grid-cols-[85px_85px_85px_85px_85px_85px_85px_85px_85px] bg-[#ECEAFB] text-[#6D5CE0] text-xs">
                 {elementLabels.map((label, idx) => (
                   <div
                   key={label}
-                  className={`py-1 text-center ${idx > 0 ? 'border-l border-[#E8EBF0]' : ''}`}
+                  className={`py-1 text-center ${idx > 0 ? 'border-l border-[#EAE8F2]' : ''}`}
                   >
                   {label}
                   </div>
@@ -745,7 +745,7 @@ const SupperAlloys = ({ value, handleChange }) => {
                 </div>
 
                 {/* Values */}
-                <div className="grid grid-cols-[85px_85px_85px_85px_85px_85px_85px_85px_85px] bg-white text-xs border-t border-[#E8EBF0]">
+                <div className="grid grid-cols-[85px_85px_85px_85px_85px_85px_85px_85px_85px] bg-white text-xs border-t border-[#EAE8F2]">
                 {priceFields.map((field, idx) => {
                     const isReadOnly = field === 'niPrice' || field === 'MoOxideLb';
 
@@ -763,11 +763,11 @@ const SupperAlloys = ({ value, handleChange }) => {
                       key={field}
                       type="text"
                       className={`w-full text-center py-1 outline-none ${
-                        idx > 0 ? 'border-l border-[#E8EBF0]' : ''
+                        idx > 0 ? 'border-l border-[#EAE8F2]' : ''
                         } ${
                         isReadOnly
-                            ? 'bg-gray-100 cursor-not-allowed text-[#0B6BB8]'
-                            : 'text-[#B42332] bg-[#F3F5F8]'
+                            ? 'bg-gray-100 cursor-not-allowed text-[#6D5CE0]'
+                            : 'text-[#B42332] bg-[#F4F3F9]'
                         }`}
                         name={field}
                         value={displayValue}
@@ -805,9 +805,9 @@ const SupperAlloys = ({ value, handleChange }) => {
   <div className="flex flex-col items-start">
     {/* Formula Intrinsic */}
     <div className="mb-2">
-      <div className="w-32 rounded-xl overflow-hidden border border-[#E8EBF0] bg-[#F3F5F8]">
+      <div className="w-32 rounded-xl overflow-hidden border border-[#EAE8F2] bg-[#F4F3F9]">
         <div className="bg-[#FDEAEA] text-[#B42332] text-xs py-1.5 text-center">Formula Intrinsic</div>
-        <input type="text" className="w-full text-center py-1 outline-none text-xs text-[#B42332] border-t border-[#E8EBF0] bg-[#F3F5F8]"
+        <input type="text" className="w-full text-center py-1 outline-none text-xs text-[#B42332] border-t border-[#EAE8F2] bg-[#F4F3F9]"
           value={(value?.supperalloys?.formulaIntsCost || '0') + '%'} name="formulaIntsCost"
           onChange={(e) => handleChange({ target: { name: 'formulaIntsCost', value: e.target.value.replace('%', '') } }, 'supperalloys')}
           onBlur={(e) => { const n = parseFloat(e.target.value.replace('%', '')); if (!isNaN(n)) handleChange({ target: { name: 'formulaIntsCost', value: n.toFixed(2) } }, 'supperalloys'); }}
@@ -827,9 +827,9 @@ const SupperAlloys = ({ value, handleChange }) => {
   <div className="flex flex-col items-start">
     {/* Formula Intrinsic */}
     <div className="mb-2">
-      <div className="w-32 rounded-xl overflow-hidden border border-[#E8EBF0] bg-[#F3F5F8]">
+      <div className="w-32 rounded-xl overflow-hidden border border-[#EAE8F2] bg-[#F4F3F9]">
         <div className="bg-[#FDEAEA] text-[#B42332] text-xs py-1.5 text-center">Formula Intrinsic</div>
-        <input type="text" className="w-full text-center py-1 outline-none text-xs text-[#B42332] border-t border-[#E8EBF0] bg-[#F3F5F8]"
+        <input type="text" className="w-full text-center py-1 outline-none text-xs text-[#B42332] border-t border-[#EAE8F2] bg-[#F4F3F9]"
           value={(value?.supperalloys?.formulaIntsPrice || '0') + '%'} name="formulaIntsPrice"
           onChange={(e) => handleChange({ target: { name: 'formulaIntsPrice', value: e.target.value.replace('%', '') } }, 'supperalloys')}
           onBlur={(e) => { const n = parseFloat(e.target.value.replace('%', '')); if (!isNaN(n)) handleChange({ target: { name: 'formulaIntsPrice', value: n.toFixed(2) } }, 'supperalloys'); }}
@@ -837,8 +837,8 @@ const SupperAlloys = ({ value, handleChange }) => {
       </div>
     </div>
     <div className="flex flex-wrap gap-2 mb-2">
-      <ResultBox title="Solids Price" bg="#F3F5F8" value={formatCurrency((solidsPrice * (value?.supperalloys?.formulaIntsPrice || 0) / 100).toFixed(2))} />
-      <ResultBox title="Price per MT" bg="#F3F5F8" value={formatCurrency((solidsPrice * (value?.supperalloys?.formulaIntsPrice || 0) / 100 * value.general.mt).toFixed(2))} />
+      <ResultBox title="Solids Price" bg="#F4F3F9" value={formatCurrency((solidsPrice * (value?.supperalloys?.formulaIntsPrice || 0) / 100).toFixed(2))} />
+      <ResultBox title="Price per MT" bg="#F4F3F9" value={formatCurrency((solidsPrice * (value?.supperalloys?.formulaIntsPrice || 0) / 100 * value.general.mt).toFixed(2))} />
     </div>
     <div>
       <ResultBox title="Price / Euro" bg="#E5F6EC" value={formatCurrency((solidsPrice * (value?.supperalloys?.formulaIntsPrice || 0) / 100 / value.general?.euroRate).toFixed(2), "€")} />
@@ -851,11 +851,11 @@ const SupperAlloys = ({ value, handleChange }) => {
     ) : null;
 };
 const ResultBox = ({ title, value, bg }) => (
-  <div className="rounded-xl overflow-hidden border border-[#E8EBF0] bg-white text-center min-w-[120px] w-fit">
+  <div className="rounded-xl overflow-hidden border border-[#EAE8F2] bg-white text-center min-w-[120px] w-fit">
     <div className="py-1 px-3" style={{ backgroundColor: bg }}>
-      <p className="text-xs text-[#0B6BB8] whitespace-nowrap">{title}</p>
+      <p className="text-xs text-[#6D5CE0] whitespace-nowrap">{title}</p>
     </div>
-    <div className="py-1 px-3 text-xs text-[#0B6BB8]">
+    <div className="py-1 px-3 text-xs text-[#6D5CE0]">
       {value}
     </div>
   </div>

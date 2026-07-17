@@ -23,7 +23,7 @@ export default function CTA() {
           </Link>
           <a
             href="#modules"
-            className="border border-[#E8EBF0] text-[var(--chathams-blue)] px-8 py-3 rounded-xl font-bold hover:bg-[#F3F5F8] transition-all"
+            className="border border-[#EAE8F2] text-[var(--chathams-blue)] px-8 py-3 rounded-xl font-bold hover:bg-[#F4F3F9] transition-all"
           >
             See the modules
           </a>

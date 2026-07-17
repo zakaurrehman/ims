@@ -72,23 +72,23 @@ const Clients = () => {
 
     const fieldRow = 'flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-0';
     const labelCls = 'sm:w-[80px] shrink-0 responsiveText font-medium text-[var(--chathams-blue)] text-[0.75rem]';
-    const inputCls = 'w-full sm:flex-1 h-[26px] px-5 responsiveText rounded-full border border-[#E8EBF0] bg-white text-[0.75rem]';
+    const inputCls = 'w-full sm:flex-1 h-[26px] px-5 responsiveText rounded-full border border-[#EAE8F2] bg-white text-[0.75rem]';
 
     return (
         <div className='p-2 rounded-2xl flex flex-col md:flex-row w-full gap-4'>
-            <div className="md:px-5 w-full md:w-[27%] flex-shrink-0 rounded-2xl p-2 bg-[#F3F5F8]">
+            <div className="md:px-5 w-full md:w-[27%] flex-shrink-0 rounded-2xl p-2 bg-[#F4F3F9]">
                 <p className='flex items-center responsiveText font-medium pl-2 text-[var(--chathams-blue)] text-[0.75rem] mt-2'>{getTtl('Clients', ln)}:</p>
                 <ul className="flex flex-col mt-2 max-h-80 overflow-auto p-2 custom-scroll">
                     {sortArr((settings.Client?.Client || []).filter(q => !q.deleted), 'client').map((x, i) => (
                         <li key={i} onClick={() => SelectClient(x)}
-                            className={`cursor-pointer flex items-center gap-x-2 py-2 px-4 responsiveText text-[var(--chathams-blue)] text-[0.75rem] rounded-full hover:bg-[#F3F5F8] ${value.id === x.id && 'font-medium bg-white'}`}>
+                            className={`cursor-pointer flex items-center gap-x-2 py-2 px-4 responsiveText text-[var(--chathams-blue)] text-[0.75rem] rounded-full hover:bg-[#F4F3F9] ${value.id === x.id && 'font-medium bg-white'}`}>
                             {x.client}
                         </li>
                     ))}
                 </ul>
             </div>
 
-            <div className='flex flex-col w-full bg-[#F3F5F8] p-4 rounded-2xl'>
+            <div className='flex flex-col w-full bg-[#F4F3F9] p-4 rounded-2xl'>
                 <div className='pb-2 rounded-2xl mt-1 w-full gap-4 flex flex-wrap'>
                     <Tltip direction='top' tltpText='Add new client'>
                         <button className={`supplierAddButton ${disabledButton ? 'cursor-not-allowed' : ''}`} disabled={disabledButton} onClick={addItem}>
@@ -113,7 +113,7 @@ const Clients = () => {
                     </Tltip>
                 </div>
 
-                <div className='border border-[#E8EBF0] p-4 rounded-2xl mt-1 shadow-md w-full bg-white'>
+                <div className='border border-[#EAE8F2] p-4 rounded-2xl mt-1 shadow-md w-full bg-white'>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 w-full">
                         <div className="space-y-4">
                             <div className="flex flex-col">
@@ -161,7 +161,7 @@ const Clients = () => {
                     </div>
                 </div>
 
-                <div className='border border-[#E8EBF0] p-4 rounded-2xl mt-3 shadow-md w-full bg-white'>
+                <div className='border border-[#EAE8F2] p-4 rounded-2xl mt-3 shadow-md w-full bg-white'>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 w-full">
                         <div className="space-y-4">
                             <div className={fieldRow}>

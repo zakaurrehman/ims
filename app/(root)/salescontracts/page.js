@@ -119,7 +119,7 @@ const SalesContracts = () => {
                 cell: (props) => {
                     const v = props.getValue();
                     const tone = v === 'Fully shipped' ? ['#E5F6EC', '#177245', '#BFE8D0']
-                        : v === 'Partial' ? ['#E8F2FB', '#1e40af', '#C5DEF2']
+                        : v === 'Partial' ? ['#EEEBFC', '#1e40af', '#D6CFF7']
                             : ['#FDF3E1', '#9A6215', '#F5DFAE'];
                     return <span className="rounded-full responsiveTextTable font-medium" style={{
                         background: tone[0], color: tone[1], border: `1px solid ${tone[2]}`, padding: '2px 12px', whiteSpace: 'nowrap'
@@ -140,7 +140,7 @@ const SalesContracts = () => {
     };
 
     return (
-        <div className="w-full" style={{ background: "#F3F5F8" }}>
+        <div className="w-full" style={{ background: "#F4F3F9" }}>
             <div className="mx-auto w-full max-w-full px-1 md:px-2 pb-4 mt-[72px]">
                 {Object.keys(settings).length === 0 ? <TableSkeleton /> :
                     <>

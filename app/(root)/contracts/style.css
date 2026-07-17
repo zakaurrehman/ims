@@ -146,7 +146,7 @@
 
 /* Selected row highlight */
 tr[aria-selected="true"] {
-  background: #E8F2FB;
+  background: #EEEBFC;
 }
 
 /* Compact table styles for larger screens */

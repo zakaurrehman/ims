@@ -6,8 +6,8 @@ export const expensesToolTip = (row, expensesData, settings, filt) => {
     let filteredArr = filt === 'reduced' ? expensesData.filter(z => z.paid === '222') : expensesData;
     filteredArr = filteredArr.filter(z => (z.supplier === row.original.supplier && z.cur === row.original.cur))
 
-    const thStyle = { textAlign: 'center', padding: '6px 10px', color: 'var(--chathams-blue)', fontWeight: 500, fontSize: '0.68rem', border: '1px solid #E8EBF0', background: '#F3F5F8', whiteSpace: 'nowrap' }
-    const tdStyle = { textAlign: 'center', padding: '5px 10px', border: '1px solid #E8EBF0', fontSize: '0.68rem', color: 'var(--chathams-blue)', whiteSpace: 'nowrap' }
+    const thStyle = { textAlign: 'center', padding: '6px 10px', color: 'var(--chathams-blue)', fontWeight: 500, fontSize: '0.68rem', border: '1px solid #EAE8F2', background: '#F4F3F9', whiteSpace: 'nowrap' }
+    const tdStyle = { textAlign: 'center', padding: '5px 10px', border: '1px solid #EAE8F2', fontSize: '0.68rem', color: 'var(--chathams-blue)', whiteSpace: 'nowrap' }
 
     return (
         <div style={{
@@ -15,11 +15,11 @@ export const expensesToolTip = (row, expensesData, settings, filt) => {
             borderRadius: '16px',
             overflow: 'hidden',
             boxShadow: '0 8px 32px rgba(3,102,174,0.13)',
-            border: '1px solid #E8EBF0',
+            border: '1px solid #EAE8F2',
             fontFamily: "var(--font-poppins), 'Poppins', sans-serif",
             minWidth: '400px',
         }}>
-            <div style={{ background: '#F3F5F8', padding: '7px 14px', fontWeight: 500, fontSize: '0.68rem', color: 'var(--chathams-blue)', borderBottom: '1px solid #E8EBF0' }}>
+            <div style={{ background: '#F4F3F9', padding: '7px 14px', fontWeight: 500, fontSize: '0.68rem', color: 'var(--chathams-blue)', borderBottom: '1px solid #EAE8F2' }}>
                 Expense Details
             </div>
             <table style={{ fontFamily: 'inherit', fontSize: '0.72rem', width: '100%', borderCollapse: 'collapse', tableLayout: 'auto' }}>
@@ -35,7 +35,7 @@ export const expensesToolTip = (row, expensesData, settings, filt) => {
                 </thead>
                 <tbody>
                     {filteredArr.map((z, i) => (
-                        <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#F3F5F8' }}>
+                        <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#F4F3F9' }}>
                             <td style={tdStyle}>{z.poSupplier?.order ?? 'Comp. Exp.'}</td>
                             <td style={tdStyle}>{z.expense}</td>
                             <td style={tdStyle}>{settings.Expenses.Expenses.find(q => q.id === z.expType)?.expType}</td>

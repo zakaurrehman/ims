@@ -3,11 +3,11 @@
 ===================================================== */
 :root {
   --ui-font-size: 0.78rem;
-  --ui-font-color: #171E2E; /* slate-800 */
-  --ui-muted-color: #5B6472;
+  --ui-font-color: #1E1B39; /* slate-800 */
+  --ui-muted-color: #5D5A74;
 
   --ui-bg: #ffffff;
-  --ui-border: #DDE1E8;
+  --ui-border: #DDD9EA;
 
   --ui-primary: var(--endeavour);
   --ui-primary-soft: #e8f2ff;
@@ -35,8 +35,8 @@ thead th {
   position: sticky;
   top: 0;
   z-index: 5;
-  background: #F3F5F8;
-  color: #171E2E;
+  background: #F4F3F9;
+  color: #1E1B39;
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: .03em;

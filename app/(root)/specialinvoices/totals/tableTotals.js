@@ -35,7 +35,7 @@ const Customtable = ({ data, columns, expensesData, settings, title, filt, headi
                     vertical-align: middle !important;
                     padding: 8px 6px !important;
                     border: none;
-                    border-bottom: 1px solid #D7DCE4;
+                    border-bottom: 1px solid #DAD6E8;
                     background: #fff;
                 }
                 .glass-table th > *, .glass-table td > * {
@@ -52,12 +52,12 @@ const Customtable = ({ data, columns, expensesData, settings, title, filt, headi
                     letter-spacing: 0.05em;
                 }
                 .glass-table tfoot th, .glass-table tfoot td {
-                    background: #F3F5F8;
+                    background: #F4F3F9;
                     color: var(--chathams-blue) !important;
                     font-weight: 400;
                     text-align: center !important;
                     vertical-align: middle !important;
-                    border-bottom: 1px solid #E8EBF0;
+                    border-bottom: 1px solid #EAE8F2;
                 }
                 .glass-table tbody tr:hover td {
                     background: var(--selago) !important;
@@ -66,11 +66,11 @@ const Customtable = ({ data, columns, expensesData, settings, title, filt, headi
                 }
                     .glass-table th,
 .glass-table td {
-    border-bottom: 1px solid #D7DCE4;
+    border-bottom: 1px solid #DAD6E8;
 }
 
 .glass-table th {
-    border-top: 1px solid #D7DCE4;
+    border-top: 1px solid #DAD6E8;
 }
 
 .glass-table tr:last-child td {
@@ -78,7 +78,7 @@ const Customtable = ({ data, columns, expensesData, settings, title, filt, headi
 }
             `}</style>
            
-            <div className="glass-table rounded-2xl shadow-lg border border-[#E8EBF0] p-2 sm:p-4 mb-6 w-full flex flex-col h-full"
+            <div className="glass-table rounded-2xl shadow-lg border border-[#EAE8F2] p-2 sm:p-4 mb-6 w-full flex flex-col h-full"
                 style={{
                     borderRadius: '16px',
                     boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
@@ -96,7 +96,7 @@ const Customtable = ({ data, columns, expensesData, settings, title, filt, headi
                  <div className="hidden sm:block flex-1 rounded-2xl ">
 
                         <div
-                        className="rounded-2xl overflow-hidden border border-[#E8EBF0]"
+                        className="rounded-2xl overflow-hidden border border-[#EAE8F2]"
                         style={{
                             borderRadius: '16px',
                             boxShadow: '0 3px 8px rgba(0,0,0,0.06)',
@@ -107,7 +107,7 @@ const Customtable = ({ data, columns, expensesData, settings, title, filt, headi
                         <div
                         className="responsiveTextTableTitle px-6 py-4 text-center font-medium font-poppins"
                         style={{
-                            background: '#F3F5F8',
+                            background: '#F4F3F9',
                             color: 'var(--chathams-blue)'
                         }}
                         >
@@ -182,7 +182,7 @@ const Customtable = ({ data, columns, expensesData, settings, title, filt, headi
                     <div className="block sm:hidden space-y-3 glass-table">
                         <div
                             className="responsiveTextTableTitle px-6 py-4 text-center font-medium font-poppins rounded-t-2xl"
-                            style={{ background: '#F3F5F8', color: 'var(--chathams-blue)' }}
+                            style={{ background: '#F4F3F9', color: 'var(--chathams-blue)' }}
                         >
                             {title}
                         </div>

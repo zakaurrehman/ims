@@ -89,7 +89,7 @@ const AccountStatement = () => {
 
         <div className='flex group datepicker-wrapper w-full sm:w-auto'>
           <Datepicker
-            inputClassName='border border-[#E8EBF0] h-7 py-2 pl-3 pr-3 rounded-full text-[#171E2E] placeholder:text-[#171E2E] w-full sm:w-44
+            inputClassName='border border-[#EAE8F2] h-7 py-2 pl-3 pr-3 rounded-full text-[#1E1B39] placeholder:text-[#1E1B39] w-full sm:w-44
               focus:outline-none focus:ring-1 focus:ring-blue-200 cursor-pointer bg-white shadow-sm text-[0.75rem]'
             useRange={false}
             asSingle={true}
@@ -292,7 +292,7 @@ const AccountStatement = () => {
       },
     },
 
-    { accessorKey: 'cur', header: getTtl('Currency', ln), cell: (props) => { const v = (props.getValue() || '').toLowerCase(); const isUsd = v === 'us' || v === 'usd'; const isEur = v === 'eu' || v === 'eur'; return <span style={{ background: isUsd ? '#BFE8D0' : isEur ? '#F3F5F8' : '#F0F2F5', color: isUsd ? '#177245' : isEur ? 'var(--chathams-blue)' : '#555', borderRadius: '8px', padding: '3px 14px', fontWeight: 500, fontSize: '12px', display: 'inline-block' }}>{isUsd ? '$' : isEur ? '€' : v}</span> } },
+    { accessorKey: 'cur', header: getTtl('Currency', ln), cell: (props) => { const v = (props.getValue() || '').toLowerCase(); const isUsd = v === 'us' || v === 'usd'; const isEur = v === 'eu' || v === 'eur'; return <span style={{ background: isUsd ? '#BFE8D0' : isEur ? '#F4F3F9' : '#F1EFF6', color: isUsd ? '#177245' : isEur ? 'var(--chathams-blue)' : '#555', borderRadius: '8px', padding: '3px 14px', fontWeight: 500, fontSize: '12px', display: 'inline-block' }}>{isUsd ? '$' : isEur ? '€' : v}</span> } },
     {
       accessorKey: 'due', header: getTtl('DuePayment', ln), cell: (props) => <div>{dateFormat(props.getValue(), 'dd.mm.yy')} </div>,
       meta: {
@@ -339,7 +339,7 @@ const AccountStatement = () => {
 
 
   return (
-    <div className="w-full " style={{ background: "#F3F5F8" }}>
+    <div className="w-full " style={{ background: "#F4F3F9" }}>
       <div className="mx-auto w-full max-w-full px-1 md:px-2 pb-4 mt-[72px]">
         {Object.keys(settings).length === 0 ? <TableSkeleton /> :
           <>

@@ -340,7 +340,7 @@ const ContractModal = () => {
 										<li key={i} onClick={() => selectRow(i)}
 											className={`shrink-0 items-center py-1 px-1.5 responsiveTextTable truncate
 									${valueCon.invoices[i]['id'] === valueInv.id && 'font-medium bg-slate-100 '}
-									${(isInvCreationCNFL && x.invType !== '1111') ? 'bg-[#F0F2F5] pointer-events-none cursor-not-allowed text-[var(--regent-gray)]' : 'cursor-pointer text-[var(--port-gore)]'}
+									${(isInvCreationCNFL && x.invType !== '1111') ? 'bg-[#F1EFF6] pointer-events-none cursor-not-allowed text-[var(--regent-gray)]' : 'cursor-pointer text-[var(--port-gore)]'}
 								
 								}
 									`}

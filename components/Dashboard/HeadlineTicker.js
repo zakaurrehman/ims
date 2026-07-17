@@ -34,15 +34,15 @@ export default function HeadlineTicker({
   // ── theme ──────────────────────────────────────────────────────────────────
   const theme = useMemo(() => {
     const t = {
-      shell:         'border border-[#E8EBF0] bg-white shadow-sm',
+      shell:         'border border-[#EAE8F2] bg-white shadow-sm',
       headerIconWrap:'bg-[var(--endeavour)] text-white',
       titleText:     'text-[var(--chathams-blue)]',
       subText:       'text-[var(--endeavour)] text-xs',
-      tickerDot:     'bg-[#E8EBF0]',
+      tickerDot:     'bg-[#EAE8F2]',
       itemLabel:     'text-[var(--regent-gray)] responsiveTextTable',
       itemValue:     'text-[var(--port-gore)] responsiveTextTable font-bold',
       itemSub:       'text-[var(--regent-gray)] responsiveTextTable',
-      itemPill:      'bg-[#F3F5F8] border border-[#E8EBF0] rounded-full',
+      itemPill:      'bg-[#F4F3F9] border border-[#EAE8F2] rounded-full',
       itemIcon:      'text-[var(--endeavour)]/70',
       hover:         'hover:shadow-md',
       mask:          'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
@@ -195,7 +195,7 @@ export default function HeadlineTicker({
         transform: 'translateY(-50%)',
         zIndex: 10,
         background: 'rgba(255,255,255,0.92)',
-        border: '1px solid #E8EBF0',
+        border: '1px solid #EAE8F2',
         borderRadius: '50%',
         width: 22, height: 22,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -278,7 +278,7 @@ export default function HeadlineTicker({
                         ? { bg: '#E5F6EC', fg: '#177245', arrow: '▲' }
                         : it.change < 0
                           ? { bg: '#FDEAEA', fg: '#B42332', arrow: '▼' }
-                          : { bg: '#E8EBF0', fg: '#64748b', arrow: '•' };
+                          : { bg: '#EAE8F2', fg: '#64748b', arrow: '•' };
                       const pct = it.change_pct != null
                         ? `${Math.abs(it.change_pct).toFixed(2)}%`
                         : Math.abs(it.change).toFixed(2);
@@ -308,7 +308,7 @@ export default function HeadlineTicker({
         <div
           onClick={handleScrollbarClick}
           style={{
-            height: 4, background: '#D7DCE4',
+            height: 4, background: '#DAD6E8',
             margin: '0 16px 8px', borderRadius: 2,
             cursor: 'pointer', position: 'relative',
           }}

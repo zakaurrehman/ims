@@ -393,7 +393,7 @@ const DocumentImportOverlay = ({ documentType, suppliers, clients, currencies, e
     const overlay = (
         <div
             className='fixed inset-0 z-[100000] flex items-center justify-center p-3 sm:p-4'
-            style={{ background: 'rgba(23,30,46,0.4)' }}
+            style={{ background: 'rgba(30,27,57,0.4)' }}
             role='dialog'
             aria-modal='true'
             aria-labelledby='doc-import-title'

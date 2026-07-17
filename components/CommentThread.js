@@ -17,7 +17,7 @@ const initials = (name = '') =>
     name.toString().split(/[\s@.]+/).filter(Boolean).slice(0, 2).map(s => s[0]?.toUpperCase() || '').join('') || '?';
 
 // Stable color per author so messages are easy to scan.
-const AVATAR_COLORS = ['#0B6BB8', '#177245', '#9A6215', '#7c3aed', '#B42332', '#0e7490'];
+const AVATAR_COLORS = ['#6D5CE0', '#177245', '#9A6215', '#7c3aed', '#B42332', '#0e7490'];
 const colorFor = (key = '') => {
     let h = 0;
     for (let i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) >>> 0;
@@ -85,7 +85,7 @@ const CommentThread = ({ entityType, entityId, entityLabel }) => {
                     </div>
                 ) : comments.length === 0 ? (
                     <div className='flex flex-col items-center justify-center py-8 gap-1'>
-                        <MessageSquare className='w-5 h-5' style={{ color: '#E8EBF0' }} />
+                        <MessageSquare className='w-5 h-5' style={{ color: '#EAE8F2' }} />
                         <span style={{ fontSize: '0.72rem', color: 'var(--regent-gray)' }}>No comments yet — start the conversation.</span>
                     </div>
                 ) : (
@@ -104,7 +104,7 @@ const CommentThread = ({ entityType, entityId, entityLabel }) => {
                                             </span>
                                             <span style={{ fontSize: '0.58rem', color: 'var(--regent-gray)' }} title={c.createdAt}>{relativeTime(c.createdAtMs)}</span>
                                         </div>
-                                        <div className='rounded-lg px-2.5 py-1.5 mt-0.5 whitespace-pre-wrap break-words' style={{ fontSize: '0.7rem', color: 'var(--port-gore)', background: mine ? '#F3F5F8' : '#F3F5F8', border: '1px solid #eef5fc' }}>
+                                        <div className='rounded-lg px-2.5 py-1.5 mt-0.5 whitespace-pre-wrap break-words' style={{ fontSize: '0.7rem', color: 'var(--port-gore)', background: mine ? '#F4F3F9' : '#F4F3F9', border: '1px solid #eef5fc' }}>
                                             {c.text}
                                         </div>
                                     </div>
@@ -125,7 +125,7 @@ const CommentThread = ({ entityType, entityId, entityLabel }) => {
                     rows={2}
                     placeholder='Write a comment…  (Enter to send, Shift+Enter for a new line)'
                     className='flex-1 rounded-xl border px-3 py-2 outline-none focus:border-[var(--endeavour)] resize-none'
-                    style={{ fontSize: '0.72rem', borderColor: '#E8EBF0', background: '#F3F5F8', color: 'var(--port-gore)', fontFamily: 'inherit' }}
+                    style={{ fontSize: '0.72rem', borderColor: '#EAE8F2', background: '#F4F3F9', color: 'var(--port-gore)', fontFamily: 'inherit' }}
                 />
                 <button
                     onClick={send}

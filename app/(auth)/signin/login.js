@@ -62,7 +62,7 @@ export default function SignInPage() {
   return (
     <div className="w-full bg-white min-h-screen font-sans">
       <main>
-        <section className="relative bg-gradient-to-br from-[#0B6BB8] via-[#0A5A9C] to-[#171E2E] text-white overflow-hidden min-h-screen flex items-center justify-center py-6">
+        <section className="relative bg-gradient-to-br from-[#6D5CE0] via-[#5A49CB] to-[#1E1B39] text-white overflow-hidden min-h-screen flex items-center justify-center py-6">
           
           {/* Sign In Card */}
           <div className="container px-4 relative z-20 py-8">

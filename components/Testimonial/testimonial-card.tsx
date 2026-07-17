@@ -28,7 +28,7 @@ export default function TestimonialCard({ name, role, image, quote, isActive = f
         </div>
 
         {/* Name */}
-        <h3 className={`font-bold text-[#0B6BB8] ${isActive ? "text-xl" : "text-lg"} mb-1`}>
+        <h3 className={`font-bold text-[#6D5CE0] ${isActive ? "text-xl" : "text-lg"} mb-1`}>
           {name}
         </h3>
 
@@ -38,7 +38,7 @@ export default function TestimonialCard({ name, role, image, quote, isActive = f
         </p>
 
         {/* Quote Icon */}
-        <Quote className={`text-[#0B6BB8] ${isActive ? "w-6 h-6" : "w-5 h-5"} mb-3`} />
+        <Quote className={`text-[#6D5CE0] ${isActive ? "w-6 h-6" : "w-5 h-5"} mb-3`} />
 
         {/* Quote Text */}
         <p className={`text-gray-600 leading-relaxed ${isActive ? "text-sm" : "text-xs"} line-clamp-6`}>

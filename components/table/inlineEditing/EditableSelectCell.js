@@ -4,6 +4,7 @@ import { Listbox, Transition } from "@headlessui/react";
 import { createPortal } from "react-dom";
 import { HiSelector, HiCheck } from "react-icons/hi";
 import Tltip from "../../tlTip";
+import Avatar from "../../Avatar";
 import { delTimeList } from "../../const";
 
 // Simple event bus for dropdown open/close
@@ -93,12 +94,17 @@ export default function EditableSelectCell({ getValue, row, column, table }) {
       typeof rawLabel === "string" || typeof rawLabel === "number"
         ? rawLabel
         : (rawLabel?.nname ?? rawLabel?.name ?? JSON.stringify(rawLabel));
+    // Opt-in initial-avatar chip (suppliers/clients): column meta { avatar: true }
+    const withAvatar = !!column.columnDef?.meta?.avatar && String(safeLabel).trim() !== "";
     return (
       <Tltip direction="top" tltpText={String(safeLabel)}>
-        <span
-          style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '140px', cursor: 'default' }}
-        >
-          {safeLabel}
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', maxWidth: '160px', cursor: 'default' }}>
+          {withAvatar && <Avatar name={String(safeLabel)} size={18} />}
+          <span
+            style={{ display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '140px' }}
+          >
+            {safeLabel}
+          </span>
         </span>
       </Tltip>
     );

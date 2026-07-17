@@ -127,7 +127,7 @@ const Page = () => {
 				<>
 					<Toast />
 					<VideoLoader loading={loading} fullScreen={true} />
-					<div className="bg-white rounded-2xl p-2 sm:p-3 mt-4 border border-[#E8EBF0]">
+					<div className="bg-white rounded-2xl p-2 sm:p-3 mt-4 border border-[#EAE8F2]">
 						<div className='pb-2'>
 							<div>
 								<h1 className="text-display">Formulas</h1>
@@ -155,10 +155,10 @@ const Page = () => {
 									</TabList>
 
 									{value.general != null && !loading && (
-										<div className='bg-white rounded-xl p-3 mb-2 w-fit border border-[#E8EBF0]'>
+										<div className='bg-white rounded-xl p-3 mb-2 w-fit border border-[#EAE8F2]'>
 											<div className='flex flex-wrap items-end gap-2.5'>
 												<div className='flex flex-col rounded-xl border border-[var(--rock-blue)] bg-white overflow-hidden min-w-[100px] flex-1'>
-													<span className='text-[0.75rem] text-[var(--endeavour)] bg-[#F3F5F8] text-center py-1.5 font-medium flex items-center justify-center gap-1'>
+													<span className='text-[0.75rem] text-[var(--endeavour)] bg-[#F4F3F9] text-center py-1.5 font-medium flex items-center justify-center gap-1'>
 														Ni LME
 														<button onClick={refreshMetal} title="Refresh live price" className="hover:text-[var(--chathams-blue)] transition-colors">
 															<RefreshCw className={`w-3 h-3 ${metalLoading ? 'animate-spin' : ''}`} />
@@ -176,7 +176,7 @@ const Page = () => {
 												</div>
 
 												<div className='flex flex-col rounded-xl border border-[var(--rock-blue)] bg-white overflow-hidden min-w-[100px] flex-1'>
-													<span className='text-[0.75rem] text-[var(--endeavour)] bg-[#F3F5F8] text-center py-1.5 font-medium'>Mo Oxide - Lb</span>
+													<span className='text-[0.75rem] text-[var(--endeavour)] bg-[#F4F3F9] text-center py-1.5 font-medium'>Mo Oxide - Lb</span>
 													<input
 														type='text'
 														className='px-2 py-1 font-medium text-[#B42332] text-center bg-white focus:outline-none text-[0.75rem]'
@@ -189,7 +189,7 @@ const Page = () => {
 												</div>
 
 												<div className='flex flex-col rounded-xl border border-[var(--rock-blue)] bg-white overflow-hidden min-w-[100px] flex-1'>
-													<span className='text-[0.75rem] text-[var(--endeavour)] bg-[#F3F5F8] text-center py-1.5 font-medium'>Charge Cr - Lb</span>
+													<span className='text-[0.75rem] text-[var(--endeavour)] bg-[#F4F3F9] text-center py-1.5 font-medium'>Charge Cr - Lb</span>
 													<input
 														type='text'
 														className='px-2 py-1 font-medium text-[#B42332] text-center bg-white focus:outline-none text-[0.75rem]'
@@ -202,7 +202,7 @@ const Page = () => {
 												</div>
 
 												<div className='flex flex-col rounded-xl border border-[var(--rock-blue)] bg-white overflow-hidden min-w-[100px] flex-1'>
-													<span className='text-[0.75rem] text-[var(--endeavour)] bg-[#F3F5F8] text-center py-1.5 font-medium'>1 MT</span>
+													<span className='text-[0.75rem] text-[var(--endeavour)] bg-[#F4F3F9] text-center py-1.5 font-medium'>1 MT</span>
 													<input
 														type='text'
 														className='px-2 py-1 font-medium text-[#B42332] text-center bg-white focus:outline-none text-[0.75rem]'
@@ -213,7 +213,7 @@ const Page = () => {
 												</div>
 
 												<div className='flex flex-col rounded-xl border border-[var(--rock-blue)] bg-white overflow-hidden min-w-[100px] flex-1'>
-													<span className='text-[0.75rem] text-[var(--endeavour)] bg-[#F3F5F8] text-center py-1.5 font-medium'>Euro / USD</span>
+													<span className='text-[0.75rem] text-[var(--endeavour)] bg-[#F4F3F9] text-center py-1.5 font-medium'>Euro / USD</span>
 													<input
 														type='text'
 														className='px-2 py-1 font-medium text-[#B42332] text-center bg-white focus:outline-none text-[0.75rem]'
