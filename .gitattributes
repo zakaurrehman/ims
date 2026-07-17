@@ -1,3 +1,19 @@
+# Normalize all text files to LF in the repo (checkout stays native per-OS).
+# Kills the recurring CRLF/LF phantom-diff churn on Windows (core.autocrlf).
+* text=auto
+
+# Binary assets — never touch
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mp4 binary
+*.woff binary
+*.woff2 binary
+*.pdf binary
+
 # Version-pinned copy of node_modules/pdfjs-dist/legacy/build/pdf.worker.min.mjs —
 # must stay byte-identical to the package build; never normalize line endings.
+# (Placed after the * rule so it wins.)
 public/pdf.worker.min.mjs -text

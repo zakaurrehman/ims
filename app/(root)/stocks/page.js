@@ -3,6 +3,7 @@ import { useContext, useEffect, useMemo, useState } from 'react';
 import Customtable from './newTable';
 import SharedStock from './SharedStock';
 import KpiStrip from '../../../components/KpiStrip';
+import Avatar from '../../../components/Avatar';
 import { Boxes, Warehouse, Factory, Layers } from 'lucide-react';
 import MyDetailsModal from './whModal.js'
 import { SettingsContext } from "../../../contexts/useSettingsContext";
@@ -97,6 +98,16 @@ const Stocks = () => {
     },
     {
       accessorKey: 'supplier', header: getTtl('Supplier', ln),
+      cell: (props) => {
+        const name = props.getValue();
+        if (!name) return <p>{''}</p>;
+        return (
+          <span className="inline-flex items-center gap-1.5 max-w-[160px]">
+            <Avatar name={String(name)} size={18} />
+            <span className="truncate">{name}</span>
+          </span>
+        );
+      },
       meta: {
         filterVariant: 'selectSupplier',
       },

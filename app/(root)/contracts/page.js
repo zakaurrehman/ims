@@ -177,6 +177,7 @@ const Contracts = () => {
 			header: getTtl('Supplier', ln),
 			cell: EditableSelectCell,
 			meta: {
+				avatar: true,
 				filterVariant: 'selectSupplier',
 				options: (settings.Supplier?.Supplier ?? [])
 					.filter(s => !s.deleted)

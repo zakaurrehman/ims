@@ -7,6 +7,7 @@ import { UserAuth } from "../../../../contexts/useAuthContext";
 import { getTtl } from '../../../../utils/languages';
 import Tltip from '../../../../components/tlTip';
 import { CirclePlus, PenLine, Trash, Paintbrush   } from 'lucide-react';
+import Avatar from '../../../../components/Avatar';
 
 
 const Clients = () => {
@@ -81,8 +82,9 @@ const Clients = () => {
                 <ul className="flex flex-col mt-2 max-h-80 overflow-auto p-2 custom-scroll">
                     {sortArr((settings.Client?.Client || []).filter(q => !q.deleted), 'client').map((x, i) => (
                         <li key={i} onClick={() => SelectClient(x)}
-                            className={`cursor-pointer flex items-center gap-x-2 py-2 px-4 responsiveText text-[var(--chathams-blue)] text-[0.75rem] rounded-full hover:bg-[#F4F3F9] ${value.id === x.id && 'font-medium bg-white'}`}>
-                            {x.client}
+                            className={`cursor-pointer flex items-center gap-x-2 py-1.5 px-3 responsiveText text-[var(--ink)] text-[0.75rem] rounded-xl hover:bg-[var(--bg-sunken)] ${value.id === x.id && 'font-medium bg-[var(--brand-soft)] text-[var(--brand)]'}`}>
+                            <Avatar name={x.nname || x.client} size={20} />
+                            <span className="truncate">{x.client}</span>
                         </li>
                     ))}
                 </ul>

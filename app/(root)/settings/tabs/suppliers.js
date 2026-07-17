@@ -11,6 +11,7 @@ import Tltip from '../../../../components/tlTip';
 import { FiUpload } from 'react-icons/fi';
 import { RiEraserLine } from 'react-icons/ri';
 import { CirclePlus, PenLine, Trash, Paintbrush   } from 'lucide-react';
+import Avatar from '../../../../components/Avatar';
 
 
 const Suppliers = () => {
