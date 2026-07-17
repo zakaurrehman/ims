@@ -1,7 +1,17 @@
 import { Resend } from 'resend';
-import { db } from '../../../../utils/firebase';
 import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { guardAiRequest } from '../../../../utils/aiGuard';
+
+// Never statically evaluated: utils/firebase initializes the Firebase app at module
+// load, which crashes `next build`'s page-data collection on hosts where the
+// NEXT_PUBLIC_* env vars aren't configured (Vercel: auth/invalid-api-key). Load it
+// lazily inside the request handler instead.
+export const dynamic = 'force-dynamic';
+
+async function getDb() {
+    const { db } = await import('../../../../utils/firebase');
+    return db;
+}
 
 const COOLDOWN_HOURS = 24;
 
@@ -66,7 +76,7 @@ export async function POST(request) {
         // and stale UI showing the button enabled
         if (invoiceId && uidCollection) {
             try {
-                const invoiceRef = doc(db, uidCollection, 'data', 'invoices_' + invYear, invoiceId);
+                const invoiceRef = doc(await getDb(), uidCollection, 'data', 'invoices_' + invYear, invoiceId);
                 const snap = await getDoc(invoiceRef);
                 const reminders = snap.exists() ? (snap.data().reminders || []) : [];
                 const last = reminders[reminders.length - 1];
@@ -111,7 +121,7 @@ export async function POST(request) {
         // Log reminder to Firestore invoice doc
         if (invoiceId && uidCollection) {
             try {
-                const invoiceRef = doc(db, uidCollection, 'data', 'invoices_' + invYear, invoiceId);
+                const invoiceRef = doc(await getDb(), uidCollection, 'data', 'invoices_' + invYear, invoiceId);
                 await updateDoc(invoiceRef, {
                     reminders: arrayUnion({
                         sentAt: new Date().toISOString(),
