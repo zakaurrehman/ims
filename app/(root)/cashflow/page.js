@@ -972,11 +972,12 @@ const Cashflow = () => {
                             onCancel={() => setAutoCancelled(true)}
                         />
                         <VideoLoader loading={loading} fullScreen={true} />
-                        <div className="rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
+                        <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
                             <div className='flex items-center justify-between flex-wrap gap-2 pb-2'>
-                                <h1 className="text-[var(--ink)] font-poppins responsiveTextTitle font-medium">
-                                    {getTtl('Cashflow', ln)}
-                                </h1>
+                                <div>
+                                    <h1 className="text-display">{getTtl('Cashflow', ln)}</h1>
+                                    <p className="text-[0.75rem] text-[var(--ink-muted)] mt-0.5">Cash position across stocks, clients, suppliers & expenses</p>
+                                </div>
                                 <div className="flex items-center gap-2 group">
                                     <Tltip direction='bottom' tltpText='Export the current cashflow tables to Excel'>
                                         <button

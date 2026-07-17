@@ -772,9 +772,10 @@ const ShipmentPage = () => {
                 {/* Outer card — title only */}
                 <div className="rounded-2xl p-2 sm:p-3 lg:p-5 mt-4 sm:mt-6 lg:mt-8 border border-[#E8EBF0] w-full bg-[#F3F5F8]">
                     <div className="flex items-center justify-between pb-2 flex-wrap gap-2">
-                        <h1 className="text-[var(--ink)] responsiveTextTitle">
-                            Shipments Tracking
-                        </h1>
+                        <div>
+                            <h1 className="text-display">Shipments Tracking</h1>
+                            <p className="text-[0.75rem] text-[var(--ink-muted)] mt-0.5">Live shipment statuses</p>
+                        </div>
                     </div>
 
                     {/* Inner card — toolbar + table */}

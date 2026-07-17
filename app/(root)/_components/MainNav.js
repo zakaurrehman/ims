@@ -85,12 +85,15 @@ export const MainNav = () => {
 
   return (
     <div
-      className='fixed top-0 left-0 right-0 px-1 md:px-2 xl:px-3 py-3 hidden md:flex items-center bg-white z-[100] rounded-lg'
+      className='fixed top-0 left-0 right-0 px-1 md:px-2 xl:px-3 py-3 hidden md:flex items-center z-[100] rounded-lg'
       style={{
         height: 'clamp(56px, 7vh, 80px)',
         borderRadius: '12px',
         border: '1px solid var(--line)',
         boxShadow: 'var(--shadow-xs)',
+        background: 'rgba(255, 255, 255, 0.82)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
         padding: '0 clamp(8px, 1vw, 16px)', // reduced horizontal padding
       }}
     >

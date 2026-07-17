@@ -613,9 +613,10 @@ const Accounting = () => {
 
               {/* Header Section */}
               <div className='flex items-center justify-between flex-wrap gap-2 pb-3'>
-                <h1 className="text-[var(--ink)] responsiveTextTitle">
-                  {getTtl('Accounting', ln)}
-                </h1>
+                <div>
+                  <h1 className="text-display">{getTtl('Accounting', ln)}</h1>
+                  <p className="text-[0.75rem] text-[var(--ink-muted)] mt-0.5">Transactions overview</p>
+                </div>
               </div>
 
               {/* Summary Cards */}

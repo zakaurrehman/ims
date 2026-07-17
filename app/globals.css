@@ -284,6 +284,56 @@ thead th {
 }
 
 
+/* ============ Motion & micro-interactions ============ */
+
+/* Page/card entrance — subtle fade + rise */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-card {
+  animation: rise-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.page-header {
+  animation: rise-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Interactive cards lift slightly on hover */
+.dashCard,
+.dashStatCard,
+.kpi-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.dashCard:hover,
+.dashStatCard:hover,
+.kpi-card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Button press feedback */
+.blackButton:active,
+.whiteButton:active,
+.supplierButton:active,
+.supplierAddButton:active {
+  transform: scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-card,
+  .page-header {
+    animation: none;
+  }
+  .dashCard:hover,
+  .dashStatCard:hover,
+  .kpi-card:hover {
+    transform: none;
+  }
+}
+/* ============ End motion ============ */
+
 /******** skeleton loaders ****/
 .skel {
   background: linear-gradient(90deg, #EEF0F4 25%, #F7F8FA 50%, #EEF0F4 75%);

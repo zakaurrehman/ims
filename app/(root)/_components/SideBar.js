@@ -122,6 +122,7 @@ export default function Sidebar() {
     cursor: "pointer",
     borderRadius: "10px",
     background: active ? "var(--brand-soft)" : "transparent",
+    boxShadow: active && !isCollapsed ? "inset 3px 0 0 0 var(--brand)" : "none",
     fontWeight: active ? 600 : 500,
     color: active ? "var(--brand)" : "var(--ink-secondary)",
     marginLeft: isCollapsed ? "auto" : "8px",

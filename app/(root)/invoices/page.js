@@ -32,7 +32,8 @@ import dynamic from 'next/dynamic';
 // this page's first-load bundle. It only renders when the user opens a reminder.
 const ReminderModal = dynamic(() => import('../../../components/invoices/ReminderModal'), { ssr: false });
 import StatusBadge from '../../../components/StatusBadge';
-import { Bell, Split } from 'lucide-react';
+import { Bell, Split, Receipt, FileCheck2, FilePen, FileX2 } from 'lucide-react';
+import KpiStrip from '../../../components/KpiStrip';
 import SplitControl from '../../../components/SplitControl';
 import { splitStatusOf } from '../../../utils/splitUtils';
 
@@ -707,14 +708,29 @@ const Invoices = () => {
 				{Object.keys(settings).length === 0 ? <TableSkeleton /> :
 					<>
 						<Toast />
+						{/* Page header */}
+						<div className="page-header flex items-end justify-between flex-wrap gap-2 mt-6 mb-3 px-1">
+							<div>
+								<h1 className="text-display">{getTtl('Invoices', ln)}</h1>
+								<p className="text-[0.75rem] text-[var(--ink-muted)] mt-0.5">
+									{invoicesData.length ? `${invoicesData.length} invoices in the selected period` : 'Client sales invoices'}
+								</p>
+							</div>
+						</div>
+
+						{/* KPI strip */}
+						<KpiStrip items={[
+							{ label: getTtl('Invoices', ln) || 'Invoices', value: invoicesData.length, icon: Receipt, tone: 'blue' },
+							{ label: 'Final', value: invoicesData.filter(x => x.final && !x.canceled).length, icon: FileCheck2, tone: 'green' },
+							{ label: 'Draft', value: invoicesData.filter(x => !x.final).length, icon: FilePen, tone: 'amber' },
+							{ label: 'Canceled', value: invoicesData.filter(x => x.final && x.canceled).length, icon: FileX2, tone: 'red' },
+						]} />
+
 						{/* Main Card */}
-						<div className="rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] w-full bg-white shadow-card">
+						<div className="page-card rounded-2xl p-3 sm:p-5 border border-[var(--line)] w-full bg-white shadow-card">
 
 							{/* Header Section */}
-							<div className='flex items-center justify-between flex-wrap gap-2 pb-2'>
-								<h1 className="text-[var(--ink)] responsiveTextTitle">
-									{getTtl('Invoices', ln)}
-								</h1>
+							<div className='flex items-center justify-end flex-wrap gap-2 pb-2'>
 								{(() => {
 									const pendingCount = invoicesData.filter(x => splitStatusOf(x) === 'pending').length;
 									return (

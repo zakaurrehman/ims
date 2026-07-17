@@ -3,6 +3,8 @@ import { useContext, useEffect, useState, useCallback, useMemo } from 'react';
 import Customtable from './newTable';
 import { TbLayoutGridAdd } from 'react-icons/tb';
 import { IoAnalyticsOutline } from "react-icons/io5";
+import KpiStrip from '../../../components/KpiStrip';
+import { FileText, CheckCircle2, CircleDashed, Factory } from 'lucide-react';
 import MyDetailsModal from './modals/dataModal.js'
 import { SettingsContext } from "../../../contexts/useSettingsContext";
 import { ContractsContext } from "../../../contexts/useContractsContext";
@@ -350,22 +352,26 @@ const Contracts = () => {
 						<Toast />
 						<ModalCopyInvoice />
 
-						{/* Main Card */}
-						<div className="rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] w-full bg-white shadow-card">
-
-							{/* Header Section */}
-							<div className='flex items-center justify-between flex-wrap gap-2 pb-2'>
-								<h1 className="text-[var(--ink)] responsiveTextTitle">
-									{getTtl('Contracts', ln)}
-								</h1>
-
-								{/* <div className='flex items-center gap-2 group'>
-								<div className="relative">
-									<DateRangePicker />
-								</div>
-								<Tooltip txt='Select Dates Range' />
-							</div> */}
+						{/* Page header */}
+						<div className="page-header flex items-end justify-between flex-wrap gap-2 mt-6 mb-3 px-1">
+							<div>
+								<h1 className="text-display">{getTtl('Contracts', ln)}</h1>
+								<p className="text-[0.75rem] text-[var(--ink-muted)] mt-0.5">
+									{tableData.length ? `${tableData.length} contracts in the selected period` : 'Purchase orders & supplier contracts'}
+								</p>
 							</div>
+						</div>
+
+						{/* KPI strip */}
+						<KpiStrip items={[
+							{ label: getTtl('Contracts', ln) || 'Contracts', value: tableData.length, icon: FileText, tone: 'blue' },
+							{ label: 'Completed', value: tableData.filter(x => x.completed).length, icon: CheckCircle2, tone: 'green' },
+							{ label: 'In progress', value: tableData.filter(x => !x.completed).length, icon: CircleDashed, tone: 'amber' },
+							{ label: 'Suppliers', value: new Set(tableData.map(x => x.supplier).filter(Boolean)).size, icon: Factory, tone: 'gray' },
+						]} />
+
+						{/* Main Card */}
+						<div className="page-card rounded-2xl p-3 sm:p-5 border border-[var(--line)] w-full bg-white shadow-card">
 
 							{/* Table Component */}
 

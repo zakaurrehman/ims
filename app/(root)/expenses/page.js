@@ -30,7 +30,8 @@ import { useGlobalSearch } from '../../../contexts/useGlobalSearchContext';
 import SplitControl from '../../../components/SplitControl';
 import { splitStatusOf } from '../../../utils/splitUtils';
 import { ensureSplitNotificationsBatch } from '../../../utils/utils';
-import { Split } from 'lucide-react';
+import { Split, Wallet, Factory } from 'lucide-react';
+import KpiStrip from '../../../components/KpiStrip';
 
 
 
@@ -392,14 +393,24 @@ const Expenses = () => {
 					<>
 						<Toast />
 						<VideoLoader loading={loading} fullScreen={true} />
+						{/* Page header */}
+						<div className="page-header mt-6 mb-3 px-1">
+							<h1 className="text-display">{getTtl('Expenses', ln)}</h1>
+							<p className="text-[0.75rem] text-[var(--ink-muted)] mt-0.5">Supplier-linked expenses</p>
+						</div>
+
+						{/* KPI strip */}
+						<KpiStrip items={[
+							{ label: getTtl('Expenses', ln) || 'Expenses', value: expensesData.length, icon: Wallet, tone: 'blue' },
+							{ label: 'Needs IMS/GIS split', value: expensesData.filter(x => splitStatusOf(x) === 'pending').length, icon: Split, tone: 'amber' },
+							{ label: 'Suppliers', value: new Set(expensesData.map(x => x.supplier).filter(Boolean)).size, icon: Factory, tone: 'gray' },
+						]} />
+
 						{/* Main Card */}
-						<div className="rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] w-full bg-white shadow-card">
+						<div className="page-card rounded-2xl p-3 sm:p-5 border border-[var(--line)] w-full bg-white shadow-card">
 
 							{/* Header Section */}
-							<div className='flex items-center justify-between flex-wrap gap-2 pb-2'>
-								<h1 className="text-[var(--ink)] font-poppins responsiveTextTitle font-medium">
-									{getTtl('Expenses', ln)}
-								</h1>
+							<div className='flex items-center justify-end flex-wrap gap-2 pb-2'>
 								{(() => {
 									const pendingCount = expensesData.filter(x => splitStatusOf(x) === 'pending').length;
 									return (

@@ -60,7 +60,10 @@ const Page = () => {
       <Toast />
       <VideoLoader loading={loading} fullScreen={true} />
       <div className="p-1 md:p-4 bg-white rounded-2xl border border-[#E8EBF0] shadow-sm">
-        <div className="mt-5 text-[var(--ink)] responsiveTextTitle">{getTtl('Settings', ln)}</div>
+        <div className="mt-5 page-header">
+          <h1 className="text-display">{getTtl('Settings', ln)}</h1>
+          <p className="text-[0.75rem] text-[var(--ink-muted)] mt-0.5">Suppliers, clients & app configuration</p>
+        </div>
 
         <div className="w-full px-3 mt-2 border border-[#E8EBF0] rounded-xl bg-white p-3">
           <TabGroup >

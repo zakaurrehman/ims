@@ -352,9 +352,10 @@ const MaterialTables = () => {
                         <VideoLoader loading={loading} fullScreen={true} />
                         <div className="rounded-2xl p-2 sm:p-3 mt-2 border border-[#E8EBF0] shadow-xl w-full bg-white relative overflow-hidden">
                             <div className="flex flex-col gap-2 pb-2">
-                                <h1 className="text-[var(--ink)] responsiveTextTitle">
-                                    {getTtl('Material Tables', ln)}
-                                </h1>
+                                <div>
+                                    <h1 className="text-display">{getTtl('Material Tables', ln)}</h1>
+                                    <p className="text-[0.75rem] text-[var(--ink-muted)] mt-0.5">Element composition & pricing</p>
+                                </div>
                                 <div className="flex items-center gap-2">
                                     <button onClick={addTable} className="flex items-center gap-1 bg-[var(--endeavour)] text-white responsiveTextTable font-medium px-4 h-[32px] text-[0.8rem] rounded-full hover:opacity-90 transition-all">
                                         + {getTtl('Add Table', ln) || 'Add Table'}

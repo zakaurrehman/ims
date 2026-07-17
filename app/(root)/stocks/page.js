@@ -2,6 +2,8 @@
 import { useContext, useEffect, useMemo, useState } from 'react';
 import Customtable from './newTable';
 import SharedStock from './SharedStock';
+import KpiStrip from '../../../components/KpiStrip';
+import { Boxes, Warehouse, Factory, Layers } from 'lucide-react';
 import MyDetailsModal from './whModal.js'
 import { SettingsContext } from "../../../contexts/useSettingsContext";
 import { ContractsContext } from "../../../contexts/useContractsContext";
@@ -349,22 +351,32 @@ const Stocks = () => {
             {/* Warehouse fetches used the old bare gray spinner (Spin) — use the same
                 light overlay as every other loading state. */}
             <VideoLoader loading={isLoadingStock} fullScreen={true} />
-            {/* Main Card */}
-            <div className="rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
-              {/* Header Section */}
-              <div className='flex items-center justify-between flex-wrap gap-2'>
-                <h1 className="text-[var(--ink)] font-poppins responsiveTextTitle font-medium">
-                  {getTtl('Stocks', ln)}
-                </h1>
-                <button
-                  type="button"
-                  onClick={() => setAuditOpen(true)}
-                  className="whiteButton whitespace-nowrap"
-                  title="Stock Audit"
-                >
-                  Stock Audit
-                </button>
+            {/* Page header */}
+            <div className="page-header flex items-end justify-between flex-wrap gap-2 mt-6 mb-3 px-1">
+              <div>
+                <h1 className="text-display">{getTtl('Stocks', ln)}</h1>
+                <p className="text-[0.75rem] text-[var(--ink-muted)] mt-0.5">Inventory across warehouses</p>
               </div>
+              <button
+                type="button"
+                onClick={() => setAuditOpen(true)}
+                className="whiteButton whitespace-nowrap"
+                title="Stock Audit"
+              >
+                Stock Audit
+              </button>
+            </div>
+
+            {/* KPI strip */}
+            <KpiStrip items={[
+              { label: 'Stock lines', value: data.length, icon: Boxes, tone: 'blue' },
+              { label: 'Warehouses', value: new Set(data.map(x => x.stock).filter(Boolean)).size, icon: Warehouse, tone: 'gray' },
+              { label: 'Suppliers', value: new Set(data.map(x => x.supplier).filter(Boolean)).size, icon: Factory, tone: 'green' },
+              { label: 'Descriptions', value: new Set(data.map(x => x.descriptionName).filter(Boolean)).size, icon: Layers, tone: 'amber' },
+            ]} />
+
+            {/* Main Card */}
+            <div className="page-card rounded-2xl p-3 sm:p-5 border border-[var(--line)] shadow-card w-full bg-white">
 
               {/* Tabs: this account's stock vs the IMS+GIS shared pool */}
               <div className='mt-3 flex'>

@@ -129,7 +129,10 @@ const Page = () => {
 					<VideoLoader loading={loading} fullScreen={true} />
 					<div className="bg-white rounded-2xl p-2 sm:p-3 mt-4 border border-[#E8EBF0]">
 						<div className='pb-2'>
-							<h1 className="text-[var(--ink)] responsiveTextTitle">Formulas</h1>
+							<div>
+								<h1 className="text-display">Formulas</h1>
+								<p className="text-[0.75rem] text-[var(--ink-muted)] mt-0.5">Pricing formula calculations</p>
+							</div>
 
 							<div className="w-full">
 								<TabGroup>

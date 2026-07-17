@@ -858,7 +858,7 @@ const ContractsMerged = () => {
                         <Toast />
                         <VideoLoader loading={loading} fullScreen={true} />
                         {/* Main Card */}
-                        <div className="rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
+                        <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
                             {/* Header Section */}
                             <div className='flex items-center justify-between flex-wrap gap-2 pb-1'>
                                 <h1 className="text-[var(--ink)] responsiveTextTitle">

@@ -10,7 +10,7 @@ const ActivityPage = () => {
     return (
         <div className="w-full" style={{ background: '#F3F5F8' }}>
             <div className="mx-auto w-full max-w-5xl px-1 md:px-2 pb-4 mt-[72px]">
-                <div className="rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
+                <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
                     <div className="pb-2">
                         <h1 className="text-[var(--ink)] responsiveTextTitle">
                             {getTtl('Activity Log', ln) || 'Activity Log'}

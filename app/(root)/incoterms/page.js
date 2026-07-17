@@ -169,7 +169,7 @@ const Incoterms = () => {
 
     return (
         <div className="mx-auto w-full max-w-full px-1 md:px-2 pb-4 mt-[72px]" style={{ background: '#F3F5F8' }}>
-            <div className="rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
+            <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
                 {/* Header */}
                 <div className="flex flex-col gap-1 mb-4">
                     <h1 className="text-[var(--ink)] responsiveTextTitle">

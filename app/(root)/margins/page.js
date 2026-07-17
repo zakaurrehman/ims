@@ -512,13 +512,14 @@ const Margins = () => {
                         <VideoLoader loading={loading} fullScreen={true} />
 
                         {/* Main Card */}
-                        <div className="rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
+                        <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
 
                             {/* Header Section */}
                             <div className='flex items-center justify-between flex-wrap gap-2 pb-2'>
-                                <h1 className="text-[var(--ink)] font-poppins responsiveTextTitle font-medium">
-                                    {getTtl('Margins', ln)}
-                                </h1>
+                                <div>
+                                    <h1 className="text-display">{getTtl('Margins', ln)}</h1>
+                                    <p className="text-[0.75rem] text-[var(--ink-muted)] mt-0.5">Margin analysis per contract</p>
+                                </div>
 
                                 <div className='flex items-center gap-3'>
                                     {/* Margin alert threshold — flags items whose total margin (profit) is at/below this amount */}
