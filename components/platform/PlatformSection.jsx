@@ -22,7 +22,7 @@ const cards = [
 
 export function PlatformSection() {
   return (
-    <section className="py-10 bg-[#e3f3ff]">
+    <section className="py-10 bg-[#F3F5F8]">
       <div className="container mx-auto px-4">
         <div className="max-w-7xl mx-auto">
 
@@ -34,7 +34,7 @@ export function PlatformSection() {
             transition={{ duration: 0.5 }}
             className="text-center mb-10"
           >
-            <span className="text-xs font-semibold uppercase tracking-widest text-[var(--endeavour)] bg-[#dbeeff] px-4 py-1.5 rounded-full border border-[#b8ddf8]">
+            <span className="text-xs font-semibold uppercase tracking-widest text-[var(--endeavour)] bg-[#F3F5F8] px-4 py-1.5 rounded-full border border-[#E8EBF0]">
               Why It&apos;s Different
             </span>
             <h2 className="text-2xl md:text-4xl font-bold text-[var(--chathams-blue)] mt-4 mb-2">
@@ -54,7 +54,7 @@ export function PlatformSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 whileHover={{ y: -4 }}
-                className="rounded-2xl border border-[#b8ddf8] bg-[#f8fbff] p-8 flex flex-col gap-4 hover:border-[var(--endeavour)] hover:shadow-md transition-all"
+                className="rounded-2xl border border-[#E8EBF0] bg-[#F3F5F8] p-8 flex flex-col gap-4 hover:border-[var(--endeavour)] hover:shadow-md transition-all"
               >
                 <div className="w-12 h-12 bg-[var(--endeavour)] rounded-xl flex items-center justify-center shadow-md">
                   <card.icon className="w-6 h-6 text-white" strokeWidth={2} />

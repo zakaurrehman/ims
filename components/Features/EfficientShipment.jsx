@@ -31,7 +31,7 @@ export default function FeatureSection() {
             transition={{ duration: 0.5 }}
             className="text-center mb-12"
           >
-            <span className="text-xs font-semibold uppercase tracking-widest text-[var(--endeavour)] bg-[#dbeeff] px-4 py-1.5 rounded-full border border-[#b8ddf8]">
+            <span className="text-xs font-semibold uppercase tracking-widest text-[var(--endeavour)] bg-[#F3F5F8] px-4 py-1.5 rounded-full border border-[#E8EBF0]">
               Platform Modules
             </span>
             <h2 className="text-2xl md:text-4xl font-bold text-[var(--chathams-blue)] mt-4 mb-3">
@@ -51,7 +51,7 @@ export default function FeatureSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="group flex items-start gap-4 p-5 rounded-2xl border border-[#b8ddf8] bg-[#f8fbff] hover:bg-[#dbeeff] hover:border-[var(--endeavour)] hover:shadow-md transition-all"
+                className="group flex items-start gap-4 p-5 rounded-2xl border border-[#E8EBF0] bg-[#F3F5F8] hover:bg-[#F3F5F8] hover:border-[var(--endeavour)] hover:shadow-md transition-all"
               >
                 <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-[var(--endeavour)] flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                   <f.icon size={18} className="text-white" strokeWidth={2} />

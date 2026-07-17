@@ -34,15 +34,15 @@ export default function HeadlineTicker({
   // ── theme ──────────────────────────────────────────────────────────────────
   const theme = useMemo(() => {
     const t = {
-      shell:         'border border-[#e6eef8] bg-white shadow-sm',
+      shell:         'border border-[#E8EBF0] bg-white shadow-sm',
       headerIconWrap:'bg-[var(--endeavour)] text-white',
       titleText:     'text-[var(--chathams-blue)]',
       subText:       'text-[var(--endeavour)] text-xs',
-      tickerDot:     'bg-[#b8ddf8]',
+      tickerDot:     'bg-[#E8EBF0]',
       itemLabel:     'text-[var(--regent-gray)] responsiveTextTable',
       itemValue:     'text-[var(--port-gore)] responsiveTextTable font-bold',
       itemSub:       'text-[var(--regent-gray)] responsiveTextTable',
-      itemPill:      'bg-[#f8fbff] border border-[#e6eef8] rounded-full',
+      itemPill:      'bg-[#F3F5F8] border border-[#E8EBF0] rounded-full',
       itemIcon:      'text-[var(--endeavour)]/70',
       hover:         'hover:shadow-md',
       mask:          'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
@@ -195,7 +195,7 @@ export default function HeadlineTicker({
         transform: 'translateY(-50%)',
         zIndex: 10,
         background: 'rgba(255,255,255,0.92)',
-        border: '1px solid #b8ddf8',
+        border: '1px solid #E8EBF0',
         borderRadius: '50%',
         width: 22, height: 22,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -275,10 +275,10 @@ export default function HeadlineTicker({
                     <span className={['responsiveTextTable font-bold', theme.itemValue].join(' ')}>{it.value}</span>
                     {it.change != null && (() => {
                       const c = it.change > 0
-                        ? { bg: '#dcfce7', fg: '#16a34a', arrow: '▲' }
+                        ? { bg: '#E5F6EC', fg: '#177245', arrow: '▲' }
                         : it.change < 0
-                          ? { bg: '#fee2e2', fg: '#dc2626', arrow: '▼' }
-                          : { bg: '#eef3f9', fg: '#64748b', arrow: '•' };
+                          ? { bg: '#FDEAEA', fg: '#B42332', arrow: '▼' }
+                          : { bg: '#E8EBF0', fg: '#64748b', arrow: '•' };
                       const pct = it.change_pct != null
                         ? `${Math.abs(it.change_pct).toFixed(2)}%`
                         : Math.abs(it.change).toFixed(2);
@@ -308,7 +308,7 @@ export default function HeadlineTicker({
         <div
           onClick={handleScrollbarClick}
           style={{
-            height: 4, background: '#d8e8f5',
+            height: 4, background: '#D7DCE4',
             margin: '0 16px 8px', borderRadius: 2,
             cursor: 'pointer', position: 'relative',
           }}

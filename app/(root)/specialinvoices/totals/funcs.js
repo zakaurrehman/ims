@@ -8,8 +8,8 @@ export const expensesToolTip = (row, expensesData, settings, filt) => {
         expensesData.filter(z => (z.paidNotPaid === 'Not Paid' && z.supplier === row.original.supplier && z.cur === row.original.cur)) :
         expensesData.filter(z => (z.supplier === row.original.supplier && z.cur === row.original.cur))
 
-    const thStyle = { textAlign: 'center', padding: '6px 10px', color: 'var(--chathams-blue)', fontWeight: 500, fontSize: '0.68rem', border: '1px solid #b8ddf8', background: '#dbeeff', whiteSpace: 'nowrap' }
-    const tdStyle = { textAlign: 'center', padding: '5px 10px', border: '1px solid #e8f0f8', fontSize: '0.68rem', color: 'var(--chathams-blue)', whiteSpace: 'nowrap' }
+    const thStyle = { textAlign: 'center', padding: '6px 10px', color: 'var(--chathams-blue)', fontWeight: 500, fontSize: '0.68rem', border: '1px solid #E8EBF0', background: '#F3F5F8', whiteSpace: 'nowrap' }
+    const tdStyle = { textAlign: 'center', padding: '5px 10px', border: '1px solid #E8EBF0', fontSize: '0.68rem', color: 'var(--chathams-blue)', whiteSpace: 'nowrap' }
 
     return (
         <div style={{
@@ -17,11 +17,11 @@ export const expensesToolTip = (row, expensesData, settings, filt) => {
             borderRadius: '16px',
             overflow: 'hidden',
             boxShadow: '0 8px 32px rgba(3,102,174,0.13)',
-            border: '1px solid #b8ddf8',
+            border: '1px solid #E8EBF0',
             fontFamily: "var(--font-poppins), 'Poppins', sans-serif",
             minWidth: '400px',
         }}>
-            <div style={{ background: '#dbeeff', padding: '7px 14px', fontWeight: 500, fontSize: '0.68rem', color: 'var(--chathams-blue)', borderBottom: '1px solid #b8ddf8' }}>
+            <div style={{ background: '#F3F5F8', padding: '7px 14px', fontWeight: 500, fontSize: '0.68rem', color: 'var(--chathams-blue)', borderBottom: '1px solid #E8EBF0' }}>
                 Invoice Details
             </div>
             <table style={{ fontFamily: 'inherit', fontSize: '0.72rem', width: '100%', borderCollapse: 'collapse', tableLayout: 'auto' }}>
@@ -37,7 +37,7 @@ export const expensesToolTip = (row, expensesData, settings, filt) => {
                 </thead>
                 <tbody>
                     {filteredArr.map((z, i) => (
-                        <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#f4f9ff' }}>
+                        <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#F3F5F8' }}>
                             <td style={tdStyle}>{z?.order}</td>
                             <td style={tdStyle}>{z.invoice}</td>
                             <td style={tdStyle}>{z.description}</td>

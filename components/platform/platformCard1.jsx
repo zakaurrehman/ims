@@ -13,12 +13,12 @@ const salesTrendData = [
   { name: 'Jun', blue: 45, yellow: 35 },
 ];
 const salesTrendSeries = [
-  { data: salesTrendData.map(d => d.blue), stroke: '#0056D2', strokeWidth: 2.5, fill: true, gradientFrom: '#0056D2', gradientFromOpacity: 0.2, gradientToOpacity: 0 },
+  { data: salesTrendData.map(d => d.blue), stroke: '#0B6BB8', strokeWidth: 2.5, fill: true, gradientFrom: '#0B6BB8', gradientFromOpacity: 0.2, gradientToOpacity: 0 },
   { data: salesTrendData.map(d => d.yellow), stroke: '#FFC107', strokeWidth: 2.5, fill: false },
 ];
 
 const pieData = [
-  { name: 'July', value: 62, color: '#0056D2' }, // Blue
+  { name: 'July', value: 62, color: '#0B6BB8' }, // Blue
   { name: 'August', value: 38, color: '#FFC107' }, // Yellow
 ];
 

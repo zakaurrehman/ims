@@ -17,7 +17,7 @@ const features = [
   },
   {
     icon: TrendingUp,
-    color: "bg-[#F59E0B]",
+    color: "bg-[#E8A23D]",
     title: "Figures That Reconcile",
     description: "Dashboard, cashflow, reviews and statements all read the same records — from purchase order to final settlement, every number adds up."
   },

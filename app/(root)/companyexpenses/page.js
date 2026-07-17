@@ -158,7 +158,7 @@ const Expenses = () => {
             },
             filterFn: 'dateBetweenFilterFn'
         },
-        { accessorKey: 'cur', header: getTtl('Currency', ln), cell: (props) => { const v = (props.getValue() || '').toUpperCase(); const isUsd = v === 'USD' || v === 'US'; const isEur = v === 'EUR' || v === 'EU'; return <span style={{ background: isUsd ? '#b7d1b5' : isEur ? '#dbeeff' : '#f0f0f0', color: isUsd ? '#2d6a2d' : isEur ? 'var(--chathams-blue)' : '#555', borderRadius: '8px', padding: '3px 14px', fontWeight: 500, fontSize: '0.75rem', display: 'inline-block' }}>{isUsd ? '$' : isEur ? '€' : v}</span> } },
+        { accessorKey: 'cur', header: getTtl('Currency', ln), cell: (props) => { const v = (props.getValue() || '').toUpperCase(); const isUsd = v === 'USD' || v === 'US'; const isEur = v === 'EUR' || v === 'EU'; return <span style={{ background: isUsd ? '#BFE8D0' : isEur ? '#F3F5F8' : '#F0F2F5', color: isUsd ? '#177245' : isEur ? 'var(--chathams-blue)' : '#555', borderRadius: '8px', padding: '3px 14px', fontWeight: 500, fontSize: '0.75rem', display: 'inline-block' }}>{isUsd ? '$' : isEur ? '€' : v}</span> } },
         {
             accessorKey: 'amount', header: getTtl('Amount', ln), cell: (props) => <p>{showAmount(props)}</p>,
             meta: {
@@ -284,17 +284,17 @@ const Expenses = () => {
     }, [expensesData, filteredId, settings, ln]);
 
     return (
-        <div className="w-full " style={{ background: "#f8fbff" }}>
+        <div className="w-full " style={{ background: "var(--bg-page)" }}>
             <div className="mx-auto w-full max-w-full px-1 md:px-2 pb-4 mt-[72px]">
                 {Object.keys(settings).length === 0 ? <TableSkeleton /> :
                     <>
                         <Toast />
                         <VideoLoader loading={loading} fullScreen={true} />
                         {/* Main Card */}
-                        <div className="rounded-2xl p-3 sm:p-5 mt-8 border border-[#b8ddf8] shadow-xl w-full bg-[#f8fbff]">
+                        <div className="rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
                             {/* Header Section */}
                             <div className='flex items-center justify-between flex-wrap gap-2 pb-2'>
-                                <h1 className="text-[var(--chathams-blue)] font-poppins responsiveTextTitle font-medium border-l-4 border-[var(--chathams-blue)] pl-2">
+                                <h1 className="text-[var(--ink)] responsiveTextTitle">
                                     {getTtl('Company Expenses', ln)}
                                 </h1>
                                 {(() => {
@@ -308,13 +308,13 @@ const Expenses = () => {
                                             style={{
                                                 fontSize: '0.66rem', padding: '4px 12px',
                                                 color: onlyUnsplit ? 'white' : 'var(--chathams-blue)',
-                                                background: onlyUnsplit ? 'var(--endeavour)' : '#f8fbff',
-                                                border: '1px solid #b8ddf8',
+                                                background: onlyUnsplit ? 'var(--endeavour)' : '#F3F5F8',
+                                                border: '1px solid #E8EBF0',
                                             }}
                                         >
                                             <Split className='w-3.5 h-3.5' />
                                             Needs IMS/GIS split
-                                            <span className='rounded-full px-1.5' style={{ fontSize: '0.6rem', background: onlyUnsplit ? 'rgba(255,255,255,0.25)' : '#dbeeff', color: onlyUnsplit ? 'white' : 'var(--endeavour)' }}>
+                                            <span className='rounded-full px-1.5' style={{ fontSize: '0.6rem', background: onlyUnsplit ? 'rgba(255,255,255,0.25)' : '#F3F5F8', color: onlyUnsplit ? 'white' : 'var(--endeavour)' }}>
                                                 {pendingCount}
                                             </span>
                                         </button>

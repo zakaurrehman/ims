@@ -1209,7 +1209,7 @@ const Dash = () => {
           <m.div className="mb-5 flex flex-wrap items-center justify-between gap-3"
             initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.05 }}>
             <div>
-              <h1 className="text-[var(--chathams-blue)] font-poppins responsiveTextTitle font-semibold border-l-4 border-[var(--chathams-blue)] pl-2">
+              <h1 className="text-[var(--ink)] responsiveTextTitle">
                 {getTtl('Dashboard', ln)}
               </h1>
               <p className="responsiveText text-[var(--regent-gray)] pl-3 mt-0.5">

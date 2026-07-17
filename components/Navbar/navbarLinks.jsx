@@ -22,8 +22,8 @@ export default function NavbarLinks() {
           href={link.href}
           className={`relative font-medium text-sm px-3 py-1.5 rounded-lg transition-all duration-200 group ${
             pathname === link.href
-              ? 'text-[var(--endeavour)] bg-[#dbeeff]'
-              : 'text-[var(--chathams-blue)] hover:text-[var(--endeavour)] hover:bg-[#dbeeff]/60'
+              ? 'text-[var(--endeavour)] bg-[#F3F5F8]'
+              : 'text-[var(--chathams-blue)] hover:text-[var(--endeavour)] hover:bg-[#F3F5F8]/60'
           }`}
         >
           {link.label}

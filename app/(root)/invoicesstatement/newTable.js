@@ -60,7 +60,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                         }}
                         onChange={table.getToggleAllPageRowsSelectedHandler()}
                         className="w-4 h-4 cursor-pointer rounded"
-                        style={{ accentColor: '#BCE1FE' }}
+                        style={{ accentColor: '#E8F2FB' }}
                     />
                 </div>
             ),
@@ -72,7 +72,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                         disabled={!row.getCanSelect()}
                         onChange={row.getToggleSelectedHandler()}
                         className="w-4 h-4 cursor-pointer rounded"
-                        style={{ accentColor: '#BCE1FE' }}
+                        style={{ accentColor: '#E8F2FB' }}
                     />
                 </div>
             ),
@@ -161,7 +161,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                     border-radius: 6px; 
                 }
                 .dashboard-scroll::-webkit-scrollbar-thumb { 
-                    background: linear-gradient(180deg, #E0E0E0, #CCCCCC); 
+                    background: linear-gradient(180deg, #E8EBF0, #CCCCCC); 
                     border-radius: 6px; 
                     border: 2px solid #F8F8F8;
                 }
@@ -184,8 +184,8 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                 }
 
                 .custom-table th {
-                    border: 1px solid #d8e8f5;
-                    background-color: #f8fbff;
+                    border: 1px solid #D7DCE4;
+                    background-color: #F3F5F8;
                     text-align: center;
                     vertical-align: middle;
                     padding: 6px;
@@ -193,32 +193,32 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                 }
 
                 .custom-table td {
-                    border: 1px solid #d8e8f5;
-                    background-color: #f8fbff;
+                    border: 1px solid #D7DCE4;
+                    background-color: #F3F5F8;
                     text-align: center;
                     vertical-align: middle;
                     padding: 6px;
                     border-radius: 4px;
                 }
                 .custom-table th {
-                    background-color: #d4eafc;
+                    background-color: #F3F5F8;
                 }
                 .custom-table td {
                     background-color: #fff;
-                    border: 1px solid #e0e0e0;
+                    border: 1px solid #E8EBF0;
                 }
             `}</style>
 
             <div className="custom-table">
                 <div className="relative flex flex-col rounded-2xl glass-table">
                     {/* Border overlay — renders above children so corners always visible */}
-                    <div className="absolute inset-0 rounded-2xl border border-[#b8ddf8] pointer-events-none z-[15]" />
+                    <div className="absolute inset-0 rounded-2xl border border-[#E8EBF0] pointer-events-none z-[15]" />
 
                     {/* HEADER */}
                     <div
                         className="flex-shrink-0 rounded-t-2xl"
                         style={{
-                            borderBottom: '1px solid #b8ddf8',
+                            borderBottom: '1px solid #E8EBF0',
                             background: '#ffffff',
                         }}
                     >
@@ -278,7 +278,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                                                     className="px-2 py-1.5"
                                                     style={{
                                                         backgroundColor: '#FFFFFF',
-                                                        borderBottom: '2px solid #b8ddf8',
+                                                        borderBottom: '2px solid #E8EBF0',
                                                         minWidth: header.column.id === 'select' ? '50px' : '90px',
                                                         maxWidth: header.column.id === 'select' ? '50px' : 'none',
                                                     }}
@@ -317,18 +317,18 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                                                 let badgeConfig = null;
                                                 if (isCompleted) {
                                                     badgeConfig = cell.getValue()
-                                                        ? { bg: '#dcfce7', color: '#16a34a', label: 'Completed' }
-                                                        : { bg: '#fee2e2', color: '#dc2626', label: 'Incompleted' };
+                                                        ? { bg: '#E5F6EC', color: '#177245', label: 'Completed' }
+                                                        : { bg: '#FDEAEA', color: '#B42332', label: 'Incompleted' };
                                                 }
                                                 if (isStatus && cell.getValue()) {
                                                     if (cell.getValue() === 'Completed')
-                                                        badgeConfig = { bg: '#dcfce7', color: '#16a34a', label: 'Completed' };
+                                                        badgeConfig = { bg: '#E5F6EC', color: '#177245', label: 'Completed' };
                                                     else if (cell.getValue() === 'Incompleted')
-                                                        badgeConfig = { bg: '#fee2e2', color: '#dc2626', label: 'Incompleted' };
+                                                        badgeConfig = { bg: '#FDEAEA', color: '#B42332', label: 'Incompleted' };
                                                     else if (cell.getValue() === 'Paid')
-                                                        badgeConfig = { bg: '#dcfce7', color: '#166534', border: '#bbf7d0', label: 'Paid' };
+                                                        badgeConfig = { bg: '#E5F6EC', color: '#177245', border: '#BFE8D0', label: 'Paid' };
                                                     else if (cell.getValue() === 'Unpaid')
-                                                        badgeConfig = { bg: '#fef9c3', color: '#92400e', border: '#fde68a', label: 'Unpaid' };
+                                                        badgeConfig = { bg: '#FDF3E1', color: '#9A6215', border: '#F5DFAE', label: 'Unpaid' };
                                                 }
 
                                                 return (
@@ -348,7 +348,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                                                                     style={{
                                                                         backgroundColor: badgeConfig.bg,
                                                                         color: badgeConfig.color,
-                                                                        border: `1px solid ${badgeConfig.border || '#d8e8f5'}`
+                                                                        border: `1px solid ${badgeConfig.border || '#D7DCE4'}`
                                                                     }}
                                                                 >
                                                                     {badgeConfig.label}
@@ -356,7 +356,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                                                             </div>
                                                         ) : (isCompleted || isStatus) && !badgeConfig ? (
                                                             <div className="flex justify-center">
-                                                                <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal w-full" style={{ backgroundColor: '#f8fbff', border: '1px solid #d8e8f5' }}>&nbsp;</div>
+                                                                <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal w-full" style={{ backgroundColor: '#F3F5F8', border: '1px solid #D7DCE4' }}>&nbsp;</div>
                                                             </div>
                                                         ) : (
                                                             <div className="flex justify-center">
@@ -364,15 +364,15 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                                                                     <div
                                                                         className="px-3 py-1 rounded-xl responsiveTextTable font-normal min-w-[70px]"
                                                                         style={{
-                                                                            backgroundColor: '#f8fbff',
-                                                                            border: '1px solid #d8e8f5',
+                                                                            backgroundColor: '#F3F5F8',
+                                                                            border: '1px solid #D7DCE4',
                                                                             whiteSpace: 'nowrap',
                                                                         }}
                                                                     >
                                                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                                                     </div>
                                                                 ) : (
-                                                                    <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal w-full" style={{ backgroundColor: '#f8fbff', border: '1px solid #d8e8f5' }}>&nbsp;</div>
+                                                                    <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal w-full" style={{ backgroundColor: '#F3F5F8', border: '1px solid #D7DCE4' }}>&nbsp;</div>
                                                                 )}
                                                             </div>
                                                         )}
@@ -425,7 +425,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                                         backgroundColor: '#FFFFFF',
                                         border: highlightId === row.original.id 
                                             ? '2px solid #F97316' 
-                                            : '1px solid #b8ddf8',
+                                            : '1px solid #E8EBF0',
                                         boxShadow: highlightId === row.original.id 
                                             ? '0 12px 28px rgba(249, 115, 22, 0.2)'
                                             : '0 4px 12px rgba(0, 0, 0, 0.06)'
@@ -435,7 +435,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                                                 <div 
                                                     className="px-3 py-2 flex items-center justify-between"
                                                     // style={{ 
-                                                    //     background: 'linear-gradient(135deg, #6366F1, #9333EA, #0D9488)',
+                                                    //     background: 'linear-gradient(135deg, #6366F1, #7A6FE3, #0D9488)',
                                                     // }}
                                                 >
                                                     <span 
@@ -468,7 +468,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                                                 <div 
                                                     key={cell.id} 
                                                     className="flex flex-col space-y-1.5 pb-2.5 last:pb-0"
-                                                    style={{ borderBottom: '1px solid #b8ddf8' }}
+                                                    style={{ borderBottom: '1px solid #E8EBF0' }}
                                                 >
                                                     <div 
                                                         className="uppercase tracking-wider font-normal" 
@@ -485,7 +485,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                                                             color: 'var(--port-gore)',
                                                             background: 'linear-gradient(135deg, #FAFAFA, #F5F5F5)',
                                                             fontSize: '0.62rem',
-                                                            border: '1px solid #b8ddf8'
+                                                            border: '1px solid #E8EBF0'
                                                         }}
                                                     >
                                                         {/* Custom rendering for 'completed' column */}
@@ -494,7 +494,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                                                                 <div 
                                                                             className="w-full px-2 py-2 rounded-md responsiveTextTable font-normal flex items-center gap-2 justify-center shadow-md"
                                                                             style={{ 
-                                                                                backgroundColor: '#dcfce7',
+                                                                                backgroundColor: '#E5F6EC',
                                                                                 color: '#FFFFFF'
                                                                             }}
                                                                 >
@@ -504,7 +504,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                                                                 <div 
                                                                     className="w-full px-2 py-2 rounded-md responsiveTextTable font-normal flex items-center gap-2 justify-center shadow-sm"
                                                                     style={{ 
-                                                                        backgroundColor: '#fee2e2',
+                                                                        backgroundColor: '#FDEAEA',
                                                                         color: '#FFFFFF'
                                                                     }}
                                                                 >
@@ -545,7 +545,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                     <div
                         className="flex-shrink-0 rounded-b-2xl"
                         style={{
-                            borderTop: '1px solid #b8ddf8',
+                            borderTop: '1px solid #E8EBF0',
                             background: '#ffffff',
                         }}
                     >

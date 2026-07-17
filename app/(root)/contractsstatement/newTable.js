@@ -37,28 +37,28 @@ const EMPTY_STATE_VIDEO_SRC = '/logo/no-data.mp4';
 // Expandable detail for a contract line: warehouse lots + shipments
 const DetailPanel = ({ lots = [], shipments = [] }) => {
   const fmt = (n) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 3 }).format(Number(n) || 0);
-  const headSt = { border: 'none', textAlign: 'left', padding: '5px 12px', fontSize: '0.56rem', background: '#f8fbff', color: 'var(--regent-gray)', fontWeight: 500, letterSpacing: '0.04em' };
+  const headSt = { border: 'none', textAlign: 'left', padding: '5px 12px', fontSize: '0.56rem', background: '#F3F5F8', color: 'var(--regent-gray)', fontWeight: 500, letterSpacing: '0.04em' };
   const cellSt = { border: 'none', textAlign: 'left', padding: '5px 12px', fontSize: '0.64rem', color: 'var(--port-gore)', background: '#ffffff' };
   const lotChip = (status) => {
     const s = (status || '').toLowerCase();
     const map = {
-      sold: { bg: '#dcfce7', c: '#166534', b: '#bbf7d0', t: 'Sold' },
-      unsold: { bg: '#fee2e2', c: '#dc2626', b: '#fecaca', t: 'Unsold' },
+      sold: { bg: '#E5F6EC', c: '#177245', b: '#BFE8D0', t: 'Sold' },
+      unsold: { bg: '#FDEAEA', c: '#B42332', b: '#F5C6C9', t: 'Unsold' },
     };
-    const v = map[s] || { bg: '#f1f5f9', c: '#64748b', b: '#e2e8f0', t: status || '—' };
+    const v = map[s] || { bg: '#F0F2F5', c: '#5B6472', b: '#DDE1E8', t: status || '—' };
     return <span style={{ backgroundColor: v.bg, color: v.c, border: `1px solid ${v.b}`, borderRadius: 8, padding: '1px 8px', fontSize: '0.6rem' }}>{v.t}</span>;
   };
   return (
     <div className="flex flex-col lg:flex-row gap-3" style={{ animation: 'fadeIn .2s ease-in' }}>
       {/* Lots */}
-      <div className="rounded-xl overflow-hidden" style={{ border: '1px solid #d8e8f5', flex: '1.4 1 0', minWidth: 0 }}>
-        <div style={{ background: '#dbeeff', color: 'var(--chathams-blue)', fontSize: '0.62rem', fontWeight: 600, padding: '5px 12px' }}>Lots in warehouse</div>
+      <div className="rounded-xl overflow-hidden" style={{ border: '1px solid #D7DCE4', flex: '1.4 1 0', minWidth: 0 }}>
+        <div style={{ background: '#F3F5F8', color: 'var(--chathams-blue)', fontSize: '0.62rem', fontWeight: 600, padding: '5px 12px' }}>Lots in warehouse</div>
         {lots.length ? (
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead><tr><th style={headSt}>QUANTITY</th><th style={headSt}>STATUS</th><th style={headSt}>CONSIGNEE</th><th style={headSt}>SALES PO</th></tr></thead>
             <tbody>
               {lots.map((l, i) => (
-                <tr key={i} style={{ borderTop: '1px solid #eef4fb' }}>
+                <tr key={i} style={{ borderTop: '1px solid #E8EBF0' }}>
                   <td style={cellSt}>{fmt(l.qnty)} MT</td>
                   <td style={cellSt}>{lotChip(l.status)}</td>
                   <td style={cellSt}>{l.consignee || '—'}</td>
@@ -70,14 +70,14 @@ const DetailPanel = ({ lots = [], shipments = [] }) => {
         ) : <div style={{ padding: '8px 12px', fontSize: '0.62rem', color: 'var(--regent-gray)' }}>No lots in warehouse</div>}
       </div>
       {/* Shipments */}
-      <div className="rounded-xl overflow-hidden" style={{ border: '1px solid #d8e8f5', flex: '2 1 0', minWidth: 0 }}>
-        <div style={{ background: '#dbeeff', color: 'var(--chathams-blue)', fontSize: '0.62rem', fontWeight: 600, padding: '5px 12px' }}>Shipments</div>
+      <div className="rounded-xl overflow-hidden" style={{ border: '1px solid #D7DCE4', flex: '2 1 0', minWidth: 0 }}>
+        <div style={{ background: '#F3F5F8', color: 'var(--chathams-blue)', fontSize: '0.62rem', fontWeight: 600, padding: '5px 12px' }}>Shipments</div>
         {shipments.length ? (
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead><tr>{['INVOICE', 'CONSIGNEE', 'PO CLIENT', 'DESTINATION', 'QTY'].map(h => <th key={h} style={headSt}>{h}</th>)}</tr></thead>
             <tbody>
               {shipments.map((s, i) => (
-                <tr key={i} style={{ borderTop: '1px solid #eef4fb' }}>
+                <tr key={i} style={{ borderTop: '1px solid #E8EBF0' }}>
                   <td style={cellSt}>{s.invoice || '—'}</td>
                   <td style={cellSt}>{s.consignee || '—'}</td>
                   <td style={cellSt}>{s.po || '—'}</td>
@@ -272,15 +272,15 @@ const Customtable = ({
  /* Professional gradient scrollbar matching cards */
      .dashboard-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
         .dashboard-scroll::-webkit-scrollbar-track {
-          background: #ebf2fc;
+          background: #F3F5F8;
           border-radius: 6px;
         }
         .dashboard-scroll::-webkit-scrollbar-thumb {
-          background: #9fb8d4;
+          background: #D7DCE4;
           border-radius: 6px;
         }
         .dashboard-scroll::-webkit-scrollbar-thumb:hover {
-          background: #0366ae;
+          background: #0B6BB8;
         }
 
 
@@ -301,8 +301,8 @@ const Customtable = ({
         }
 
         .custom-table th {
-          border: 1px solid #d8e8f5;
-          background-color: #f8fbff;
+          border: 1px solid #D7DCE4;
+          background-color: #F3F5F8;
           text-align: center;
           vertical-align: middle;
           padding: 6px;
@@ -310,8 +310,8 @@ const Customtable = ({
         }
 
         .custom-table td {
-          border: 1px solid #d8e8f5;
-          background-color: #f8fbff;
+          border: 1px solid #D7DCE4;
+          background-color: #F3F5F8;
           text-align: center;
           vertical-align: middle;
           padding: 6px;
@@ -319,12 +319,12 @@ const Customtable = ({
         }
 
         .custom-table th {
-          background-color: #d4eafc;
+          background-color: #F3F5F8;
         }
 
         .custom-table td {
           background-color: #fff;
-          border: 1px solid #e0e0e0;
+          border: 1px solid #E8EBF0;
         }
 
       `}</style>
@@ -332,13 +332,13 @@ const Customtable = ({
       <div className="custom-table">
         <div className="relative flex flex-col rounded-2xl glass-table">
           {/* Border overlay — renders above children so corners always visible */}
-          <div className="absolute inset-0 rounded-2xl border border-[#b8ddf8] pointer-events-none z-[15]" />
+          <div className="absolute inset-0 rounded-2xl border border-[#E8EBF0] pointer-events-none z-[15]" />
 
           {/* HEADER */}
           <div
             className="flex-shrink-0 rounded-t-2xl"
             style={{
-              borderBottom: '1px solid #b8ddf8',
+              borderBottom: '1px solid #E8EBF0',
               background: '#ffffff',
             }}
           >
@@ -401,7 +401,7 @@ const Customtable = ({
                               className="px-2 py-1.5"
                               style={{
                                 backgroundColor: '#FFFFFF',
-                                borderBottom: '2px solid #b8ddf8',
+                                borderBottom: '2px solid #E8EBF0',
                                 minWidth: header.column.id === 'select' ? '50px' : header.column.columnDef.meta?.filterVariant === 'dates' ? '220px' : '60px',
                                 maxWidth: header.column.id === 'select' ? '50px' : 'none',
                               }}
@@ -432,7 +432,7 @@ const Customtable = ({
                       <tr
                         tabIndex={0}
                         className="cursor-pointer transition-colors hover-row"
-                        style={{ background: row.getIsSelected() ? '#eff6ff' : row.getIsExpanded() ? '#dbeeff' : undefined }}
+                        style={{ background: row.getIsSelected() ? '#E8F2FB' : row.getIsExpanded() ? '#F3F5F8' : undefined }}
                       >
                         {row.getVisibleCells().map((cell) => {
                           if (cell.column.id === 'expander') {
@@ -471,12 +471,12 @@ const Customtable = ({
                                   {val !== null && val !== undefined && val !== '' ? (
                                     <div
                                       className="px-3 py-1 rounded-xl responsiveTextTable font-normal min-w-[70px] flex items-center justify-center"
-                                      style={{ backgroundColor: '#f8fbff', border: '1px solid #d8e8f5' }}
+                                      style={{ backgroundColor: '#F3F5F8', border: '1px solid #D7DCE4' }}
                                     >
                                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                     </div>
                                   ) : (
-                                    <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal min-w-[70px]" style={{ backgroundColor: '#f8fbff', border: '1px solid #d8e8f5' }}>&nbsp;</div>
+                                    <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal min-w-[70px]" style={{ backgroundColor: '#F3F5F8', border: '1px solid #D7DCE4' }}>&nbsp;</div>
                                   )}
                                 </div>
                               )}
@@ -495,7 +495,7 @@ const Customtable = ({
                         return (
                           <Fragment key={sub.id}>
                           <tr
-                            style={{ background: isOpen ? '#e7f1fd' : '#f0f6ff' }}
+                            style={{ background: isOpen ? '#E8F2FB' : '#F3F5F8' }}
                             className={hasDetail ? 'cursor-pointer hover-row' : ''}
                             onClick={hasDetail ? () => setOpenLots(p => ({ ...p, [sub.id]: !p[sub.id] })) : undefined}
                           >
@@ -510,7 +510,7 @@ const Customtable = ({
                                       top: 0,
                                       bottom: isLast ? '50%' : 0,
                                       width: '1.5px',
-                                      background: '#b8ddf8',
+                                      background: '#E8EBF0',
                                     }} />
                                     <div style={{
                                       position: 'absolute',
@@ -518,7 +518,7 @@ const Customtable = ({
                                       top: '50%',
                                       width: '14px',
                                       height: '1.5px',
-                                      background: '#b8ddf8',
+                                      background: '#E8EBF0',
                                     }} />
                                     <div style={{
                                       position: 'absolute',
@@ -529,7 +529,7 @@ const Customtable = ({
                                       borderRadius: '50%',
                                       background: 'var(--endeavour)',
                                       transform: 'translate(-50%, -50%)',
-                                      boxShadow: '0 0 0 2px #f0f6ff',
+                                      boxShadow: '0 0 0 2px #F3F5F8',
                                     }} />
                                   </td>
                                 )
@@ -561,7 +561,7 @@ const Customtable = ({
                                       {hasDetail && (
                                         <IoIosArrowDown size={11} className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} style={{ color: 'var(--endeavour)', flexShrink: 0 }} />
                                       )}
-                                      <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal min-w-[70px] flex items-center justify-center" style={{ backgroundColor: '#ffffff', border: '1px solid #d8e8f5' }}>
+                                      <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal min-w-[70px] flex items-center justify-center" style={{ backgroundColor: '#ffffff', border: '1px solid #D7DCE4' }}>
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                       </div>
                                     </div>
@@ -580,9 +580,9 @@ const Customtable = ({
                                       <div
                                         className="px-3 py-1 rounded-xl responsiveTextTable font-normal flex items-center justify-center"
                                         style={{
-                                          backgroundColor: val === 'Paid' ? '#dcfce7' : val === 'Unpaid' ? '#fef9c3' : '#ffffff',
-                                          border: val ? `1px solid ${val === 'Paid' ? '#bbf7d0' : val === 'Unpaid' ? '#fde68a' : '#cecece'}` : 'none',
-                                          color: val === 'Paid' ? '#166534' : val === 'Unpaid' ? '#92400e' : 'var(--port-gore)'
+                                          backgroundColor: val === 'Paid' ? '#E5F6EC' : val === 'Unpaid' ? '#FDF3E1' : '#ffffff',
+                                          border: val ? `1px solid ${val === 'Paid' ? '#BFE8D0' : val === 'Unpaid' ? '#F5DFAE' : '#D7DCE4'}` : 'none',
+                                          color: val === 'Paid' ? '#177245' : val === 'Unpaid' ? '#9A6215' : 'var(--port-gore)'
                                         }}
                                       >
                                         {val || ' '}
@@ -593,12 +593,12 @@ const Customtable = ({
                                       {val !== null && val !== undefined && val !== '' ? (
                                         <div
                                           className="px-3 py-1 rounded-xl responsiveTextTable font-normal min-w-[70px] flex items-center justify-center"
-                                          style={{ backgroundColor: '#ffffff', border: '1px solid #d8e8f5' }}
+                                          style={{ backgroundColor: '#ffffff', border: '1px solid #D7DCE4' }}
                                         >
                                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </div>
                                       ) : (
-                                        <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal min-w-[70px]" style={{ backgroundColor: '#ffffff', border: '1px solid #d8e8f5' }}>&nbsp;</div>
+                                        <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal min-w-[70px]" style={{ backgroundColor: '#ffffff', border: '1px solid #D7DCE4' }}>&nbsp;</div>
                                       )}
                                     </div>
                                   )}
@@ -607,8 +607,8 @@ const Customtable = ({
                             })}
                           </tr>
                           {isOpen && hasDetail && (
-                            <tr style={{ background: '#f7fbff' }}>
-                              <td colSpan={sub.getVisibleCells().length} style={{ border: 'none', background: '#f7fbff', padding: '6px 18px 14px' }}>
+                            <tr style={{ background: '#F3F5F8' }}>
+                              <td colSpan={sub.getVisibleCells().length} style={{ border: 'none', background: '#F3F5F8', padding: '6px 18px 14px' }}>
                                 <DetailPanel lots={sub.original.lots} shipments={sub.original.shipments} />
                               </td>
                             </tr>
@@ -667,14 +667,14 @@ const Customtable = ({
                   className="rounded-2xl overflow-hidden shadow-lg transition-colors duration-200"
                   style={{
                     backgroundColor: '#FFFFFF',
-                    border: '1px solid #b8ddf8',
+                    border: '1px solid #E8EBF0',
                     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.06)'
                   }}
                 >
                   <div 
-                    className="px-3 py-2 flex items-center justify-between bg-[#9ad4ff]"
+                    className="px-3 py-2 flex items-center justify-between bg-[#F3F5F8]"
                     // style={{ 
-                    //   background: 'linear-gradient(135deg, #6366F1, #9333EA, #0D9488)',
+                    //   background: 'linear-gradient(135deg, #7A6FE3, #7A6FE3, #0E9888)',
                     // }}
                   >
                     <span 
@@ -709,7 +709,7 @@ const Customtable = ({
                         <div 
                           key={cell.id} 
                           className="flex flex-col space-y-1.5 pb-2.5 last:pb-0"
-                          style={{ borderBottom: '1px solid #b8ddf8' }}
+                          style={{ borderBottom: '1px solid #E8EBF0' }}
                         >
                           <div 
                             className="uppercase tracking-wider font-normal" 
@@ -724,9 +724,9 @@ const Customtable = ({
                             className="font-normal break-words px-2 py-1 rounded-xl leading-relaxed min-h-[28px] flex items-center shadow-sm" 
                             style={{ 
                               color: 'var(--port-gore)',
-                              background: 'linear-gradient(135deg, #FAFAFA, #F5F5F5)',
+                              background: 'linear-gradient(135deg, #F3F5F8, #F3F5F8)',
                               fontSize: '0.62rem',
-                              border: '1px solid #b8ddf8'
+                              border: '1px solid #E8EBF0'
                             }}
                           >
                             {flexRender(cell.column.columnDef.cell, cell.getContext()) || '\u00A0'}
@@ -737,22 +737,22 @@ const Customtable = ({
 
                     {/* Expanded SubRows in Mobile */}
                     {row.getIsExpanded() && row.subRows && row.subRows.length > 0 && (
-                      <div className="mt-3 pt-3" style={{ borderTop: '2px solid #b8ddf8' }}>
+                      <div className="mt-3 pt-3" style={{ borderTop: '2px solid #E8EBF0' }}>
                         {row.subRows.map((sub, subIdx) => (
                           <div 
                             key={sub.id} 
                             className="mb-3 p-3 rounded-lg" 
                             style={{ 
                               backgroundColor: '#F9FAFB', 
-                              border: '1px solid #b8ddf8',
-                              borderLeft: '3px solid #6366F1'
+                              border: '1px solid #E8EBF0',
+                              borderLeft: '3px solid #7A6FE3'
                             }}
                           >
                             <div
                               className="responsiveTextTable font-medium mb-2.5 pb-2"
                               style={{
                                 color: 'var(--endeavour)',
-                                borderBottom: '1px solid #b8ddf8'
+                                borderBottom: '1px solid #E8EBF0'
                               }}
                             >
                               Sub-item {subIdx + 1}
@@ -779,7 +779,7 @@ const Customtable = ({
                                       style={{
                                         color: hasValue ? 'var(--port-gore)' : 'var(--regent-gray)',
                                         backgroundColor: '#FFFFFF',
-                                        border: '1px solid #b8ddf8',
+                                        border: '1px solid #E8EBF0',
                                         fontWeight: '500',
                                         minWidth: '60px'
                                       }}
@@ -828,7 +828,7 @@ const Customtable = ({
           <div
             className="flex-shrink-0 rounded-b-2xl"
             style={{
-              borderTop: '1px solid #b8ddf8',
+              borderTop: '1px solid #E8EBF0',
               background: '#ffffff',
             }}
           >

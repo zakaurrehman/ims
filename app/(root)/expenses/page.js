@@ -386,18 +386,18 @@ const Expenses = () => {
 	};
 
 	return (
-		<div className="w-full " style={{ background: "#f8fbff" }}>
+		<div className="w-full " style={{ background: "var(--bg-page)" }}>
 			<div className="mx-auto w-full max-w-full px-1 md:px-2 pb-4 mt-[72px]">
 				{Object.keys(settings).length === 0 ? <TableSkeleton /> :
 					<>
 						<Toast />
 						<VideoLoader loading={loading} fullScreen={true} />
 						{/* Main Card */}
-						<div className="rounded-2xl p-3 sm:p-5 mt-8 border border-[#b8ddf8] w-full bg-[#f8fbff]">
+						<div className="rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] w-full bg-white shadow-card">
 
 							{/* Header Section */}
 							<div className='flex items-center justify-between flex-wrap gap-2 pb-2'>
-								<h1 className="text-[var(--chathams-blue)] font-poppins responsiveTextTitle font-medium border-l-4 border-[var(--chathams-blue)] pl-2">
+								<h1 className="text-[var(--ink)] font-poppins responsiveTextTitle font-medium">
 									{getTtl('Expenses', ln)}
 								</h1>
 								{(() => {
@@ -410,14 +410,14 @@ const Expenses = () => {
 											className='inline-flex items-center gap-1.5 rounded-full transition-colors'
 											style={{
 												fontSize: '0.66rem', padding: '4px 12px',
-												color: onlyUnsplit ? 'white' : 'var(--chathams-blue)',
-												background: onlyUnsplit ? 'var(--endeavour)' : '#f8fbff',
-												border: '1px solid #b8ddf8',
+												color: onlyUnsplit ? 'white' : 'var(--ink-secondary)',
+												background: onlyUnsplit ? 'var(--brand)' : 'var(--bg-subtle)',
+												border: onlyUnsplit ? '1px solid var(--brand)' : '1px solid var(--line)',
 											}}
 										>
 											<Split className='w-3.5 h-3.5' />
 											Needs IMS/GIS split
-											<span className='rounded-full px-1.5' style={{ fontSize: '0.6rem', background: onlyUnsplit ? 'rgba(255,255,255,0.25)' : '#dbeeff', color: onlyUnsplit ? 'white' : 'var(--endeavour)' }}>
+											<span className='rounded-full px-1.5' style={{ fontSize: '0.6rem', background: onlyUnsplit ? 'rgba(255,255,255,0.25)' : 'var(--brand-soft)', color: onlyUnsplit ? 'white' : 'var(--brand)' }}>
 												{pendingCount}
 											</span>
 										</button>

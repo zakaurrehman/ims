@@ -22,20 +22,20 @@ function escapeHtml(s = '') {
 function bodyToHtml(plainText, companyName) {
     const paragraphs = String(plainText || '')
         .split(/\n\s*\n/)
-        .map(p => `<p style="margin:0 0 14px 0;color:#28264f;font-size:14px;line-height:1.55;">${escapeHtml(p).replace(/\n/g, '<br>')}</p>`)
+        .map(p => `<p style="margin:0 0 14px 0;color:#171E2E;font-size:14px;line-height:1.55;">${escapeHtml(p).replace(/\n/g, '<br>')}</p>`)
         .join('');
 
     return `<!DOCTYPE html>
 <html><head><meta charset="utf-8"></head>
-<body style="margin:0;padding:0;background:#f8fbff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
-  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background:#f8fbff;padding:24px 0;">
+<body style="margin:0;padding:0;background:#F3F5F8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background:#F3F5F8;padding:24px 0;">
     <tr><td align="center">
-      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="background:#ffffff;border:1px solid #b8ddf8;border-radius:12px;overflow:hidden;max-width:600px;">
-        <tr><td style="background:#dbeeff;padding:16px 24px;border-bottom:1px solid #b8ddf8;">
-          <p style="margin:0;font-size:13px;font-weight:600;color:#103a7a;">${escapeHtml(companyName || 'Payment Reminder')}</p>
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="background:#ffffff;border:1px solid #E8EBF0;border-radius:12px;overflow:hidden;max-width:600px;">
+        <tr><td style="background:#F3F5F8;padding:16px 24px;border-bottom:1px solid #E8EBF0;">
+          <p style="margin:0;font-size:13px;font-weight:600;color:#171E2E;">${escapeHtml(companyName || 'Payment Reminder')}</p>
         </td></tr>
         <tr><td style="padding:24px;">${paragraphs}</td></tr>
-        <tr><td style="padding:14px 24px;background:#f8fbff;border-top:1px solid #b8ddf8;">
+        <tr><td style="padding:14px 24px;background:#F3F5F8;border-top:1px solid #E8EBF0;">
           <p style="margin:0;font-size:11px;color:#7c8ca8;">This message was sent from ${escapeHtml(companyName || 'our accounts team')}.</p>
         </td></tr>
       </table>

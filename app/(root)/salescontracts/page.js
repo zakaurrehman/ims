@@ -102,7 +102,7 @@ const SalesContracts = () => {
                 accessorFn: (c) => contractQty(c) - (shippedByContract[c.id] || 0),
                 cell: (props) => {
                     const v = props.getValue();
-                    return <span style={{ color: v > 0.0001 ? '#b45309' : '#15803d', fontWeight: 600 }}>
+                    return <span style={{ color: v > 0.0001 ? '#9A6215' : '#177245', fontWeight: 600 }}>
                         <NumericFormat value={v} displayType="text" thousandSeparator decimalScale={3} fixedDecimalScale />
                     </span>;
                 },
@@ -118,9 +118,9 @@ const SalesContracts = () => {
                 },
                 cell: (props) => {
                     const v = props.getValue();
-                    const tone = v === 'Fully shipped' ? ['#dcfce7', '#166534', '#bbf7d0']
-                        : v === 'Partial' ? ['#dbeafe', '#1e40af', '#bfdbfe']
-                            : ['#fef9c3', '#92400e', '#fde68a'];
+                    const tone = v === 'Fully shipped' ? ['#E5F6EC', '#177245', '#BFE8D0']
+                        : v === 'Partial' ? ['#E8F2FB', '#1e40af', '#C5DEF2']
+                            : ['#FDF3E1', '#9A6215', '#F5DFAE'];
                     return <span className="rounded-full responsiveTextTable font-medium" style={{
                         background: tone[0], color: tone[1], border: `1px solid ${tone[2]}`, padding: '2px 12px', whiteSpace: 'nowrap'
                     }}>{v}</span>;
@@ -140,14 +140,14 @@ const SalesContracts = () => {
     };
 
     return (
-        <div className="w-full" style={{ background: "#f8fbff" }}>
+        <div className="w-full" style={{ background: "#F3F5F8" }}>
             <div className="mx-auto w-full max-w-full px-1 md:px-2 pb-4 mt-[72px]">
                 {Object.keys(settings).length === 0 ? <TableSkeleton /> :
                     <>
                         <Toast />
-                        <div className="rounded-2xl p-3 sm:p-5 mt-8 border border-[#b8ddf8] w-full bg-[#f8fbff]">
+                        <div className="rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
                             <div className='flex items-center justify-between flex-wrap gap-2 pb-2'>
-                                <h1 className="text-[var(--chathams-blue)] responsiveTextTitle font-medium border-l-4 border-[var(--chathams-blue)] pl-2">
+                                <h1 className="text-[var(--ink)] responsiveTextTitle">
                                     Sales Contracts
                                 </h1>
                             </div>

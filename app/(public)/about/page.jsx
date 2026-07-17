@@ -228,7 +228,7 @@ export default function AboutPage() {
 
 
        {/* Values Section */}
-<section className="py-12 bg-[#e3f3ff] relative z-10">
+<section className="py-12 bg-[#F3F5F8] relative z-10">
   <div className="container mx-auto px-4">
 
     {/* Header */}
@@ -267,7 +267,7 @@ export default function AboutPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: index * 0.1 }}
-          className="group relative p-8 rounded-2xl bg-white border border-[#b8ddf8] shadow-sm
+          className="group relative p-8 rounded-2xl bg-white border border-[#E8EBF0] shadow-sm
                      hover:shadow-md hover:border-[var(--endeavour)] transition-all duration-300 overflow-hidden"
         >
 
@@ -344,7 +344,7 @@ export default function AboutPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: index * 0.1 }}
-          className="bg-[#f8fbff] p-6 rounded-2xl border border-[#b8ddf8] shadow-sm hover:shadow-md hover:border-[var(--endeavour)] hover:-translate-y-1 transition-all duration-300 group"
+          className="bg-[#F3F5F8] p-6 rounded-2xl border border-[#E8EBF0] shadow-sm hover:shadow-md hover:border-[var(--endeavour)] hover:-translate-y-1 transition-all duration-300 group"
         >
           <div className="w-14 h-14 flex items-center justify-center rounded-xl bg-[var(--selago)] mb-5 group-hover:bg-[var(--endeavour)] transition-colors duration-300">
             <item.icon className="w-7 h-7 text-[var(--endeavour)] group-hover:text-white transition-all duration-300" />

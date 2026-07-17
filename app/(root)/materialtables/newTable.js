@@ -43,7 +43,7 @@ function SortableHeaderCell({ id, label, style, onRemove, isFe, isStandard, sort
                     style={{ cursor: 'grab', display: 'flex', alignItems: 'center', gap: '1px', userSelect: 'none' }}
                 >
                     {label}
-                    {isFe && <span className="responsiveTextTable" style={{ color: '#93c5fd', marginLeft: '2px', fontStyle: 'italic' }}>auto</span>}
+                    {isFe && <span className="responsiveTextTable" style={{ color: '#C5DEF2', marginLeft: '2px', fontStyle: 'italic' }}>auto</span>}
                     {sortDir === 'asc' && <TbSortAscending style={{ width: '10px', height: '10px', marginLeft: '1px' }} />}
                     {sortDir === 'desc' && <TbSortDescending style={{ width: '10px', height: '10px', marginLeft: '1px' }} />}
                 </span>
@@ -250,23 +250,23 @@ const Customtable = ({
     }
 
     const hdrBg = (colId) => {
-        if (colId === 'material' || colId === 'kgs' || colId === 'container') return '#dbeafe'
-        if (colId === 'fe') return '#e0f2fe'
-        if (colId === 'costPmt' || colId === 'costTotal') return '#dcfce7'
-        return '#fde8e8'
+        if (colId === 'material' || colId === 'kgs' || colId === 'container') return '#E8F2FB'
+        if (colId === 'fe') return '#E8F2FB'
+        if (colId === 'costPmt' || colId === 'costTotal') return '#E5F6EC'
+        return '#FDEAEA'
     }
     const ftrBg = (colId) => {
-        if (colId === 'material' || colId === 'kgs' || colId === 'container') return '#dbeafe'
-        if (colId === 'fe') return '#bae6fd'
-        if (colId === 'costPmt' || colId === 'costTotal') return '#bbf7d0'
-        return '#fdd6d6'
+        if (colId === 'material' || colId === 'kgs' || colId === 'container') return '#E8F2FB'
+        if (colId === 'fe') return '#C5DEF2'
+        if (colId === 'costPmt' || colId === 'costTotal') return '#BFE8D0'
+        return '#FDEAEA'
     }
 
     const headers = table.getHeaderGroups()[0]?.headers ?? []
     const totalCols = headers.length
     const unitBtn = (u) => ({
         padding: '1px 9px', height: '22px', borderRadius: '99px',
-        border: `1px solid ${unit === u ? 'var(--endeavour)' : '#d8e8f5'}`,
+        border: `1px solid ${unit === u ? 'var(--endeavour)' : '#D7DCE4'}`,
         background: unit === u ? 'var(--endeavour)' : 'transparent',
         color: unit === u ? '#fff' : 'var(--endeavour)',
         cursor: 'pointer', transition: 'all 0.15s',
@@ -275,8 +275,8 @@ const Customtable = ({
 
     const smallBtn = (active) => ({
         padding: '1px 8px', height: '22px', borderRadius: '99px',
-        border: `1px solid ${active ? 'var(--endeavour)' : '#b8cfe0'}`,
-        background: active ? '#eef6ff' : 'transparent',
+        border: `1px solid ${active ? 'var(--endeavour)' : '#D7DCE4'}`,
+        background: active ? '#F3F5F8' : 'transparent',
         color: active ? 'var(--endeavour)' : 'var(--chathams-blue)',
         cursor: 'pointer',
         fontFamily: "var(--font-poppins), 'Poppins', sans-serif",
@@ -284,7 +284,7 @@ const Customtable = ({
 
     const inputStyle = {
         padding: '1px 8px', height: '22px', borderRadius: '8px',
-        border: '1px solid #d8e8f5', background: '#f8fbff', outline: 'none',
+        border: '1px solid #D7DCE4', background: '#F3F5F8', outline: 'none',
         fontFamily: "var(--font-poppins), 'Poppins', sans-serif",
     }
 
@@ -304,7 +304,7 @@ const Customtable = ({
                             style={{
                                 fontWeight: '500',
                                 color: 'var(--chathams-blue)', background: 'transparent',
-                                border: 'none', outline: 'none', borderBottom: '1px dashed #c8d8e8',
+                                border: 'none', outline: 'none', borderBottom: '1px dashed #D7DCE4',
                                 width: '100%', maxWidth: '280px', padding: '1px 4px',
                                 fontFamily: "var(--font-poppins), 'Poppins', sans-serif",
                             }}
@@ -368,7 +368,7 @@ const Customtable = ({
                             {showPresets && (
                                 <div style={{
                                     position: 'absolute', top: '26px', left: 0, zIndex: 50,
-                                    background: '#fff', border: '1px solid #d8e8f5',
+                                    background: '#fff', border: '1px solid #D7DCE4',
                                     borderRadius: '10px', boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
                                     padding: '6px', minWidth: '148px',
                                     display: 'flex', flexDirection: 'column', gap: '2px',
@@ -379,12 +379,12 @@ const Customtable = ({
                                             onClick={() => { applyPreset(p.keys); setShowPresets(false) }}
                                             style={{
                                                 padding: '4px 10px', borderRadius: '6px',
-                                                border: '1px solid #e8f0f8', background: '#f8fbff',
+                                                border: '1px solid #E8EBF0', background: '#F3F5F8',
                                                 color: 'var(--chathams-blue)', cursor: 'pointer', textAlign: 'left',
                                                 fontFamily: "var(--font-poppins), 'Poppins', sans-serif",
                                             }}
                                             onMouseEnter={e => e.currentTarget.style.background = '#e8f4ff'}
-                                            onMouseLeave={e => e.currentTarget.style.background = '#f8fbff'}
+                                            onMouseLeave={e => e.currentTarget.style.background = '#F3F5F8'}
                                         >
                                             {p.label}
                                         </button>
@@ -398,8 +398,8 @@ const Customtable = ({
                                 onClick={() => setShowHelp(p => !p)}
                                 style={{
                                     padding: '2px 7px', borderRadius: '999px',
-                                    border: `1px solid ${showHelp ? 'var(--endeavour)' : '#b8cfe0'}`,
-                                    background: showHelp ? 'var(--endeavour)' : '#f8fbff',
+                                    border: `1px solid ${showHelp ? 'var(--endeavour)' : '#D7DCE4'}`,
+                                    background: showHelp ? 'var(--endeavour)' : '#F3F5F8',
                                     color: showHelp ? '#fff' : 'var(--chathams-blue)',
                                     cursor: 'pointer', fontWeight: '500',
                                     fontFamily: "var(--font-poppins), 'Poppins', sans-serif",
@@ -408,7 +408,7 @@ const Customtable = ({
                             {showHelp && (
                                 <div style={{
                                     position: 'absolute', top: '26px', left: 0, zIndex: 60,
-                                    background: '#fff', border: '1px solid #b8ddf8',
+                                    background: '#fff', border: '1px solid #E8EBF0',
                                     borderRadius: '10px', boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
                                     padding: '10px 14px', minWidth: '340px',
                                     fontFamily: "var(--font-poppins), 'Poppins', sans-serif",
@@ -426,7 +426,7 @@ const Customtable = ({
                                     ].map(([action, desc]) => (
                                         <div key={action} style={{ display: 'flex', gap: '6px', marginBottom: '4px' }}>
                                             <span className="responsiveTextTable" style={{ fontWeight: '500', color: 'var(--endeavour)', minWidth: '110px', paddingTop: '1px' }}>{action}</span>
-                                            <span className="responsiveTextTable" style={{ color: '#475569' }}>{desc}</span>
+                                            <span className="responsiveTextTable" style={{ color: '#5B6472' }}>{desc}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -460,7 +460,7 @@ const Customtable = ({
 
             {/* ── Price bar ($/MT per element) ── */}
             {elements.length > 0 && (
-                <div style={{ background: '#f0f7ff', borderBottom: '1px solid #d8e8f5', padding: '5px 10px' }}>
+                <div style={{ background: '#F3F5F8', borderBottom: '1px solid #D7DCE4', padding: '5px 10px' }}>
                     <div className="responsiveTextTable" style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', alignItems: 'center' }}>
                         <span className="responsiveTextTable" style={{ color: 'var(--chathams-blue)', minWidth: '32px' }}>$/MT:</span>
                         {elements.filter(el => priceKeys ? priceKeys.includes(el.key) : el.key !== 'fe').map(el => {
@@ -470,7 +470,7 @@ const Customtable = ({
                                 <div key={el.key} style={{
                                     display: 'flex', alignItems: 'center', gap: '2px',
                                     background: 'white',
-                                    border: `1px solid ${isNi ? '#93c5fd' : '#d8e8f5'}`,
+                                    border: `1px solid ${isNi ? '#C5DEF2' : '#D7DCE4'}`,
                                     borderRadius: '8px', padding: '2px 6px', minWidth: '68px',
                                 }}>
                                     <span className="responsiveTextTable" style={{ color: 'var(--chathams-blue)', fontWeight: '500', minWidth: '16px' }}>
@@ -486,14 +486,14 @@ const Customtable = ({
                                         style={{
                                             fontSize: 'inherit', fontWeight: '500', width: '50px', textAlign: 'right',
                                             background: 'transparent', border: 'none', outline: 'none',
-                                            color: isNi ? '#0366ae' : 'var(--port-gore)',
+                                            color: isNi ? '#0B6BB8' : 'var(--port-gore)',
                                             fontFamily: "var(--font-poppins), 'Poppins', sans-serif",
                                         }}
                                     />
                                     {isNi && (
                                         <>
-                                            <span style={{ fontSize: '0.58rem', color: '#93c5fd', fontWeight: '500' }}>LME</span>
-                                            <span style={{ fontSize: '0.62rem', color: '#94a3b8', margin: '0 2px' }}>×</span>
+                                            <span style={{ fontSize: '0.58rem', color: '#C5DEF2', fontWeight: '500' }}>LME</span>
+                                            <span style={{ fontSize: '0.62rem', color: '#8A93A3', margin: '0 2px' }}>×</span>
                                             <input
                                                 value={niPercent}
                                                 onChange={e => setNiPercent(e.target.value)}
@@ -501,11 +501,11 @@ const Customtable = ({
                                                 style={{
                                                     fontSize: 'inherit', fontWeight: '500', width: '28px', textAlign: 'center',
                                                     background: 'transparent', border: 'none', outline: 'none',
-                                                    color: '#0366ae',
+                                                    color: '#0B6BB8',
                                                     fontFamily: "var(--font-poppins), 'Poppins', sans-serif",
                                                 }}
                                             />
-                                            <span className="responsiveTextTable" style={{ color: '#0366ae', fontWeight: '500' }}>%</span>
+                                            <span className="responsiveTextTable" style={{ color: '#0B6BB8', fontWeight: '500' }}>%</span>
                                         </>
                                     )}
                                 </div>
@@ -548,7 +548,7 @@ const Customtable = ({
                                                 if (isDel) {
                                                     // + button to add custom element, inserted before del column
                                                     const addBtn = (
-                                                        <th key="__addElem" style={{ ...thStyle, backgroundColor: '#fde8e8', minWidth: '26px', padding: '5px 3px', borderTopRightRadius: '0' }}>
+                                                        <th key="__addElem" style={{ ...thStyle, backgroundColor: '#FDEAEA', minWidth: '26px', padding: '5px 3px', borderTopRightRadius: '0' }}>
                                                             {showAddElem ? (
                                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
                                                                     <input
@@ -557,7 +557,7 @@ const Customtable = ({
                                                                         onChange={e => setAddElemInput(e.target.value)}
                                                                         onKeyDown={e => { if (e.key === 'Enter') handleAddElement(); if (e.key === 'Escape') { setAddElemInput(''); setShowAddElem(false) } }}
                                                                         placeholder="Al"
-                                                                        className="responsiveTextTable" style={{ width: '26px', textAlign: 'center', background: 'transparent', border: 'none', outline: 'none', borderBottom: '1px solid #d8e8f5', fontFamily: "var(--font-poppins),'Poppins',sans-serif" }}
+                                                                        className="responsiveTextTable" style={{ width: '26px', textAlign: 'center', background: 'transparent', border: 'none', outline: 'none', borderBottom: '1px solid #D7DCE4', fontFamily: "var(--font-poppins),'Poppins',sans-serif" }}
                                                                     />
                                                                     <button onClick={() => { setAddElemInput(''); setShowAddElem(false) }} className="responsiveTextTable" style={{ color: 'var(--chathams-blue)', background: 'none', border: 'none', cursor: 'pointer' }}>✕</button>
                                                                 </div>
@@ -616,22 +616,22 @@ const Customtable = ({
                                         const ck = `${row.id}-${colId}`
                                         const focused = focusedCell === ck
                                         return (
-                                            <td key={cell.id} style={{ backgroundColor: '#fff', padding: '2px 2px', borderTop: rIdx === 0 ? '1px solid #b8cfe0' : 'none', borderBottom: '1px solid #b8cfe0', borderRight: '1px solid #b8cfe0', borderLeft: cIdx === 0 ? '1px solid #b8cfe0' : 'none', verticalAlign: 'middle' }}>
+                                            <td key={cell.id} style={{ backgroundColor: '#fff', padding: '2px 2px', borderTop: rIdx === 0 ? '1px solid #D7DCE4' : 'none', borderBottom: '1px solid #D7DCE4', borderRight: '1px solid #D7DCE4', borderLeft: cIdx === 0 ? '1px solid #D7DCE4' : 'none', verticalAlign: 'middle' }}>
                                                 {isDel ? (
                                                     <div className="flex justify-center items-center">
                                                         <button
                                                             onClick={() => delMaterial(table1, cell)}
-                                                            style={{ fontSize: '15px', fontWeight: '500', color: '#e87070', background: 'none', border: 'none', cursor: 'pointer', padding: '1px 5px', lineHeight: 1 }}
+                                                            style={{ fontSize: '15px', fontWeight: '500', color: '#B42332', background: 'none', border: 'none', cursor: 'pointer', padding: '1px 5px', lineHeight: 1 }}
                                                         >×</button>
                                                     </div>
                                                 ) : isCost ? (
-                                                    <div style={{ backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '7px', padding: '2px 6px', display: 'flex', alignItems: 'center', justifyContent: 'center', minWidth: '62px', minHeight: '23px' }}>
+                                                    <div style={{ backgroundColor: '#E5F6EC', border: '1px solid #BFE8D0', borderRadius: '7px', padding: '2px 6px', display: 'flex', alignItems: 'center', justifyContent: 'center', minWidth: '62px', minHeight: '23px' }}>
                                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                                     </div>
                                                 ) : (
                                                     <div style={{
-                                                        backgroundColor: isFe ? '#eef6ff' : '#f8fbff',
-                                                        border: `1px solid ${isFe ? '#93c5fd' : '#d8e8f5'}`,
+                                                        backgroundColor: isFe ? '#F3F5F8' : '#F3F5F8',
+                                                        border: `1px solid ${isFe ? '#C5DEF2' : '#D7DCE4'}`,
                                                         borderRadius: '7px', padding: '2px 5px',
                                                         display: 'flex', alignItems: 'center',
                                                         justifyContent: isLeft ? 'flex-start' : 'center',
@@ -677,10 +677,10 @@ const Customtable = ({
                                                 padding: '5px 5px', fontWeight: '500',
                                                 textAlign: (colId === 'material' || colId === 'container') ? 'left' : 'center',
                                                 whiteSpace: 'nowrap',
-                                                borderTop: '1px solid #b8cfe0',
-                                                borderBottom: '1px solid #b8cfe0',
-                                                borderRight: '1px solid #b8cfe0',
-                                                borderLeft: isFirst ? '1px solid #b8cfe0' : 'none',
+                                                borderTop: '1px solid #D7DCE4',
+                                                borderBottom: '1px solid #D7DCE4',
+                                                borderRight: '1px solid #D7DCE4',
+                                                borderLeft: isFirst ? '1px solid #D7DCE4' : 'none',
                                                 borderRadius: `${isFirst ? '10px' : '0'} ${isLast ? '10px' : '0'} ${isLast ? '10px' : '0'} ${isFirst ? '10px' : '0'}`,
                                             }}>
                                                 {footerVal(header)}
@@ -699,7 +699,7 @@ const Customtable = ({
                 <div className="overflow-y-auto dashboard-scroll px-2 py-2 space-y-2" style={{ maxHeight: '700px' }}>
                     {table.getRowModel().rows.map((row, ri) => (
                         <div key={row.id} className="rounded-2xl overflow-hidden shadow-md" style={{ backgroundColor: '#fff', border: '1px solid var(--selago)' }}>
-                            <div className="px-3 py-2" style={{ background: '#dbeafe' }}>
+                            <div className="px-3 py-2" style={{ background: '#E8F2FB' }}>
                                 <span className="responsiveTextTable" style={{ color: 'var(--chathams-blue)', fontWeight: '500' }}>Row {ri + 1}</span>
                             </div>
                             <div className="p-3 space-y-2">
@@ -719,7 +719,7 @@ const Customtable = ({
                                     return (
                                         <div key={cell.id} className="flex flex-col space-y-1 pb-2 last:pb-0" style={{ borderBottom: '1px solid var(--selago)' }}>
                                             <div style={{ color: 'var(--regent-gray)', fontSize: '0.58rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{cell.column.columnDef.header}</div>
-                                            <div style={{ backgroundColor: isFe ? '#eef6ff' : '#fff', border: `1px solid ${isFe ? '#93c5fd' : '#c7d7e8'}`, borderRadius: '8px', padding: '4px 8px', minHeight: '28px', display: 'flex', alignItems: 'center' }}>
+                                            <div style={{ backgroundColor: isFe ? '#F3F5F8' : '#fff', border: `1px solid ${isFe ? '#C5DEF2' : '#c7d7e8'}`, borderRadius: '8px', padding: '4px 8px', minHeight: '28px', display: 'flex', alignItems: 'center' }}>
                                                 <input
                                                     type="text"
                                                     inputMode={(colId === 'material' || colId === 'container' || colId === 'kgs') ? 'text' : 'decimal'}

@@ -149,11 +149,11 @@ const Customtable = ({
           border-radius: 4px;
         }
         .custom-table th {
-          background-color: #d4eafc;
+          background-color: #F3F5F8;
         }
         .custom-table td {
           background-color: #fff;
-          border: 1px solid #e0e0e0;
+          border: 1px solid #E8EBF0;
           font-size: 0.75rem;
         }
       `}</style>

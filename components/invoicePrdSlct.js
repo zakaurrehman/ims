@@ -36,7 +36,7 @@ export default function Example({ isSelection, selectOrEdit, indx, ln }) {
     const itemCls = (active, disabled) =>
         `group flex w-full items-center rounded-md px-3 py-2 text-xs whitespace-nowrap
         ${disabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}
-        ${active && !disabled ? 'bg-[#dbeeff] text-[var(--endeavour)]' : 'text-[var(--port-gore)]'}`
+        ${active && !disabled ? 'bg-[#F3F5F8] text-[var(--endeavour)]' : 'text-[var(--port-gore)]'}`
 
     return (
         <div>
@@ -48,14 +48,14 @@ export default function Example({ isSelection, selectOrEdit, indx, ln }) {
                 <div
                     ref={menuRef}
                     style={{ position: 'absolute', top: pos.top + 4, left: pos.left, zIndex: 9999 }}
-                    className="divide-y divide-[#dbeeff] rounded-xl bg-white shadow-lg border border-[#dbeeff] min-w-[160px]"
+                    className="divide-y divide-[#F3F5F8] rounded-xl bg-white shadow-lg border border-[#F3F5F8] min-w-[160px]"
                 >
                     <div className="px-1 py-1">
                         <button
                             className={itemCls(false, !isSelection)}
                             disabled={!isSelection}
-                            onMouseEnter={e => !(!isSelection) && e.currentTarget.classList.add('bg-[#dbeeff]', 'text-[var(--endeavour)]')}
-                            onMouseLeave={e => e.currentTarget.classList.remove('bg-[#dbeeff]', 'text-[var(--endeavour)]')}
+                            onMouseEnter={e => !(!isSelection) && e.currentTarget.classList.add('bg-[#F3F5F8]', 'text-[var(--endeavour)]')}
+                            onMouseLeave={e => e.currentTarget.classList.remove('bg-[#F3F5F8]', 'text-[var(--endeavour)]')}
                             onClick={() => { selectOrEdit('edit', indx); setOpen(false) }}
                         >
                             {getTtl('Edit Description', ln)}
@@ -63,8 +63,8 @@ export default function Example({ isSelection, selectOrEdit, indx, ln }) {
                         <button
                             className={itemCls(false, isSelection)}
                             disabled={isSelection}
-                            onMouseEnter={e => !(isSelection) && e.currentTarget.classList.add('bg-[#dbeeff]', 'text-[var(--endeavour)]')}
-                            onMouseLeave={e => e.currentTarget.classList.remove('bg-[#dbeeff]', 'text-[var(--endeavour)]')}
+                            onMouseEnter={e => !(isSelection) && e.currentTarget.classList.add('bg-[#F3F5F8]', 'text-[var(--endeavour)]')}
+                            onMouseLeave={e => e.currentTarget.classList.remove('bg-[#F3F5F8]', 'text-[var(--endeavour)]')}
                             onClick={() => { selectOrEdit('select', indx); setOpen(false) }}
                         >
                             {getTtl('Original Description', ln)}

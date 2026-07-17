@@ -80,7 +80,7 @@ const Customtable = ({ data, propDefaults, val, mult }) => {
 									:
 									x === 'debtBlnc' ? (() => {
 										const v = (data.length === 1 || sortedData(data).findIndex(z => z.id === obj.id) !== (data.length - 1)) ? obj.totalAmount - accum(obj.payments, 'pmnt') : obj.totalAmount - totalPaymentsData(data);
-										return <span style={{ color: v > 0 ? '#dc2626' : undefined }}>{frmNum(v, obj, settings)}</span>;
+										return <span style={{ color: v > 0 ? '#B42332' : undefined }}>{frmNum(v, obj, settings)}</span>;
 									})()
 										:
 										x === 'expenses' ? frmNum(accumExp(obj.expenses, 'amount', val, mult), val, settings) :
@@ -96,7 +96,7 @@ const Customtable = ({ data, propDefaults, val, mult }) => {
 
 			<div className="overflow-x-auto rounded-lg">
 				<table className='w-full'>
-					<thead style={{ background: '#dbeeff' }} className="divide-y divide-[#b8ddf8]">
+					<thead style={{ background: '#F3F5F8' }} className="divide-y divide-[#E8EBF0]">
 						<tr className='border-b '>
 							{cols.map(x => x.header)
 								.map((y, k) => (
