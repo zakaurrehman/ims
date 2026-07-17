@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import Header from "../../../components/table/header";
+import EmptyState from "../../../components/EmptyState";
 import {
     flexRender,
     getCoreRowModel,
@@ -21,7 +22,6 @@ import ResetFilterTableIcon from '../../../components/table/filters/resetTabe';
 import dateBetweenFilterFn from '../../../components/table/filters/date-between-filter';
 import { labelAwareGlobalFilter } from '../../../components/table/filters/labelAwareGlobalFilter';
 
-const EMPTY_STATE_VIDEO_SRC = '/logo/no-data.mp4';
 
 if (typeof window !== 'undefined') {
     const style = document.createElement('style');
@@ -43,7 +43,6 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
     const [rowSelection, setRowSelection] = useState({});
     const [columnFilters, setColumnFilters] = useState([])
     const [sorting, setSorting] = useState([])
-    const [isEmptyStateVideoError, setIsEmptyStateVideoError] = useState(false)
 
     const columnsWithSelection = useMemo(() => {
         if (!quickSumEnabled) return columns;
@@ -177,36 +176,41 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                     );
                 }
                 .custom-table, .custom-table *, .glass-table, .glass-table * {
-                    font-family: var(--font-poppins), 'Poppins', sans-serif;
+                    font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
                     transition-property: color, background-color, border-color, box-shadow !important;
                     transition-duration: 150ms !important;
                     transition-timing-function: ease-in-out !important;
                 }
 
                 .custom-table th {
-                    border: 1px solid #D7DCE4;
-                    background-color: #F3F5F8;
-                    text-align: center;
-                    vertical-align: middle;
-                    padding: 6px;
-                    border-radius: 4px;
-                }
+          background-color: var(--bg-subtle);
+          border-bottom: 1px solid var(--line);
+          text-align: center;
+          vertical-align: middle;
+          padding: 7px 8px;
+          font-size: 0.6875rem;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+          color: var(--ink-muted);
+          font-weight: 500;
+        }
 
                 .custom-table td {
-                    border: 1px solid #D7DCE4;
-                    background-color: #F3F5F8;
-                    text-align: center;
-                    vertical-align: middle;
-                    padding: 6px;
-                    border-radius: 4px;
-                }
+          background-color: #ffffff;
+          border-bottom: 1px solid var(--line);
+          text-align: center;
+          vertical-align: middle;
+          padding: 6px 8px;
+          font-size: 0.75rem;
+          font-variant-numeric: tabular-nums;
+        }
                 .custom-table th {
                     background-color: #F3F5F8;
                 }
                 .custom-table td {
-                    background-color: #fff;
-                    border: 1px solid #E8EBF0;
-                }
+          background-color: #fff;
+          border-bottom: 1px solid var(--line);
+        }
             `}</style>
 
             <div className="custom-table">
@@ -344,7 +348,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                                                         {(isCompleted || isStatus) && badgeConfig ? (
                                                             <div className="flex justify-center">
                                                                 <div
-                                                                    className="px-3 py-1 rounded-xl responsiveTextTable font-normal"
+                                                                    className="px-1 py-1 responsiveTextTable font-normal"
                                                                     style={{
                                                                         backgroundColor: badgeConfig.bg,
                                                                         color: badgeConfig.color,
@@ -356,23 +360,21 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                                                             </div>
                                                         ) : (isCompleted || isStatus) && !badgeConfig ? (
                                                             <div className="flex justify-center">
-                                                                <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal w-full" style={{ backgroundColor: '#F3F5F8', border: '1px solid #D7DCE4' }}>&nbsp;</div>
+                                                                <div className="px-1 py-1 responsiveTextTable font-normal w-full">&nbsp;</div>
                                                             </div>
                                                         ) : (
                                                             <div className="flex justify-center">
                                                                 {cell.getValue() !== null && cell.getValue() !== undefined && cell.getValue() !== '' ? (
                                                                     <div
-                                                                        className="px-3 py-1 rounded-xl responsiveTextTable font-normal min-w-[70px]"
+                                                                        className="px-1 py-1 responsiveTextTable font-normal min-w-[70px]"
                                                                         style={{
-                                                                            backgroundColor: '#F3F5F8',
-                                                                            border: '1px solid #D7DCE4',
                                                                             whiteSpace: 'nowrap',
                                                                         }}
                                                                     >
                                                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                                                     </div>
                                                                 ) : (
-                                                                    <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal w-full" style={{ backgroundColor: '#F3F5F8', border: '1px solid #D7DCE4' }}>&nbsp;</div>
+                                                                    <div className="px-1 py-1 responsiveTextTable font-normal w-full">&nbsp;</div>
                                                                 )}
                                                             </div>
                                                         )}
@@ -388,21 +390,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                                                 colSpan={columnsWithSelection.length}
                                                 className="py-24 text-center"
                                             >
-                                                <div className="flex flex-col items-center justify-center">
-                                                    {renderEmptyStateMedia()}
-                                                    <p
-                                                        className="responsiveText font-normal mb-2"
-                                                        style={{ color: 'var(--port-gore)' }}
-                                                    >
-                                                        {getTtl('No data available', ln)}
-                                                    </p>
-                                                    <p
-                                                        className="responsiveTextTable"
-                                                        style={{ color: 'var(--regent-gray)' }}
-                                                    >
-                                                        Try adjusting your filters or date range
-                                                    </p>
-                                                </div>
+                                                <EmptyState message={getTtl('No data available', ln)} hint="Try adjusting your filters or date range" />
                                             </td>
                                         </tr>
                                     )}
@@ -524,8 +512,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                             {/* Empty state for mobile */}
                             {table.getRowModel().rows.length === 0 && (
                                 <div className="flex flex-col items-center justify-center py-24 px-3">
-                                    {renderEmptyStateMedia()}
-                                    <p
+                                                                        <p
                                         className="responsiveTextTable font-normal mb-2 text-center"
                                         style={{ color: 'var(--port-gore)' }}
                                     >

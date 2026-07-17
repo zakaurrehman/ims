@@ -1,5 +1,6 @@
 ﻿'use client';
 import Header from "../../../components/table/header";
+import EmptyState from "../../../components/EmptyState";
 import {
   flexRender,
   getCoreRowModel,
@@ -20,7 +21,6 @@ import dateBetweenFilterFn from '../../../components/table/filters/date-between-
 import { Filter } from "../../../components/table/filters/filterFunc";
 import { labelAwareGlobalFilter } from "../../../components/table/filters/labelAwareGlobalFilter";
 
-const EMPTY_STATE_VIDEO_SRC = '/logo/no-data.mp4';
 
 const Customtable = ({
   data,
@@ -52,18 +52,7 @@ const Customtable = ({
   const [rowSelection, setRowSelection] = useState({});
   const [columnFilters, setColumnFilters] = useState([])
   const [sorting, setSorting] = useState([])
-  const [isEmptyStateVideoError, setIsEmptyStateVideoError] = useState(false)
 
-  const renderEmptyStateMedia = () => {
-    if (!isEmptyStateVideoError) {
-      return (
-        <video className="w-24 h-24 mb-5 rounded-2xl object-cover" autoPlay loop muted playsInline onError={() => setIsEmptyStateVideoError(true)}>
-          <source src={EMPTY_STATE_VIDEO_SRC} type="video/mp4" />
-        </video>
-      );
-    }
-    return <div className="w-24 h-24 mb-5" />;
-  }
 
   const columnsWithSelection = useMemo(() => {
     if (!quickSumEnabled) return columns;
@@ -159,17 +148,25 @@ const Customtable = ({
     <div className="w-full">
       <style jsx global>{`
         .custom-table th {
-          border: 1px solid #E8EBF0;
+          background-color: var(--bg-subtle);
+          border-bottom: 1px solid var(--line);
           text-align: center;
-
-          font-family: var(--font-poppins), 'Poppins', sans-serif;
+          vertical-align: middle;
+          padding: 7px 8px;
+          font-size: 0.6875rem;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+          color: var(--ink-muted);
+          font-weight: 500;
         }
         .custom-table td {
-          border: 1px solid #E8EBF0;
+          background-color: #ffffff;
+          border-bottom: 1px solid var(--line);
           text-align: center;
+          vertical-align: middle;
+          padding: 6px 8px;
           font-size: 0.75rem;
-          font-family: var(--font-poppins), 'Poppins', sans-serif;
-
+          font-variant-numeric: tabular-nums;
         }
         .header-blue {
           background-color: #F3F5F8;
@@ -397,14 +394,14 @@ const Customtable = ({
             ) : isStatus ? (
               <div className="flex justify-center">
                 <div
-                  className="px-3 py-1.5 rounded-xl responsiveTextTable font-normal"
+                  className="px-2.5 py-0.5 rounded-full responsiveTextTable font-normal"
                   style={{
                     backgroundColor:
                       value === 'Completed'
                         ? '#E5F6EC'
                         : '#FDEAEA',
                     color: value === 'Completed' ? '#177245' : '#B42332',
-                    border: '1px solid #D7DCE4'
+                    border: value === 'Completed' ? '1px solid #BFE8D0' : '1px solid #F5C6C9'
                   }}
                 >
                   {value}
@@ -416,15 +413,15 @@ const Customtable = ({
                   flexRender(cell.column.columnDef.cell, cell.getContext())
                 ) : hasValue ? (
                   <div
-                    className="px-3 py-1.5 rounded-xl responsiveTextTable font-normal min-w-[70px] text-center transition-all duration-200 ease-in-out"
+                    className="px-2.5 py-0.5 rounded-full responsiveTextTable font-normal min-w-[70px] text-center transition-all duration-200 ease-in-out"
                     style={{
                       backgroundColor:
                         value === 'Paid' ? '#E5F6EC' :
-                        value === 'Unpaid' ? '#FDEAEA' : '#F3F5F8',
+                        value === 'Unpaid' ? '#FDEAEA' : 'transparent',
                       color:
                         value === 'Paid' ? '#177245' :
                         value === 'Unpaid' ? '#B42332' : 'var(--port-gore)',
-                      border: `1px solid ${value === 'Paid' ? '#BFE8D0' : value === 'Unpaid' ? '#F5C6C9' : '#D7DCE4'}`,
+                      border: `1px solid ${value === 'Paid' ? '#BFE8D0' : value === 'Unpaid' ? '#F5C6C9' : 'transparent'}`,
                       fontWeight: '400',
                       ...(isEditMode && { boxShadow: 'inset 0 0 0 1px #D7DCE4' })
                     }}
@@ -432,7 +429,7 @@ const Customtable = ({
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </div>
                 ) : (
-                  <div className="p-1.5 rounded-xl responsiveTextTable font-normal min-w-[70px]" style={{ backgroundColor: '#F3F5F8', border: '1px solid #D7DCE4' }}>&nbsp;</div>
+                  <div className="p-1 responsiveTextTable font-normal min-w-[70px]">&nbsp;</div>
                 )}
               </div>
             )}
@@ -448,15 +445,7 @@ const Customtable = ({
         colSpan={columnsWithSelection.length}
         className="py-8 text-center"
       >
-        <div className="flex flex-col items-center justify-center">
-          {renderEmptyStateMedia()}
-          <p className="responsiveText font-normal mb-2" style={{ color: 'var(--port-gore)' }}>
-            {getTtl('No data available', ln)}
-          </p>
-          <p className="responsiveText" style={{ color: 'var(--regent-gray)' }}>
-            Try adjusting your filters or date range
-          </p>
-        </div>
+        <EmptyState message={getTtl('No data available', ln)} hint="Try adjusting your filters or date range" />
       </td>
     </tr>
   )}
@@ -571,8 +560,7 @@ const Customtable = ({
               ))}
               {table.getRowModel().rows.length === 0 && (
                 <div className="flex flex-col items-center justify-center py-24 px-3">
-                  {renderEmptyStateMedia()}
-                  <p className="responsiveText font-normal mb-2 text-center" style={{ color: 'var(--port-gore)' }}>
+                                    <p className="responsiveText font-normal mb-2 text-center" style={{ color: 'var(--port-gore)' }}>
                     {getTtl('No data available', ln)}
                   </p>
                   <p className="responsiveText text-center" style={{ color: 'var(--regent-gray)' }}>

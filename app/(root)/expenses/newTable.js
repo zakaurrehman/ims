@@ -247,23 +247,12 @@
 //       <style jsx global>{`
 //         /* ── Column header cells ── */
 //         .custom-table th {
-//           border: 1px solid #D7DCE4;
-//           text-align: center;
-////           font-family: var(--font-poppins), 'Poppins', sans-serif;
-//           padding: 10px 8px !important;
-//           vertical-align: middle;
-//           white-space: nowrap;
+//           background-color: var(--bg-subtle);
 //         }
 
 //         /* ── Data cells ── */
 //         .custom-table td {
-//           border: 1px solid #D7DCE4;
-//           text-align: center;
-//           font-size: 0.75rem;
-//           font-family: var(--font-poppins), 'Poppins', sans-serif;
-//           padding: 8px 6px !important;
-//           vertical-align: middle;
-//           height: 40px;
+//           background-color: #ffffff;
 //         }
 
 //         /* ── Summary td — no border, no padding, flat color bar ── */
@@ -756,7 +745,6 @@ const Customtable = ({
   const [selectedRowId, setSelectedRowId]       = useState(null)
   const [currencyColCenter, setCurrencyColCenter] = useState(null) // px from left of table
   const [amountColCenter, setAmountColCenter]   = useState(null) // px from left of table
-  const [isEmptyStateVideoError, setIsEmptyStateVideoError] = useState(false)
 
   const [{ pageIndex, pageSize }, setPagination] = useState({ pageIndex: 0, pageSize: 25 })
   const pagination = useMemo(() => ({ pageIndex, pageSize }), [pageIndex, pageSize])
@@ -880,24 +868,6 @@ const Customtable = ({
 
   const totalCols = columnsWithSelection.length
 
-  const renderEmptyStateMedia = () => {
-    if (!isEmptyStateVideoError) {
-      return (
-        <video
-          className="w-24 h-24 mb-5 rounded-2xl object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
-          onError={() => setIsEmptyStateVideoError(true)}
-        >
-          <source src={EMPTY_STATE_VIDEO_SRC} type="video/mp4" />
-        </video>
-      );
-    }
-
-    return <div className="w-24 h-24 mb-5" />;
-  }
 
   /* ── Renders one flat summary bar ── */
   const renderSummaryBar = (bgColor, label, amountText) => (
@@ -949,21 +919,29 @@ const Customtable = ({
       <style jsx global>{`
         /* ── Column header cells ── */
         .custom-table th {
-          border: 1px solid #D7DCE4;
+          background-color: var(--bg-subtle);
+          border-bottom: 1px solid var(--line);
           text-align: center;
-          font-family: var(--font-poppins), 'Poppins', sans-serif;
-          padding: 6px 8px !important;
+          font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+          font-size: 0.6875rem;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+          color: var(--ink-muted);
+          font-weight: 500;
+          padding: 7px 8px !important;
           vertical-align: middle;
           white-space: nowrap;
         }
 
         /* ── Data cells ── */
         .custom-table td {
-          border: 1px solid #D7DCE4;
+          background-color: #ffffff;
+          border-bottom: 1px solid var(--line);
           text-align: center;
           font-size: 0.75rem;
-          font-family: var(--font-poppins), 'Poppins', sans-serif;
-          padding: 3px 6px !important;
+          font-variant-numeric: tabular-nums;
+          font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+          padding: 5px 8px !important;
           vertical-align: middle;
         }
 
@@ -978,15 +956,11 @@ const Customtable = ({
 
         /* ── Header blue ── */
         .header-blue {
-          background-color: #F3F5F8;
-          color: var(--chathams-blue);
+          background-color: var(--bg-subtle);
+          color: var(--ink-secondary);
         }
 
         /* Paid/Unpaid never wraps */
-        .custom-table th:last-child {
-          min-width: 100px;
-        }
-
         .pagination-center { display:flex; justify-content:center; align-items:center; gap:10px; }
         .page-btn   { padding:6px 12px; border-radius:8px; font-weight:500; }
         .page-active { background-color:var(--chathams-blue); color:white; }
@@ -1200,7 +1174,7 @@ const Customtable = ({
                           <td key={cell.id} className="px-1 py-0.5 text-center" style={{ whiteSpace: 'nowrap' }}>
                             {isCompleted ? (
                               <div className="flex justify-center">
-                                <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal"
+                                <div className="px-1 py-1 responsiveTextTable font-normal"
                                   style={{
                                     backgroundColor: value ? '#E5F6EC' : '#FDEAEA',
                                     color: value ? '#177245' : '#B42332',
@@ -1211,7 +1185,7 @@ const Customtable = ({
                               </div>
                             ) : isPaid ? (
                               <div className="flex justify-center">
-                                <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal min-w-[70px] text-center"
+                                <div className="px-1 py-1 responsiveTextTable font-normal min-w-[70px] text-center"
                                   style={{
                                     backgroundColor: isUnpaidValue ? '#FDEAEA' : isPaidValue ? '#E5F6EC' : '#F3F5F8',
                                     color: isPaidValue ? '#177245' : isUnpaidValue ? '#B42332' : 'var(--port-gore)',
@@ -1246,13 +1220,11 @@ const Customtable = ({
                                     )
                                   })()
                                 ) : hasValue ? (
-                                  <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal min-w-[70px]"
-                                    style={{ backgroundColor: '#F3F5F8', border: '1px solid #D7DCE4' }}>
+                                  <div className="px-1 py-1 responsiveTextTable font-normal min-w-[70px]">
                                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                   </div>
                                 ) : (
-                                  <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal w-full"
-                                    style={{ backgroundColor: '#F3F5F8', border: '1px solid #D7DCE4' }}>&nbsp;</div>
+                                  <div className="px-1 py-1 responsiveTextTable font-normal w-full">&nbsp;</div>
                                 )}
                               </div>
                             )}
@@ -1267,15 +1239,7 @@ const Customtable = ({
                     <tr>
                       <td colSpan={totalCols} className="py-24 text-center"
                         style={{ border: 'none' }}>
-                        <div className="flex flex-col items-center justify-center">
-                          {renderEmptyStateMedia()}
-                          <p className="responsiveText font-normal mb-2" style={{ color: 'var(--port-gore)' }}>
-                            {getTtl('No data available', ln)}
-                          </p>
-                          <p className="responsiveText" style={{ color: 'var(--regent-gray)' }}>
-                            Try adjusting your filters or date range
-                          </p>
-                        </div>
+                        <EmptyState message={getTtl('No data available', ln)} hint="Try adjusting your filters or date range" />
                       </td>
                     </tr>
                   )}
@@ -1400,8 +1364,7 @@ const Customtable = ({
 
               {table.getRowModel().rows.length === 0 && (
                 <div className="flex flex-col items-center justify-center py-24 px-3">
-                  {renderEmptyStateMedia()}
-                  <p className="responsiveText font-normal mb-2 text-center" style={{ color: 'var(--port-gore)' }}>
+                                    <p className="responsiveText font-normal mb-2 text-center" style={{ color: 'var(--port-gore)' }}>
                     {getTtl('No data available', ln)}
                   </p>
                   <p className="responsiveText text-center" style={{ color: 'var(--regent-gray)' }}>

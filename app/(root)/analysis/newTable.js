@@ -135,26 +135,30 @@ const Customtable = ({
           );
         }
         .custom-table, .custom-table *, .glass-table, .glass-table * {
-          font-family: var(--font-poppins), 'Poppins', sans-serif;
+          font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
           transition-property: color, background-color, border-color, box-shadow !important;
           transition-duration: 150ms !important;
           transition-timing-function: ease-in-out !important;
         }
         .custom-table th, .custom-table td {
-          border: 1px solid var(--line-strong);
-          background-color: var(--bg-subtle);
           text-align: center;
           vertical-align: middle;
-          padding: 6px;
-          border-radius: 4px;
+          padding: 6px 8px;
         }
         .custom-table th {
-          background-color: #F3F5F8;
+          background-color: var(--bg-subtle);
+          border-bottom: 1px solid var(--line);
+          font-size: 0.6875rem;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+          color: var(--ink-muted);
+          font-weight: 500;
         }
         .custom-table td {
           background-color: #fff;
-          border: 1px solid #E8EBF0;
+          border-bottom: 1px solid var(--line);
           font-size: 0.75rem;
+          font-variant-numeric: tabular-nums;
         }
       `}</style>
 

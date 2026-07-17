@@ -1,6 +1,7 @@
 ﻿'use client'
 
 import Header from "../../../components/table/header";
+import EmptyState from "../../../components/EmptyState";
 import {
   flexRender,
   getCoreRowModel,
@@ -19,7 +20,6 @@ import ResetFilterTableIcon from '../../../components/table/filters/resetTabe';
 import dateBetweenFilterFn from '../../../components/table/filters/date-between-filter';
 import { labelAwareGlobalFilter } from '../../../components/table/filters/labelAwareGlobalFilter';
 
-const EMPTY_STATE_VIDEO_SRC = '/logo/no-data.mp4';
 
 const Customtable = ({
   data,
@@ -44,7 +44,6 @@ const Customtable = ({
   const [quickSumEnabled, setQuickSumEnabled] = useState(false)
   const [quickSumColumns, setQuickSumColumns] = useState([])
   const [rowSelection, setRowSelection] = useState({})
-  const [isEmptyStateVideoError, setIsEmptyStateVideoError] = useState(false)
 
   const columnsWithSelection = useMemo(() => {
     if (!quickSumEnabled) return columns
@@ -112,24 +111,6 @@ const Customtable = ({
 
   const resetTable = () => table.resetColumnFilters()
 
-  const renderEmptyStateMedia = () => {
-    if (!isEmptyStateVideoError) {
-      return (
-        <video
-          className="w-24 h-24 mb-5 rounded-2xl object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
-          onError={() => setIsEmptyStateVideoError(true)}
-        >
-          <source src={EMPTY_STATE_VIDEO_SRC} type="video/mp4" />
-        </video>
-      );
-    }
-
-    return <div className="w-24 h-24 mb-5" />;
-  }
 
   // Fade-in animation for badges (as in contracts table)
   if (typeof window !== 'undefined') {
@@ -163,34 +144,38 @@ const Customtable = ({
           );
         }
         .custom-table, .custom-table *, .glass-table, .glass-table * {
-          font-family: var(--font-poppins), 'Poppins', sans-serif;
+          font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
           transition-property: color, background-color, border-color, box-shadow !important;
           transition-duration: 150ms !important;
           transition-timing-function: ease-in-out !important;
         }
         .custom-table th {
-          border: 1px solid #D7DCE4;
-          background-color: #F3F5F8;
+          background-color: var(--bg-subtle);
+          border-bottom: 1px solid var(--line);
           text-align: center;
           vertical-align: middle;
-          padding: 6px;
-          border-radius: 4px;
+          padding: 7px 8px;
+          font-size: 0.6875rem;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+          color: var(--ink-muted);
+          font-weight: 500;
         }
         .custom-table td {
-          border: 1px solid #D7DCE4;
-          background-color: #F3F5F8;
+          background-color: #ffffff;
+          border-bottom: 1px solid var(--line);
           text-align: center;
           vertical-align: middle;
-          padding: 6px;
-          border-radius: 4px;
+          padding: 6px 8px;
           font-size: 0.75rem;
+          font-variant-numeric: tabular-nums;
         }
         .custom-table th {
           background-color: #F3F5F8;
         }
         .custom-table td {
           background-color: #fff;
-          border: 1px solid #E8EBF0;
+          border-bottom: 1px solid var(--line);
         }
       `}</style>
 
@@ -306,21 +291,7 @@ const Customtable = ({
                         colSpan={columnsWithSelection.length}
                         className="py-24 text-center"
                       >
-                        <div className="flex flex-col items-center justify-center">
-                          {renderEmptyStateMedia()}
-                          <p
-                            className="responsiveText font-normal mb-2"
-                            style={{ color: 'var(--port-gore)' }}
-                          >
-                            {getTtl('No data available', ln)}
-                          </p>
-                          <p
-                            className="responsiveTextTable"
-                            style={{ color: 'var(--regent-gray)' }}
-                          >
-                            Try adjusting your filters or date range
-                          </p>
-                        </div>
+                        <EmptyState message={getTtl('No data available', ln)} hint="Try adjusting your filters or date range" />
                       </td>
                     </tr>
                   )}
@@ -409,8 +380,7 @@ const Customtable = ({
               ))}
               {table.getRowModel().rows.length === 0 && (
                 <div className="flex flex-col items-center justify-center py-24 px-3">
-                  {renderEmptyStateMedia()}
-                  <p
+                                    <p
                     className="responsiveTextTable font-normal mb-2 text-center"
                     style={{ color: 'var(--port-gore)' }}
                   >

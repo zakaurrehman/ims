@@ -8,6 +8,7 @@ if (typeof window !== 'undefined') {
 }
 
 import Header from "../../../components/table/header";
+import EmptyState from "../../../components/EmptyState";
 import {
     flexRender,
     getCoreRowModel,
@@ -29,7 +30,6 @@ import ResetFilterTableIcon from '../../../components/table/filters/resetTabe';
 import dateBetweenFilterFn from '../../../components/table/filters/date-between-filter';
 import { labelAwareGlobalFilter } from '../../../components/table/filters/labelAwareGlobalFilter';
 
-const EMPTY_STATE_VIDEO_SRC = '/logo/no-data.mp4';
 
 const Customtable = ({
     data,
@@ -49,7 +49,6 @@ const Customtable = ({
     const [columnFilters, setColumnFilters] = useState([])
     const [sorting, setSorting] = useState([])
     const [rowSelection, setRowSelection] = useState({})
-    const [isEmptyStateVideoError, setIsEmptyStateVideoError] = useState(false)
 
     const [{ pageIndex, pageSize }, setPagination] = useState({
         pageIndex: 0,
@@ -194,29 +193,34 @@ const Customtable = ({
                 /* Use Poppins for the table and limit transitions to non-transform properties
                    to avoid any hover vibration (no transform transitions allowed). */
                 .custom-table, .custom-table *, .glass-table, .glass-table * {
-                    font-family: var(--font-poppins), 'Poppins', sans-serif;
+                    font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
                     transition-property: color, background-color, border-color, box-shadow !important;
                     transition-duration: 150ms !important;
                     transition-timing-function: ease-in-out !important;
                 }
 
                 /* Add border, background, and text alignment styles for table cells */
-                .custom-table th{
-                    border: 0.5px solid rgba(0,0,0,0.04);
-                    background-color: #F3F5F8;
-                    text-align: center;
-                    vertical-align: middle;
-                    padding: 6px;
-                }
+                .custom-table th {
+          background-color: var(--bg-subtle);
+          border-bottom: 1px solid var(--line);
+          text-align: center;
+          vertical-align: middle;
+          padding: 7px 8px;
+          font-size: 0.6875rem;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+          color: var(--ink-muted);
+          font-weight: 500;
+        }
                 .custom-table td {
-                    border: 0.5px solid rgba(0,0,0,0.04);
-                    background-color: #fff;
-                    text-align: center;
-                    vertical-align: middle;
-                    padding: 6px;
-                    font-size: 0.75rem;
-                    white-space: nowrap;
-                }
+          background-color: #ffffff;
+          border-bottom: 1px solid var(--line);
+          text-align: center;
+          vertical-align: middle;
+          padding: 6px 8px;
+          font-size: 0.75rem;
+          font-variant-numeric: tabular-nums;
+        }
 
                 .summary-green-si {
                     background-color: #BFE8D0;
@@ -411,7 +415,7 @@ const Customtable = ({
             {isCompleted ? (
               <div className="flex justify-center">
                 <div
-                  className="px-3 py-1.5 rounded-xl responsiveTextTable font-normal"
+                  className="px-2.5 py-0.5 rounded-full responsiveTextTable font-normal"
                   style={{
                     backgroundColor: value ? '#E5F6EC' : '#FDEAEA',
                     color: value ? '#177245' : '#B42332',
@@ -424,7 +428,7 @@ const Customtable = ({
             ) : isStatus ? (
               <div className="flex justify-center">
                 <div
-                  className="px-3 py-1.5 rounded-xl responsiveTextTable font-normal"
+                  className="px-2.5 py-0.5 rounded-full responsiveTextTable font-normal"
                   style={{
                     backgroundColor:
                       value === 'Paid'
@@ -443,7 +447,7 @@ const Customtable = ({
               <div className="flex justify-center">
                 {hasValue ? (
                   <div
-                    className="px-3 py-1.5 rounded-xl responsiveTextTable font-normal min-w-[70px]"
+                    className="px-2.5 py-0.5 rounded-full responsiveTextTable font-normal min-w-[70px]"
                     style={{
                       backgroundColor:
                         value === 'Paid'
@@ -459,7 +463,7 @@ const Customtable = ({
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </div>
                 ) : (
-                  <div className="p-1.5 rounded-xl responsiveTextTable font-normal min-w-[70px]" style={{ backgroundColor: '#F3F5F8', border: '1px solid #D7DCE4' }}>&nbsp;</div>
+                  <div className="p-1 responsiveTextTable font-normal min-w-[70px]">&nbsp;</div>
                 )}
               </div>
             )}
@@ -472,20 +476,7 @@ const Customtable = ({
   {table.getRowModel().rows.length === 0 && (
     <tr>
       <td colSpan={columnsWithSelection.length} className="py-24 text-center">
-        <div className="flex flex-col items-center justify-center">
-          {renderEmptyStateMedia()}
-          <p
-            className="responsiveTextTable font-normal mb-2"
-            style={{ color: 'var(--port-gore)' }}
-          >
-            {getTtl('No data available', ln)}
-          </p>
-          <p
-            style={{ color: 'var(--regent-gray)', fontSize: '0.58rem' }}
-          >
-            Try adjusting your filters or date range
-          </p>
-        </div>
+        <EmptyState message={getTtl('No data available', ln)} hint="Try adjusting your filters or date range" />
       </td>
     </tr>
   )}
@@ -584,8 +575,7 @@ const Customtable = ({
                             {/* Empty state for mobile */}
                             {table.getRowModel().rows.length === 0 && (
                                 <div className="flex flex-col items-center justify-center py-24 px-3">
-                                    {renderEmptyStateMedia()}
-                                    <p
+                                                                        <p
                                         className="font-normal mb-2 text-center"
                                         style={{ color: 'var(--port-gore)' }}
                                     >

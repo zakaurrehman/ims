@@ -711,23 +711,26 @@ const ShipmentPage = () => {
         <div className="w-full" style={{ background: 'var(--bg-page)' }}>
         <style jsx global>{`
             .custom-table th {
-                border: 1px solid #D7DCE4;
-                background-color: #F3F5F8;
-                text-align: center;
-                vertical-align: middle;
-                padding: 6px;
-                border-radius: 4px;
+          background-color: var(--bg-subtle);
+          border-bottom: 1px solid var(--line);
+          text-align: center;
+          vertical-align: middle;
+          padding: 7px 8px;
+          font-size: 0.6875rem;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+          color: var(--ink-muted);
+          font-weight: 500;
         }
             .custom-table td {
-                background-color: #fff;
-                border: 1px solid #E8EBF0;
-                text-align: center;
-                vertical-align: middle;
-                padding: 6px;
-                border-radius: 4px;
-                font-size: 0.75rem;
-                overflow: visible;
-            }
+          background-color: #ffffff;
+          border-bottom: 1px solid var(--line);
+          text-align: center;
+          vertical-align: middle;
+          padding: 6px 8px;
+          font-size: 0.75rem;
+          font-variant-numeric: tabular-nums;
+        }
             .td-truncate {
                 overflow: hidden !important;
             }

@@ -326,7 +326,7 @@ const StorageCosts = () => {
                         <div className="overflow-x-auto">
                             <table className="w-full" style={{ fontSize: '0.7rem' }}>
                                 <thead>
-                                    <tr className="text-left text-[var(--regent-gray)]" style={{ background: '#F3F5F8' }}>
+                                    <tr className="text-left uppercase text-[var(--ink-muted)]" style={{ background: "var(--bg-subtle)", fontSize: "0.6875rem", letterSpacing: "0.04em" }}>
                                         <th className="px-3 py-2 font-medium">Year</th>
                                         <th className="px-3 py-2 font-medium text-right">Storage spend</th>
                                         <th className="px-3 py-2 font-medium text-right">MT-months</th>
@@ -380,7 +380,7 @@ const StorageCosts = () => {
                         <div className="overflow-x-auto">
                             <table className="w-full" style={{ fontSize: '0.7rem' }}>
                                 <thead>
-                                    <tr className="text-left text-[var(--regent-gray)]" style={{ background: '#F3F5F8' }}>
+                                    <tr className="text-left uppercase text-[var(--ink-muted)]" style={{ background: "var(--bg-subtle)", fontSize: "0.6875rem", letterSpacing: "0.04em" }}>
                                         <th className="px-3 py-2 font-medium">Date</th>
                                         <th className="px-3 py-2 font-medium">Invoice</th>
                                         <th className="px-3 py-2 font-medium">Supplier</th>
