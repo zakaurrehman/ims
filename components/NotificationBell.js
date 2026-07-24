@@ -59,16 +59,16 @@ function Chip({ active, onClick, label, count, unread }) {
     return (
         <button
             onClick={onClick}
-            className='flex items-center gap-1 px-2 py-0.5 rounded-full whitespace-nowrap flex-shrink-0 transition-colors'
+            className='flex items-center gap-1.5 px-2.5 py-1 rounded-full whitespace-nowrap flex-shrink-0 transition-colors font-medium'
             style={{
-                fontSize: '0.58rem',
-                border: `1px solid ${active ? 'var(--brand)' : 'var(--line)'}`,
-                background: active ? 'var(--brand)' : 'white',
+                fontSize: '0.6875rem',
+                border: `1px solid ${active ? 'var(--brand)' : 'transparent'}`,
+                background: active ? 'var(--brand)' : 'var(--bg-subtle)',
                 color: active ? 'white' : 'var(--ink-secondary)',
             }}
         >
             {label}
-            <span className='px-1 rounded-full' style={{ fontSize: '0.5rem', background: active ? 'rgba(255,255,255,0.25)' : 'var(--bg-subtle)', color: active ? 'white' : 'var(--ink-muted)' }}>
+            <span className='px-1.5 rounded-full font-semibold' style={{ fontSize: '0.5625rem', minWidth: 16, textAlign: 'center', background: active ? 'rgba(255,255,255,0.25)' : 'white', color: active ? 'white' : 'var(--ink-muted)' }}>
                 {unread > 0 ? unread : count}
             </span>
         </button>
@@ -266,20 +266,19 @@ const NotificationBell = () => {
                                 </span>
                             )}
                         </span>
-                        <div className='flex items-center gap-1'>
-                            <button onClick={toggleMute} title={muted ? 'Unmute sound' : 'Mute sound'} className='p-1 rounded-full hover:bg-[var(--bg-subtle)]'>
+                        <div className='flex items-center gap-1.5'>
+                            <button onClick={toggleMute} title={muted ? 'Unmute sound' : 'Mute sound'} className='w-7 h-7 flex items-center justify-center rounded-lg hover:bg-[var(--bg-subtle)] transition-colors'>
                                 {muted
                                     ? <BellOff className='w-3.5 h-3.5' style={{ color: 'var(--ink-muted)' }} />
                                     : <Bell className='w-3.5 h-3.5' style={{ color: 'var(--ink-secondary)' }} />}
                             </button>
                             <button
                                 onClick={() => { setSelectMode(v => !v); setSelected(new Set()); setDetail(null); }}
-                                className='px-2 py-0.5 rounded-full font-medium transition-colors'
+                                className='px-2.5 py-1 rounded-lg font-medium transition-colors hover:bg-[var(--bg-subtle)]'
                                 style={{
-                                    fontSize: '0.6rem',
-                                    background: selectMode ? 'var(--brand)' : 'white',
-                                    color: selectMode ? 'white' : 'var(--ink-secondary)',
-                                    border: '1px solid var(--line-strong)',
+                                    fontSize: '0.6875rem',
+                                    background: selectMode ? 'var(--brand-soft)' : 'transparent',
+                                    color: selectMode ? 'var(--brand)' : 'var(--ink-secondary)',
                                 }}
                             >
                                 {selectMode ? 'Cancel' : 'Select'}
@@ -288,8 +287,8 @@ const NotificationBell = () => {
                                 onClick={() => markAllRead?.()}
                                 disabled={unreadCount === 0}
                                 title='Mark every notification as read'
-                                className='flex items-center gap-1 px-2 py-0.5 rounded-full font-medium disabled:opacity-40 transition-colors hover:opacity-90'
-                                style={{ fontSize: '0.6rem', background: 'var(--brand)', color: 'white' }}
+                                className='flex items-center gap-1 px-2.5 py-1 rounded-lg font-medium disabled:opacity-40 transition-colors hover:bg-[var(--brand-strong)]'
+                                style={{ fontSize: '0.6875rem', background: 'var(--brand)', color: 'white' }}
                             >
                                 <CheckCheck className='w-3 h-3' /> Read all
                             </button>
@@ -364,7 +363,7 @@ const NotificationBell = () => {
 
                     {/* Subject filter chips */}
                     {!detail && chips.length > 1 && (
-                        <div className='flex gap-1 px-2 py-1.5 overflow-x-auto' style={{ borderBottom: '1px solid var(--line)' }}>
+                        <div className='flex gap-1.5 px-3 py-2 overflow-x-auto scrollbar-none' style={{ borderBottom: '1px solid var(--line)' }}>
                             <Chip active={catFilter === 'all'} onClick={() => setCatFilter('all')} label='All' count={notifications.length} unread={unreadCount} />
                             {chips.map(c => (
                                 <Chip key={c.key} active={catFilter === c.key} onClick={() => setCatFilter(c.key)} label={categoryLabel(c.key)} count={c.total} unread={c.unread} />
@@ -374,7 +373,7 @@ const NotificationBell = () => {
 
                     {/* List */}
                     {!detail && (
-                    <div className='max-h-[60vh] overflow-y-auto'>
+                    <div className='max-h-[60vh] overflow-y-auto custom-scroll'>
                         {visible.length === 0 ? (
                             <div className='flex flex-col items-center justify-center py-10 gap-2.5'>
                                 <span className='flex items-center justify-center rounded-full' style={{ width: 44, height: 44, background: 'var(--bg-subtle)' }}>

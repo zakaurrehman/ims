@@ -332,6 +332,15 @@ thead th {
     transform: none;
   }
 }
+/* Hide scrollbars on horizontal chip rails (content still scrolls) */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
 /* Toast entrance + auto-dismiss progress */
 @keyframes toast-slide-in {
   from { opacity: 0; transform: translateX(24px); }

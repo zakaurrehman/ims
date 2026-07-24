@@ -5,7 +5,7 @@ import { UserAuth } from '../../../contexts/useAuthContext'
 import { SettingsContext } from '../../../contexts/useSettingsContext'
 import { getTtl } from '../../../utils/languages'
 import { useRouter } from 'next/navigation'
-import { X, Search, Bot, LogOut as LogOutIcon, Settings } from 'lucide-react';
+import { X, Search, Bot, LogOut as LogOutIcon, Settings, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import { useGlobalSearch } from '../../../contexts/useGlobalSearchContext'
 import Tltip from '../../../components/tlTip'
@@ -38,7 +38,7 @@ const Clock = () => {
 }
 
 export const MainNav = () => {
-  const { SignOut, user, gisAccount } = UserAuth();
+  const { SignOut, user, gisAccount, userTitle } = UserAuth();
   const { compData, accounts, uidCollection, setUidCollection } = useContext(SettingsContext)
   const ln = compData?.lng || 'English'
   const router = useRouter()
@@ -117,11 +117,10 @@ export const MainNav = () => {
       </div>
 
 
-      {/* Right Side: All icons and controls in a row, all functional */}
-      <div className='flex items-center gap-2 ml-auto'>
-        {/* Global Search */} 
-        <div className='relative flex items-center' ref={searchRef}>
-
+      {/* Right Side: grouped control clusters separated by hairline dividers */}
+      <div className='flex items-center gap-1.5 ml-auto'>
+        {/* Global Search */}
+        <div className='relative flex items-center gap-1.5' ref={searchRef}>
 
           <div className='flex-1 min-w-0 z-50'>
             <Selector arr={accounts} value={accounts.find(x => x.id === uidCollection)}
@@ -189,6 +188,9 @@ export const MainNav = () => {
           )}
         </div>
 
+        {/* — divider: search cluster | action icons — */}
+        <span className='hidden md:block h-6 w-px bg-[var(--line)] mx-1' aria-hidden='true' />
+
         <Tltip tltpText={getTtl('Ask question', ln) || 'Ask question'} direction='bottom'>
           <button
             className='flex items-center justify-center w-9 h-9 rounded-[10px] text-[var(--ink-secondary)] hover:bg-[var(--bg-subtle)] hover:text-[var(--ink)] transition-colors'
@@ -202,30 +204,32 @@ export const MainNav = () => {
         </Tltip>
         {/* Notification center — live bell with unread badge, snooze & sound */}
         <NotificationBell />
-        {/* Logout Icon */}
-        <Tltip tltpText={getTtl('Logout', ln) || 'Logout'} direction='bottom'>
-          <button
-            className='flex items-center justify-center w-9 h-9 rounded-[10px] text-[var(--ink-secondary)] hover:bg-[var(--bg-subtle)] hover:text-[var(--ink)] transition-colors'
-            onClick={LogOut}
-            aria-label='Logout'
-          >
-            <LogOutIcon size={18} strokeWidth={1.75} />
-          </button>
-        </Tltip>
-        {/* User Role Button and Profile Icon: no gap between */}
-        <div className="flex items-center ml-2">
+
+        {/* — divider: action icons | identity — */}
+        <span className='hidden md:block h-6 w-px bg-[var(--line)] mx-1' aria-hidden='true' />
+
+        {/* User chip (logout lives in this menu — the bare topbar logout icon was redundant) */}
+        <div className="flex items-center">
           <div className='relative' ref={dropdownRef}>
             <button
               onClick={() => setShowDropdown(!showDropdown)}
-              className='flex items-center gap-2 pl-1.5 pr-2.5 py-1 rounded-[10px] border border-[var(--line)] bg-white hover:bg-[var(--bg-subtle)] transition-colors'
+              className='flex items-center gap-2 pl-1.5 pr-2 py-1 rounded-[10px] border border-[var(--line)] bg-white hover:bg-[var(--bg-subtle)] transition-colors'
               aria-label='User menu'
             >
-              <span className='w-6 h-6 rounded-full bg-[var(--brand-soft)] text-[var(--brand)] flex items-center justify-center text-[0.6875rem] font-semibold uppercase'>
+              <span className='w-7 h-7 rounded-full bg-[var(--brand-soft)] text-[var(--brand)] flex items-center justify-center text-[0.75rem] font-semibold uppercase'>
                 {(user?.displayName || user?.email || 'U').charAt(0)}
               </span>
-              <span className='responsiveText font-medium text-[var(--ink)]' style={{ maxWidth: 120, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                {user?.displayName || user?.email?.split('@')[0] || 'User'}
+              <span className='hidden xl:flex flex-col items-start leading-tight' style={{ maxWidth: 130 }}>
+                <span className='text-[0.75rem] font-semibold text-[var(--ink)] truncate w-full text-left'>
+                  {user?.displayName || user?.email?.split('@')[0] || 'User'}
+                </span>
+                {userTitle && (
+                  <span className='text-[0.625rem] text-[var(--ink-muted)] truncate w-full text-left capitalize'>
+                    {userTitle}
+                  </span>
+                )}
               </span>
+              <ChevronDown size={14} strokeWidth={2} className={`text-[var(--ink-muted)] transition-transform ${showDropdown ? 'rotate-180' : ''}`} />
             </button>
             {showDropdown && (
               <div className='absolute right-0 top-full mt-2 w-56 bg-white rounded-xl border border-[var(--line)] py-2 z-[9999] overflow-visible' style={{ boxShadow: 'var(--shadow-md)' }}>
