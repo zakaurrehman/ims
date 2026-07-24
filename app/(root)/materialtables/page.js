@@ -350,24 +350,24 @@ const MaterialTables = () => {
                     <>
                         <Toast />
                         <VideoLoader loading={loading} fullScreen={true} />
-                        <div className="rounded-2xl p-2 sm:p-3 mt-2 border border-[#EAE8F2] shadow-xl w-full bg-white relative overflow-hidden">
-                            <div className="flex flex-col gap-2 pb-2">
+                        <div className="w-full mt-2">
+                            <div className="page-header flex flex-wrap items-end justify-between gap-2 pb-3">
                                 <div>
                                     <h1 className="text-display">{getTtl('Material Tables', ln)}</h1>
                                     <p className="text-[0.75rem] text-[var(--ink-muted)] mt-0.5">Element composition & pricing</p>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <button onClick={addTable} className="flex items-center gap-1 bg-[var(--endeavour)] text-white responsiveTextTable font-medium px-4 h-[32px] text-[0.8rem] rounded-full hover:opacity-90 transition-all">
+                                    <button onClick={addTable} className="blackButton">
                                         + {getTtl('Add Table', ln) || 'Add Table'}
                                     </button>
-                                    <button onClick={saveTable} className="flex items-center text-[var(--endeavour)] border border-[var(--rock-blue)] responsiveTextTable font-medium px-4 h-[32px] text-[0.8rem] rounded-full hover:bg-[var(--selago)] transition-all">
+                                    <button onClick={saveTable} className="whiteButton">
                                         {getTtl('Save', ln) || 'Save'}
                                     </button>
                                 </div>
                             </div>
-                            <div className="w-full overflow-x-auto mt-1">
+                            <div className="w-full">
                                 {data.map((table) => (
-                                    <div key={table.id} className="mb-2 rounded-2xl border border-[#EAE8F2] shadow-sm">
+                                    <div key={table.id} className="mb-3 bg-white rounded-2xl border border-[var(--line)] shadow-card overflow-hidden">
                                         <Table
                                             data={table.data}
                                             table1={table}
@@ -407,8 +407,8 @@ const MaterialTables = () => {
                                 ))}
                             </div>
                             {(data.length > 0 && !Object.values(totals).some(v => isNaN(v))) && (
-                                <div className="w-full pt-3 overflow-x-auto">
-                                    <div className="rounded-2xl border border-[#EAE8F2] shadow-sm overflow-hidden">
+                                <div className="w-full pt-1">
+                                    <div className="bg-white rounded-2xl border border-[var(--line)] shadow-card overflow-hidden">
                                         <TableTotals data={[totals]} columns={totalsColumns} />
                                     </div>
                                 </div>

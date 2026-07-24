@@ -582,11 +582,20 @@
 
 import { useState } from "react";
 
+// Shared styling (style-only constants — no logic)
+const headCell = "py-1.5 text-center text-[10px] font-semibold uppercase tracking-[0.04em] text-[var(--ink-muted)]";
+const labelCls = "text-[10px] font-semibold uppercase tracking-[0.04em] text-[var(--ink-muted)] mb-1.5";
+const inputCell = "w-full h-6 rounded-[8px] bg-[var(--bg-subtle)] border border-[var(--line-strong)] text-center text-xs font-inter tabular-nums font-medium text-[#B42332] focus:outline-none focus:border-[var(--brand)] focus:ring-2 focus:ring-[var(--brand-soft)] transition-colors";
+const computedInput = "w-full h-6 rounded-[8px] bg-[var(--brand-soft)] border border-transparent text-center text-xs font-inter tabular-nums font-semibold text-[var(--brand-strong)] outline-none cursor-default";
+const computedCell = "h-6 rounded-[8px] bg-[var(--brand-soft)] flex items-center justify-center text-xs font-inter tabular-nums font-semibold text-[var(--brand-strong)]";
+const pillInput = "w-full h-8 rounded-[10px] border border-[var(--line-strong)] bg-white text-center text-[13px] font-inter tabular-nums font-semibold text-[#B42332] focus:outline-none focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] transition-colors";
+const resultPill = "h-8 px-3 rounded-[10px] bg-[var(--brand-soft)] border border-[var(--brand-border)] flex items-center justify-center text-[13px] font-inter tabular-nums font-semibold text-[var(--brand-strong)]";
+
 const Stainless = ({ value, handleChange }) => {
     const [focusedField, setFocusedField] = useState(null);
 
     const fe = (100 - value?.stainless?.ni - value?.stainless?.cr - value?.stainless?.mo).toFixed(2);
-    
+
     const solidsPrice = value?.stainless?.ni * value?.general?.nilme * value?.stainless?.formulaNiCost / 10000 +
         value?.stainless?.cr * value?.stainless?.crPrice / 100 +
         value?.stainless?.mo * value?.stainless?.moPrice / 100 +
@@ -605,440 +614,409 @@ const Stainless = ({ value, handleChange }) => {
         return symbol + parts.join('.');
     }
 
-        return value.stainless != null ? (
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-2 items-start">
-                {/* COST SECTION */}
-                <div className="w-full bg-white rounded-xl border border-[#EAE8F2] shadow-sm p-3 text-center">
-                    <h3 className='text-xs font-medium text-[var(--endeavour)] mb-1 text-left pl-3'>Cost</h3>
+    return value.stainless != null ? (
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 items-start">
+            {/* COST SECTION */}
+            <div className="w-full bg-white rounded-2xl border border-[var(--line)] shadow-card overflow-hidden">
+                <div className="px-4 pt-4">
+                    <h3 className="text-[13px] font-display font-semibold text-[var(--ink)]">Cost</h3>
+                    <p className="text-[11px] text-[var(--ink-muted)] mt-0.5">Purchase-side composition and pricing</p>
+                </div>
+                <div className="p-4 flex flex-col gap-4">
+                    <div className="flex flex-wrap items-end gap-3">
+                        <div className="flex flex-col gap-4">
+                            <div>
+                                <p className={labelCls}>Composition</p>
+                                <div className="rounded-xl border border-[var(--line)] overflow-hidden w-fit bg-white">
+                                    <div className="grid grid-cols-[85px_85px_85px_85px] bg-[var(--bg-subtle)] border-b border-[var(--line)]">
+                                        <div className={headCell}>Ni</div>
+                                        <div className={headCell}>Cr</div>
+                                        <div className={headCell}>Mo</div>
+                                        <div className={headCell}>Fe</div>
+                                    </div>
+                                    <div className="grid grid-cols-[85px_85px_85px_85px] bg-white">
+                                        <div className="p-1">
+                                            <input
+                                                type="text"
+                                                className={inputCell}
+                                                value={value?.stainless?.ni + '%'}
+                                                name="ni"
+                                                onChange={(e) =>
+                                                    handleChange(
+                                                        {
+                                                            target: {
+                                                                name: e.target.name,
+                                                                value: e.target.value.replace('%', ''),
+                                                            },
+                                                        },
+                                                        'stainless'
+                                                    )
+                                                }
+                                                onBlur={(e) => {
+                                                    const num = parseFloat(e.target.value.replace('%', ''));
+                                                    if (!isNaN(num)) {
+                                                        handleChange(
+                                                            {
+                                                                target: { name: e.target.name, value: num.toFixed(2) },
+                                                            },
+                                                            'stainless'
+                                                        );
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="p-1">
+                                            <input
+                                                type="text"
+                                                className={inputCell}
+                                                value={value?.stainless?.cr + '%'}
+                                                name="cr"
+                                                onChange={(e) =>
+                                                    handleChange(
+                                                        {
+                                                            target: {
+                                                                name: e.target.name,
+                                                                value: e.target.value.replace('%', ''),
+                                                            },
+                                                        },
+                                                        'stainless'
+                                                    )
+                                                }
+                                                onBlur={(e) => {
+                                                    const num = parseFloat(e.target.value.replace('%', ''));
+                                                    if (!isNaN(num)) {
+                                                        handleChange(
+                                                            {
+                                                                target: { name: e.target.name, value: num.toFixed(2) },
+                                                            },
+                                                            'stainless'
+                                                        );
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="p-1">
+                                            <input
+                                                type="text"
+                                                className={inputCell}
+                                                value={value?.stainless?.mo + '%'}
+                                                name="mo"
+                                                onChange={(e) =>
+                                                    handleChange(
+                                                        {
+                                                            target: {
+                                                                name: e.target.name,
+                                                                value: e.target.value.replace('%', ''),
+                                                            },
+                                                        },
+                                                        'stainless'
+                                                    )
+                                                }
+                                                onBlur={(e) => {
+                                                    const num = parseFloat(e.target.value.replace('%', ''));
+                                                    if (!isNaN(num)) {
+                                                        handleChange(
+                                                            {
+                                                                target: { name: e.target.name, value: num.toFixed(2) },
+                                                            },
+                                                            'stainless'
+                                                        );
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="p-1">
+                                            <input
+                                                type="text"
+                                                className={computedInput}
+                                                value={fe + '%'}
+                                                readOnly
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                    {/* Composition + Price with Ni LME aside */}
-                    <div className="flex gap-2 items-end">
-                    <div className="px-2">
-                    <div className="mb-2">
-                    <p className="text-xs text-[#8D8AA3] mb-1 text-center">
-                        Composition
-                    </p>
-
-                    <div className="rounded-xl overflow-hidden border border-[#EAE8F2] bg-white grid grid-cols-[85px_85px_85px_85px]">
-                        {/* Ni */}
-                        <div>
-                        <div className="bg-[#F4F3F9]  py-1 text-xs text-center text-[#6D5CE0] border-b border-[#EAE8F2] font-normal">
-                            Ni
+                            {/* Price Row */}
+                            <div>
+                                <p className={labelCls}>Price</p>
+                                <div className="rounded-xl border border-[var(--line)] overflow-hidden w-fit bg-white">
+                                    <div className="grid grid-cols-[85px_85px_85px_85px] bg-[var(--bg-subtle)] border-b border-[var(--line)]">
+                                        <div className={headCell}>Ni</div>
+                                        <div className={headCell}>Cr</div>
+                                        <div className={headCell}>Mo</div>
+                                        <div className={headCell}>Fe</div>
+                                    </div>
+                                    <div className="grid grid-cols-[85px_85px_85px_85px] bg-white">
+                                        <div className="p-1">
+                                            <input
+                                                type="text"
+                                                className={computedInput}
+                                                value={formatCurrency(
+                                                    (value.general?.nilme * value.stainless?.formulaNiCost / 100).toFixed(2)
+                                                )}
+                                                readOnly
+                                            />
+                                        </div>
+                                        <div className="p-1">
+                                            <input
+                                                type="text"
+                                                className={inputCell}
+                                                name="crPrice"
+                                                value={
+                                                    focusedField === 'crPrice'
+                                                        ? value.stainless?.crPrice
+                                                        : formatCurrency(value.stainless?.crPrice)
+                                                }
+                                                onChange={(e) => handleChange(e, 'stainless')}
+                                                onFocus={() => setFocusedField('crPrice')}
+                                                onBlur={(e) => {
+                                                    setFocusedField(null);
+                                                    const num = parseFloat(e.target.value.replace(/[^0-9.]/g, ''));
+                                                    if (!isNaN(num)) {
+                                                        handleChange(
+                                                            {
+                                                                target: { name: e.target.name, value: num.toFixed(2) },
+                                                            },
+                                                            'stainless'
+                                                        );
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="p-1">
+                                            <input
+                                                type="text"
+                                                className={inputCell}
+                                                name="moPrice"
+                                                value={
+                                                    focusedField === 'moPrice'
+                                                        ? value.stainless?.moPrice
+                                                        : formatCurrency(value.stainless?.moPrice)
+                                                }
+                                                onChange={(e) => handleChange(e, 'stainless')}
+                                                onFocus={() => setFocusedField('moPrice')}
+                                                onBlur={(e) => {
+                                                    setFocusedField(null);
+                                                    const num = parseFloat(e.target.value.replace(/[^0-9.]/g, ''));
+                                                    if (!isNaN(num)) {
+                                                        handleChange(
+                                                            {
+                                                                target: { name: e.target.name, value: num.toFixed(2) },
+                                                            },
+                                                            'stainless'
+                                                        );
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="p-1">
+                                            <input
+                                                type="text"
+                                                className={inputCell}
+                                                name="fePrice"
+                                                value={
+                                                    focusedField === 'fePrice'
+                                                        ? value.stainless?.fePrice
+                                                        : formatCurrency(value.stainless?.fePrice)
+                                                }
+                                                onChange={(e) => handleChange(e, 'stainless')}
+                                                onFocus={() => setFocusedField('fePrice')}
+                                                onBlur={(e) => {
+                                                    setFocusedField(null);
+                                                    const num = parseFloat(e.target.value.replace(/[^0-9.]/g, ''));
+                                                    if (!isNaN(num)) {
+                                                        handleChange(
+                                                            {
+                                                                target: { name: e.target.name, value: num.toFixed(2) },
+                                                            },
+                                                            'stainless'
+                                                        );
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <input
-                            type="text"
-                            className="w-full py-1 text-center text-xs outline-none bg-[#F4F3F9]"
-                            value={value?.stainless?.ni + '%'}
-                            name="ni"
-                            onChange={(e) =>
-                            handleChange(
-                                {
-                                target: {
-                                    name: e.target.name,
-                                    value: e.target.value.replace('%', ''),
-                                },
-                                },
-                                'stainless'
-                            )
-                            }
-                            onBlur={(e) => {
-                            const num = parseFloat(e.target.value.replace('%', ''));
-                            if (!isNaN(num)) {
-                                handleChange(
-                                {
-                                    target: { name: e.target.name, value: num.toFixed(2) },
-                                },
-                                'stainless'
-                                );
-                            }
-                            }}
-                        />
+                        <div className="min-w-[90px]">
+                            <p className={labelCls}>Ni LME</p>
+                            <div className={resultPill}>{formatCurrency(Number(value.general?.nilme).toFixed(2))}</div>
                         </div>
-
-                        {/* Cr */}
-                        <div className="border-l border-[#EAE8F2]">
-                        <div className="bg-[#F4F3F9] py-1 text-xs text-center text-[#6D5CE0] border-b border-[#EAE8F2] font-normal">
-                            Cr
-                        </div>
-                        <input
-                            type="text"
-                            className="w-full py-1 text-center text-xs outline-none bg-[#F4F3F9]"
-                            value={value?.stainless?.cr + '%'}
-                            name="cr"
-                            onChange={(e) =>
-                            handleChange(
-                                {
-                                target: {
-                                    name: e.target.name,
-                                    value: e.target.value.replace('%', ''),
-                                },
-                                },
-                                'stainless'
-                            )
-                            }
-                            onBlur={(e) => {
-                            const num = parseFloat(e.target.value.replace('%', ''));
-                            if (!isNaN(num)) {
-                                handleChange(
-                                {
-                                    target: { name: e.target.name, value: num.toFixed(2) },
-                                },
-                                'stainless'
-                                );
-                            }
-                            }}
-                        />
-                        </div>
-
-                        {/* Mo */}
-                        <div className="border-l border-[#EAE8F2]">
-                        <div className="bg-[#F4F3F9] py-1 text-xs text-center text-[#6D5CE0] border-b border-[#EAE8F2] font-normal">
-                            Mo
-                        </div>
-                        <input
-                            type="text"
-                            className="w-full py-1 text-center text-xs outline-none bg-[#F4F3F9]"
-                            value={value?.stainless?.mo + '%'}
-                            name="mo"
-                            onChange={(e) =>
-                            handleChange(
-                                {
-                                target: {
-                                    name: e.target.name,
-                                    value: e.target.value.replace('%', ''),
-                                },
-                                },
-                                'stainless'
-                            )
-                            }
-                            onBlur={(e) => {
-                            const num = parseFloat(e.target.value.replace('%', ''));
-                            if (!isNaN(num)) {
-                                handleChange(
-                                {
-                                    target: { name: e.target.name, value: num.toFixed(2) },
-                                },
-                                'stainless'
-                                );
-                            }
-                            }}
-                        />
-                        </div>
-
-                        {/* Fe */}
-                        <div className="border-l border-[#EAE8F2]">
-                        <div className="bg-[#F4F3F9] py-1 text-xs text-center text-[#6D5CE0] border-b border-[#EAE8F2] font-normal">
-                            Fe
-                        </div>
-                        <input
-                            type="text"
-                            className="w-full py-1 text-center text-xs cursor-not-allowed border-0 bg-[#F4F3F9]"
-                            value={fe + '%'}
-                            readOnly
-                        />
-                        </div>
-                    </div>
-                    </div>
-
-
-                    {/* Price Row */}
-                    <div className="mt-2">
-                    <p className="text-xs font-normal text-[#8D8AA3] mb-1 text-center">
-                        Price
-                    </p>
-
-                    <div className="rounded-xl overflow-hidden border border-[#EAE8F2] bg-white grid grid-cols-[85px_85px_85px_85px]">
-                        {/* Ni */}
-                        <div>
-                        <div className="bg-[#ECEAFB] py-1 text-xs text-center text-[#6D5CE0] border-b border-[#EAE8F2] font-normal">
-                            Ni
-                        </div>
-                        <input
-                            type="text"
-                            className="w-full py-1 text-center text-xs bg-white text-[var(--endeavour)] border-0 cursor-not-allowed bg-[#F4F3F9]"
-                            value={formatCurrency(
-                            (value.general?.nilme * value.stainless?.formulaNiCost / 100).toFixed(2)
-                            )}
-                            readOnly
-                        />
-                        </div>
-
-                        {/* Cr */}
-                        <div className="border-l border-[#EAE8F2]">
-                        <div className="bg-[#ECEAFB] py-1 text-xs text-center text-[#6D5CE0] border-b border-[#EAE8F2] font-normal">
-                            Cr
-                        </div>
-                        <input
-                            type="text"
-                            className="w-full py-1 text-center text-xs outline-none text-[#B42332] focus:ring-1 focus:ring-[var(--endeavour)]"
-                            name="crPrice"
-                            value={
-                            focusedField === 'crPrice'
-                                ? value.stainless?.crPrice
-                                : formatCurrency(value.stainless?.crPrice)
-                            }
-                            onChange={(e) => handleChange(e, 'stainless')}
-                            onFocus={() => setFocusedField('crPrice')}
-                            onBlur={(e) => {
-                            setFocusedField(null);
-                            const num = parseFloat(e.target.value.replace(/[^0-9.]/g, ''));
-                            if (!isNaN(num)) {
-                                handleChange(
-                                {
-                                    target: { name: e.target.name, value: num.toFixed(2) },
-                                },
-                                'stainless'
-                                );
-                            }
-                            }}
-                        />
-                        </div>
-
-                        {/* Mo */}
-                        <div className="border-l border-[#EAE8F2]">
-                        <div className="bg-[#ECEAFB] py-1 text-xs text-center text-[#6D5CE0] border-b border-[#EAE8F2] font-normal">
-                            Mo
-                        </div>
-                        <input
-                            type="text"
-                            className="w-full py-1 text-center text-xs outline-none text-[#B42332] focus:ring-1 focus:ring-[var(--endeavour)]"
-                            name="moPrice"
-                            value={
-                            focusedField === 'moPrice'
-                                ? value.stainless?.moPrice
-                                : formatCurrency(value.stainless?.moPrice)
-                            }
-                            onChange={(e) => handleChange(e, 'stainless')}
-                            onFocus={() => setFocusedField('moPrice')}
-                            onBlur={(e) => {
-                            setFocusedField(null);
-                            const num = parseFloat(e.target.value.replace(/[^0-9.]/g, ''));
-                            if (!isNaN(num)) {
-                                handleChange(
-                                {
-                                    target: { name: e.target.name, value: num.toFixed(2) },
-                                },
-                                'stainless'
-                                );
-                            }
-                            }}
-                        />
-                        </div>
-
-                        {/* Fe */}
-                        <div className="border-l border-[#EAE8F2]">
-                        <div className="bg-[#ECEAFB] py-1 text-xs text-center text-[#6D5CE0] border-b border-[#EAE8F2] font-normal">
-                            Fe
-                        </div>
-                        <input
-                            type="text"
-                            className="w-full py-1 text-center text-xs outline-none text-[#B42332] focus:ring-1 focus:ring-[var(--endeavour)]"
-                            name="fePrice"
-                            value={
-                            focusedField === 'fePrice'
-                                ? value.stainless?.fePrice
-                                : formatCurrency(value.stainless?.fePrice)
-                            }
-                            onChange={(e) => handleChange(e, 'stainless')}
-                            onFocus={() => setFocusedField('fePrice')}
-                            onBlur={(e) => {
-                            setFocusedField(null);
-                            const num = parseFloat(e.target.value.replace(/[^0-9.]/g, ''));
-                            if (!isNaN(num)) {
-                                handleChange(
-                                {
-                                    target: { name: e.target.name, value: num.toFixed(2) },
-                                },
-                                'stainless'
-                                );
-                            }
-                            }}
-                        />
-                        </div>
-                    </div>
-                    </div>
-                    </div>
-                    <div className="w-20 flex-shrink-0 rounded-xl overflow-hidden border border-[#EAE8F2]">
-                        <div className="py-1 text-center bg-[#F4F3F9] text-xs text-[var(--endeavour)] font-medium">Ni LME</div>
-                        <div className="py-1 text-center text-xs text-[#6D5CE0] bg-[#F4F3F9]">{formatCurrency(Number(value.general?.nilme).toFixed(2))}</div>
-                    </div>
                     </div>
 
                     {/* Formula x Ni */}
-                    <div className="mb-2 mt-2 flex pl-2 pr-24">
-                    <div className="w-32 rounded-xl overflow-hidden border border-[#EAE8F2] bg-white">
-                        <div className="bg-[#FDEAEA] text-[#B42332] text-xs py-1 text-center">Formula x Ni</div>
-                        <input type="text" className="w-full text-center py-1 outline-none text-xs text-[#B42332] bg-[#F4F3F9]"
+                    <div className="w-32">
+                        <p className={labelCls}>Formula x Ni</p>
+                        <input type="text" className={pillInput}
                             name="formulaNiCost" value={value?.stainless?.formulaNiCost + '%'}
                             onChange={(e) => handleChange({ target: { name: e.target.name, value: e.target.value.replace('%', '') } }, 'stainless')}
                             onBlur={(e) => { const num = parseFloat(e.target.value.replace('%', '')); if (!isNaN(num)) handleChange({ target: { name: e.target.name, value: num.toFixed(2) } }, 'stainless'); }}
                         />
                     </div>
-                    </div>
 
                     {/* Results */}
-                    <div className="flex flex-wrap gap-2 mb-2 mt-2 pl-2">
-                        <div className="rounded-xl overflow-hidden border border-[#EAE8F2] bg-white text-center min-w-[120px]">
-                            <div className="bg-[#FDEAEA] py-1"><p className="text-xs text-[#6D5CE0]">Solids Price</p></div>
-                            <div className="py-1 text-xs text-[#6D5CE0] bg-[#F4F3F9]">{formatCurrency(solidsPrice.toFixed(2))}</div>
+                    <div className="flex flex-wrap gap-3">
+                        <div className="min-w-[120px]">
+                            <p className={labelCls}>Solids Price</p>
+                            <div className={resultPill}>{formatCurrency(solidsPrice.toFixed(2))}</div>
                         </div>
-                        <div className="rounded-xl overflow-hidden border border-[#EAE8F2] bg-white text-center min-w-[120px]">
-                            <div className="bg-[#FDEAEA] py-1"><p className="text-xs text-[#6D5CE0]">Turnings Price</p></div>
-                            <div className="py-1 text-xs text-[#6D5CE0] bg-[#F4F3F9]">{formatCurrency((solidsPrice * 0.92).toFixed(2))}</div>
+                        <div className="min-w-[120px]">
+                            <p className={labelCls}>Turnings Price</p>
+                            <div className={resultPill}>{formatCurrency((solidsPrice * 0.92).toFixed(2))}</div>
                         </div>
-                        <div className="rounded-xl overflow-hidden border border-[#EAE8F2] bg-white text-center min-w-[120px]">
-                            <div className="bg-[#E5F6EC] py-1"><p className="text-xs text-[#6D5CE0]">Price / Euro</p></div>
-                            <div className="py-1 text-xs text-[#6D5CE0] bg-[#F4F3F9]">{formatCurrency((solidsPrice / value.general?.euroRate).toFixed(2), '€')}</div>
-                        </div>
-                    </div>
-
-                    <div className='text-xs mt-3 text-[var(--endeavour)] space-y-0.5 text-left pl-2'>
-                        <p>* Fill in the red and + Formula x Ni</p>
-                        <p>* Fe is calculated automatically</p>
-                    </div>
-                </div>
-
-                {/* SALES SECTION */}
-                <div className="w-full bg-white rounded-xl border border-[#EAE8F2] shadow-sm p-3 text-center">
-                    <h3 className='text-xs font-medium text-[var(--endeavour)] mb-1 text-left pl-3'>Sales</h3>
-                    {/* Composition + Price with Ni LME aside */}
-                    <div className="flex gap-2 items-end">
-                    <div className="px-2">
-                    <div className="mb-2">
-                    <p className="text-xs text-[#8D8AA3] mb-1 text-center">Composition</p>
-
-                    <div className="rounded-xl overflow-hidden border border-[#EAE8F2] bg-white grid grid-cols-[85px_85px_85px_85px]">
-                        {[
-                        { label: 'Ni', value: value?.stainless?.ni + '%' },
-                        { label: 'Cr', value: value?.stainless?.cr + '%' },
-                        { label: 'Mo', value: value?.stainless?.mo + '%' },
-                        { label: 'Fe', value: fe + '%' },
-                        ].map((item, idx) => (
-                        <div key={item.label} className={idx > 0 ? 'border-l border-[#EAE8F2]' : ''}>
-                            <div className="bg-[#F4F3F9] text-center py-1 text-xs text-[#6D5CE0] border-b border-[#EAE8F2] font-normal">
-                            {item.label}
-                            </div>
-                            <div className="py-1 text-xs text-center bg-[#F4F3F9]">
-                            {item.value}
-                            </div>
-                        </div>
-                        ))}
-                    </div>
-                    </div>
-
-
-                    {/* Price */}
-                    <div className="mt-2">
-                    <p className="text-xs font-normal text-[#8D8AA3] mb-1 text-center">Price</p>
-
-                    <div className="rounded-xl overflow-hidden border border-[#EAE8F2] bg-white grid grid-cols-[85px_85px_85px_85px]">
-                        {/* Ni */}
-                        <div>
-                        <div className="bg-[#ECEAFB] text-center py-1 text-xs text-[#6D5CE0] border-b border-[#EAE8F2] font-normal">
-                            Ni
-                        </div>
-                        <div className="py-1 text-xs text-center text-[#6D5CE0] bg-[#F4F3F9]">
-                            {formatCurrency(
-                            (value?.general?.nilme * value?.stainless?.formulaNiPrice / 100).toFixed(2)
-                            )}
-                        </div>
-                        </div>
-
-                        {/* Cr */}
-                        <div className="border-l border-[#EAE8F2]">
-                        <div className="bg-[#ECEAFB] text-center py-1 text-xs text-[#6D5CE0] border-b border-[#EAE8F2] font-normal">
-                            Cr
-                        </div>
-                        <div className="py-1 text-xs text-center text-[#B42332] bg-[#F4F3F9]">
-                            {formatCurrency(
-                            (value.general?.chargeCrLb * value.general?.mt * value?.stainless?.crPriceArgus / 100).toFixed(2)
-                            )}
-                        </div>
-                        </div>
-
-                        {/* Mo */}
-                        <div className="border-l border-[#EAE8F2]">
-                        <div className="bg-[#ECEAFB] text-center py-1 text-xs  text-[#6D5CE0] border-b border-[#EAE8F2] font-normal">
-                            Mo
-                        </div>
-                        <div className="py-1 text-xs text-center text-[#B42332] bg-[#F4F3F9]">
-                            {formatCurrency(
-                            (value.general?.MoOxideLb * value?.stainless?.moPriceArgus * value.general?.mt / 100).toFixed(2)
-                            )}
-                        </div>
-                        </div>
-
-                        {/* Fe (editable) */}
-                        <div className="border-l border-[#EAE8F2]">
-                        <div className="bg-[#ECEAFB] text-center py-1 text-xs text-[#6D5CE0] border-b border-[#EAE8F2] font-normal">
-                            Fe
-                        </div>
-                        <input
-                            type="text"
-                            className="w-full py-1 text-xs text-center text-[#B42332] outline-none bg-[#F4F3F9]"
-                            name="fePrice1"
-                            value={
-                            focusedField === 'fePrice1'
-                                ? value.stainless?.fePrice1
-                                : formatCurrency(value.stainless?.fePrice1)
-                            }
-                            onChange={(e) => handleChange(e, 'stainless')}
-                            onFocus={() => setFocusedField('fePrice1')}
-                            onBlur={(e) => {
-                            setFocusedField(null);
-                            const num = parseFloat(e.target.value.replace(/[^0-9.]/g, ''));
-                            if (!isNaN(num)) {
-                                handleChange(
-                                { target: { name: e.target.name, value: num.toFixed(2) } },
-                                'stainless'
-                                );
-                            }
-                            }}
-                        />
-                        </div>
-                    </div>
-                    </div>
-                    </div>
-                    <div className="w-20 flex-shrink-0 rounded-xl overflow-hidden border border-[#EAE8F2]">
-                        <div className="py-1 text-center bg-[#F4F3F9] text-xs text-[var(--endeavour)] font-medium">Ni LME</div>
-                        <div className="py-1 text-center text-xs text-[#6D5CE0] bg-[#F4F3F9]">{formatCurrency(Number(value.general?.nilme).toFixed(2))}</div>
-                    </div>
-                    </div>
-
-                    {/* Formula x Ni */}
-                    <div className="mb-2 mt-2 flex pl-2 pr-24">
-                    <div className="w-32 rounded-xl overflow-hidden border border-[#EAE8F2] bg-white">
-                        <div className="bg-[#FDEAEA] text-[#B42332] text-xs py-1 text-center">Formula x Ni</div>
-                        <input type="text" className="w-full text-center py-1 outline-none text-xs text-[#B42332] bg-[#F4F3F9]"
-                            name="formulaNiPrice" value={value?.stainless?.formulaNiPrice + '%'}
-                            onChange={(e) => handleChange({ target: { name: e.target.name, value: e.target.value.replace('%', '') } }, 'stainless')}
-                            onBlur={(e) => { const num = parseFloat(e.target.value.replace('%', '')); if (!isNaN(num)) handleChange({ target: { name: e.target.name, value: num.toFixed(2) } }, 'stainless'); }}
-                        />
-                    </div>
-                    </div>
-
-                    {/* Results */}
-                    <div className="flex flex-wrap gap-2 mb-2 mt-2 pl-2">
-                        <div className="rounded-xl overflow-hidden border border-[#EAE8F2] bg-white text-center min-w-[120px]">
-                            <div className="bg-[#FDEAEA] py-1"><p className="text-xs text-[#6D5CE0]">Solids Price</p></div>
-                            <div className="py-1 text-xs text-[#6D5CE0] bg-[#F4F3F9]">{formatCurrency(solidsPrice1.toFixed(2))}</div>
-                        </div>
-                        <div className="rounded-xl overflow-hidden border border-[#EAE8F2] bg-white text-center min-w-[120px]">
-                            <div className="bg-[#FDEAEA] py-1"><p className="text-xs text-[#6D5CE0]">Turnings Price</p></div>
-                            <div className="py-1 text-xs text-[#6D5CE0] bg-[#F4F3F9]">{formatCurrency((solidsPrice1 * 0.92).toFixed(2))}</div>
-                        </div>
-                        <div className="rounded-xl overflow-hidden border border-[#EAE8F2] bg-white text-center min-w-[120px]">
-                            <div className="bg-[#E5F6EC] py-1"><p className="text-xs text-[#6D5CE0]">Price / Euro</p></div>
-                            <div className="py-1 text-xs text-[#6D5CE0] bg-[#F4F3F9]">{formatCurrency((solidsPrice1 / value.general?.euroRate).toFixed(2), '€')}</div>
+                        <div className="min-w-[120px]">
+                            <p className={labelCls}>Price / Euro</p>
+                            <div className={resultPill}>{formatCurrency((solidsPrice / value.general?.euroRate).toFixed(2), '€')}</div>
                         </div>
                     </div>
 
-                    <div className='text-xs mt-3 text-[var(--endeavour)] space-y-0.5 text-left pl-2'>
+                    <div className='text-[11px] text-[var(--ink-muted)] space-y-0.5'>
                         <p>* Fill in the red and + Formula x Ni</p>
                         <p>* Fe is calculated automatically</p>
                     </div>
                 </div>
             </div>
+
+            {/* SALES SECTION */}
+            <div className="w-full bg-white rounded-2xl border border-[var(--line)] shadow-card overflow-hidden">
+                <div className="px-4 pt-4">
+                    <h3 className="text-[13px] font-display font-semibold text-[var(--ink)]">Sales</h3>
+                    <p className="text-[11px] text-[var(--ink-muted)] mt-0.5">Sales-side composition and pricing</p>
+                </div>
+                <div className="p-4 flex flex-col gap-4">
+                    <div className="flex flex-wrap items-end gap-3">
+                        <div className="flex flex-col gap-4">
+                            <div>
+                                <p className={labelCls}>Composition</p>
+                                <div className="rounded-xl border border-[var(--line)] overflow-hidden w-fit bg-white">
+                                    <div className="grid grid-cols-[85px_85px_85px_85px] bg-[var(--bg-subtle)] border-b border-[var(--line)]">
+                                        {[
+                                            { label: 'Ni', value: value?.stainless?.ni + '%' },
+                                            { label: 'Cr', value: value?.stainless?.cr + '%' },
+                                            { label: 'Mo', value: value?.stainless?.mo + '%' },
+                                            { label: 'Fe', value: fe + '%' },
+                                        ].map((item) => (
+                                            <div key={item.label} className={headCell}>
+                                                {item.label}
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div className="grid grid-cols-[85px_85px_85px_85px] bg-white">
+                                        {[
+                                            { label: 'Ni', value: value?.stainless?.ni + '%' },
+                                            { label: 'Cr', value: value?.stainless?.cr + '%' },
+                                            { label: 'Mo', value: value?.stainless?.mo + '%' },
+                                            { label: 'Fe', value: fe + '%' },
+                                        ].map((item) => (
+                                            <div key={item.label} className="p-1">
+                                                <div className={computedCell}>{item.value}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Price */}
+                            <div>
+                                <p className={labelCls}>Price</p>
+                                <div className="rounded-xl border border-[var(--line)] overflow-hidden w-fit bg-white">
+                                    <div className="grid grid-cols-[85px_85px_85px_85px] bg-[var(--bg-subtle)] border-b border-[var(--line)]">
+                                        <div className={headCell}>Ni</div>
+                                        <div className={headCell}>Cr</div>
+                                        <div className={headCell}>Mo</div>
+                                        <div className={headCell}>Fe</div>
+                                    </div>
+                                    <div className="grid grid-cols-[85px_85px_85px_85px] bg-white">
+                                        <div className="p-1">
+                                            <div className={computedCell}>
+                                                {formatCurrency(
+                                                    (value?.general?.nilme * value?.stainless?.formulaNiPrice / 100).toFixed(2)
+                                                )}
+                                            </div>
+                                        </div>
+                                        <div className="p-1">
+                                            <div className={computedCell}>
+                                                {formatCurrency(
+                                                    (value.general?.chargeCrLb * value.general?.mt * value?.stainless?.crPriceArgus / 100).toFixed(2)
+                                                )}
+                                            </div>
+                                        </div>
+                                        <div className="p-1">
+                                            <div className={computedCell}>
+                                                {formatCurrency(
+                                                    (value.general?.MoOxideLb * value?.stainless?.moPriceArgus * value.general?.mt / 100).toFixed(2)
+                                                )}
+                                            </div>
+                                        </div>
+                                        <div className="p-1">
+                                            <input
+                                                type="text"
+                                                className={inputCell}
+                                                name="fePrice1"
+                                                value={
+                                                    focusedField === 'fePrice1'
+                                                        ? value.stainless?.fePrice1
+                                                        : formatCurrency(value.stainless?.fePrice1)
+                                                }
+                                                onChange={(e) => handleChange(e, 'stainless')}
+                                                onFocus={() => setFocusedField('fePrice1')}
+                                                onBlur={(e) => {
+                                                    setFocusedField(null);
+                                                    const num = parseFloat(e.target.value.replace(/[^0-9.]/g, ''));
+                                                    if (!isNaN(num)) {
+                                                        handleChange(
+                                                            { target: { name: e.target.name, value: num.toFixed(2) } },
+                                                            'stainless'
+                                                        );
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="min-w-[90px]">
+                            <p className={labelCls}>Ni LME</p>
+                            <div className={resultPill}>{formatCurrency(Number(value.general?.nilme).toFixed(2))}</div>
+                        </div>
+                    </div>
+
+                    {/* Formula x Ni */}
+                    <div className="w-32">
+                        <p className={labelCls}>Formula x Ni</p>
+                        <input type="text" className={pillInput}
+                            name="formulaNiPrice" value={value?.stainless?.formulaNiPrice + '%'}
+                            onChange={(e) => handleChange({ target: { name: e.target.name, value: e.target.value.replace('%', '') } }, 'stainless')}
+                            onBlur={(e) => { const num = parseFloat(e.target.value.replace('%', '')); if (!isNaN(num)) handleChange({ target: { name: e.target.name, value: num.toFixed(2) } }, 'stainless'); }}
+                        />
+                    </div>
+
+                    {/* Results */}
+                    <div className="flex flex-wrap gap-3">
+                        <div className="min-w-[120px]">
+                            <p className={labelCls}>Solids Price</p>
+                            <div className={resultPill}>{formatCurrency(solidsPrice1.toFixed(2))}</div>
+                        </div>
+                        <div className="min-w-[120px]">
+                            <p className={labelCls}>Turnings Price</p>
+                            <div className={resultPill}>{formatCurrency((solidsPrice1 * 0.92).toFixed(2))}</div>
+                        </div>
+                        <div className="min-w-[120px]">
+                            <p className={labelCls}>Price / Euro</p>
+                            <div className={resultPill}>{formatCurrency((solidsPrice1 / value.general?.euroRate).toFixed(2), '€')}</div>
+                        </div>
+                    </div>
+
+                    <div className='text-[11px] text-[var(--ink-muted)] space-y-0.5'>
+                        <p>* Fill in the red and + Formula x Ni</p>
+                        <p>* Fe is calculated automatically</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     ) : null;
 };
 

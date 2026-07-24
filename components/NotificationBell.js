@@ -169,8 +169,7 @@ const NotificationBell = () => {
                 key={n.id}
                 className='group relative flex items-start gap-2.5 px-3 py-2.5 border-b border-[var(--line)] hover:bg-[var(--bg-subtle)] transition-colors'
                 style={{
-                    background: isSelected ? 'var(--brand-soft)' : unreadFlag ? 'var(--bg-subtle)' : 'white',
-                    borderLeft: `3px solid ${pr.color}`,
+                    background: isSelected ? 'var(--brand-soft)' : 'white',
                     cursor: selectMode ? 'pointer' : undefined,
                 }}
                 onClick={selectMode ? () => toggleSelect(n.id) : undefined}
@@ -182,11 +181,14 @@ const NotificationBell = () => {
                             : <Circle className='w-4 h-4' style={{ color: 'var(--line-strong)' }} />}
                     </span>
                 )}
-                <span className='inline-flex items-center justify-center rounded-full flex-shrink-0 mt-0.5' style={{ width: 26, height: 26, background: meta.bg }}>
-                    <Icon className='w-3.5 h-3.5' style={{ color: meta.color }} />
+                {unreadFlag && !selectMode && (
+                    <span className='absolute rounded-full' style={{ right: 10, top: 12, width: 6, height: 6, background: 'var(--brand)' }} />
+                )}
+                <span className='inline-flex items-center justify-center rounded-[10px] flex-shrink-0 mt-0.5' style={{ width: 32, height: 32, background: meta.bg }}>
+                    <Icon className='w-4 h-4' style={{ color: meta.color }} />
                 </span>
                 <button onClick={() => onOpenItem(n)} className='min-w-0 flex-1 text-left'>
-                    <p className='break-words' style={{ fontSize: '0.72rem', color: 'var(--ink)' }}>
+                    <p className='break-words' style={{ fontSize: '0.75rem', color: 'var(--ink)', fontWeight: unreadFlag ? 600 : 400 }}>
                         {n.message || `${n.entityType || 'Item'} ${n.action || 'updated'}`}
                     </p>
                     {/* Calm meta line — priority is already carried by the section header
@@ -237,15 +239,15 @@ const NotificationBell = () => {
     return (
         <div className='relative' ref={ref}>
             <button
-                className='relative flex items-center justify-center w-10 h-10'
+                className='relative flex items-center justify-center w-9 h-9 rounded-[10px] text-[var(--ink-secondary)] hover:bg-[var(--bg-subtle)] hover:text-[var(--ink)] transition-colors'
                 onClick={() => setOpen(v => !v)}
                 aria-label='Notifications'
             >
-                <Bell className='w-5 h-5' style={{ color: 'var(--chathams-blue)' }} />
+                <Bell className='w-[18px] h-[18px]' strokeWidth={1.75} />
                 {unreadCount > 0 && (
                     <span
-                        className='absolute top-1 right-1 min-w-[15px] h-[15px] px-1 rounded-full text-white flex items-center justify-center'
-                        style={{ background: 'var(--bad-text)', fontSize: '0.55rem', fontWeight: 700, lineHeight: 1 }}
+                        className='absolute top-0.5 right-0.5 min-w-[15px] h-[15px] px-1 rounded-full text-white flex items-center justify-center'
+                        style={{ background: 'var(--bad-text)', fontSize: '0.55rem', fontWeight: 700, lineHeight: 1, boxShadow: '0 0 0 2px #fff' }}
                     >
                         {unreadCount > 99 ? '99+' : unreadCount}
                     </span>
@@ -253,11 +255,16 @@ const NotificationBell = () => {
             </button>
 
             {open && (
-                <div className='absolute right-0 top-full mt-2 w-[360px] bg-white rounded-xl border border-[var(--line)] z-[9999] overflow-hidden' style={{ boxShadow: 'var(--shadow-md)' }}>
+                <div className='absolute right-0 top-full mt-2 w-[380px] bg-white rounded-2xl border border-[var(--line)] z-[9999] overflow-hidden' style={{ boxShadow: 'var(--shadow-md)', animation: 'rise-in 0.25s cubic-bezier(0.16,1,0.3,1) both' }}>
                     {/* Header */}
-                    <div className='flex items-center justify-between px-3 py-2' style={{ background: 'white', borderBottom: '1px solid var(--line)' }}>
-                        <span className='font-semibold' style={{ fontSize: '0.72rem', color: 'var(--ink)' }}>
-                            Notifications{unreadCount > 0 ? ` · ${unreadCount} new` : ''}
+                    <div className='flex items-center justify-between px-4 py-3' style={{ background: 'white', borderBottom: '1px solid var(--line)' }}>
+                        <span className='font-semibold font-display inline-flex items-center gap-1.5' style={{ fontSize: '0.8125rem', color: 'var(--ink)' }}>
+                            Notifications
+                            {unreadCount > 0 && (
+                                <span className='px-1.5 py-0.5 rounded-full font-semibold' style={{ fontSize: '0.6rem', background: 'var(--brand-soft)', color: 'var(--brand)' }}>
+                                    {unreadCount} new
+                                </span>
+                            )}
                         </span>
                         <div className='flex items-center gap-1'>
                             <button onClick={toggleMute} title={muted ? 'Unmute sound' : 'Mute sound'} className='p-1 rounded-full hover:bg-[var(--bg-subtle)]'>
@@ -369,9 +376,11 @@ const NotificationBell = () => {
                     {!detail && (
                     <div className='max-h-[60vh] overflow-y-auto'>
                         {visible.length === 0 ? (
-                            <div className='flex flex-col items-center justify-center py-8 gap-1'>
-                                <Bell className='w-5 h-5' style={{ color: 'var(--ink-muted)' }} />
-                                <span style={{ fontSize: '0.7rem', color: 'var(--ink-muted)' }}>You&apos;re all caught up.</span>
+                            <div className='flex flex-col items-center justify-center py-10 gap-2.5'>
+                                <span className='flex items-center justify-center rounded-full' style={{ width: 44, height: 44, background: 'var(--bg-subtle)' }}>
+                                    <Bell className='w-5 h-5' strokeWidth={1.75} style={{ color: 'var(--ink-muted)' }} />
+                                </span>
+                                <span className='font-medium' style={{ fontSize: '0.75rem', color: 'var(--ink-secondary)' }}>You&apos;re all caught up</span>
                             </div>
                         ) : catFilter === 'all' ? (
                             groups.map(([key, items]) => {
@@ -380,10 +389,13 @@ const NotificationBell = () => {
                                 return (
                                     <div key={key}>
                                         <div
-                                            className='sticky top-0 flex items-center justify-between px-3 py-0.5'
-                                            style={{ background: pr.bg, borderBottom: `1px solid ${pr.border}`, fontSize: '0.55rem', fontWeight: 600, letterSpacing: '0.05em', color: pr.color, textTransform: 'uppercase', zIndex: 5 }}
+                                            className='sticky top-0 flex items-center justify-between px-4 pt-2 pb-1 bg-white'
+                                            style={{ fontSize: '0.625rem', fontWeight: 600, letterSpacing: '0.05em', color: 'var(--ink-muted)', textTransform: 'uppercase', zIndex: 5 }}
                                         >
-                                            <span className='inline-flex items-center gap-1'><PriIcon className='w-2.5 h-2.5' /> {pr.label} priority</span>
+                                            <span className='inline-flex items-center gap-1.5'>
+                                                <span className='rounded-full' style={{ width: 6, height: 6, background: pr.color }} />
+                                                {pr.label} priority
+                                            </span>
                                             <span>{items.length}</span>
                                         </div>
                                         {items.map(renderRow)}

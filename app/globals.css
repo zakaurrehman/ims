@@ -97,7 +97,7 @@ body,
 :root {
   height: 100%;
   overflow-x: hidden;
-  font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+  font-family: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
   color: var(--ink);
 }
 

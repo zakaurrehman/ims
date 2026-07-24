@@ -1,20 +1,21 @@
 import './globals.css';
-import { Inter, Manrope } from 'next/font/google';
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import Provider from './providers'
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GlobalSearchProvider } from '../contexts/useGlobalSearchContext';
 
-// Inter = UI / body / tables (tabular numerals); Manrope = headings & stat numbers.
+// Plus Jakarta Sans = UI / body / headings (warm geometric, the reference look);
+// Inter = data tables & numbers only (tabular numerals keep columns aligned).
+const jakarta = Plus_Jakarta_Sans({
+	weight: ['400', '500', '600', '700'],
+	subsets: ['latin'],
+	variable: '--font-jakarta',
+});
+
 const inter = Inter({
 	weight: ['400', '500', '600'],
 	subsets: ['latin'],
 	variable: '--font-inter',
-});
-
-const manrope = Manrope({
-	weight: ['600', '700', '800'],
-	subsets: ['latin'],
-	variable: '--font-manrope',
 });
 
 export const metadata = {
@@ -36,9 +37,12 @@ export default function RootLayout({ children }) {
 
 	return (
 		<html lang="en">
-			{/* --font-poppins is aliased to Inter so legacy font-poppins/var(--font-poppins)
-			    call sites render the new font until they are migrated (Phase 3). */}
-			<body className={`${inter.variable} ${manrope.variable} ${inter.className}`} style={{ '--font-poppins': inter.style.fontFamily }}>
+			{/* Legacy aliases: --font-poppins → Jakarta (old call sites), --font-manrope → Jakarta
+			    (heading classes) so every existing reference renders the current font. */}
+			<body
+				className={`${jakarta.variable} ${inter.variable} ${jakarta.className}`}
+				style={{ '--font-poppins': jakarta.style.fontFamily, '--font-manrope': jakarta.style.fontFamily }}
+			>
 				<Provider>
 					<GlobalSearchProvider>
 						<div>{children}</div>

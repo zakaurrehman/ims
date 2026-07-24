@@ -10,11 +10,11 @@ module.exports = {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
+				sans: ['var(--font-jakarta)', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
 				inter: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
-				display: ['var(--font-manrope)', 'Manrope', 'var(--font-inter)', 'sans-serif'],
-				// Legacy alias — Poppins was replaced by Inter; retire in Phase 3
-				poppins: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
+				display: ['var(--font-jakarta)', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+				// Legacy alias — old font-poppins call sites render the current UI font
+				poppins: ['var(--font-jakarta)', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
 			},
 			gridTemplateColumns: {
 				'21': 'repeat(21, minmax(0, 1fr))'
