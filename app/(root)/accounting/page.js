@@ -21,7 +21,8 @@ import dateFormat from "dateformat";
 import { getTtl } from '../../../utils/languages';
 import DateRangePicker from '../../../components/dateRangePicker';
 // chart.js + react-chartjs-2 are loaded on demand (not in the first-load bundle).
-import { FaWallet, FaArrowTrendUp, FaArrowTrendDown, FaPiggyBank } from 'react-icons/fa6';
+import { Wallet, TrendingUp, TrendingDown, PiggyBank } from 'lucide-react';
+import KpiStrip from '../../../components/KpiStrip';
 import EditableCell from '../../../components/table/inlineEditing/EditableCell';
 import EditableSelectCell from '../../../components/table/inlineEditing/EditableSelectCell';
 import Tltip from '../../../components/tlTip';
@@ -609,134 +610,24 @@ const Accounting = () => {
             <VideoLoader loading={loading} fullScreen={true} />
 
             {/* Header + Stats Wrapper */}
-            <div className="rounded-2xl border border-[#EAE8F2] bg-[#F4F3F9] shadow-sm p-4 mb-6">
-
-              {/* Header Section */}
-              <div className='flex items-center justify-between flex-wrap gap-2 pb-3'>
-                <div>
-                  <h1 className="text-display">{getTtl('Accounting', ln)}</h1>
-                  <p className="text-[0.75rem] text-[var(--ink-muted)] mt-0.5">Transactions overview</p>
-                </div>
-              </div>
-
-              {/* Summary Cards */}
-              <div
-                style={{
-                  background: '#F4F3F9',
-                  width: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '40px',
-                  padding: '10px 12px',
-                  flexWrap: 'wrap',
-                  margin: '0 auto',
-                  borderRadius: '1rem',
-                  border: '1px solid #EAE8F2',
-                }}
-              >
-
-                {/* ── My Balance ── */}
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    flexWrap: 'nowrap',
-                    gap: '8px',
-                    background: '#ECEAFB',
-                    borderRadius: '999px',
-                    padding: '7px 14px',
-                    border: '1.5px solid #D8D3F6',
-                    boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  <FaWallet className="w-[17px] h-[17px] flex-shrink-0" style={{ color: '#7A6FE3' }} />
-                  <span className="responsiveText" style={{ color: '#7A6FE3', fontWeight: 500 }}>
-                    {formatCurrency(totals.balance)}
-                  </span>
-                  <span className="responsiveTextTable" style={{ color: '#7A6FE3', fontWeight: 400 }}>
-                    My Balance
-                  </span>
-                </div>
-
-                {/* ── Income ── */}
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    flexWrap: 'nowrap',
-                    gap: '8px',
-                    background: '#FDF3E1',
-                    borderRadius: '999px',
-                    padding: '7px 14px',
-                    border: '1.5px solid #F5DFAE',
-                    boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  <FaArrowTrendUp className="w-[17px] h-[17px] flex-shrink-0" style={{ color: '#9A6215' }} />
-                  <span className="responsiveText" style={{ color: '#9A6215', fontWeight: 500 }}>
-                    {formatCurrency(totals.totalIncome)}
-                  </span>
-                  <span className="responsiveTextTable" style={{ color: '#9A6215', fontWeight: 400 }}>
-                    Income
-                  </span>
-                </div>
-
-                {/* ── Expense ── */}
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    flexWrap: 'nowrap',
-                    gap: '8px',
-                    background: '#FDEAEA',
-                    borderRadius: '999px',
-                    padding: '7px 14px',
-                    border: '1.5px solid #F5C6C9',
-                    boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  <FaArrowTrendDown className="w-[17px] h-[17px] flex-shrink-0" style={{ color: '#B42332' }} />
-                  <span className="responsiveText" style={{ color: '#B42332', fontWeight: 500 }}>
-                    {formatCurrency(totals.totalExpense)}
-                  </span>
-                  <span className="responsiveTextTable" style={{ color: '#B42332', fontWeight: 400 }}>
-                    Expense
-                  </span>
-                </div>
-
-                {/* ── Savings ── */}
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    flexWrap: 'nowrap',
-                    gap: '8px',
-                    background: '#E5F6EC',
-                    borderRadius: '999px',
-                    padding: '7px 14px',
-                    border: '1.5px solid #BFE8D0',
-                    boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  <FaPiggyBank className="w-[17px] h-[17px] flex-shrink-0" style={{ color: '#177245' }} />
-                  <span className="responsiveText" style={{ color: '#177245', fontWeight: 500 }}>
-                    {formatCurrency(totals.savings)}
-                  </span>
-                  <span className="responsiveTextTable" style={{ color: '#177245', fontWeight: 400 }}>
-                    Savings
-                  </span>
-                </div>
-
+            {/* Page header */}
+            <div className="page-header flex items-end justify-between flex-wrap gap-2 mt-6 mb-3 px-1">
+              <div>
+                <h1 className="text-display">{getTtl('Accounting', ln)}</h1>
+                <p className="text-[0.75rem] text-[var(--ink-muted)] mt-0.5">Transactions overview</p>
               </div>
             </div>
+
+            {/* KPI strip — same card language as contracts/invoices/stocks */}
+            <KpiStrip items={[
+              { label: 'My Balance', value: totals.balance, format: formatCurrency, icon: Wallet, tone: 'blue' },
+              { label: 'Income', value: totals.totalIncome, format: formatCurrency, icon: TrendingUp, tone: 'green' },
+              { label: 'Expense', value: totals.totalExpense, format: formatCurrency, icon: TrendingDown, tone: 'red' },
+              { label: 'Savings', value: totals.savings, format: formatCurrency, icon: PiggyBank, tone: 'amber' },
+            ]} />
             {/* Full Table */}
-            <div className="rounded-2xl p-3 sm:p-5 mt-2 border border-[#EAE8F2] shadow-xl w-full bg-[#F4F3F9] relative">
-              <h3 className="responsiveText font-medium font-poppins text-[var(--chathams-blue)] mb-4">All Transactions</h3>
+            <div className="page-card rounded-2xl p-3 sm:p-5 mt-2 border border-[var(--line)] shadow-card w-full bg-white relative">
+              <h3 className="text-title mb-4">All Transactions</h3>
               <Customtable data={invoicesAccData} columns={propDefaults} onCellUpdate={onCellUpdate}
                 excellReport={EXD(invoicesAccData, settings, getTtl('Accounting', ln), ln)} />
             </div>
