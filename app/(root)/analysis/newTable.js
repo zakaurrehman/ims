@@ -151,8 +151,8 @@ const Customtable = ({
           font-size: 0.6875rem;
           text-transform: uppercase;
           letter-spacing: 0.04em;
-          color: var(--ink-muted);
-          font-weight: 500;
+          color: var(--ink-secondary);
+          font-weight: 600;
         }
         .custom-table td {
           background-color: #fff;

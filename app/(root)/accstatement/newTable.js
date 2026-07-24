@@ -158,8 +158,8 @@ const Customtable = ({
           font-size: 0.6875rem;
           text-transform: uppercase;
           letter-spacing: 0.04em;
-          color: var(--ink-muted);
-          font-weight: 500;
+          color: var(--ink-secondary);
+          font-weight: 600;
         }
         .custom-table td {
           background-color: #ffffff;
@@ -277,7 +277,7 @@ const Customtable = ({
                           }}
                         >
                           <div
-                            className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[70px] text-center whitespace-nowrap border rounded-xl border-transparent transition-all duration-200  ease-in-out hover:bg-[#F4F3F9] hover:text-[var(--port-gore)] hover:shadow-[inset_0_0_0_1px_#DAD6E8] fade-in"
+                            className="px-2 py-1 responsiveTextTable font-medium flex items-center justify-center min-w-[70px] text-center whitespace-nowrap border rounded-xl border-transparent transition-all duration-200  ease-in-out hover:bg-[#F4F3F9] hover:text-[var(--port-gore)] hover:shadow-[inset_0_0_0_1px_#DAD6E8] fade-in"
                           >
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                           </div>
@@ -375,7 +375,7 @@ const Customtable = ({
               {table.getRowModel().rows.length === 0 && (
                 <div className="flex flex-col items-center justify-center py-24 px-3">
                                     <p
-                    className="responsiveTextTable font-normal mb-2 text-center"
+                    className="responsiveTextTable font-medium mb-2 text-center"
                     style={{ color: 'var(--port-gore)' }}
                   >
                     {getTtl('No data available', ln)}

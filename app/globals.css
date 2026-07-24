@@ -16,8 +16,8 @@
 
   /* Ink — deep navy-violet */
   --ink:           #1E1B39;
-  --ink-secondary: #5D5A74;
-  --ink-muted:     #8D8AA3;
+  --ink-secondary: #48455E;
+  --ink-muted:     #6E6B84;
 
   /* Brand accent — reference violet */
   --brand:        #6D5CE0;
@@ -231,7 +231,7 @@ thead th {
 
   /* Table column headers — 11px uppercase muted */
   .text-caption {
-    @apply text-[0.6875rem] font-medium uppercase text-[var(--ink-muted)];
+    @apply text-[0.6875rem] font-semibold uppercase text-[var(--ink-secondary)];
     letter-spacing: 0.04em;
   }
 

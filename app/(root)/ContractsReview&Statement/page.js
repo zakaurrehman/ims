@@ -53,7 +53,7 @@ const StatusChip = ({ shipmentStatus, rollup }) => {
     if (key === 'none') return <span className="responsiveTextTable" style={{ color: 'var(--regent-gray)' }}>—</span>;
     const style = isShipment ? (SHIPMENT_STATUS_STYLES[key] || SHIPMENT_STATUS_STYLES['']) : FALLBACK_STATUS_STYLES[key];
     return (
-        <span className="px-3 py-1 rounded-xl responsiveTextTable font-normal whitespace-nowrap" style={style}>
+        <span className="px-3 py-1 rounded-xl responsiveTextTable font-medium whitespace-nowrap" style={style}>
             {label}
         </span>
     );

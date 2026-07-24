@@ -52,7 +52,7 @@ function NotesCell({ value, contractId, contractDate, uidCollection, onChange, o
     // Flat at rest (matches read-only tables); the input box only appears on
     // hover/focus so editability stays discoverable without the boxed-grid look.
     return (
-        <div className="px-2 py-0.5 rounded-[8px] responsiveTextTable font-normal border border-transparent hover:border-[var(--line-strong)] hover:bg-white focus-within:border-[var(--brand)] focus-within:bg-white transition-colors">
+        <div className="px-2 py-0.5 rounded-[8px] responsiveTextTable font-medium border border-transparent hover:border-[var(--line-strong)] hover:bg-white focus-within:border-[var(--brand)] focus-within:bg-white transition-colors">
             <textarea
                 value={local}
                 onChange={handleChange}
@@ -731,8 +731,8 @@ const ShipmentPage = () => {
           font-size: 0.6875rem;
           text-transform: uppercase;
           letter-spacing: 0.04em;
-          color: var(--ink-muted);
-          font-weight: 500;
+          color: var(--ink-secondary);
+          font-weight: 600;
         }
             .custom-table td {
           background-color: #ffffff;

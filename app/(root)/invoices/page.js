@@ -494,7 +494,7 @@ const Invoices = () => {
 				return (
 					<div className="flex justify-center">
 						<div
-							className="px-3 py-1 rounded-xl responsiveTextTable font-normal"
+							className="px-3 py-1 rounded-xl responsiveTextTable font-medium"
 							style={{
 								backgroundColor: value ? '#E5F6EC' : '#FDF3E1',
 								color: value ? '#177245' : '#9A6215',

@@ -171,8 +171,8 @@ const Customtable = ({ data, columns, invisible, excellReport, onCellUpdate }) =
           font-size: 0.6875rem;
           text-transform: uppercase;
           letter-spacing: 0.04em;
-          color: var(--ink-muted);
-          font-weight: 500;
+          color: var(--ink-secondary);
+          font-weight: 600;
         }
 
         .custom-table td {
@@ -337,7 +337,7 @@ const Customtable = ({ data, columns, invisible, excellReport, onCellUpdate }) =
                             {(isCompleted || isStatus) && badgeConfig ? (
                               <div className="flex justify-center">
                                 <div
-                                  className="px-1 py-0.5 responsiveTextTable font-normal"
+                                  className="px-1 py-0.5 responsiveTextTable font-medium"
                                   style={{
                                     backgroundColor: badgeConfig.bg,
                                     color: badgeConfig.color,
@@ -357,12 +357,12 @@ const Customtable = ({ data, columns, invisible, excellReport, onCellUpdate }) =
                               <div className="flex justify-center">
                                 {cell.getValue() !== null && cell.getValue() !== undefined && cell.getValue() !== '' ? (
                                   <div
-                                    className="px-1 py-0.5 responsiveTextTable font-normal min-w-[50px]"
+                                    className="px-1 py-0.5 responsiveTextTable font-medium min-w-[50px]"
                                   >
                                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                   </div>
                                 ) : (
-                                  <div className="px-1 py-0.5 responsiveTextTable font-normal w-full">&nbsp;</div>
+                                  <div className="px-1 py-0.5 responsiveTextTable font-medium w-full">&nbsp;</div>
                                 )}
                               </div>
                             )}
@@ -455,7 +455,7 @@ const Customtable = ({ data, columns, invisible, excellReport, onCellUpdate }) =
                             {cell.column.columnDef.header}
                           </div>
                           <div 
-                            className="responsiveTextTable font-normal break-words px-1 py-1 leading-relaxed min-h-[28px] flex items-center" style={{ color: 'var(--ink)' }}
+                            className="responsiveTextTable font-medium break-words px-1 py-1 leading-relaxed min-h-[28px] flex items-center" style={{ color: 'var(--ink)' }}
                           >
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                           </div>
@@ -470,7 +470,7 @@ const Customtable = ({ data, columns, invisible, excellReport, onCellUpdate }) =
               {table.getRowModel().rows.length === 0 && (
                 <div className="flex flex-col items-center justify-center py-24 px-3">
                                     <p
-                    className="responsiveTextTable font-normal mb-2 text-center"
+                    className="responsiveTextTable font-medium mb-2 text-center"
                     style={{ color: 'var(--port-gore)' }}
                   >
                     {getTtl('No data available', ln)}

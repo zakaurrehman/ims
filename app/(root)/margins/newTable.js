@@ -488,7 +488,7 @@ const Customtable = (props) => {
                                     {/* Compact Card Header */}
                                     <div className="bg-[var(--bg-subtle)] px-3 py-2 border-b border-[var(--line)] flex justify-between items-center min-h-[32px]">
                                         <span
-                                            className="responsiveTextTable font-normal text-[var(--ink)]"
+                                            className="responsiveTextTable font-medium text-[var(--ink)]"
                                             style={{ lineHeight: '1.2' }}
                                         >
                                             Entry #{rowIdx + 1}
@@ -512,7 +512,7 @@ const Customtable = (props) => {
                                                     className="flex justify-between items-center gap-2 py-1.5 border-b border-gray-100 last:border-b-0 min-h-[28px]"
                                                 >
                                                     <span
-                                                        className="responsiveTextTable font-normal text-[var(--ink)] min-w-[80px] flex-shrink-0"
+                                                        className="responsiveTextTable font-medium text-[var(--ink)] min-w-[80px] flex-shrink-0"
                                                         style={{ lineHeight: '1.2' }}
                                                     >
                                                         {typeof col.header === 'string' ? col.header : ''}

@@ -191,8 +191,8 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
           font-size: 0.6875rem;
           text-transform: uppercase;
           letter-spacing: 0.04em;
-          color: var(--ink-muted);
-          font-weight: 500;
+          color: var(--ink-secondary);
+          font-weight: 600;
         }
 
                 .custom-table td {
@@ -348,7 +348,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                                                         {(isCompleted || isStatus) && badgeConfig ? (
                                                             <div className="flex justify-center">
                                                                 <div
-                                                                    className="px-1 py-1 responsiveTextTable font-normal"
+                                                                    className="px-1 py-1 responsiveTextTable font-medium"
                                                                     style={{
                                                                         backgroundColor: badgeConfig.bg,
                                                                         color: badgeConfig.color,
@@ -360,13 +360,13 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                                                             </div>
                                                         ) : (isCompleted || isStatus) && !badgeConfig ? (
                                                             <div className="flex justify-center">
-                                                                <div className="px-1 py-1 responsiveTextTable font-normal w-full">&nbsp;</div>
+                                                                <div className="px-1 py-1 responsiveTextTable font-medium w-full">&nbsp;</div>
                                                             </div>
                                                         ) : (
                                                             <div className="flex justify-center">
                                                                 {cell.getValue() !== null && cell.getValue() !== undefined && cell.getValue() !== '' ? (
                                                                     <div
-                                                                        className="px-1 py-1 responsiveTextTable font-normal min-w-[70px]"
+                                                                        className="px-1 py-1 responsiveTextTable font-medium min-w-[70px]"
                                                                         style={{
                                                                             whiteSpace: 'nowrap',
                                                                         }}
@@ -374,7 +374,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                                                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                                                     </div>
                                                                 ) : (
-                                                                    <div className="px-1 py-1 responsiveTextTable font-normal w-full">&nbsp;</div>
+                                                                    <div className="px-1 py-1 responsiveTextTable font-medium w-full">&nbsp;</div>
                                                                 )}
                                                             </div>
                                                         )}
@@ -480,7 +480,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                                                         {cell.column.id === 'completed' ? (
                                                             cell.getValue() ? (
                                                                 <div 
-                                                                            className="w-full px-2 py-2 rounded-md responsiveTextTable font-normal flex items-center gap-2 justify-center shadow-md"
+                                                                            className="w-full px-2 py-2 rounded-md responsiveTextTable font-medium flex items-center gap-2 justify-center shadow-md"
                                                                             style={{ 
                                                                                 backgroundColor: '#E5F6EC',
                                                                                 color: '#FFFFFF'
@@ -490,7 +490,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                                                                 </div>
                                                             ) : (
                                                                 <div 
-                                                                    className="w-full px-2 py-2 rounded-md responsiveTextTable font-normal flex items-center gap-2 justify-center shadow-sm"
+                                                                    className="w-full px-2 py-2 rounded-md responsiveTextTable font-medium flex items-center gap-2 justify-center shadow-sm"
                                                                     style={{ 
                                                                         backgroundColor: '#FDEAEA',
                                                                         color: '#FFFFFF'
@@ -513,7 +513,7 @@ const Customtable = ({ data, columns, invisible, SelectRow, excellReport, ln, se
                             {table.getRowModel().rows.length === 0 && (
                                 <div className="flex flex-col items-center justify-center py-24 px-3">
                                                                         <p
-                                        className="responsiveTextTable font-normal mb-2 text-center"
+                                        className="responsiveTextTable font-medium mb-2 text-center"
                                         style={{ color: 'var(--port-gore)' }}
                                     >
                                         {getTtl('No data available', ln)}

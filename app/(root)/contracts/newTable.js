@@ -263,7 +263,7 @@ const Customtable = ({
                         {hdGroup.headers.map(header => (
                         <th
                           key={header.id}
-                          className="group/th font-medium py-2"
+                          className="group/th font-semibold py-2"
                           onClick={header.column.getCanSort() ? header.column.getToggleSortingHandler() : undefined}
                           style={{
                             minWidth: header.column.id === 'select' ? '50px' : '60px',
@@ -421,7 +421,7 @@ const Customtable = ({
                                   })()
                                 ) : hasValue ? (
                                   <div
-                                    className="px-1 py-1 responsiveTextTable font-normal min-w-[70px]"
+                                    className="px-1 py-1 responsiveTextTable font-medium min-w-[70px]"
                                     style={{
                                       color: 'var(--ink)',
                                       overflow: 'hidden',
@@ -433,7 +433,7 @@ const Customtable = ({
                                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                   </div>
                                 ) : (
-                                  <div className="px-1 py-1 responsiveTextTable font-normal w-full">&nbsp;</div>
+                                  <div className="px-1 py-1 responsiveTextTable font-medium w-full">&nbsp;</div>
                                 )}
                               </div>
                             )}
@@ -502,7 +502,7 @@ const Customtable = ({
                           <div className="uppercase tracking-wider font-medium responsiveTextTable" style={{ color: 'var(--ink-muted)', fontSize: '0.6875rem' }}>
                             {cell.column.columnDef.header}
                           </div>
-                          <div className="responsiveTextTable font-normal break-words px-1 py-1 leading-relaxed min-h-[28px] flex items-center"
+                          <div className="responsiveTextTable font-medium break-words px-1 py-1 leading-relaxed min-h-[28px] flex items-center"
                             style={{ color: 'var(--ink)' }}>
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                           </div>

@@ -137,7 +137,7 @@ const Customtable = ({
                       )}
                       {filterOn && header.column.getCanFilter() && (
                         <input
-                          className="mt-1 w-full border border-[var(--selago)] rounded-full px-2 py-0.5 responsiveTextTable font-normal focus:outline-none focus:border-[var(--endeavour)]"
+                          className="mt-1 w-full border border-[var(--selago)] rounded-full px-2 py-0.5 responsiveTextTable font-medium focus:outline-none focus:border-[var(--endeavour)]"
                           value={header.column.getFilterValue() ?? ''}
                           onChange={e => header.column.setFilterValue(e.target.value)}
                           placeholder="Filter..."
@@ -160,7 +160,7 @@ const Customtable = ({
                     <td
                       key={cell.id}
                       data-label={cell.column.columnDef.header}
-                      className="px-3 py-2 responsiveTextTable font-normal text-center font-poppins"
+                      className="px-3 py-2 responsiveTextTable font-medium text-center font-poppins"
                     >
                       <div className="flex items-center justify-center">
                         {
@@ -169,7 +169,7 @@ const Customtable = ({
                               {flexRender(cell.column.columnDef.cell, cell.getContext())}
                             </div>
                           ) : (
-                            <div className="px-1 py-1 responsiveTextTable font-normal w-full" style={{ color: 'var(--ink)' }}>
+                            <div className="px-1 py-1 responsiveTextTable font-medium w-full" style={{ color: 'var(--ink)' }}>
                               {cell.getValue() != null && cell.getValue() !== ''
                                 ? flexRender(cell.column.columnDef.cell, cell.getContext())
                                 : <>&nbsp;</>}

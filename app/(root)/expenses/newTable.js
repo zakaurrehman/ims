@@ -443,7 +443,7 @@
 //                           <td key={cell.id} className="px-2 py-2 text-center">
 //                             {isCompleted ? (
 //                               <div className="flex justify-center">
-//                                 <div className="px-3 py-1.5 rounded-xl responsiveTextTable font-normal"
+//                                 <div className="px-3 py-1.5 rounded-xl responsiveTextTable font-medium"
 //                                   style={{
 //                                     backgroundColor: value ? '#177245' : '#B42332',
 //                                     color: '#FFFFFF', border: '1px solid #DAD6E8'
@@ -453,7 +453,7 @@
 //                               </div>
 //                             ) : isStatus ? (
 //                               <div className="flex justify-center">
-//                                 <div className="px-3 py-1.5 rounded-xl responsiveTextTable font-normal"
+//                                 <div className="px-3 py-1.5 rounded-xl responsiveTextTable font-medium"
 //                                   style={{
 //                                     backgroundColor: value === 'Completed' ? '#177245' : '#B42332',
 //                                     color: '#FFFFFF', border: '1px solid #DAD6E8'
@@ -463,7 +463,7 @@
 //                               </div>
 //                             ) : isPaid && hasValue ? (
 //                               <div className="flex justify-center">
-//                                 <div className="px-3 py-1.5 rounded-xl responsiveTextTable font-normal min-w-[70px] text-center"
+//                                 <div className="px-3 py-1.5 rounded-xl responsiveTextTable font-medium min-w-[70px] text-center"
 //                                   style={{
 //                                     backgroundColor:
 //                                       value === 'Paid'   ? '#ceb8ff' :
@@ -478,7 +478,7 @@
 //                             ) : (
 //                               <div className="flex justify-center">
 //                                 {hasValue ? (
-//                                   <div className="px-3 py-1.5 rounded-xl responsiveTextTable font-normal min-w-[70px] text-center transition-all duration-200 ease-in-out"
+//                                   <div className="px-3 py-1.5 rounded-xl responsiveTextTable font-medium min-w-[70px] text-center transition-all duration-200 ease-in-out"
 //                                     style={{
 //                                       backgroundColor: '#F4F3F9',
 //                                       border: '1px solid #DAD6E8',
@@ -594,10 +594,10 @@
 //                             }}>
 //                             {cell.column.id === 'completed' ? (
 //                               cell.getValue() ? (
-//                                 <div className="w-full px-2 py-2 rounded-md responsiveTextTable font-normal flex items-center gap-2 justify-center shadow-md"
+//                                 <div className="w-full px-2 py-2 rounded-md responsiveTextTable font-medium flex items-center gap-2 justify-center shadow-md"
 //                                   style={{ backgroundColor: '#177245', color: '#FFFFFF' }}>Completed</div>
 //                               ) : (
-//                                 <div className="w-full px-2 py-2 rounded-md responsiveTextTable font-normal flex items-center gap-2 justify-center shadow-sm"
+//                                 <div className="w-full px-2 py-2 rounded-md responsiveTextTable font-medium flex items-center gap-2 justify-center shadow-sm"
 //                                   style={{ backgroundColor: '#B42332', color: '#FFFFFF' }}>Pending</div>
 //                               )
 //                             ) : cell.column.id === 'paid' && cell.getValue() ? (
@@ -926,8 +926,8 @@ const Customtable = ({
           font-size: 0.6875rem;
           text-transform: uppercase;
           letter-spacing: 0.04em;
-          color: var(--ink-muted);
-          font-weight: 500;
+          color: var(--ink-secondary);
+          font-weight: 600;
           padding: 7px 8px !important;
           vertical-align: middle;
           white-space: nowrap;
@@ -1174,7 +1174,7 @@ const Customtable = ({
                           <td key={cell.id} className="px-1 py-0.5 text-center" style={{ whiteSpace: 'nowrap' }}>
                             {isCompleted ? (
                               <div className="flex justify-center">
-                                <div className="px-1 py-1 responsiveTextTable font-normal"
+                                <div className="px-1 py-1 responsiveTextTable font-medium"
                                   style={{
                                     backgroundColor: value ? '#E5F6EC' : '#FDEAEA',
                                     color: value ? '#177245' : '#B42332',
@@ -1220,11 +1220,11 @@ const Customtable = ({
                                     )
                                   })()
                                 ) : hasValue ? (
-                                  <div className="px-1 py-1 responsiveTextTable font-normal min-w-[70px]">
+                                  <div className="px-1 py-1 responsiveTextTable font-medium min-w-[70px]">
                                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                   </div>
                                 ) : (
-                                  <div className="px-1 py-1 responsiveTextTable font-normal w-full">&nbsp;</div>
+                                  <div className="px-1 py-1 responsiveTextTable font-medium w-full">&nbsp;</div>
                                 )}
                               </div>
                             )}
@@ -1313,7 +1313,7 @@ const Customtable = ({
                             style={{ color: 'var(--regent-gray)', fontSize: '0.58rem' }}>
                             {cell.column.columnDef.header}
                           </div>
-                          <div className="responsiveTextTable font-normal break-words px-2 py-1 rounded-xl leading-relaxed min-h-[28px] flex items-center shadow-sm"
+                          <div className="responsiveTextTable font-medium break-words px-2 py-1 rounded-xl leading-relaxed min-h-[28px] flex items-center shadow-sm"
                             style={{
                               color: 'var(--port-gore)',
                               background: 'linear-gradient(135deg,#F4F3F9,#F4F3F9)',
@@ -1321,10 +1321,10 @@ const Customtable = ({
                             }}>
                             {cell.column.id === 'completed' ? (
                               cell.getValue() ? (
-                                <div className="w-full px-2 py-2 rounded-md responsiveTextTable font-normal flex items-center gap-2 justify-center shadow-md"
+                                <div className="w-full px-2 py-2 rounded-md responsiveTextTable font-medium flex items-center gap-2 justify-center shadow-md"
                                   style={{ backgroundColor: '#E5F6EC', color: '#177245' }}>Completed</div>
                               ) : (
-                                <div className="w-full px-2 py-2 rounded-md responsiveTextTable font-normal flex items-center gap-2 justify-center shadow-sm"
+                                <div className="w-full px-2 py-2 rounded-md responsiveTextTable font-medium flex items-center gap-2 justify-center shadow-sm"
                                   style={{ backgroundColor: '#FDEAEA', color: '#B42332' }}>Pending</div>
                               )
                             ) : cell.column.id === 'paid' && cell.getValue() ? (

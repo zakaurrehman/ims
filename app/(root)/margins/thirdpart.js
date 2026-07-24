@@ -23,8 +23,8 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
 
                 .margins-table th {
                     background-color: var(--bg-subtle);
-                    color: var(--ink-muted);
-                    font-weight: 500;
+                    color: var(--ink-secondary);
+                    font-weight: 600;
                     font-size: 0.6875rem;
                     text-transform: uppercase;
                     letter-spacing: 0.04em;
@@ -145,7 +145,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                                     willChange: 'background-color, color',
                                                 }}
                                             >
-                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[50px] text-center whitespace-nowrap text-[var(--ink)] fade-in">
+                                                <div className="px-2 py-1 responsiveTextTable font-medium flex items-center justify-center min-w-[50px] text-center whitespace-nowrap text-[var(--ink)] fade-in">
                                                     {z.month + "-" + yr}
                                                 </div>
                                             </td>
@@ -161,7 +161,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                                     willChange: 'background-color, color',
                                                 }}
                                             >
-                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[40px] text-center whitespace-nowrap fade-in">
+                                                <div className="px-2 py-1 responsiveTextTable font-medium flex items-center justify-center min-w-[40px] text-center whitespace-nowrap fade-in">
                                                     <NumericFormat
                                                         value={z.purchase}
                                                         displayType="text"
@@ -186,7 +186,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                             >
                                                 {isGIS ? (
                                                 <Tltip direction="top" tltpText={"IMS: " + addComma(z.totalMargin / 2)}>
-                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[105px] text-center whitespace-nowrap fade-in">
+                                                <div className="px-2 py-1 responsiveTextTable font-medium flex items-center justify-center min-w-[105px] text-center whitespace-nowrap fade-in">
                                                     <NumericFormat
                                                         value={z.totalMargin}
                                                         displayType="text"
@@ -200,7 +200,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                                 </div>
                                                 </Tltip>
                                                 ) : (
-                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[105px] text-center whitespace-nowrap fade-in">
+                                                <div className="px-2 py-1 responsiveTextTable font-medium flex items-center justify-center min-w-[105px] text-center whitespace-nowrap fade-in">
                                                     <NumericFormat
                                                         value={z.totalMargin}
                                                         displayType="text"
@@ -226,7 +226,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                                     willChange: 'background-color, color',
                                                 }}
                                             >
-                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[50px] text-center whitespace-nowrap fade-in">
+                                                <div className="px-2 py-1 responsiveTextTable font-medium flex items-center justify-center min-w-[50px] text-center whitespace-nowrap fade-in">
                                                     <NumericFormat
                                                         value={z.openShip}
                                                         displayType="text"
@@ -253,7 +253,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                             >
                                                 {isGIS ? (
                                                 <Tltip direction="top" tltpText={"IMS: " + addComma(z.remaining / 2)}>
-                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[70px] text-center whitespace-nowrap fade-in">
+                                                <div className="px-2 py-1 responsiveTextTable font-medium flex items-center justify-center min-w-[70px] text-center whitespace-nowrap fade-in">
                                                     <NumericFormat
                                                         value={z.remaining}
                                                         displayType="text"
@@ -268,7 +268,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                                 </div>
                                                 </Tltip>
                                                 ) : (
-                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[70px] text-center whitespace-nowrap fade-in">
+                                                <div className="px-2 py-1 responsiveTextTable font-medium flex items-center justify-center min-w-[70px] text-center whitespace-nowrap fade-in">
                                                     <NumericFormat
                                                         value={z.remaining}
                                                         displayType="text"

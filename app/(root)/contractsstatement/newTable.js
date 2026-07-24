@@ -290,8 +290,8 @@ const Customtable = ({
           font-size: 0.6875rem;
           text-transform: uppercase;
           letter-spacing: 0.04em;
-          color: var(--ink-muted);
-          font-weight: 500;
+          color: var(--ink-secondary);
+          font-weight: 600;
         }
 
         .custom-table td {
@@ -455,11 +455,11 @@ const Customtable = ({
                               ) : (
                                 <div className="flex justify-center">
                                   {val !== null && val !== undefined && val !== '' ? (
-                                    <div className="px-1 py-1 responsiveTextTable font-normal min-w-[70px] flex items-center justify-center" style={{ color: 'var(--ink)' }}>
+                                    <div className="px-1 py-1 responsiveTextTable font-medium min-w-[70px] flex items-center justify-center" style={{ color: 'var(--ink)' }}>
                                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                     </div>
                                   ) : (
-                                    <div className="px-1 py-1 responsiveTextTable font-normal min-w-[70px]">&nbsp;</div>
+                                    <div className="px-1 py-1 responsiveTextTable font-medium min-w-[70px]">&nbsp;</div>
                                   )}
                                 </div>
                               )}
@@ -544,7 +544,7 @@ const Customtable = ({
                                       {hasDetail && (
                                         <IoIosArrowDown size={11} className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} style={{ color: 'var(--endeavour)', flexShrink: 0 }} />
                                       )}
-                                      <div className="px-1 py-1 responsiveTextTable font-normal min-w-[70px] flex items-center justify-center" style={{ color: 'var(--ink)' }}>
+                                      <div className="px-1 py-1 responsiveTextTable font-medium min-w-[70px] flex items-center justify-center" style={{ color: 'var(--ink)' }}>
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                       </div>
                                     </div>
@@ -561,7 +561,7 @@ const Customtable = ({
                                   {isStatus ? (
                                     <div className="flex justify-center">
                                       <div
-                                        className="px-1 py-1 responsiveTextTable font-normal flex items-center justify-center"
+                                        className="px-1 py-1 responsiveTextTable font-medium flex items-center justify-center"
                                         style={{
                                           backgroundColor: val === 'Paid' ? '#E5F6EC' : val === 'Unpaid' ? '#FDF3E1' : 'transparent',
                                           border: val ? `1px solid ${val === 'Paid' ? '#BFE8D0' : val === 'Unpaid' ? '#F5DFAE' : 'transparent'}` : 'none',
@@ -575,13 +575,13 @@ const Customtable = ({
                                     <div className="flex justify-center">
                                       {val !== null && val !== undefined && val !== '' ? (
                                         <div
-                                          className="px-1 py-1 responsiveTextTable font-normal min-w-[70px] flex items-center justify-center"
+                                          className="px-1 py-1 responsiveTextTable font-medium min-w-[70px] flex items-center justify-center"
                                           style={{ color: 'var(--ink)' }}
                                         >
                                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </div>
                                       ) : (
-                                        <div className="px-1 py-1 responsiveTextTable font-normal min-w-[70px]">&nbsp;</div>
+                                        <div className="px-1 py-1 responsiveTextTable font-medium min-w-[70px]">&nbsp;</div>
                                       )}
                                     </div>
                                   )}
@@ -686,7 +686,7 @@ const Customtable = ({
                             {cell.column.columnDef.header}
                           </div>
                           <div 
-                            className="responsiveTextTable font-normal break-words px-1 py-1 leading-relaxed min-h-[28px] flex items-center" style={{ color: 'var(--ink)' }}
+                            className="responsiveTextTable font-medium break-words px-1 py-1 leading-relaxed min-h-[28px] flex items-center" style={{ color: 'var(--ink)' }}
                           >
                             {flexRender(cell.column.columnDef.cell, cell.getContext()) || '\u00A0'}
                           </div>
@@ -761,7 +761,7 @@ const Customtable = ({
               {table.getRowModel().rows.length === 0 && (
                 <div className="flex flex-col items-center justify-center py-24 px-3">
                                     <p
-                    className="responsiveTextTable font-normal mb-2 text-center"
+                    className="responsiveTextTable font-medium mb-2 text-center"
                     style={{
                       color: 'var(--port-gore)',
                     }}

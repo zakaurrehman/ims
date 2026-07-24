@@ -142,7 +142,7 @@ const Customtable = ({ data, columns, expensesData, settings, title, filt }) => 
                     key={cell.id}
                     className={
                       cell.column.id === 'amount'
-                        ? 'responsiveTextTable font-normal text-right'
+                        ? 'responsiveTextTable font-medium text-right'
                         : 'responsiveTextTable truncate'
                     }
                     style={{

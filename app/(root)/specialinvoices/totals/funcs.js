@@ -8,7 +8,7 @@ export const expensesToolTip = (row, expensesData, settings, filt) => {
         expensesData.filter(z => (z.paidNotPaid === 'Not Paid' && z.supplier === row.original.supplier && z.cur === row.original.cur)) :
         expensesData.filter(z => (z.supplier === row.original.supplier && z.cur === row.original.cur))
 
-    const thStyle = { textAlign: 'center', padding: '6px 10px', color: 'var(--ink-muted)', fontWeight: 500, fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.04em', borderBottom: '1px solid var(--line)', background: 'var(--bg-subtle)', whiteSpace: 'nowrap' }
+    const thStyle = { textAlign: 'center', padding: '6px 10px', color: 'var(--ink-secondary)', fontWeight: 600, fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.04em', borderBottom: '1px solid var(--line)', background: 'var(--bg-subtle)', whiteSpace: 'nowrap' }
     const tdStyle = { textAlign: 'center', padding: '5px 10px', borderBottom: '1px solid var(--line)', fontSize: '0.75rem', color: 'var(--ink)', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }
 
     return (
