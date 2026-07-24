@@ -33,8 +33,8 @@ const CategorySelect = ({ id, value, onChange }) => (
         value={value || 'none'}
         onClick={(e) => e.stopPropagation()}
         onChange={(e) => { e.stopPropagation(); onChange(id, e.target.value === 'none' ? '' : e.target.value); }}
-        className="bg-transparent outline-none cursor-pointer responsiveTextTable"
-        style={{ color: 'var(--port-gore)', fontFamily: 'inherit' }}
+        className="bg-transparent outline-none cursor-pointer responsiveTextTable rounded-[8px] border border-transparent hover:border-[var(--line-strong)] hover:bg-white px-1 py-0.5 transition-colors"
+        style={{ color: 'var(--ink)', fontFamily: 'inherit' }}
     >
         <option value="none">—</option>
         {MISC_CATS.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}

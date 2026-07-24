@@ -446,22 +446,23 @@ const Customtable = ({
             ) : (
               <div className="flex justify-center">
                 {hasValue ? (
-                  <div
-                    className="px-2.5 py-0.5 rounded-full responsiveTextTable font-normal min-w-[70px]"
-                    style={{
-                      backgroundColor:
-                        value === 'Paid'
-                          ? '#E5F6EC'
-                          : value === 'Not Paid'
-                          ? '#FDF3E1'
-                          : '#F4F3F9',
-                      border: `1px solid ${value === 'Paid' ? '#BFE8D0' : value === 'Not Paid' ? '#F5DFAE' : '#DAD6E8'}`,
-                      color: value === 'Paid' ? '#177245' : value === 'Not Paid' ? '#9A6215' : 'var(--port-gore)',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </div>
+                  value === 'Paid' || value === 'Not Paid' ? (
+                    <div
+                      className="px-2.5 py-0.5 rounded-full responsiveTextTable font-medium min-w-[70px]"
+                      style={{
+                        backgroundColor: value === 'Paid' ? '#E5F6EC' : '#FDF3E1',
+                        border: `1px solid ${value === 'Paid' ? '#BFE8D0' : '#F5DFAE'}`,
+                        color: value === 'Paid' ? '#177245' : '#9A6215',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </div>
+                  ) : (
+                    <div className="px-1 py-0.5 responsiveTextTable font-normal min-w-[70px]" style={{ color: 'var(--ink)', whiteSpace: 'nowrap' }}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </div>
+                  )
                 ) : (
                   <div className="p-1 responsiveTextTable font-normal min-w-[70px]">&nbsp;</div>
                 )}

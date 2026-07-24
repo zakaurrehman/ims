@@ -1185,11 +1185,11 @@ const Customtable = ({
                               </div>
                             ) : isPaid ? (
                               <div className="flex justify-center">
-                                <div className="px-1 py-1 responsiveTextTable font-normal min-w-[70px] text-center"
+                                <div className={`px-2.5 py-0.5 responsiveTextTable min-w-[70px] text-center ${(isPaidValue || isUnpaidValue) ? 'rounded-full font-medium' : 'font-normal'}`}
                                   style={{
-                                    backgroundColor: isUnpaidValue ? '#FDEAEA' : isPaidValue ? '#E5F6EC' : '#F4F3F9',
-                                    color: isPaidValue ? '#177245' : isUnpaidValue ? '#B42332' : 'var(--port-gore)',
-                                    border: `1px solid ${isPaidValue ? '#BFE8D0' : isUnpaidValue ? '#F5C6C9' : '#DAD6E8'}`,
+                                    backgroundColor: isUnpaidValue ? '#FDEAEA' : isPaidValue ? '#E5F6EC' : 'transparent',
+                                    color: isPaidValue ? '#177245' : isUnpaidValue ? '#B42332' : 'var(--ink)',
+                                    border: `1px solid ${isPaidValue ? '#BFE8D0' : isUnpaidValue ? '#F5C6C9' : 'transparent'}`,
                                   }}>
                                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                 </div>

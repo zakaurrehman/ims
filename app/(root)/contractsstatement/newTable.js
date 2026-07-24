@@ -544,7 +544,7 @@ const Customtable = ({
                                       {hasDetail && (
                                         <IoIosArrowDown size={11} className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} style={{ color: 'var(--endeavour)', flexShrink: 0 }} />
                                       )}
-                                      <div className="px-1 py-1 responsiveTextTable font-normal min-w-[70px] flex items-center justify-center" style={{ backgroundColor: '#ffffff', border: '1px solid #DAD6E8' }}>
+                                      <div className="px-1 py-1 responsiveTextTable font-normal min-w-[70px] flex items-center justify-center" style={{ color: 'var(--ink)' }}>
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                       </div>
                                     </div>
@@ -563,8 +563,8 @@ const Customtable = ({
                                       <div
                                         className="px-1 py-1 responsiveTextTable font-normal flex items-center justify-center"
                                         style={{
-                                          backgroundColor: val === 'Paid' ? '#E5F6EC' : val === 'Unpaid' ? '#FDF3E1' : '#ffffff',
-                                          border: val ? `1px solid ${val === 'Paid' ? '#BFE8D0' : val === 'Unpaid' ? '#F5DFAE' : '#DAD6E8'}` : 'none',
+                                          backgroundColor: val === 'Paid' ? '#E5F6EC' : val === 'Unpaid' ? '#FDF3E1' : 'transparent',
+                                          border: val ? `1px solid ${val === 'Paid' ? '#BFE8D0' : val === 'Unpaid' ? '#F5DFAE' : 'transparent'}` : 'none',
                                           color: val === 'Paid' ? '#177245' : val === 'Unpaid' ? '#9A6215' : 'var(--port-gore)'
                                         }}
                                       >
@@ -576,12 +576,12 @@ const Customtable = ({
                                       {val !== null && val !== undefined && val !== '' ? (
                                         <div
                                           className="px-1 py-1 responsiveTextTable font-normal min-w-[70px] flex items-center justify-center"
-                                          style={{ backgroundColor: '#ffffff', border: '1px solid #DAD6E8' }}
+                                          style={{ color: 'var(--ink)' }}
                                         >
                                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </div>
                                       ) : (
-                                        <div className="px-1 py-1 responsiveTextTable font-normal min-w-[70px]" style={{ backgroundColor: '#ffffff', border: '1px solid #DAD6E8' }}>&nbsp;</div>
+                                        <div className="px-1 py-1 responsiveTextTable font-normal min-w-[70px]">&nbsp;</div>
                                       )}
                                     </div>
                                   )}

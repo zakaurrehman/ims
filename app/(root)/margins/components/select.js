@@ -38,15 +38,17 @@ const SelectEnt = memo(({ props, data, handleChangeSelect, month, name, plHolder
                         aria-expanded={open}
                         className="
                           group w-full flex items-center justify-between
-                          bg-[var(--bg-subtle)] rounded-[8px] px-2
-                          text-[0.68rem] xl:text-[0.72rem] 2xl:text-[0.75rem] 3xl:text-[0.8125rem]
+                          bg-transparent rounded-[8px] px-2
+                          text-[0.75rem]
                           text-[var(--ink)]
-                          border border-[var(--line-strong)]
-                          focus:border-[var(--brand)]
+                          border border-transparent
+                          hover:border-[var(--line-strong)] hover:bg-white
+                          focus:border-[var(--brand)] focus:bg-white
                           focus:ring-2 focus:ring-[var(--brand-soft)]
                           focus:outline-none
+                          transition-colors
                         "
-                        style={{ minHeight: '26px', fontFamily: "var(--font-poppins), 'Poppins', sans-serif" }}
+                        style={{ minHeight: '26px' }}
                       >
                         <span className={cn(
                           "flex-1 text-center truncate",
@@ -54,7 +56,7 @@ const SelectEnt = memo(({ props, data, handleChangeSelect, month, name, plHolder
                         )}>
                           {fullName || plHolder}
                         </span>
-                        <ChevronDown className="size-3 opacity-50 ml-1 shrink-0" />
+                        <ChevronDown className="size-3 opacity-0 group-hover:opacity-50 ml-1 shrink-0 transition-opacity" />
                       </button>
                     </PopoverTrigger>
                     <PopoverContent
