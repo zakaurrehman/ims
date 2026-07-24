@@ -5,7 +5,7 @@ import { useNotifications } from '../contexts/useNotificationContext';
 import { PRIORITY, PRIORITY_ORDER, priorityOf } from '../utils/notificationPriority';
 import {
     Bell, BellOff, Check, CheckCheck, Clock, Activity, FileText, Receipt, Banknote, Package, Settings as SettingsIcon,
-    AlertTriangle, ArrowUp, Minus, Circle, CheckCircle2, ChevronLeft, ExternalLink,
+    Circle, CheckCircle2, ChevronLeft, ExternalLink,
 } from 'lucide-react';
 import { TONES } from './statusUtils';
 
@@ -21,7 +21,6 @@ const FALLBACK = { icon: Activity, color: TONES.gray.text, bg: TONES.gray.bg, ro
 const metaFor = (t) => ENTITY[t] || FALLBACK;
 
 const SEVERITY_DOT = { success: TONES.green.text, warning: TONES.amber.text, error: TONES.red.text, info: 'var(--brand)' };
-const PRIORITY_ICON = { high: AlertTriangle, medium: ArrowUp, low: Minus };
 
 // Group notifications by subject so the stream stays organized rather than mixed.
 const CATEGORIES = [
@@ -46,7 +45,27 @@ function relativeTime(ms) {
     const m = Math.floor(s / 60); if (m < 60) return `${m}m ago`;
     const h = Math.floor(m / 60); if (h < 24) return `${h}h ago`;
     const d = Math.floor(h / 24); if (d < 7) return `${d}d ago`;
-    return new Date(ms).toLocaleDateString();
+    const w = Math.floor(d / 7); if (w < 5) return `${w}w ago`;
+    // Older items: short date, same compact voice as the relative labels
+    return new Date(ms).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+}
+
+// Day buckets for the "All" view — time is the axis people scan a feed by;
+// priority is preserved as the sort order inside each day.
+const DAY_GROUPS = [
+    ['today', 'Today'],
+    ['yesterday', 'Yesterday'],
+    ['week', 'This week'],
+    ['earlier', 'Earlier'],
+];
+function dayKeyOf(ms) {
+    if (!ms) return 'earlier';
+    const now = new Date();
+    const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+    if (ms >= startOfToday) return 'today';
+    if (ms >= startOfToday - 86400000) return 'yesterday';
+    if (ms >= startOfToday - 6 * 86400000) return 'week';
+    return 'earlier';
 }
 
 const SNOOZE_OPTS = [
@@ -55,22 +74,36 @@ const SNOOZE_OPTS = [
     { label: 'Tomorrow', ms: 24 * 60 * 60 * 1000 },
 ];
 
-function Chip({ active, onClick, label, count, unread }) {
+function Chip({ active, onClick, label, count, unread, muted, onToggleMute }) {
     return (
         <button
             onClick={onClick}
-            className='flex items-center gap-1.5 px-2.5 py-1 rounded-full whitespace-nowrap flex-shrink-0 transition-colors font-medium'
+            className='group/chip flex items-center gap-1.5 px-2.5 py-1 rounded-full whitespace-nowrap flex-shrink-0 transition-colors font-medium'
             style={{
                 fontSize: '0.6875rem',
                 border: `1px solid ${active ? 'var(--brand)' : 'transparent'}`,
                 background: active ? 'var(--brand)' : 'var(--bg-subtle)',
-                color: active ? 'white' : 'var(--ink-secondary)',
+                color: active ? 'white' : muted ? 'var(--ink-muted)' : 'var(--ink-secondary)',
+                opacity: muted && !active ? 0.65 : 1,
             }}
         >
             {label}
             <span className='px-1.5 rounded-full font-semibold' style={{ fontSize: '0.5625rem', minWidth: 16, textAlign: 'center', background: active ? 'rgba(255,255,255,0.25)' : 'white', color: active ? 'white' : 'var(--ink-muted)' }}>
                 {unread > 0 ? unread : count}
             </span>
+            {onToggleMute && (
+                // Muted: BellOff always shown. Unmuted: mute affordance fades in on hover.
+                <span
+                    role='button'
+                    tabIndex={-1}
+                    title={muted ? `Unmute ${label}` : `Mute ${label} (hide from feed & badge)`}
+                    onClick={(e) => { e.stopPropagation(); onToggleMute(); }}
+                    className={`inline-flex items-center justify-center rounded-full transition-opacity ${muted ? 'opacity-100' : 'opacity-0 group-hover/chip:opacity-60 hover:!opacity-100'}`}
+                    style={{ width: 14, height: 14 }}
+                >
+                    {muted ? <BellOff size={10} strokeWidth={2} /> : <Bell size={10} strokeWidth={2} />}
+                </span>
+            )}
         </button>
     );
 }
@@ -83,6 +116,18 @@ const NotificationBell = () => {
     const [open, setOpen] = useState(false);
     const [snoozeFor, setSnoozeFor] = useState(null);
     const [catFilter, setCatFilter] = useState('all');
+    // Per-category mute: muted categories are hidden from the "All" feed and the
+    // badge count, but stay reachable via their (dimmed) chip. Persisted locally.
+    const [mutedCats, setMutedCats] = useState(() => {
+        if (typeof window === 'undefined') return new Set();
+        try { return new Set(JSON.parse(localStorage.getItem('ims:mutedNotifCats') || '[]')); } catch { return new Set(); }
+    });
+    const toggleCatMute = (key) => setMutedCats(prev => {
+        const next = new Set(prev);
+        if (next.has(key)) next.delete(key); else next.add(key);
+        try { localStorage.setItem('ims:mutedNotifCats', JSON.stringify([...next])); } catch { }
+        return next;
+    });
     // WhatsApp-style selection mode + the in-panel detail view for a clicked item.
     const [selectMode, setSelectMode] = useState(false);
     const [selected, setSelected] = useState(() => new Set());
@@ -142,18 +187,33 @@ const NotificationBell = () => {
         return CATEGORY_ORDER.filter(k => counts[k]).map(k => counts[k]);
     }, [notifications, unreadIds]);
 
+    // The "All" feed hides muted categories; opening a muted category's chip
+    // directly still shows its items (that's how you review before unmuting).
     const visible = catFilter === 'all'
-        ? notifications
+        ? notifications.filter(n => !mutedCats.has(categoryOf(n)))
         : notifications.filter(n => categoryOf(n) === catFilter);
 
-    // "All" view is grouped into High / Medium / Low sections (each already newest-first
-    // from the context sort). Category chips above still filter by subject.
+    // Badge/header count ignores muted categories — that's the point of muting.
+    const effectiveUnreadCount = useMemo(
+        () => unread.filter(n => !mutedCats.has(categoryOf(n))).length,
+        [unread, mutedCats]
+    );
+
+    // "All" view grouped by day (Today / Yesterday / This week / Earlier);
+    // inside each day, high-priority items float to the top (stable sort keeps
+    // newest-first within the same priority).
     const groups = useMemo(() => {
         if (catFilter !== 'all') return [];
-        const map = { high: [], medium: [], low: [] };
-        notifications.forEach(n => { map[priorityOf(n)].push(n); });
-        return PRIORITY_ORDER.filter(k => map[k].length).map(k => [k, map[k]]);
-    }, [notifications, catFilter]);
+        const prIdx = (n) => PRIORITY_ORDER.indexOf(priorityOf(n));
+        const map = {};
+        visible.forEach(n => {
+            const k = dayKeyOf(n.createdAtMs);
+            (map[k] = map[k] || []).push(n);
+        });
+        return DAY_GROUPS
+            .filter(([k]) => map[k]?.length)
+            .map(([k, label]) => [label, [...map[k]].sort((a, b) => prIdx(a) - prIdx(b))]);
+    }, [visible, catFilter]);
 
     const renderRow = (n) => {
         const meta = metaFor(n.entityType);
@@ -244,12 +304,12 @@ const NotificationBell = () => {
                 aria-label='Notifications'
             >
                 <Bell className='w-[18px] h-[18px]' strokeWidth={1.75} />
-                {unreadCount > 0 && (
+                {effectiveUnreadCount > 0 && (
                     <span
                         className='absolute top-0.5 right-0.5 min-w-[15px] h-[15px] px-1 rounded-full text-white flex items-center justify-center'
                         style={{ background: 'var(--bad-text)', fontSize: '0.55rem', fontWeight: 700, lineHeight: 1, boxShadow: '0 0 0 2px #fff' }}
                     >
-                        {unreadCount > 99 ? '99+' : unreadCount}
+                        {effectiveUnreadCount > 99 ? "99+" : effectiveUnreadCount}
                     </span>
                 )}
             </button>
@@ -260,9 +320,9 @@ const NotificationBell = () => {
                     <div className='flex items-center justify-between px-4 py-3' style={{ background: 'white', borderBottom: '1px solid var(--line)' }}>
                         <span className='font-semibold font-display inline-flex items-center gap-1.5' style={{ fontSize: '0.8125rem', color: 'var(--ink)' }}>
                             Notifications
-                            {unreadCount > 0 && (
+                            {effectiveUnreadCount > 0 && (
                                 <span className='px-1.5 py-0.5 rounded-full font-semibold' style={{ fontSize: '0.6rem', background: 'var(--brand-soft)', color: 'var(--brand)' }}>
-                                    {unreadCount} new
+                                    {effectiveUnreadCount} new
                                 </span>
                             )}
                         </span>
@@ -364,9 +424,10 @@ const NotificationBell = () => {
                     {/* Subject filter chips */}
                     {!detail && chips.length > 1 && (
                         <div className='flex gap-1.5 px-3 py-2 overflow-x-auto scrollbar-none' style={{ borderBottom: '1px solid var(--line)' }}>
-                            <Chip active={catFilter === 'all'} onClick={() => setCatFilter('all')} label='All' count={notifications.length} unread={unreadCount} />
+                            <Chip active={catFilter === 'all'} onClick={() => setCatFilter('all')} label='All' count={notifications.length} unread={effectiveUnreadCount} />
                             {chips.map(c => (
-                                <Chip key={c.key} active={catFilter === c.key} onClick={() => setCatFilter(c.key)} label={categoryLabel(c.key)} count={c.total} unread={c.unread} />
+                                <Chip key={c.key} active={catFilter === c.key} onClick={() => setCatFilter(c.key)} label={categoryLabel(c.key)} count={c.total} unread={c.unread}
+                                    muted={mutedCats.has(c.key)} onToggleMute={() => toggleCatMute(c.key)} />
                             ))}
                         </div>
                     )}
@@ -382,25 +443,18 @@ const NotificationBell = () => {
                                 <span className='font-medium' style={{ fontSize: '0.75rem', color: 'var(--ink-secondary)' }}>You&apos;re all caught up</span>
                             </div>
                         ) : catFilter === 'all' ? (
-                            groups.map(([key, items]) => {
-                                const pr = PRIORITY[key];
-                                const PriIcon = PRIORITY_ICON[key];
-                                return (
-                                    <div key={key}>
-                                        <div
-                                            className='sticky top-0 flex items-center justify-between px-4 pt-2 pb-1 bg-white'
-                                            style={{ fontSize: '0.625rem', fontWeight: 600, letterSpacing: '0.05em', color: 'var(--ink-muted)', textTransform: 'uppercase', zIndex: 5 }}
-                                        >
-                                            <span className='inline-flex items-center gap-1.5'>
-                                                <span className='rounded-full' style={{ width: 6, height: 6, background: pr.color }} />
-                                                {pr.label} priority
-                                            </span>
-                                            <span>{items.length}</span>
-                                        </div>
-                                        {items.map(renderRow)}
+                            groups.map(([label, items]) => (
+                                <div key={label}>
+                                    <div
+                                        className='sticky top-0 flex items-center justify-between px-4 pt-2.5 pb-1 bg-white'
+                                        style={{ fontSize: '0.625rem', fontWeight: 600, letterSpacing: '0.05em', color: 'var(--ink-muted)', textTransform: 'uppercase', zIndex: 5 }}
+                                    >
+                                        <span>{label}</span>
+                                        <span>{items.length}</span>
                                     </div>
-                                );
-                            })
+                                    {items.map(renderRow)}
+                                </div>
+                            ))
                         ) : (
                             visible.map(renderRow)
                         )}
