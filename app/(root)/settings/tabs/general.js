@@ -249,26 +249,26 @@ const General = () => {
                                     onChange={e => setCompData({ ...(compData || {}), invPrepaymentLabel: e.target.value })}
                                 />
                             </div>
-                            <div className='flex gap-4 items-start'>
-                                <p className='responsiveText font-medium text-[0.825rem] whitespace-nowrap w-[170px] pt-1 text-[var(--chathams-blue)]'>Invoice note (Non&#8209;Radioactive):</p>
+                            <div className='flex flex-col gap-1.5'>
+                                <p className={labelCls}>Invoice note (Non&#8209;Radioactive):</p>
                                 <textarea
                                     rows={2}
                                     placeholder='e.g. We hereby certify the goods are non-radioactive and free of contamination.'
-                                    className="flex-1 p-2 rounded-2xl border border-[var(--line)] bg-white text-[var(--chathams-blue)] outline-none transition focus:border-[var(--brand)] focus:ring-2 focus:ring-[var(--brand)]/20 text-[0.75rem]"
+                                    className="w-full px-3 py-2 rounded-[10px] border border-[var(--line-strong)] bg-white text-[var(--ink)] outline-none transition-colors focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] text-[0.8125rem] resize-y"
                                     style={{ fontFamily: 'inherit' }}
                                     value={compData?.invNonRadioText || ''}
                                     onChange={e => setCompData({ ...(compData || {}), invNonRadioText: e.target.value })}
                                 />
                             </div>
                         </div>
-                        <p className='responsiveTextTable text-[var(--regent-gray)] mt-2'>
+                        <p className='text-[0.6875rem] text-[var(--ink-muted)] mt-3'>
                             Prepayment label replaces the word &quot;Prepayment&quot; on invoices. The note prints on the invoice PDF under Remarks — leave blank to omit.
                         </p>
                     </div>
 
                     <div className='border border-[var(--line)] p-4 rounded-2xl bg-white mt-5 w-full'>
                         <p className='text-[0.8125rem] font-semibold mb-3 text-[var(--ink)] font-display'>Currency &amp; Terms</p>
-                        <div className='flex flex-col gap-3'>
+                        <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                             <div className='flex flex-col gap-1.5'>
                                 <p className={labelCls}>Standard EUR &rarr; USD rate:</p>
                                 <input
@@ -292,7 +292,7 @@ const General = () => {
                                 />
                             </div>
                         </div>
-                        <p className='responsiveTextTable text-[var(--regent-gray)] mt-2'>
+                        <p className='text-[0.6875rem] text-[var(--ink-muted)] mt-3'>
                             EUR&rarr;USD rate converts EUR to USD for combined dashboard totals (leave blank to use each contract&apos;s rate). Payment term: an invoice with no due date is treated as due this many days after its date (default 30) — drives the overdue alert.
                         </p>
                     </div>
