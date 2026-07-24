@@ -297,7 +297,7 @@ const Customtable = ({
     // Popover shell
     const popStyle = {
         position: 'absolute', top: '30px', zIndex: 50,
-        background: '#fff', border: '1px solid var(--line)',
+        background: "var(--bg-card)", border: '1px solid var(--line)',
         borderRadius: '12px', boxShadow: 'var(--shadow-md)',
     }
 
@@ -306,7 +306,7 @@ const Customtable = ({
 
             {/* ── Toolbar ── */}
             {showHeader && (
-                <div className="flex-shrink-0 bg-white" style={{ borderBottom: '1px solid var(--line)' }}>
+                <div className="flex-shrink-0 bg-[var(--bg-card)]" style={{ borderBottom: '1px solid var(--line)' }}>
                     {/* Table name */}
                     <div style={{ padding: '8px 14px 2px' }}>
                         <input
@@ -390,7 +390,7 @@ const Customtable = ({
                                 value={containerNo}
                                 onChange={e => setContainerNo(e.target.value)}
                                 placeholder="e.g. TCKU1234567"
-                                className="rounded-[10px] border border-[var(--line-strong)] bg-white text-[var(--ink)] outline-none focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] transition-colors"
+                                className="rounded-[10px] border border-[var(--line-strong)] bg-[var(--bg-card)] text-[var(--ink)] outline-none focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] transition-colors"
                                 style={{ padding: '1px 8px', height: '24px', width: '130px', fontSize: 'inherit' }}
                             />
                         </div>
@@ -609,7 +609,7 @@ const Customtable = ({
                         </thead>
 
                         {/* TBODY */}
-                        <tbody style={{ backgroundColor: '#fff' }}>
+                        <tbody style={{ backgroundColor: "var(--bg-card)" }}>
                             {table.getRowModel().rows.map((row, rIdx) => (
                                 <tr key={row.id} className="transition-colors">
                                     {row.getVisibleCells().map((cell, cIdx) => {
@@ -621,7 +621,7 @@ const Customtable = ({
                                         const ck = `${row.id}-${colId}`
                                         const focused = focusedCell === ck
                                         return (
-                                            <td key={cell.id} style={{ backgroundColor: '#fff', padding: '3px 3px', borderBottom: '1px solid var(--line)', verticalAlign: 'middle' }}>
+                                            <td key={cell.id} style={{ backgroundColor: "var(--bg-card)", padding: '3px 3px', borderBottom: '1px solid var(--line)', verticalAlign: 'middle' }}>
                                                 {isDel ? (
                                                     <div className="flex justify-center items-center">
                                                         <button
@@ -698,7 +698,7 @@ const Customtable = ({
             <div className="sm:hidden">
                 <div className="overflow-y-auto dashboard-scroll px-2 py-2 space-y-2" style={{ maxHeight: '700px', fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
                     {table.getRowModel().rows.map((row, ri) => (
-                        <div key={row.id} className="rounded-2xl overflow-hidden shadow-card" style={{ backgroundColor: '#fff', border: '1px solid var(--line)' }}>
+                        <div key={row.id} className="rounded-2xl overflow-hidden shadow-card" style={{ backgroundColor: "var(--bg-card)", border: '1px solid var(--line)' }}>
                             <div className="px-3 py-2" style={{ background: 'var(--brand-soft)' }}>
                                 <span className="responsiveTextTable font-display" style={{ color: 'var(--ink)', fontWeight: '600' }}>Row {ri + 1}</span>
                             </div>

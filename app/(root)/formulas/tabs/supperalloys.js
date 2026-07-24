@@ -635,9 +635,9 @@ import { useState } from "react";
 // Shared styling (style-only constants — no logic)
 const headCell = "py-1.5 text-center text-[10px] font-semibold uppercase tracking-[0.04em] text-[var(--ink-muted)]";
 const labelCls = "text-[10px] font-semibold uppercase tracking-[0.04em] text-[var(--ink-muted)] mb-1.5";
-const inputCell = "w-full h-6 rounded-[8px] bg-[var(--bg-subtle)] border border-[var(--line-strong)] text-center text-xs font-inter tabular-nums font-medium text-[#B42332] focus:outline-none focus:border-[var(--brand)] focus:ring-2 focus:ring-[var(--brand-soft)] transition-colors";
+const inputCell = "w-full h-6 rounded-[8px] bg-[var(--bg-subtle)] border border-[var(--line-strong)] text-center text-xs font-inter tabular-nums font-medium text-[var(--bad-text)] focus:outline-none focus:border-[var(--brand)] focus:ring-2 focus:ring-[var(--brand-soft)] transition-colors";
 const computedInput = "w-full h-6 rounded-[8px] bg-[var(--brand-soft)] border border-transparent text-center text-xs font-inter tabular-nums font-semibold text-[var(--brand-strong)] outline-none cursor-default";
-const pillInput = "w-full h-8 rounded-[10px] border border-[var(--line-strong)] bg-white text-center text-[13px] font-inter tabular-nums font-semibold text-[#B42332] focus:outline-none focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] transition-colors";
+const pillInput = "w-full h-8 rounded-[10px] border border-[var(--line-strong)] bg-[var(--bg-card)] text-center text-[13px] font-inter tabular-nums font-semibold text-[var(--bad-text)] focus:outline-none focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] transition-colors";
 
 const SupperAlloys = ({ value, handleChange }) => {
     const [focusedField, setFocusedField] = useState(null);
@@ -668,7 +668,7 @@ const SupperAlloys = ({ value, handleChange }) => {
     const priceFields = ['niPrice', 'crPrice', 'MoOxideLb', 'nbPrice', 'coPrice', 'wPrice', 'hfPrice', 'taPrice', 'fePrice'];
 
     return value.supperalloys != null ? (
-        <div className="w-full bg-white rounded-2xl border border-[var(--line)] shadow-card overflow-hidden">
+        <div className="w-full bg-[var(--bg-card)] rounded-2xl border border-[var(--line)] shadow-card overflow-hidden">
             <div className="px-4 pt-4">
                 <h3 className="text-[13px] font-display font-semibold text-[var(--ink)]">Cost</h3>
                 <p className="text-[11px] text-[var(--ink-muted)] mt-0.5">Composition and per-pound pricing</p>
@@ -677,7 +677,7 @@ const SupperAlloys = ({ value, handleChange }) => {
                 {/* Composition */}
                 <div className="w-fit max-w-full">
                     <p className={labelCls}>Composition</p>
-                    <div className="rounded-xl border border-[var(--line)] overflow-hidden bg-white overflow-x-auto">
+                    <div className="rounded-xl border border-[var(--line)] overflow-hidden bg-[var(--bg-card)] overflow-x-auto">
                         {/* Header */}
                         <div className="grid grid-cols-[85px_85px_85px_85px_85px_85px_85px_85px_85px] bg-[var(--bg-subtle)] border-b border-[var(--line)]">
                             {elementLabels.map((label) => (
@@ -688,7 +688,7 @@ const SupperAlloys = ({ value, handleChange }) => {
                         </div>
 
                         {/* Values */}
-                        <div className="grid grid-cols-[85px_85px_85px_85px_85px_85px_85px_85px_85px] bg-white">
+                        <div className="grid grid-cols-[85px_85px_85px_85px_85px_85px_85px_85px_85px] bg-[var(--bg-card)]">
                             {elements.map((elem) => (
                                 <div key={elem} className="p-1">
                                     <input
@@ -727,7 +727,7 @@ const SupperAlloys = ({ value, handleChange }) => {
                 {/* Price / Lbs */}
                 <div className="w-fit max-w-full">
                     <p className={labelCls}>Price / Lbs</p>
-                    <div className="rounded-xl border border-[var(--line)] overflow-hidden bg-white overflow-x-auto">
+                    <div className="rounded-xl border border-[var(--line)] overflow-hidden bg-[var(--bg-card)] overflow-x-auto">
                         {/* Header */}
                         <div className="grid grid-cols-[85px_85px_85px_85px_85px_85px_85px_85px_85px] bg-[var(--bg-subtle)] border-b border-[var(--line)]">
                             {elementLabels.map((label) => (
@@ -738,7 +738,7 @@ const SupperAlloys = ({ value, handleChange }) => {
                         </div>
 
                         {/* Values */}
-                        <div className="grid grid-cols-[85px_85px_85px_85px_85px_85px_85px_85px_85px] bg-white">
+                        <div className="grid grid-cols-[85px_85px_85px_85px_85px_85px_85px_85px_85px] bg-[var(--bg-card)]">
                             {priceFields.map((field) => {
                                 const isReadOnly = field === 'niPrice' || field === 'MoOxideLb';
 

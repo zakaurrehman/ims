@@ -124,7 +124,7 @@ const TotalPnlTable = ({ data, val, mult }) => {
                             x === 'debtaftr' ? frmNum(Total(data, 'totalPrepayment', val, mult, settings) - TotalArrsPmnt(data, val, mult), val, settings) :
                                 x === 'debtBlnc' ? (() => {
                                     const v = Total(data, 'totalAmount', val, mult, settings) - TotalArrsPmnt(data, val, mult);
-                                    return <span style={{ color: v > 0 ? '#B42332' : undefined }}>{frmNum(v, val, settings)}</span>;
+                                    return <span style={{ color: v > 0 ? 'var(--bad-text)' : undefined }}>{frmNum(v, val, settings)}</span>;
                                 })() :
                                     x === 'deviation' ? frmNum(Total(data, 'totalAmount', val, mult, settings) - TotalInvoice(data, 'totalAmount', val, mult, settings), val, settings) :
                                         ''

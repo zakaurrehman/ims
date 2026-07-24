@@ -13,15 +13,15 @@ export const expensesToolTip = (row, expensesData, settings, filt) => {
 
     return (
         <div style={{
-            background: '#fff',
+            background: "var(--bg-card)",
             borderRadius: '16px',
             overflow: 'hidden',
             boxShadow: 'var(--shadow-md)',
-            border: '1px solid #EAE8F2',
+            border: '1px solid var(--line)',
             fontFamily: "var(--font-poppins), 'Poppins', sans-serif",
             minWidth: '400px',
         }}>
-            <div style={{ background: '#F4F3F9', padding: '7px 14px', fontWeight: 500, fontSize: '0.68rem', color: 'var(--chathams-blue)', borderBottom: '1px solid #EAE8F2' }}>
+            <div style={{ background: 'var(--bg-subtle)', padding: '7px 14px', fontWeight: 500, fontSize: '0.68rem', color: 'var(--chathams-blue)', borderBottom: '1px solid var(--line)' }}>
                 Invoice Details
             </div>
             <table style={{ fontFamily: 'inherit', fontSize: '0.72rem', width: '100%', borderCollapse: 'collapse', tableLayout: 'auto' }}>
@@ -37,7 +37,7 @@ export const expensesToolTip = (row, expensesData, settings, filt) => {
                 </thead>
                 <tbody>
                     {filteredArr.map((z, i) => (
-                        <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#F4F3F9' }}>
+                        <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : 'var(--bg-subtle)' }}>
                             <td style={tdStyle}>{z?.order}</td>
                             <td style={tdStyle}>{z.invoice}</td>
                             <td style={tdStyle}>{z.description}</td>

@@ -207,7 +207,7 @@ const SharedStock = () => {
     };
 
     const totalMt = rows.reduce((s, r) => s + (parseFloat(r.qnty) || 0), 0);
-    const inputCls = 'w-full rounded-[10px] bg-white border border-[var(--line-strong)] px-2 h-8 text-xs text-[var(--ink)] focus:outline-none focus:border-[var(--brand)]';
+    const inputCls = 'w-full rounded-[10px] bg-[var(--bg-card)] border border-[var(--line-strong)] px-2 h-8 text-xs text-[var(--ink)] focus:outline-none focus:border-[var(--brand)]';
     const labelCls = 'text-[11px] font-medium text-[var(--ink-secondary)] mb-0.5 block';
 
     if (loading) return <div className='p-6'><TableSkeleton rows={6} title={false} /></div>;
@@ -225,7 +225,7 @@ const SharedStock = () => {
             </div>
 
             {rows.length === 0 ? (
-                <div className='rounded-2xl border border-dashed border-[var(--line)] bg-white p-8 text-center responsiveTextTable text-[var(--ink-muted)]'>
+                <div className='rounded-2xl border border-dashed border-[var(--line)] bg-[var(--bg-card)] p-8 text-center responsiveTextTable text-[var(--ink-muted)]'>
                     No shared stock yet. Use <b>Add shared stock</b> to record inventory jointly held by IMS &amp; GIS —
                     no contract or invoice needed. It appears here for both accounts.
                 </div>

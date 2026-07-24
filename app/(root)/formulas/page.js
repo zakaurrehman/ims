@@ -128,7 +128,7 @@ const Page = () => {
 				<>
 					<Toast />
 					<VideoLoader loading={loading} fullScreen={true} />
-					<div className="bg-white rounded-2xl p-2 sm:p-3 mt-4 border border-[var(--line)] shadow-card">
+					<div className="bg-[var(--bg-card)] rounded-2xl p-2 sm:p-3 mt-4 border border-[var(--line)] shadow-card">
 						<div className='pb-2'>
 							<div>
 								<h1 className="text-display">Formulas</h1>
@@ -145,7 +145,7 @@ const Page = () => {
 													classNames(
 														'px-4 py-1.5 h-[30px] flex items-center text-[0.75rem] whitespace-nowrap transition-colors rounded-full focus:outline-none',
 														selected
-															? 'font-medium text-[var(--ink)] bg-white shadow-card'
+															? 'font-medium text-[var(--ink)] bg-[var(--bg-card)] shadow-card'
 															: 'font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)]'
 													)
 												}
@@ -156,14 +156,14 @@ const Page = () => {
 									</TabList>
 
 									{value.general != null && !loading && (
-										<div className='bg-white rounded-2xl border border-[var(--line)] shadow-card p-4 mb-3'>
+										<div className='bg-[var(--bg-card)] rounded-2xl border border-[var(--line)] shadow-card p-4 mb-3'>
 											<div className='flex flex-wrap items-end gap-3'>
 												<div className='min-w-[130px]'>
 													<p className='text-[10px] font-semibold uppercase tracking-[0.04em] text-[var(--ink-muted)] mb-1.5'>Ni LME</p>
 													<div className='relative'>
 														<input
 															type='text'
-															className='w-full h-8 rounded-[10px] border border-[var(--line-strong)] bg-white pl-2.5 pr-8 text-[13px] font-semibold tabular-nums text-[var(--ink)] focus:outline-none focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] transition-colors'
+															className='w-full h-8 rounded-[10px] border border-[var(--line-strong)] bg-[var(--bg-card)] pl-2.5 pr-8 text-[13px] font-semibold tabular-nums text-[var(--ink)] focus:outline-none focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] transition-colors'
 															name='nilme'
 															onChange={(e) => handleChange(e, 'general')}
 															value={focusedField === 'nilme' ? value.general?.nilme || '' : addComma(value.general?.nilme || '0')}
@@ -184,7 +184,7 @@ const Page = () => {
 													<p className='text-[10px] font-semibold uppercase tracking-[0.04em] text-[var(--ink-muted)] mb-1.5'>Mo Oxide - Lb</p>
 													<input
 														type='text'
-														className='w-full h-8 rounded-[10px] border border-[var(--line-strong)] bg-white px-2.5 text-[13px] font-semibold tabular-nums text-[var(--ink)] focus:outline-none focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] transition-colors'
+														className='w-full h-8 rounded-[10px] border border-[var(--line-strong)] bg-[var(--bg-card)] px-2.5 text-[13px] font-semibold tabular-nums text-[var(--ink)] focus:outline-none focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] transition-colors'
 														value={focusedField === 'MoOxideLb' ? value.general?.MoOxideLb || '' : addComma(value.general?.MoOxideLb || '0')}
 														name='MoOxideLb'
 														onChange={(e) => handleChange(e, 'general')}
@@ -197,7 +197,7 @@ const Page = () => {
 													<p className='text-[10px] font-semibold uppercase tracking-[0.04em] text-[var(--ink-muted)] mb-1.5'>Charge Cr - Lb</p>
 													<input
 														type='text'
-														className='w-full h-8 rounded-[10px] border border-[var(--line-strong)] bg-white px-2.5 text-[13px] font-semibold tabular-nums text-[var(--ink)] focus:outline-none focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] transition-colors'
+														className='w-full h-8 rounded-[10px] border border-[var(--line-strong)] bg-[var(--bg-card)] px-2.5 text-[13px] font-semibold tabular-nums text-[var(--ink)] focus:outline-none focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] transition-colors'
 														name='chargeCrLb'
 														onChange={(e) => handleChange(e, 'general')}
 														value={focusedField === 'chargeCrLb' ? value.general?.chargeCrLb || '' : addComma(value.general?.chargeCrLb || '0')}
@@ -210,7 +210,7 @@ const Page = () => {
 													<p className='text-[10px] font-semibold uppercase tracking-[0.04em] text-[var(--ink-muted)] mb-1.5'>1 MT</p>
 													<input
 														type='text'
-														className='w-full h-8 rounded-[10px] border border-[var(--line-strong)] bg-white px-2.5 text-[13px] font-semibold tabular-nums text-[var(--ink)] focus:outline-none focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] transition-colors'
+														className='w-full h-8 rounded-[10px] border border-[var(--line-strong)] bg-[var(--bg-card)] px-2.5 text-[13px] font-semibold tabular-nums text-[var(--ink)] focus:outline-none focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] transition-colors'
 														value={(value.general?.mt || '0') + ' Lb'}
 														name='mt'
 														onChange={(e) => handleChange(e, 'general')}
@@ -221,7 +221,7 @@ const Page = () => {
 													<p className='text-[10px] font-semibold uppercase tracking-[0.04em] text-[var(--ink-muted)] mb-1.5'>Euro / USD</p>
 													<input
 														type='text'
-														className='w-full h-8 rounded-[10px] border border-[var(--line-strong)] bg-white px-2.5 text-[13px] font-semibold tabular-nums text-[var(--ink)] focus:outline-none focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] transition-colors'
+														className='w-full h-8 rounded-[10px] border border-[var(--line-strong)] bg-[var(--bg-card)] px-2.5 text-[13px] font-semibold tabular-nums text-[var(--ink)] focus:outline-none focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] transition-colors'
 														value={(value.general?.euroRate || '0')}
 														name='euroRate'
 														onChange={(e) => handleChange(e, 'general')}

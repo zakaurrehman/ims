@@ -170,7 +170,7 @@ const Customtable = ({
       `}</style>
 
       <div className="custom-table">
-        <div className="flex flex-col rounded-2xl bg-white overflow-hidden"
+        <div className="flex flex-col rounded-2xl bg-[var(--bg-card)] overflow-hidden"
           style={{
             border: '1px solid var(--line)',
           }}
@@ -181,7 +181,7 @@ const Customtable = ({
             className="flex-shrink-0"
             style={{
               borderBottom: '1px solid var(--line)',
-              background: '#ffffff',
+              background: "var(--bg-card)",
             }}
           >
             <Header
@@ -237,13 +237,13 @@ const Customtable = ({
 
                       {/* Filter Row */}
                       {filterOn && (
-                        <tr style={{ backgroundColor: '#FFFFFF' }}>
+                        <tr style={{ backgroundColor: "var(--bg-card)" }}>
                           {group.headers.map(header => (
                             <th
                               key={header.id}
                               className="px-2 py-1.5"
                               style={{
-                                backgroundColor: '#FFFFFF',
+                                backgroundColor: "var(--bg-card)",
                                 borderBottom: '1px solid var(--line)',
                                 minWidth: header.column.id === 'select' ? '50px' : '90px',
                                 maxWidth: header.column.id === 'select' ? '50px' : 'none',
@@ -347,7 +347,7 @@ const Customtable = ({
                   onDoubleClick={() => SelectRow(row.original)}
                   className="rounded-2xl overflow-hidden shadow-card transition-colors duration-200"
                   style={{
-                    backgroundColor: '#FFFFFF',
+                    backgroundColor: "var(--bg-card)",
                     border: '1px solid var(--line)',
                   }}
                 >
@@ -425,7 +425,7 @@ const Customtable = ({
   className="flex-shrink-0 rounded-b-2xl"
   style={{
     borderTop: '1px solid var(--line)',
-    background: '#ffffff',
+    background: "var(--bg-card)",
   }}
 >
   <div className="w-full px-4 py-3">

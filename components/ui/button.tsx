@@ -14,7 +14,7 @@ const buttonVariants = cva(
         destructive:
           "bg-[var(--bad-text)] text-white hover:opacity-90 shadow-card",
         outline:
-          "border border-[var(--line-strong)] bg-white text-[var(--ink)] hover:bg-[var(--bg-subtle)] shadow-card",
+          "border border-[var(--line-strong)] bg-[var(--bg-card)] text-[var(--ink)] hover:bg-[var(--bg-subtle)] shadow-card",
         secondary:
           "bg-[var(--bg-subtle)] text-[var(--ink)] hover:bg-[var(--bg-sunken)]",
         ghost:
@@ -24,7 +24,7 @@ const buttonVariants = cva(
         customBlue:
           "bg-[var(--brand)] text-white hover:bg-[var(--brand-strong)] shadow-card",
         customWhite:
-          "border border-[var(--line-strong)] bg-white text-[var(--brand)] hover:bg-[var(--bg-subtle)] shadow-card",
+          "border border-[var(--line-strong)] bg-[var(--bg-card)] text-[var(--brand)] hover:bg-[var(--bg-subtle)] shadow-card",
       },
       size: {
         default: "h-8 px-3",

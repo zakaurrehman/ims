@@ -83,7 +83,7 @@ function ReconciliationPanel({ reconcile, linkedContract, extractedCurrency }) {
                     {reconcile.rows.map((r, i) => {
                         if (!r.contractFound) {
                             return (
-                                <div key={i} className='flex items-center gap-1.5 px-2 py-1 rounded' style={{ background: 'white', border: `1px solid ${TONES.amber.border}` }}>
+                                <div key={i} className='flex items-center gap-1.5 px-2 py-1 rounded' style={{ background: "var(--bg-card)", border: `1px solid ${TONES.amber.border}` }}>
                                     <AlertTriangle className='w-3 h-3 flex-shrink-0' style={{ color: TONES.amber.text }} />
                                     <span style={{ fontSize: '0.6rem', color: TONES.amber.text }}>
                                         {r.description}: no matching product on contract — invoice qty {r.qntyInvoice} @ {r.priceInvoice}
@@ -95,7 +95,7 @@ function ReconciliationPanel({ reconcile, linkedContract, extractedCurrency }) {
                         const pBad = isDrift(r.pricePct);
                         const lineBad = qBad || pBad;
                         return (
-                            <div key={i} className='px-2 py-1 rounded' style={{ background: 'white', border: `1px solid ${lineBad ? TONES.red.border : TONES.green.border}` }}>
+                            <div key={i} className='px-2 py-1 rounded' style={{ background: "var(--bg-card)", border: `1px solid ${lineBad ? TONES.red.border : TONES.green.border}` }}>
                                 <p className='font-semibold' style={{ fontSize: '0.6rem', color: 'var(--ink-secondary)' }}>{r.description}</p>
                                 <div className='flex flex-wrap gap-x-3' style={{ fontSize: '0.58rem', color: 'var(--ink)' }}>
                                     <span style={{ color: qBad ? TONES.red.text : TONES.green.text }}>
@@ -398,9 +398,9 @@ const DocumentImportOverlay = ({ documentType, suppliers, clients, currencies, e
             aria-modal='true'
             aria-labelledby='doc-import-title'
         >
-            <div className='w-full max-w-lg rounded-2xl bg-white overflow-hidden' style={{ border: '1px solid var(--line)', boxShadow: 'var(--shadow-md)', maxHeight: '92vh' }}>
+            <div className='w-full max-w-lg rounded-2xl bg-[var(--bg-card)] overflow-hidden' style={{ border: '1px solid var(--line)', boxShadow: 'var(--shadow-md)', maxHeight: '92vh' }}>
                 {/* Header */}
-                <div className='flex items-center justify-between px-4 py-3' style={{ background: 'white', borderBottom: '1px solid var(--line)' }}>
+                <div className='flex items-center justify-between px-4 py-3' style={{ background: "var(--bg-card)", borderBottom: '1px solid var(--line)' }}>
                     <div className='flex items-center gap-2'>
                         <FileText className='w-4 h-4' style={{ color: 'var(--brand)' }} />
                         <span id='doc-import-title' className='font-semibold' style={{ fontSize: '0.75rem', color: 'var(--ink)' }}>

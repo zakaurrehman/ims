@@ -33,7 +33,7 @@ const CategorySelect = ({ id, value, onChange }) => (
         value={value || 'none'}
         onClick={(e) => e.stopPropagation()}
         onChange={(e) => { e.stopPropagation(); onChange(id, e.target.value === 'none' ? '' : e.target.value); }}
-        className="bg-transparent outline-none cursor-pointer responsiveTextTable rounded-[8px] border border-transparent hover:border-[var(--line-strong)] hover:bg-white px-1 py-0.5 transition-colors"
+        className="bg-transparent outline-none cursor-pointer responsiveTextTable rounded-[8px] border border-transparent hover:border-[var(--line-strong)] hover:bg-[var(--bg-card)] px-1 py-0.5 transition-colors"
         style={{ color: 'var(--ink)', fontFamily: 'inherit' }}
     >
         <option value="none">—</option>
@@ -259,7 +259,7 @@ const SpecialInvoices = () => {
                             table page (prevents the empty-state flash during loads). */}
                         <VideoLoader loading={loading} fullScreen={true} />
                         {/* Main Card */}
-                        <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
+                        <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-[var(--bg-card)]">
                             {/* Header Section */}
                             <div className='flex items-center justify-between flex-wrap gap-2 pb-2'>
                                 <h1 className="text-[var(--ink)] responsiveTextTitle">

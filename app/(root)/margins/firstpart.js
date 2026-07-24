@@ -83,7 +83,7 @@ const FirstPart = ({ incoming, outStandingShip, purchase, totalMargin, shipped }
                     return (
                         <div
                             key={idx}
-                            className="min-w-0 flex items-center gap-3 bg-white rounded-2xl border border-[var(--line)] shadow-card p-4 transition-shadow hover:shadow-raised"
+                            className="min-w-0 flex items-center gap-3 bg-[var(--bg-card)] rounded-2xl border border-[var(--line)] shadow-card p-4 transition-shadow hover:shadow-raised"
                         >
                             <div
                                 className="w-8 h-8 rounded-[10px] flex items-center justify-center flex-shrink-0"

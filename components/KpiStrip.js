@@ -13,7 +13,7 @@ export default function KpiStrip({ items = [] }) {
                 return (
                     <div
                         key={i}
-                        className="kpi-card bg-white rounded-2xl border border-[var(--line)] shadow-card p-4 flex items-start gap-3 min-w-0"
+                        className="kpi-card bg-[var(--bg-card)] rounded-2xl border border-[var(--line)] shadow-card p-4 flex items-start gap-3 min-w-0"
                         style={{ animation: `rise-in 0.4s cubic-bezier(0.16,1,0.3,1) both`, animationDelay: `${i * 50}ms` }}
                     >
                         {Icon && (

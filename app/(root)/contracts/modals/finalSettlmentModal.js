@@ -192,7 +192,7 @@ const FinalSettlmentModal = ({ isOpen, setIsOpen, setShowPoInvModal }) => {
         <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={getTtl('FinalSettlmnt', ln)} w='max-w-6xl'>
             <div className='flex flex-col p-1 justify-between gap-4 max-h-[50rem] overflow-y-auto'>
                 {isDraft &&
-                    <div className='rounded-xl px-3 py-2 responsiveTextTable font-medium' style={{ background: '#FDF3E1', border: '1px solid #F5DFAE', color: '#9A6215' }}>
+                    <div className='rounded-xl px-3 py-2 responsiveTextTable font-medium' style={{ background: 'var(--warn-bg)', border: '1px solid var(--warn-border)', color: 'var(--warn-text)' }}>
                         Draft mode — these settlement figures are held back and won’t affect cashflow or stocks until you turn off Draft and save.
                     </div>
                 }
@@ -277,7 +277,7 @@ const FinalSettlmentModal = ({ isOpen, setIsOpen, setShowPoInvModal }) => {
                 </div>
 
                 {/* Live settlement summary — totals update as you edit; add custom lines for splits/adjustments */}
-                <div className='border border-[var(--line)] rounded-2xl bg-white p-3'>
+                <div className='border border-[var(--line)] rounded-2xl bg-[var(--bg-card)] p-3'>
                     <div className='flex items-center justify-between mb-2'>
                         <span className='responsiveText font-semibold text-[var(--chathams-blue)]'>Settlement summary</span>
                         <button type='button' onClick={addCalc} className='flex items-center gap-1 rounded-full px-3 h-7 text-white hover:opacity-90' style={{ fontSize: '0.66rem', background: 'var(--endeavour)' }}>
@@ -320,10 +320,10 @@ const FinalSettlmentModal = ({ isOpen, setIsOpen, setShowPoInvModal }) => {
                         ? 'Draft ON — saving keeps this settlement out of cashflow & stocks until you turn Draft off and save.'
                         : 'Draft OFF — saving applies this settlement to cashflow & stocks (original).'}>
                         <div className='flex items-center gap-2 px-3 h-8 rounded-full border cursor-pointer'
-                            style={{ background: isDraft ? '#FDF3E1' : 'var(--bg-subtle)', borderColor: isDraft ? '#F5DFAE' : 'var(--line-strong)' }}
+                            style={{ background: isDraft ? 'var(--warn-bg)' : 'var(--bg-subtle)', borderColor: isDraft ? 'var(--warn-border)' : 'var(--line-strong)' }}
                             onClick={() => setIsDraft(!isDraft)}>
                             <ChkBox checked={isDraft} size='h-5 w-5' onChange={() => setIsDraft(!isDraft)} />
-                            <span className='responsiveTextTable font-medium' style={{ color: isDraft ? '#9A6215' : 'var(--chathams-blue)' }}>Draft</span>
+                            <span className='responsiveTextTable font-medium' style={{ color: isDraft ? 'var(--warn-text)' : 'var(--chathams-blue)' }}>Draft</span>
                         </div>
                     </Tltip>
                     <Tltip direction='top' tltpText={isDraft ? 'Save as draft (held back)' : 'Save & apply (original)'}>

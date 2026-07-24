@@ -337,10 +337,10 @@ const ContractModal = () => {
 	};
 
 
-	const panelCls = 'border border-[var(--line)] rounded-xl bg-white p-3';
+	const panelCls = 'border border-[var(--line)] rounded-xl bg-[var(--bg-card)] p-3';
 	const titleCls = 'text-[0.8125rem] font-semibold mb-3 text-[var(--ink)] font-display';
 	const labelCls = 'text-[0.6875rem] font-semibold uppercase tracking-[0.04em] text-[var(--ink-muted)] mb-1';
-	const inputCls = 'w-full h-8 px-3 rounded-[10px] border border-[var(--line-strong)] bg-white text-[var(--ink)] text-[0.8125rem] outline-none transition-colors focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)]';
+	const inputCls = 'w-full h-8 px-3 rounded-[10px] border border-[var(--line-strong)] bg-[var(--bg-card)] text-[var(--ink)] text-[0.8125rem] outline-none transition-colors focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)]';
 
 	return (
 		<div className="px-1">

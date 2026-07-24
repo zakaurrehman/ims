@@ -104,7 +104,7 @@ const GradeTable = ({ dataTable, loading, settings }) => {
               {rows.map((r, i) => {
                 const { avgPrice, isoCode } = r
                 return (
-                  <tr key={i} style={{ background: '#fff' }}>
+                  <tr key={i} style={{ background: "var(--bg-card)" }}>
                     <td className="responsiveTextTable" style={{ ...tdStyle, textAlign: 'left', paddingLeft: '14px' }}>
                       {r.descriptionName}
                     </td>

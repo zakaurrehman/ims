@@ -186,7 +186,7 @@ const ForecastPanel = () => {
             </div>
 
             {opened && (
-                <div className='p-3 bg-white'>
+                <div className='p-3 bg-[var(--bg-card)]'>
                     {/* Horizon tabs */}
                     <div className='inline-flex gap-1 mb-3 bg-[var(--bg-subtle)] border border-[var(--line)] rounded-full p-0.5'>
                         {HORIZONS.map(h => (
@@ -195,7 +195,7 @@ const ForecastPanel = () => {
                                 onClick={() => loadAndForecast(h)}
                                 disabled={loading}
                                 className={`px-3 py-1 rounded-full transition-all disabled:opacity-50 ${activeHorizon === h
-                                    ? 'bg-white text-[var(--ink)] font-medium shadow-card'
+                                    ? 'bg-[var(--bg-card)] text-[var(--ink)] font-medium shadow-card'
                                     : 'text-[var(--ink-secondary)]'}`}
                                 style={{ fontSize: '0.65rem' }}
                             >
@@ -253,7 +253,7 @@ const ForecastPanel = () => {
                                         <TrendingUp className='w-3 h-3' style={{ color: TONES.green.text }} />
                                         <span className='font-semibold' style={{ fontSize: '0.6rem', color: TONES.green.text }}>Projected Inflow</span>
                                     </div>
-                                    <CurrencyRows data={result.inflow} colorClass='text-[#177245]' />
+                                    <CurrencyRows data={result.inflow} colorClass='text-[var(--ok-text)]' />
                                     <p style={{ fontSize: '0.55rem', color: TONES.green.border, marginTop: '2px' }}>
                                         {result.sources.invoiceCount} invoice{result.sources.invoiceCount !== 1 ? 's' : ''}
                                     </p>
@@ -263,7 +263,7 @@ const ForecastPanel = () => {
                                         <TrendingDown className='w-3 h-3' style={{ color: TONES.red.text }} />
                                         <span className='font-semibold' style={{ fontSize: '0.6rem', color: TONES.red.text }}>Projected Outflow</span>
                                     </div>
-                                    <CurrencyRows data={result.outflow} colorClass='text-[#B42332]' />
+                                    <CurrencyRows data={result.outflow} colorClass='text-[var(--bad-text)]' />
                                     <p style={{ fontSize: '0.55rem', color: TONES.red.border, marginTop: '2px' }}>
                                         {result.sources.expenseCount} expense{result.sources.expenseCount !== 1 ? 's' : ''}
                                     </p>

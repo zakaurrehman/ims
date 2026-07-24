@@ -91,7 +91,7 @@ const Setup = () => {
                     cursor-pointer whitespace-nowrap
                     rounded-[10px] mx-2
                     hover:bg-[var(--selago)]
-                    ${x === keyName ? "font-semibold bg-white" : ""}
+                    ${x === keyName ? "font-semibold bg-[var(--bg-card)]" : ""}
                   `}
                 >
                   {x !== "Hs" ? getTtl(x, ln) : x}
@@ -104,7 +104,7 @@ const Setup = () => {
 
         {/* RIGHT PANEL */}
         <div className="w-full md:w-[70%] md:px-4 pt-4 md:pt-0 rounded-2xl bg-[var(--bg-subtle)] ">
-          <div className=" p-4 rounded-2xl mt-5 shadow-md bg-white w-full md:w-[50%]">
+          <div className=" p-4 rounded-2xl mt-5 shadow-md bg-[var(--bg-card)] w-full md:w-[50%]">
             <List
               list={list}
               ttl={keyName}

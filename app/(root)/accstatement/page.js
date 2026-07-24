@@ -89,8 +89,8 @@ const AccountStatement = () => {
 
         <div className='flex group datepicker-wrapper w-full sm:w-auto'>
           <Datepicker
-            inputClassName='border border-[#EAE8F2] h-7 py-2 pl-3 pr-3 rounded-full text-[#1E1B39] placeholder:text-[#1E1B39] w-full sm:w-44
-              focus:outline-none focus:ring-1 focus:ring-blue-200 cursor-pointer bg-white shadow-sm text-[0.75rem]'
+            inputClassName='border border-[var(--line)] h-7 py-2 pl-3 pr-3 rounded-full text-[var(--ink)] placeholder:text-[var(--ink)] w-full sm:w-44
+              focus:outline-none focus:ring-1 focus:ring-blue-200 cursor-pointer bg-[var(--bg-card)] shadow-sm text-[0.75rem]'
             useRange={false}
             asSingle={true}
             value={valueDate}
@@ -292,7 +292,7 @@ const AccountStatement = () => {
       },
     },
 
-    { accessorKey: 'cur', header: getTtl('Currency', ln), cell: (props) => { const v = (props.getValue() || '').toLowerCase(); const isUsd = v === 'us' || v === 'usd'; const isEur = v === 'eu' || v === 'eur'; return <span style={{ background: isUsd ? '#BFE8D0' : isEur ? '#F4F3F9' : '#F1EFF6', color: isUsd ? '#177245' : isEur ? 'var(--chathams-blue)' : '#555', borderRadius: '8px', padding: '3px 14px', fontWeight: 500, fontSize: '12px', display: 'inline-block' }}>{isUsd ? '$' : isEur ? '€' : v}</span> } },
+    { accessorKey: 'cur', header: getTtl('Currency', ln), cell: (props) => { const v = (props.getValue() || '').toLowerCase(); const isUsd = v === 'us' || v === 'usd'; const isEur = v === 'eu' || v === 'eur'; return <span style={{ background: isUsd ? 'var(--ok-border)' : isEur ? 'var(--bg-subtle)' : 'var(--neutral-bg)', color: isUsd ? 'var(--ok-text)' : isEur ? 'var(--chathams-blue)' : '#555', borderRadius: '8px', padding: '3px 14px', fontWeight: 500, fontSize: '12px', display: 'inline-block' }}>{isUsd ? '$' : isEur ? '€' : v}</span> } },
     {
       accessorKey: 'due', header: getTtl('DuePayment', ln), cell: (props) => <div>{dateFormat(props.getValue(), 'dd.mm.yy')} </div>,
       meta: {
@@ -339,13 +339,13 @@ const AccountStatement = () => {
 
 
   return (
-    <div className="w-full " style={{ background: "#F4F3F9" }}>
+    <div className="w-full " style={{ background: "var(--bg-subtle)" }}>
       <div className="mx-auto w-full max-w-full px-1 md:px-2 pb-4 mt-[72px]">
         {Object.keys(settings).length === 0 ? <TableSkeleton /> :
           <>
             <Toast />
             {/* Main Card */}
-            <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
+            <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-[var(--bg-card)]">
               {/* Header Section */}
               <div className='flex items-center justify-between flex-wrap gap-2'>
                 <h1 className="text-[var(--ink)] responsiveTextTitle">

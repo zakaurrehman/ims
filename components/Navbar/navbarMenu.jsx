@@ -24,8 +24,8 @@ export default function NavbarMenu({ isMenuOpen }) {
           href={link.href}
           className={`font-medium text-sm py-2 px-3 rounded-lg transition-all duration-200 ${
             pathname === link.href
-              ? 'text-[var(--endeavour)] bg-[#F4F3F9]'
-              : 'text-[var(--chathams-blue)] hover:text-[var(--endeavour)] hover:bg-[#F4F3F9]/60'
+              ? 'text-[var(--endeavour)] bg-[var(--bg-subtle)]'
+              : 'text-[var(--chathams-blue)] hover:text-[var(--endeavour)] hover:bg-[var(--bg-subtle)]/60'
           }`}
         >
           {link.label}

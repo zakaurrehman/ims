@@ -5,7 +5,7 @@
 const Spinner = () => {
     return (
         <div className="absolute z-50 justify-center flex w-full items-center place-content-center h-screen" role="status" aria-label="Loading">
-            <div className="flex items-center gap-3 bg-white rounded-full border border-[var(--line)] px-5 py-3" style={{ boxShadow: 'var(--shadow-sm)' }}>
+            <div className="flex items-center gap-3 bg-[var(--bg-card)] rounded-full border border-[var(--line)] px-5 py-3" style={{ boxShadow: 'var(--shadow-sm)' }}>
                 <div
                     className="w-5 h-5 rounded-full border-[3px] border-[var(--brand-soft)] animate-spin"
                     style={{ borderTopColor: 'var(--brand)' }}

@@ -34,7 +34,7 @@ import LoadingButton from '../../../../components/LoadingButton'
 
 // Settings-style form spec (shared with the contract modal's invoice tab)
 const labelCls = 'text-[0.6875rem] font-semibold uppercase tracking-[0.04em] text-[var(--ink-muted)] mb-1';
-const panelCls = 'border border-[var(--line)] rounded-xl bg-white p-3';
+const panelCls = 'border border-[var(--line)] rounded-xl bg-[var(--bg-card)] p-3';
 const panelTtl = 'text-[0.8125rem] font-semibold mb-3 text-[var(--ink)] font-display';
 
 const InvoiceModal = () => {
@@ -388,7 +388,7 @@ const InvoiceModal = () => {
 								// Auto-matched from the Client Contract # — a compact confirmation, so the same
 								// number isn't shown twice (the "PO shown 4×" the client flagged). Shows the
 								// sales-contract number only when it actually differs from what was typed.
-								<span className='responsiveText font-medium flex items-center gap-1.5' style={{ color: '#177245' }}>
+								<span className='responsiveText font-medium flex items-center gap-1.5' style={{ color: 'var(--ok-text)' }}>
 									✓ Linked{(() => { const n = salesContracts.find(s => s.id === valueInv.salesContractId)?.contractNo; return n && n !== valueInv.clientContractNo ? ` · ${n}` : ''; })()}
 									<button type='button' onClick={() => clear('salesContractId')} title='Unlink' className='text-[var(--regent-gray)] hover:text-red-500'>✕</button>
 								</span>

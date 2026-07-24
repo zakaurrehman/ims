@@ -145,9 +145,9 @@ export default function SplitControl({
             onClick={removeControl}
             disabled={busy}
             title="Remove from control"
-            className="p-0.5 rounded-full hover:bg-[#FDEAEA] disabled:opacity-50"
+            className="p-0.5 rounded-full hover:bg-[var(--bad-bg)] disabled:opacity-50"
           >
-            <X className="w-3 h-3" style={{ color: '#9A6215' }} />
+            <X className="w-3 h-3" style={{ color: 'var(--warn-text)' }} />
           </button>
         </>
       )}
@@ -171,7 +171,7 @@ export default function SplitControl({
           onClick={(e) => { e.stopPropagation(); setOpen(false); }}
         >
           <div
-            className="w-full max-w-sm rounded-2xl overflow-hidden bg-white"
+            className="w-full max-w-sm rounded-2xl overflow-hidden bg-[var(--bg-card)]"
             style={{ border: '1px solid var(--line)', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -209,11 +209,11 @@ export default function SplitControl({
               </div>
 
               <div className="flex gap-2">
-                <div className="flex-1 rounded-xl p-2 text-center" style={{ background: '#E5F6EC', border: '1px solid #BFE8D0' }}>
-                  <div style={{ fontSize: '0.58rem', color: '#177245' }}>IMS</div>
-                  <div className="font-semibold" style={{ fontSize: '0.8rem', color: '#177245' }}>{sym}{fmt(preview.imsShare)}</div>
+                <div className="flex-1 rounded-xl p-2 text-center" style={{ background: 'var(--ok-bg)', border: '1px solid var(--ok-border)' }}>
+                  <div style={{ fontSize: '0.58rem', color: 'var(--ok-text)' }}>IMS</div>
+                  <div className="font-semibold" style={{ fontSize: '0.8rem', color: 'var(--ok-text)' }}>{sym}{fmt(preview.imsShare)}</div>
                 </div>
-                <div className="flex-1 rounded-xl p-2 text-center" style={{ background: '#EEEBFC', border: '1px solid var(--line)' }}>
+                <div className="flex-1 rounded-xl p-2 text-center" style={{ background: 'var(--brand-soft)', border: '1px solid var(--line)' }}>
                   <div style={{ fontSize: '0.58rem', color: 'var(--endeavour)' }}>GIS</div>
                   <div className="font-semibold" style={{ fontSize: '0.8rem', color: 'var(--endeavour)' }}>{sym}{fmt(preview.gisShare)}</div>
                 </div>

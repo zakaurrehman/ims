@@ -43,6 +43,9 @@
   --shadow-sm: 0 2px 8px rgba(30, 27, 57, 0.06);
   --shadow-md: 0 8px 24px rgba(30, 27, 57, 0.09);
 
+  /* Translucent surface for the glassy topbar */
+  --glass: rgba(255, 255, 255, 0.82);
+
   /* ---- Legacy palette names — aliased to the new tokens so every existing
      var(--endeavour) etc. call site renders the new system. Retire in Phase 3. */
   --endeavour: var(--brand);
@@ -82,6 +85,91 @@
   --chart-4: 35 79% 57%;             /* amber #E8A23D */
   --chart-5: 343 63% 59%;            /* rose #D9557B */
 }
+
+/* ============================================================
+   Dark theme — the same tokens, re-valued. Toggled by adding
+   .dark to <html> (ThemeProvider); tailwind darkMode:['class'].
+   PDFs, emails, and printed documents intentionally stay light.
+   ============================================================ */
+.dark {
+  color-scheme: dark;
+
+  /* Surfaces — deep navy-violet */
+  --bg-page:    #131120;
+  --bg-card:    #1B1830;
+  --bg-subtle:  #232038;
+  --bg-sunken:  #2B2745;
+
+  --line:        #2E2A4A;
+  --line-strong: #3A3560;
+
+  /* Ink — light on dark */
+  --ink:           #EDEBFA;
+  --ink-secondary: #B6B2D0;
+  --ink-muted:     #8B87A8;
+
+  /* Brand — brightened violet so it carries on dark */
+  --brand:        #8B7CF7;
+  --brand-strong: #A497FF;   /* hover lightens on dark */
+  --brand-soft:   #2A2450;
+  --brand-border: #4A4080;
+
+  /* Status — deep tinted fills, bright text */
+  --ok-bg: #12291C;      --ok-text: #5ECC96;      --ok-border: #1F4630;
+  --warn-bg: #2E2413;    --warn-text: #E8B95C;    --warn-border: #4A3A1D;
+  --bad-bg: #321A1E;     --bad-text: #F0788C;     --bad-border: #542730;
+  --info-bg: #22203E;    --info-text: #A99EF5;    --info-border: #3D3768;
+  --neutral-bg: #262336; --neutral-text: #B6B2D0; --neutral-border: #363152;
+
+  /* Shadows read heavier on dark */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.40);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.50);
+
+  --glass: rgba(27, 24, 48, 0.82);
+
+  /* shadcn HSL tokens (channels) */
+  --background: 249 20% 14%;
+  --foreground: 249 56% 95%;
+  --card: 249 20% 14%;
+  --card-foreground: 249 56% 95%;
+  --popover: 249 20% 14%;
+  --popover-foreground: 249 56% 95%;
+  --primary: 248 87% 73%;
+  --primary-foreground: 249 33% 9%;
+  --secondary: 246 27% 17%;
+  --secondary-foreground: 249 56% 95%;
+  --muted: 246 27% 17%;
+  --muted-foreground: 248 18% 60%;
+  --accent: 249 38% 23%;
+  --accent-foreground: 247 82% 79%;
+  --destructive: 351 80% 71%;
+  --destructive-foreground: 249 33% 9%;
+  --border: 248 26% 23%;
+  --input: 248 29% 29%;
+  --ring: 248 87% 73%;
+}
+
+/* Dark equivalents for the few CSS rules that carry literal colors */
+.dark .skel {
+  background: linear-gradient(90deg, #232038 25%, #2B2745 50%, #232038 75%);
+  background-size: 200% 100%;
+}
+.dark .custom-scroll::-webkit-scrollbar-track,
+.dark ::-webkit-scrollbar-track {
+  background: #1B1830;
+}
+.dark .custom-scroll::-webkit-scrollbar-thumb,
+.dark ::-webkit-scrollbar-thumb {
+  background: #3A3560;
+}
+.dark .custom-scroll::-webkit-scrollbar-thumb:hover,
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #4A4080;
+}
+.dark .dashboard-scroll::-webkit-scrollbar-track { background: #1B1830 !important; }
+.dark .dashboard-scroll::-webkit-scrollbar-thumb { background: #3A3560 !important; }
+.dark .dashboard-scroll::-webkit-scrollbar-thumb:hover { background: #4A4080 !important; }
 
 /* Example usage:
    background: var(--endeavour);
@@ -154,22 +242,22 @@ thead th {
   }
 
   .input {
-    @apply w-full border rounded-[10px] border-[var(--line-strong)] h-8 focus:outline-0 focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] indent-2 text-[0.8125rem] text-[var(--ink)] bg-white transition-colors;
+    @apply w-full border rounded-[10px] border-[var(--line-strong)] h-8 focus:outline-0 focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] indent-2 text-[0.8125rem] text-[var(--ink)] bg-[var(--bg-card)] transition-colors;
     font-family: inherit;
   }
 
   .dashBox {
-    @apply col-span-12 md:col-span-1 border border-[var(--line)] rounded-2xl bg-white justify-center flex text-[15px] flex-col p-4;
+    @apply col-span-12 md:col-span-1 border border-[var(--line)] rounded-2xl bg-[var(--bg-card)] justify-center flex text-[15px] flex-col p-4;
     box-shadow: var(--shadow-xs);
   }
 
   .dashCard {
-    @apply rounded-2xl bg-white p-5 border border-[var(--line)];
+    @apply rounded-2xl bg-[var(--bg-card)] p-5 border border-[var(--line)];
     box-shadow: var(--shadow-xs);
   }
 
   .dashStatCard {
-    @apply rounded-2xl p-5 flex flex-col justify-between min-h-[120px] border border-[var(--line)] bg-white;
+    @apply rounded-2xl p-5 flex flex-col justify-between min-h-[120px] border border-[var(--line)] bg-[var(--bg-card)];
     box-shadow: var(--shadow-xs);
   }
 
@@ -179,7 +267,7 @@ thead th {
   }
 
   .whiteButton {
-    @apply bg-white border-[var(--line-strong)] hover:bg-[var(--bg-subtle)] text-[var(--ink)] flex items-center gap-2 justify-center rounded-[10px] border px-3 h-8 text-xs font-medium focus:outline-none transition-colors;
+    @apply bg-[var(--bg-card)] border-[var(--line-strong)] hover:bg-[var(--bg-subtle)] text-[var(--ink)] flex items-center gap-2 justify-center rounded-[10px] border px-3 h-8 text-xs font-medium focus:outline-none transition-colors;
     box-shadow: var(--shadow-xs);
   }
   .supplierButton {

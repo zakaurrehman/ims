@@ -91,7 +91,7 @@ export default function SignInPage() {
 
       {/* RIGHT — Form Panel */}
       <div className="w-full md:w-1/2 flex items-center justify-center bg-[#f4f8fd]">
-        <div className="w-full max-w-md mx-8 bg-white rounded-2xl shadow-sm border border-[#F4F3F9] p-10">
+        <div className="w-full max-w-md mx-8 bg-[var(--bg-card)] rounded-2xl shadow-sm border border-[var(--bg-subtle)] p-10">
 
           {/* Header */}
           <div className="mb-7 text-center">
@@ -114,7 +114,7 @@ export default function SignInPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="you@example.com"
-                className="w-full px-4 py-2.5 border border-[#F4F3F9] rounded-lg text-sm text-gray-800 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--endeavour)]/30 focus:border-[var(--endeavour)] transition-all bg-white"
+                className="w-full px-4 py-2.5 border border-[var(--bg-subtle)] rounded-lg text-sm text-gray-800 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--endeavour)]/30 focus:border-[var(--endeavour)] transition-all bg-[var(--bg-card)]"
               />
             </div>
 
@@ -128,7 +128,7 @@ export default function SignInPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder="••••••••"
-                  className="w-full px-4 py-2.5 border border-[#F4F3F9] rounded-lg text-sm text-gray-800 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--endeavour)]/30 focus:border-[var(--endeavour)] transition-all bg-white pr-10"
+                  className="w-full px-4 py-2.5 border border-[var(--bg-subtle)] rounded-lg text-sm text-gray-800 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--endeavour)]/30 focus:border-[var(--endeavour)] transition-all bg-[var(--bg-card)] pr-10"
                 />
                 <button
                   type="button"

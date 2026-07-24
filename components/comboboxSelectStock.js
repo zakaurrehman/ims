@@ -59,8 +59,8 @@ const MyComboboxSelectStock = ({ data, setValue, value, idx, name, classes, disa
         <div className="w-full" ref={wrapperRef}>
             <Combobox by="id" value={selected} onChange={(e) => setSelection(e)} disabled={disabled}>
                 <div className="relative">
-                    <div className={`relative w-full cursor-default overflow-hidden rounded-full bg-white text-left
-                     focus:outline-none text-xs border border-[#EAE8F2] hover:border-[var(--endeavour)] transition-colors h-8 ${classes}`}>
+                    <div className={`relative w-full cursor-default overflow-hidden rounded-full bg-[var(--bg-card)] text-left
+                     focus:outline-none text-xs border border-[var(--line)] hover:border-[var(--endeavour)] transition-colors h-8 ${classes}`}>
                         <ComboboxInput
                             className={cn('w-full py-2 pl-3 pr-10 text-xs leading-5 focus:outline-none',
                                 selected[name] !== plcHolder ? 'text-[var(--endeavour)]' : 'text-[var(--endeavour)]')}
@@ -83,7 +83,7 @@ const MyComboboxSelectStock = ({ data, setValue, value, idx, name, classes, disa
                     >
                         <Portal>
                             <ComboboxOptions style={dropdownStyle} className={`z-50 max-h-60 overflow-auto custom-scroll rounded-xl
-                            bg-white py-1 text-xs shadow-lg border border-[#F4F3F9] focus:outline-none ${classes1}`}>
+                            bg-[var(--bg-card)] py-1 text-xs shadow-lg border border-[var(--bg-subtle)] focus:outline-none ${classes1}`}>
                             {filteredData.length === 0 && query !== '' ? (
                                 <div className="relative cursor-default select-none py-2 px-4 text-[var(--regent-gray)] text-xs">
                                     Nothing found.
@@ -94,9 +94,9 @@ const MyComboboxSelectStock = ({ data, setValue, value, idx, name, classes, disa
                                     <ComboboxOption
                                         key={x.id}
                                         className={cn(
-                                            'relative cursor-default select-none py-1 text-[0.75rem] pl-10 pr-4 text-[var(--port-gore)] hover:bg-[#F4F3F9] hover:text-[var(--endeavour)]',
+                                            'relative cursor-default select-none py-1 text-[0.75rem] pl-10 pr-4 text-[var(--port-gore)] hover:bg-[var(--bg-subtle)] hover:text-[var(--endeavour)]',
                                             selected.id === x.id
-                                                ? 'bg-[#F4F3F9] text-[var(--endeavour)]'
+                                                ? 'bg-[var(--bg-subtle)] text-[var(--endeavour)]'
                                                 : '',
                                                 x.id==='allStocks' ? 'text-[var(--chathams-blue)] italic font-bold truncate': ''
                                         )}

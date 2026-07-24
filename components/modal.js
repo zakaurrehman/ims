@@ -35,11 +35,11 @@ const Modal = ({ isOpen, setIsOpen, title, children, w }) => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <DialogPanel className={`w-full ${w == null ? 'max-w-7xl' : w} transform rounded-2xl
-                                 bg-white text-left align-middle transition-all border border-[var(--line)]`}
+                                 bg-[var(--bg-card)] text-left align-middle transition-all border border-[var(--line)]`}
                                     style={{ boxShadow: 'var(--shadow-md)' }}>
                                     <DialogTitle
                                         as="h3"
-                                        className="text-[1rem] font-semibold leading-tight text-[var(--ink)] border-b border-[var(--line)] px-4 py-3 rounded-t-2xl bg-white font-display"
+                                        className="text-[1rem] font-semibold leading-tight text-[var(--ink)] border-b border-[var(--line)] px-4 py-3 rounded-t-2xl bg-[var(--bg-card)] font-display"
                                     >
                                         <div className='flex justify-between items-center gap-3'>
                                             <span>{title}</span>

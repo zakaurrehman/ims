@@ -337,7 +337,7 @@ const AssistantChat = () => {
     const hasMessages = messages.length > 0;
 
     return (
-        <div className="w-full min-h-screen flex flex-col bg-white">
+        <div className="w-full min-h-screen flex flex-col bg-[var(--bg-card)]">
             <div
                 className="mx-auto w-full max-w-full px-1 md:px-2 pb-4 flex-1 flex flex-col"
                 style={{ marginTop: 'clamp(56px, 7vh, 80px)', minHeight: 'calc(100vh - clamp(56px, 7vh, 80px))' }}
@@ -345,12 +345,12 @@ const AssistantChat = () => {
                 {Object.keys(settings).length === 0 ? <Spinner /> :
                     <>
                         <Toast />
-                        <div className="border border-[#EAE8F2] rounded-xl shadow-sm bg-white mt-4 flex flex-col flex-1 overflow-hidden">
+                        <div className="border border-[var(--line)] rounded-xl shadow-sm bg-[var(--bg-card)] mt-4 flex flex-col flex-1 overflow-hidden">
 
                             {/* Top Bar — flex-wrap + nowrap pills: on narrow screens the chip
                                 row drops WHOLE onto its own line under the title instead of
                                 breaking words mid-pill ("Contract / s") and colliding with it. */}
-                            <div className="px-3 md:px-4 py-2.5 border-b border-[#EAE8F2] flex flex-wrap items-center justify-between gap-y-2 gap-x-3 bg-[#F4F3F9]">
+                            <div className="px-3 md:px-4 py-2.5 border-b border-[var(--line)] flex flex-wrap items-center justify-between gap-y-2 gap-x-3 bg-[var(--bg-subtle)]">
                                 <div className="flex items-center gap-2 shrink-0">
                                     <div className="w-1 h-5 bg-[var(--endeavour)] rounded-full" />
                                     <span className="responsiveTextTitle font-medium text-[var(--port-gore)]">Assistant</span>
@@ -363,13 +363,13 @@ const AssistantChat = () => {
                                             <span className="px-2 py-0.5 md:px-3 md:py-1 rounded-full responsiveTextTable font-medium whitespace-nowrap" style={{ backgroundColor: '#d1fae5', color: '#065f46', border: '1px solid #6ee7b7' }}>
                                                 {contractsData.length} Contracts
                                             </span>
-                                            <span className="px-2 py-0.5 md:px-3 md:py-1 rounded-full responsiveTextTable font-medium whitespace-nowrap" style={{ backgroundColor: '#F4F3F9', color: 'var(--chathams-blue)', border: '1px solid #EAE8F2' }}>
+                                            <span className="px-2 py-0.5 md:px-3 md:py-1 rounded-full responsiveTextTable font-medium whitespace-nowrap" style={{ backgroundColor: 'var(--bg-subtle)', color: 'var(--chathams-blue)', border: '1px solid var(--line)' }}>
                                                 {invoicesData.length} Invoices
                                             </span>
                                             <span className="px-2 py-0.5 md:px-3 md:py-1 rounded-full responsiveTextTable font-medium whitespace-nowrap" style={{ backgroundColor: '#ECEAFB', color: '#5b21b6', border: '1px solid #c4b5fd' }}>
                                                 {expensesData.length} Expenses
                                             </span>
-                                            <span className="px-2 py-0.5 md:px-3 md:py-1 rounded-full responsiveTextTable font-medium whitespace-nowrap" style={{ backgroundColor: '#FDF3E1', color: '#9A6215', border: '1px solid #F5DFAE' }}>
+                                            <span className="px-2 py-0.5 md:px-3 md:py-1 rounded-full responsiveTextTable font-medium whitespace-nowrap" style={{ backgroundColor: 'var(--warn-bg)', color: 'var(--warn-text)', border: '1px solid var(--warn-border)' }}>
                                                 {stocksData.length} Stocks
                                             </span>
                                         </>
@@ -377,7 +377,7 @@ const AssistantChat = () => {
                                     <button
                                         onClick={() => loadAllData(true)}
                                         disabled={dataLoading}
-                                        className="p-1.5 rounded-full transition-colors hover:bg-[#EAE8F2]/50 disabled:opacity-40 shrink-0"
+                                        className="p-1.5 rounded-full transition-colors hover:bg-[var(--line)]/50 disabled:opacity-40 shrink-0"
                                         title="Refresh data"
                                     >
                                         <FiRefreshCw className={`w-3.5 h-3.5 text-[var(--endeavour)] ${dataLoading ? 'animate-spin' : ''}`} />
@@ -385,7 +385,7 @@ const AssistantChat = () => {
                                     <button
                                         onClick={handleClearChat}
                                         className="flex items-center gap-1.5 px-2 py-0.5 md:px-3 md:py-1 rounded-full font-medium transition-colors whitespace-nowrap shrink-0"
-                                        style={{ backgroundColor: '#FDEAEA', color: '#B42332', border: '1px solid #F5C6C9', fontSize: '0.62rem' }}
+                                        style={{ backgroundColor: 'var(--bad-bg)', color: 'var(--bad-text)', border: '1px solid var(--bad-border)', fontSize: '0.62rem' }}
                                         title="Reset conversation"
                                     >
                                         <MdRestartAlt className="w-4 h-4" />
@@ -395,7 +395,7 @@ const AssistantChat = () => {
                             </div>
 
                             {/* Chat Area */}
-                            <div className="flex-1 overflow-y-auto bg-white" style={{ minHeight: 0 }}>
+                            <div className="flex-1 overflow-y-auto bg-[var(--bg-card)]" style={{ minHeight: 0 }}>
                                 {!hasMessages ? (
                                     <div className="flex flex-col items-center justify-center py-16 px-4" style={{ minHeight: '400px' }}>
                                         <div className="mb-6">
@@ -432,7 +432,7 @@ const AssistantChat = () => {
                                                                 ? 'bg-red-50 text-red-700 border border-red-200 rounded-bl-sm'
                                                                 : 'bg-[var(--selago)]/40 text-[var(--port-gore)] border border-[var(--selago)] rounded-bl-sm'
                                                     }`}
-                                                    style={message.role === 'user' ? { backgroundColor: '#F4F3F9', color: 'var(--port-gore)' } : {}}
+                                                    style={message.role === 'user' ? { backgroundColor: 'var(--bg-subtle)', color: 'var(--port-gore)' } : {}}
                                                 >
                                                     <div
                                                         className="break-words"
@@ -475,8 +475,8 @@ const AssistantChat = () => {
                             </div>
 
                             {/* Input Area */}
-                            <div className="p-4 border-t border-[var(--selago)]" style={{ backgroundColor: '#ffffff' }}>
-                                <div className="responsiveText flex items-center gap-2 border-2 border-[var(--endeavour)]/30 rounded-full px-4 py-2.5 focus-within:border-[var(--endeavour)] transition-colors" style={{ backgroundColor: '#F4F3F9' }}>
+                            <div className="p-4 border-t border-[var(--selago)]" style={{ backgroundColor: "var(--bg-card)" }}>
+                                <div className="responsiveText flex items-center gap-2 border-2 border-[var(--endeavour)]/30 rounded-full px-4 py-2.5 focus-within:border-[var(--endeavour)] transition-colors" style={{ backgroundColor: 'var(--bg-subtle)' }}>
                                     <GrAttachment className="w-4 h-4 text-[var(--regent-gray)] flex-shrink-0" />
                                     <input
                                         ref={inputRef}
@@ -506,7 +506,7 @@ const AssistantChat = () => {
                                             key={index}
                                             onClick={() => handleSendMessage(action.text)}
                                             disabled={isLoading || dataLoading}
-                                            className="flex items-center gap-1 px-2.5 py-1 bg-white border border-[#EAE8F2] rounded-full text-[var(--port-gore)] hover:border-[var(--endeavour)] hover:text-[var(--endeavour)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                                            className="flex items-center gap-1 px-2.5 py-1 bg-[var(--bg-card)] border border-[var(--line)] rounded-full text-[var(--port-gore)] hover:border-[var(--endeavour)] hover:text-[var(--endeavour)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                                             style={{ fontSize: '0.68rem' }}
                                         >
                                             {action.icon}

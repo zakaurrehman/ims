@@ -110,7 +110,7 @@ const ModeTag = ({ mode }) => {
     const sea = mode === 'sea'
     return (
         <span className="inline-flex items-center gap-1 rounded-full font-medium whitespace-nowrap"
-            style={{ fontSize: '0.6rem', padding: '2px 8px', background: sea ? '#EEEBFC' : '#E5F6EC', color: sea ? 'var(--endeavour)' : '#177245', boxShadow: `inset 0 0 0 1px ${sea ? '#D6CFF7' : '#BFE8D0'}` }}>
+            style={{ fontSize: '0.6rem', padding: '2px 8px', background: sea ? 'var(--brand-soft)' : 'var(--ok-bg)', color: sea ? 'var(--endeavour)' : 'var(--ok-text)', boxShadow: `inset 0 0 0 1px ${sea ? 'var(--brand-border)' : 'var(--ok-border)'}` }}>
             {sea ? <Ship className="w-2.5 h-2.5" /> : <Globe2 className="w-2.5 h-2.5" />}
             {sea ? 'Sea / inland waterway' : 'Any mode'}
         </span>
@@ -121,9 +121,9 @@ const ModeTag = ({ mode }) => {
 // split can be read at a glance.
 const Row = ({ label, value }) => {
     const who = /^Seller/.test(value) ? 'seller' : /^Buyer/.test(value) ? 'buyer' : 'none'
-    const color = who === 'seller' ? 'var(--endeavour)' : who === 'buyer' ? '#9A6215' : 'var(--port-gore)'
+    const color = who === 'seller' ? 'var(--endeavour)' : who === 'buyer' ? 'var(--warn-text)' : 'var(--port-gore)'
     return (
-        <div className="grid items-start gap-x-3 py-1 border-b border-[#F4F3F9] last:border-0" style={{ gridTemplateColumns: 'minmax(74px, 42%) 1fr' }}>
+        <div className="grid items-start gap-x-3 py-1 border-b border-[var(--bg-subtle)] last:border-0" style={{ gridTemplateColumns: 'minmax(74px, 42%) 1fr' }}>
             <span className="responsiveTextTable text-[var(--regent-gray)] break-words">{label}</span>
             <span className="responsiveTextTable text-right font-medium break-words min-w-0" style={{ color }}>{value}</span>
         </div>
@@ -131,8 +131,8 @@ const Row = ({ label, value }) => {
 }
 
 const IncotermCard = ({ t }) => (
-    <div className="rounded-2xl border border-[#EAE8F2] bg-white overflow-hidden shadow-sm flex flex-col">
-        <div className="flex items-center gap-3 px-4 py-3" style={{ background: '#F4F3F9' }}>
+    <div className="rounded-2xl border border-[var(--line)] bg-[var(--bg-card)] overflow-hidden shadow-sm flex flex-col">
+        <div className="flex items-center gap-3 px-4 py-3" style={{ background: 'var(--bg-subtle)' }}>
             <span className="grid place-items-center rounded-lg font-bold text-white shrink-0"
                 style={{ background: 'var(--endeavour)', width: 46, height: 36, fontSize: '0.95rem', letterSpacing: '0.02em' }}>
                 {t.code}
@@ -144,7 +144,7 @@ const IncotermCard = ({ t }) => (
         </div>
         <div className="px-4 py-3 flex flex-col gap-3 grow">
             <p className="responsiveTextTable text-[var(--port-gore)] leading-snug">{t.desc}</p>
-            <div className="rounded-xl bg-[#F4F3F9] border border-[#DAD6E8] px-3 py-1.5">
+            <div className="rounded-xl bg-[var(--bg-subtle)] border border-[var(--line-strong)] px-3 py-1.5">
                 <Row label="Risk transfers" value={t.risk} />
                 <Row label="Carriage" value={t.carriage} />
                 <Row label="Insurance" value={t.insurance} />
@@ -168,8 +168,8 @@ const Incoterms = () => {
     }, [query, mode])
 
     return (
-        <div className="mx-auto w-full max-w-full px-1 md:px-2 pb-4 mt-[72px]" style={{ background: '#F4F3F9' }}>
-            <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
+        <div className="mx-auto w-full max-w-full px-1 md:px-2 pb-4 mt-[72px]" style={{ background: 'var(--bg-subtle)' }}>
+            <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-[var(--bg-card)]">
                 {/* Header */}
                 <div className="flex flex-col gap-1 mb-4">
                     <h1 className="text-[var(--ink)] responsiveTextTitle">
@@ -188,7 +188,7 @@ const Incoterms = () => {
                             value={query}
                             onChange={e => setQuery(e.target.value)}
                             placeholder="Search code, name or description…"
-                            className="w-full rounded-full bg-white border border-[#DAD6E8] pl-8 pr-3 h-8 responsiveTextTable text-[var(--chathams-blue)] focus:outline-none focus:border-[var(--endeavour)]"
+                            className="w-full rounded-full bg-[var(--bg-card)] border border-[var(--line-strong)] pl-8 pr-3 h-8 responsiveTextTable text-[var(--chathams-blue)] focus:outline-none focus:border-[var(--endeavour)]"
                             style={{ fontFamily: 'inherit' }}
                         />
                     </div>
@@ -200,7 +200,7 @@ const Incoterms = () => {
                                     fontSize: '0.68rem', padding: '5px 12px',
                                     background: mode === f.key ? 'var(--endeavour)' : 'white',
                                     color: mode === f.key ? 'white' : 'var(--chathams-blue)',
-                                    border: `1px solid ${mode === f.key ? 'var(--endeavour)' : '#DAD6E8'}`,
+                                    border: `1px solid ${mode === f.key ? 'var(--endeavour)' : 'var(--line-strong)'}`,
                                 }}>
                                 {f.label}
                             </button>
@@ -214,7 +214,7 @@ const Incoterms = () => {
                         <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'var(--endeavour)' }} /> Seller&apos;s responsibility
                     </span>
                     <span className="inline-flex items-center gap-1.5 responsiveTextTable text-[var(--regent-gray)]">
-                        <span className="w-2.5 h-2.5 rounded-full" style={{ background: '#9A6215' }} /> Buyer&apos;s responsibility
+                        <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'var(--warn-text)' }} /> Buyer&apos;s responsibility
                     </span>
                 </div>
 

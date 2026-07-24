@@ -43,7 +43,7 @@ const Page = () => {
                                             'rounded-full py-1.5 px-4 text-xs font-medium leading-4 transition-colors whitespace-nowrap',
                                             'focus:outline-none disabled:opacity-40',
                                             selected
-                                                ? 'bg-white text-[var(--ink)] shadow-card'
+                                                ? 'bg-[var(--bg-card)] text-[var(--ink)] shadow-card'
                                                 : 'text-[var(--ink-secondary)] hover:text-[var(--ink)]'
                                         )
                                     }
@@ -57,7 +57,7 @@ const Page = () => {
                                 <Tab.Panel
                                     key={idx}
                                     className={classNames(
-                                        'rounded-xl bg-white', ' focus:outline-none'
+                                        'rounded-xl bg-[var(--bg-card)]', ' focus:outline-none'
                                     )}
                                 >
                                     {SetDiv(idx)}

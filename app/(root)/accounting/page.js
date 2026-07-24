@@ -23,6 +23,7 @@ import DateRangePicker from '../../../components/dateRangePicker';
 // chart.js + react-chartjs-2 are loaded on demand (not in the first-load bundle).
 import { Wallet, TrendingUp, TrendingDown, PiggyBank } from 'lucide-react';
 import KpiStrip from '../../../components/KpiStrip';
+import { useTheme } from '../../../contexts/useThemeContext';
 import EditableCell from '../../../components/table/inlineEditing/EditableCell';
 import EditableSelectCell from '../../../components/table/inlineEditing/EditableSelectCell';
 import Tltip from '../../../components/tlTip';
@@ -135,6 +136,8 @@ const Accounting = () => {
 
   const { settings, dateSelect, setLoading, loading, ln } = useContext(SettingsContext);
   const { uidCollection } = UserAuth();
+  const { theme } = useTheme();
+  const isDarkTheme = theme === 'dark';
   const { upsertSourceItems } = useGlobalSearch();
   const settingsLoaded = Object.keys(settings).length > 0;
   const clientCount = settings.Client?.Client?.length || 0;
@@ -446,20 +449,20 @@ const Accounting = () => {
         {
           label: 'Debit',
           data: debitByDay,
-          backgroundColor: '#1E1B39',
+          backgroundColor: isDarkTheme ? '#8B7CF7' : '#1E1B39',
           borderRadius: 6,
           barPercentage: 0.6,
         },
         {
           label: 'Credit',
           data: creditByDay,
-          backgroundColor: '#DAD6E8',
+          backgroundColor: isDarkTheme ? '#3A3560' : '#DAD6E8',
           borderRadius: 6,
           barPercentage: 0.6,
         },
       ],
     };
-  }, [invoicesAccData]);
+  }, [invoicesAccData, isDarkTheme]);
 
   const fmtChartVal = (v) => {
     const abs = Math.abs(v);
@@ -469,16 +472,17 @@ const Accounting = () => {
     return '$' + v;
   };
 
+  // Canvas can't resolve CSS vars — literals mirror the :root / .dark tokens.
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: { display: false },
       tooltip: {
-        backgroundColor: 'rgba(255,255,255,0.95)',
-        titleColor: '#1E1B39',
-        bodyColor: '#8D8AA3',
-        borderColor: '#F4F3F9',
+        backgroundColor: isDarkTheme ? 'rgba(35,32,56,0.97)' : 'rgba(255,255,255,0.95)',
+        titleColor: isDarkTheme ? '#EDEBFA' : '#1E1B39',
+        bodyColor: isDarkTheme ? '#8B87A8' : '#6E6B84',
+        borderColor: isDarkTheme ? 'rgba(255,255,255,0.08)' : '#EAE8F2',
         borderWidth: 1,
         cornerRadius: 8,
         padding: 12,
@@ -490,13 +494,13 @@ const Accounting = () => {
     scales: {
       y: {
         beginAtZero: true,
-        grid: { color: 'rgba(159,184,212,0.2)' },
-        ticks: { color: '#8D8AA3', font: { size: 11 }, callback: fmtChartVal },
+        grid: { color: isDarkTheme ? 'rgba(255,255,255,0.07)' : 'rgba(159,184,212,0.2)' },
+        ticks: { color: isDarkTheme ? '#8B87A8' : '#6E6B84', font: { size: 11 }, callback: fmtChartVal },
         border: { display: false },
       },
       x: {
         grid: { display: false },
-        ticks: { color: '#8D8AA3', font: { size: 11 } },
+        ticks: { color: isDarkTheme ? '#8B87A8' : '#6E6B84', font: { size: 11 } },
         border: { display: false },
       },
     },
@@ -626,7 +630,7 @@ const Accounting = () => {
               { label: 'Savings', value: totals.savings, format: formatCurrency, icon: PiggyBank, tone: 'amber' },
             ]} />
             {/* Full Table */}
-            <div className="page-card rounded-2xl p-3 sm:p-5 mt-2 border border-[var(--line)] shadow-card w-full bg-white relative">
+            <div className="page-card rounded-2xl p-3 sm:p-5 mt-2 border border-[var(--line)] shadow-card w-full bg-[var(--bg-card)] relative">
               <h3 className="text-title mb-4">All Transactions</h3>
               <Customtable data={invoicesAccData} columns={propDefaults} onCellUpdate={onCellUpdate}
                 excellReport={EXD(invoicesAccData, settings, getTtl('Accounting', ln), ln)} />
@@ -635,7 +639,7 @@ const Accounting = () => {
             {/* Main Content Grid */}
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6 mt-3">
               {/* Last Transaction */}
-              <div className="rounded-2xl p-3 sm:p-5 mt-2 border border-[#EAE8F2] shadow-xl w-full bg-[#F4F3F9]">
+              <div className="rounded-2xl p-3 sm:p-5 mt-2 border border-[var(--line)] shadow-xl w-full bg-[var(--bg-subtle)]">
                 <h3 className="responsiveText font-medium font-poppins text-[var(--chathams-blue)] mb-2">Last Transaction</h3>
                 <div className="space-y-0">
                   {recentTransactions.map((item, idx) => (
@@ -667,7 +671,7 @@ const Accounting = () => {
               </div>
 
               {/* Invoices Sent */}
-              <div className="rounded-2xl p-3 sm:p-5 mt-2 border border-[#EAE8F2] shadow-xl w-full bg-[#F4F3F9]">
+              <div className="rounded-2xl p-3 sm:p-5 mt-2 border border-[var(--line)] shadow-xl w-full bg-[var(--bg-subtle)]">
                 <h3 className="responsiveText font-medium font-poppins text-[var(--chathams-blue)] mb-2">Invoices Sent</h3>
                 <div className="space-y-0">
                   {recentInvoices.map((item, idx) => (
@@ -688,7 +692,7 @@ const Accounting = () => {
                       </div>
                       <div className="text-right flex-shrink-0 ml-2">
                         <p className="responsiveText font-medium font-poppins text-[var(--chathams-blue)] mb-0.5">{formatCurrency(item.amountInv || 0)}</p>
-                        <span className={`inline-block px-2 py-0.5 rounded-full responsiveTextTable font-medium font-poppins ${idx % 2 === 0 ? 'bg-emerald-100 text-emerald-700' : 'bg-[#F1EFF6] text-[var(--regent-gray)]'
+                        <span className={`inline-block px-2 py-0.5 rounded-full responsiveTextTable font-medium font-poppins ${idx % 2 === 0 ? 'bg-emerald-100 text-emerald-700' : 'bg-[var(--neutral-bg)] text-[var(--regent-gray)]'
                           }`}>
                           {idx % 2 === 0 ? 'Paid' : 'Pending'}
                         </span>
@@ -702,7 +706,7 @@ const Accounting = () => {
             {/* Chart Section */}
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6">
               {/* Debit & Credit Overview */}
-              <div className="rounded-2xl p-3 sm:p-5 mt-2 border border-[#EAE8F2] shadow-xl w-full bg-[#F4F3F9]">
+              <div className="rounded-2xl p-3 sm:p-5 mt-2 border border-[var(--line)] shadow-xl w-full bg-[var(--bg-subtle)]">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
                   <div className="min-w-0">
                     <h3 className="responsiveText font-medium font-poppins text-[var(--chathams-blue)]">Debit & Credit Overview</h3>
@@ -726,24 +730,24 @@ const Accounting = () => {
                 </div>
               </div>
               {/* Summary Stats */}
-              <div className="rounded-2xl p-3 sm:p-5 mt-2 border border-[#EAE8F2] shadow-xl bg-[#F4F3F9] overflow-hidden">
+              <div className="rounded-2xl p-3 sm:p-5 mt-2 border border-[var(--line)] shadow-xl bg-[var(--bg-subtle)] overflow-hidden">
                 <h3 className="responsiveText font-medium font-poppins text-[var(--chathams-blue)] mb-4">Financial Summary</h3>
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-[#F4F3F9] rounded-xl p-4 overflow-hidden border border-[#EAE8F2] shadow-sm">
+                  <div className="bg-[var(--bg-subtle)] rounded-xl p-4 overflow-hidden border border-[var(--line)] shadow-sm">
                     <p className="text-[var(--port-gore)] responsiveText mb-1">Total Transactions</p>
                     <p className="responsiveTextTotal font-medium text-[var(--chathams-blue)]">{invoicesAccData.length}</p>
                   </div>
-                  <div className="bg-[#F4F3F9] rounded-xl p-4 overflow-hidden border border-[#EAE8F2] shadow-sm">
+                  <div className="bg-[var(--bg-subtle)] rounded-xl p-4 overflow-hidden border border-[var(--line)] shadow-sm">
                     <p className="text-[var(--port-gore)] responsiveText mb-1">Avg. Transaction</p>
                     <p className="responsiveTextTotal font-medium text-[var(--chathams-blue)] truncate">
                       {formatCurrency(invoicesAccData.length > 0 ? (totals.totalIncome + totals.totalExpense) / invoicesAccData.length : 0)}
                     </p>
                   </div>
-                  <div className="bg-[#F4F3F9] rounded-xl p-4 overflow-hidden border border-[#EAE8F2] shadow-sm">
+                  <div className="bg-[var(--bg-subtle)] rounded-xl p-4 overflow-hidden border border-[var(--line)] shadow-sm">
                     <p className="text-[var(--port-gore)] responsiveText mb-1">Net Profit</p>
                     <p className="responsiveTextTotal font-medium text-[var(--chathams-blue)] truncate">{formatCurrency(totals.balance)}</p>
                   </div>
-                  <div className="bg-[#F4F3F9] rounded-xl p-4 overflow-hidden border border-[#EAE8F2] shadow-sm">
+                  <div className="bg-[var(--bg-subtle)] rounded-xl p-4 overflow-hidden border border-[var(--line)] shadow-sm">
                     <p className="text-[var(--port-gore)] responsiveText mb-1">Profit Margin</p>
                     <p className="responsiveTextTotal font-medium text-[var(--chathams-blue)]">
                       {formatPercent(totals.totalIncome > 0 ? (totals.balance / totals.totalIncome) * 100 : 0)}

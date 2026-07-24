@@ -72,7 +72,7 @@ const DoalogModalClient = ({ obj, clientPartialPayment }) => {
                 </button>
             </PopoverTrigger>
 
-              <PopoverContent style={{ boxShadow: 'var(--shadow-md)' }} className="w-full max-w-xs md:max-w-sm bg-white p-4 border border-[var(--line)] rounded-xl z-50
+              <PopoverContent style={{ boxShadow: 'var(--shadow-md)' }} className="w-full max-w-xs md:max-w-sm bg-[var(--bg-card)] p-4 border border-[var(--line)] rounded-xl z-50
                  data-[state=open]:animate-fade-zoom-in
                  data-[state=closed]:animate-fade-zoom-out
 ">

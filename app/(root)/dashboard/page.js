@@ -7,6 +7,7 @@ import VideoLoader from '@components/videoLoader';
 import { CardsSkeleton } from "@components/skeletons";
 import { UserAuth } from "@contexts/useAuthContext"
 import { SettingsContext } from "@contexts/useSettingsContext";
+import { useTheme } from "@contexts/useThemeContext";
 import Toast from '@components/toast.js'
 import { loadData, buildInvoiceIndex, contractInvoicesFromIndex, loadCompanyExpenses } from '@utils/utils'
 import { receivables as financeReceivables, agingBuckets } from '@utils/finance'
@@ -67,7 +68,7 @@ const sumObj = (obj) => Object.values(obj || {}).reduce((a, v) => a + (Number(v)
 function CardShell({ className = "", children }) {
   return (
     <m.div
-      className={`bg-white rounded-2xl border border-[var(--line)] shadow-card ${className}`}
+      className={`bg-[var(--bg-card)] rounded-2xl border border-[var(--line)] shadow-card ${className}`}
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
@@ -116,7 +117,7 @@ function StatKpiCard({
   title,
   value,
   chartData,
-  accent = '#6D5CE0',
+  accent = 'var(--brand)',
   icon,
   goodWhenUp = true,
 }) {
@@ -126,12 +127,12 @@ function StatKpiCard({
   );
   const trend = useMemo(() => computeTrend(series), [series]);
   const good = trend ? trend.up === goodWhenUp : true;
-  const deltaColor = good ? '#177245' : '#B42332';
-  const deltaBg = good ? '#E5F6EC' : '#FDEAEA';
+  const deltaColor = good ? 'var(--ok-text)' : 'var(--bad-text)';
+  const deltaBg = good ? 'var(--ok-bg)' : 'var(--bad-bg)';
 
   return (
     <m.div
-      className="relative h-full min-h-[140px] rounded-xl bg-white border border-[var(--line)] shadow-card flex flex-col overflow-hidden"
+      className="relative h-full min-h-[140px] rounded-xl bg-[var(--bg-card)] border border-[var(--line)] shadow-card flex flex-col overflow-hidden"
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: 'easeOut' }}
@@ -246,7 +247,7 @@ function ReceivablesSplitCard({ byCur = {} }) {
 
   return (
     <m.div
-      className="relative rounded-xl bg-white border border-[var(--line)] shadow-card overflow-hidden"
+      className="relative rounded-xl bg-[var(--bg-card)] border border-[var(--line)] shadow-card overflow-hidden"
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: 'easeOut' }}
@@ -256,7 +257,7 @@ function ReceivablesSplitCard({ byCur = {} }) {
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0">
             <span className="inline-flex items-center justify-center rounded-lg flex-shrink-0"
-              style={{ background: '#6D5CE01A', color: '#6D5CE0', width: 30, height: 30 }}>
+              style={{ background: 'var(--brand)1A', color: 'var(--brand)', width: 30, height: 30 }}>
               <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M3 7h18v10H3z" stroke="currentColor" strokeWidth="2" /><path d="M3 11h18" stroke="currentColor" strokeWidth="2" /></svg>
             </span>
             <span className="responsiveTextTable font-medium text-[var(--regent-gray)] leading-tight">Outstanding Receivables</span>
@@ -269,29 +270,29 @@ function ReceivablesSplitCard({ byCur = {} }) {
         </div>
 
         {/* Proportion bar by invoice count — green (finalized) over amber (provisional) */}
-        <div className="w-full h-2 rounded-full overflow-hidden" style={{ backgroundColor: '#F5DFAE' }}>
-          <div className="h-full rounded-full transition-all" style={{ width: `${pctFinal}%`, backgroundColor: '#177245' }} />
+        <div className="w-full h-2 rounded-full overflow-hidden" style={{ backgroundColor: 'var(--warn-border)' }}>
+          <div className="h-full rounded-full transition-all" style={{ width: `${pctFinal}%`, backgroundColor: 'var(--ok-text)' }} />
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-          <div className="rounded-lg p-2.5" style={{ backgroundColor: '#E5F6EC', boxShadow: 'inset 0 0 0 1px #BFE8D0' }}>
+          <div className="rounded-lg p-2.5" style={{ backgroundColor: 'var(--ok-bg)', boxShadow: 'inset 0 0 0 1px var(--ok-border)' }}>
             <div className="flex items-center gap-1.5">
-              <span className="rounded-full shrink-0" style={{ width: 8, height: 8, backgroundColor: '#177245' }} />
-              <span className="text-[0.6rem] font-semibold tracking-wide" style={{ color: '#177245' }}>FINALIZED</span>
+              <span className="rounded-full shrink-0" style={{ width: 8, height: 8, backgroundColor: 'var(--ok-text)' }} />
+              <span className="text-[0.6rem] font-semibold tracking-wide" style={{ color: 'var(--ok-text)' }}>FINALIZED</span>
             </div>
-            <div className="mt-1 leading-tight" style={{ color: '#177245' }}>
+            <div className="mt-1 leading-tight" style={{ color: 'var(--ok-text)' }}>
               {amountsFor('finalized').map((a, i) => (
                 <div key={i} className="font-semibold" style={{ fontSize: 'clamp(0.9rem, 0.78rem + 0.4vw, 1.15rem)', fontFamily: 'var(--font-manrope), Manrope, sans-serif', fontVariantNumeric: 'tabular-nums' }}>{a}</div>
               ))}
             </div>
             <div className="text-[0.58rem] text-[var(--regent-gray)] mt-1">{finCount} invoice{finCount === 1 ? '' : 's'} · after final invoice</div>
           </div>
-          <div className="rounded-lg p-2.5" style={{ backgroundColor: '#FDF3E1', boxShadow: 'inset 0 0 0 1px #F5DFAE' }}>
+          <div className="rounded-lg p-2.5" style={{ backgroundColor: 'var(--warn-bg)', boxShadow: 'inset 0 0 0 1px var(--warn-border)' }}>
             <div className="flex items-center gap-1.5">
               <span className="rounded-full shrink-0" style={{ width: 8, height: 8, backgroundColor: '#E8A23D' }} />
-              <span className="text-[0.6rem] font-semibold tracking-wide" style={{ color: '#9A6215' }}>PROVISIONAL</span>
+              <span className="text-[0.6rem] font-semibold tracking-wide" style={{ color: 'var(--warn-text)' }}>PROVISIONAL</span>
             </div>
-            <div className="mt-1 leading-tight" style={{ color: '#9A6215' }}>
+            <div className="mt-1 leading-tight" style={{ color: 'var(--warn-text)' }}>
               {amountsFor('provisional').map((a, i) => (
                 <div key={i} className="font-semibold" style={{ fontSize: 'clamp(0.9rem, 0.78rem + 0.4vw, 1.15rem)', fontFamily: 'var(--font-manrope), Manrope, sans-serif', fontVariantNumeric: 'tabular-nums' }}>{a}</div>
               ))}
@@ -307,7 +308,7 @@ function ReceivablesSplitCard({ byCur = {} }) {
 // Ranking list (Contracts / Consignees) — avatar + animated progress bar per row.
 function RankingList({ labels = [], data = [], title, subtitle, totalValue }) {
   const colorPalette = [
-    '#6D5CE0', '#0E9888', '#7A6FE3', '#E8A23D', '#D9557B'
+    'var(--brand)', '#0E9888', '#7A6FE3', '#E8A23D', '#D9557B'
   ];
   const avatarSize = 26;
   const getInitials = (name = '') =>
@@ -393,25 +394,25 @@ function RankingList({ labels = [], data = [], title, subtitle, totalValue }) {
 
 // Per-MT unit economics — 4-up strip.
 function PerMtStrip({ totalMT, avgCostPerMT, avgExpensePerMT, avgProfitPerMT, avgFreightPerMT }) {
-  const profitColor = avgProfitPerMT >= 0 ? '#177245' : '#B42332';
+  const profitColor = avgProfitPerMT >= 0 ? 'var(--ok-text)' : 'var(--bad-text)';
 
   const metrics = [
     {
       icon: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <rect x="2" y="7" width="20" height="14" rx="2" stroke="#177245" strokeWidth="2" fill="#E5F6EC" />
-          <path d="M8 11h8M8 14h5" stroke="#177245" strokeWidth="2" strokeLinecap="round" />
+          <rect x="2" y="7" width="20" height="14" rx="2" stroke="var(--ok-text)" strokeWidth="2" fill="var(--ok-bg)" />
+          <path d="M8 11h8M8 14h5" stroke="var(--ok-text)" strokeWidth="2" strokeLinecap="round" />
         </svg>
       ),
       value: `${new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(totalMT)} MT`,
       label: 'Total MT Purchased',
       sub: 'for selected period',
-      valueColor: '#177245',
+      valueColor: 'var(--ok-text)',
     },
     {
       icon: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <circle cx="12" cy="12" r="10" stroke="#E8A23D" strokeWidth="2" fill="#FDF3E1" />
+          <circle cx="12" cy="12" r="10" stroke="#E8A23D" strokeWidth="2" fill="var(--warn-bg)" />
           <path d="M12 8v4l3 3" stroke="#E8A23D" strokeWidth="2" strokeLinecap="round" />
         </svg>
       ),
@@ -423,15 +424,15 @@ function PerMtStrip({ totalMT, avgCostPerMT, avgExpensePerMT, avgProfitPerMT, av
     {
       icon: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <rect x="2" y="7" width="20" height="14" rx="2" stroke="#6D5CE0" strokeWidth="2" fill="#EEEBFC" />
-          <path d="M16 7V5a2 2 0 0 0-4 0v2" stroke="#6D5CE0" strokeWidth="2" />
-          <circle cx="12" cy="14" r="2" fill="#6D5CE0" />
+          <rect x="2" y="7" width="20" height="14" rx="2" stroke="var(--brand)" strokeWidth="2" fill="var(--brand-soft)" />
+          <path d="M16 7V5a2 2 0 0 0-4 0v2" stroke="var(--brand)" strokeWidth="2" />
+          <circle cx="12" cy="14" r="2" fill="var(--brand)" />
         </svg>
       ),
       value: fmtAutoKM(avgExpensePerMT),
       label: 'Avg Expense / MT',
       sub: 'expenses per MT',
-      valueColor: '#6D5CE0',
+      valueColor: 'var(--brand)',
     },
     {
       icon: (
@@ -449,7 +450,7 @@ function PerMtStrip({ totalMT, avgCostPerMT, avgExpensePerMT, avgProfitPerMT, av
     {
       icon: (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <circle cx="12" cy="12" r="10" stroke={profitColor} strokeWidth="2" fill={avgProfitPerMT >= 0 ? '#E5F6EC' : '#FDEAEA'} />
+          <circle cx="12" cy="12" r="10" stroke={profitColor} strokeWidth="2" fill={avgProfitPerMT >= 0 ? 'var(--ok-bg)' : 'var(--bad-bg)'} />
           <path d={avgProfitPerMT >= 0 ? 'M8 12l3 3 5-5' : 'M8 12l3-3 5 5'} stroke={profitColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       ),
@@ -522,7 +523,7 @@ function FilterSelect({ label, icon, value, onChange, options }) {
       </SelectTrigger>
       <SelectContent className="rounded-xl border border-[var(--bg-subtle)] shadow-md max-h-72 min-w-[var(--radix-select-trigger-width)]">
         {options.length > 7 && (
-          <div className="sticky top-0 z-10 bg-white p-1.5 border-b border-[#eef5fc]">
+          <div className="sticky top-0 z-10 bg-[var(--bg-card)] p-1.5 border-b border-[#eef5fc]">
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
@@ -553,13 +554,13 @@ function TonnageCard({ purchased = 0, shipped = 0, pending = 0 }) {
   const pctShipped = purchased > 0 ? Math.min(100, (shipped / purchased) * 100) : 0;
   const fmtMT = (n) => `${new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(n || 0)} MT`;
   const pills = [
-    { label: 'PURCHASED', value: purchased, bg: '#EEEBFC', ring: '#D6CFF7', dot: '#6D5CE0', color: '#5A49CB' },
-    { label: 'SHIPPED', value: shipped, bg: '#E5F6EC', ring: '#BFE8D0', dot: '#177245', color: '#177245' },
-    { label: 'PENDING', value: pending, bg: '#FDF3E1', ring: '#F5DFAE', dot: '#E8A23D', color: '#9A6215' },
+    { label: 'PURCHASED', value: purchased, bg: 'var(--brand-soft)', ring: 'var(--brand-border)', dot: 'var(--brand)', color: 'var(--brand-strong)' },
+    { label: 'SHIPPED', value: shipped, bg: 'var(--ok-bg)', ring: 'var(--ok-border)', dot: 'var(--ok-text)', color: 'var(--ok-text)' },
+    { label: 'PENDING', value: pending, bg: 'var(--warn-bg)', ring: 'var(--warn-border)', dot: '#E8A23D', color: 'var(--warn-text)' },
   ];
   return (
     <m.div
-      className="relative rounded-xl bg-white border border-[var(--line)] shadow-card overflow-hidden"
+      className="relative rounded-xl bg-[var(--bg-card)] border border-[var(--line)] shadow-card overflow-hidden"
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: 'easeOut' }}
@@ -569,17 +570,17 @@ function TonnageCard({ purchased = 0, shipped = 0, pending = 0 }) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center justify-center rounded-lg flex-shrink-0"
-              style={{ background: '#6D5CE01A', color: '#6D5CE0', width: 30, height: 30 }}>
+              style={{ background: 'var(--brand)1A', color: 'var(--brand)', width: 30, height: 30 }}>
               <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" /><path d="M3 7v10l9 4 9-4V7" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" /></svg>
             </span>
             <span className="responsiveTextTable font-medium text-[var(--regent-gray)] leading-tight">Tonnage — Purchased vs Shipped</span>
           </div>
-          <span className="responsiveTextTable font-medium" style={{ color: '#177245' }}>{pctShipped.toFixed(0)}% shipped</span>
+          <span className="responsiveTextTable font-medium" style={{ color: 'var(--ok-text)' }}>{pctShipped.toFixed(0)}% shipped</span>
         </div>
 
         {/* Shipped proportion bar — blue track (purchased) with green fill (shipped) */}
-        <div className="w-full h-2 rounded-full overflow-hidden" style={{ backgroundColor: '#D6CFF7' }}>
-          <div className="h-full rounded-full transition-all" style={{ width: `${pctShipped}%`, backgroundColor: '#177245' }} />
+        <div className="w-full h-2 rounded-full overflow-hidden" style={{ backgroundColor: 'var(--brand-border)' }}>
+          <div className="h-full rounded-full transition-all" style={{ width: `${pctShipped}%`, backgroundColor: 'var(--ok-text)' }} />
         </div>
 
         <div className="grid grid-cols-3 gap-2">
@@ -604,10 +605,10 @@ function MiscInvoicesCard({ byCur = {}, byCat = {}, count = 0 }) {
   const entries = Object.entries(byCur).filter(([, v]) => Math.abs(v) > 0.005);
 
   const CAT_META = [
-    { id: 'shipments', label: 'Shipments', bg: '#EEEBFC', ring: '#D6CFF7', dot: '#6D5CE0', color: '#5A49CB' },
+    { id: 'shipments', label: 'Shipments', bg: 'var(--brand-soft)', ring: 'var(--brand-border)', dot: 'var(--brand)', color: 'var(--brand-strong)' },
     { id: 'personal', label: 'Personal', bg: '#7A6FE31A', ring: '#7A6FE333', dot: '#7A6FE3', color: '#7A6FE3' },
-    { id: 'random', label: 'Random', bg: '#FDF3E1', ring: '#F5DFAE', dot: '#E8A23D', color: '#9A6215' },
-    { id: 'uncategorized', label: 'Uncategorized', bg: '#F1EFF6', ring: '#DDD9EA', dot: '#9B97AE', color: '#5D5A74' },
+    { id: 'random', label: 'Random', bg: 'var(--warn-bg)', ring: 'var(--warn-border)', dot: '#E8A23D', color: 'var(--warn-text)' },
+    { id: 'uncategorized', label: 'Uncategorized', bg: 'var(--neutral-bg)', ring: 'var(--neutral-border)', dot: '#9B97AE', color: 'var(--ink-secondary)' },
   ];
   const catRows = CAT_META
     .map(c => ({ ...c, byCur: byCat[c.id]?.byCur || {}, count: byCat[c.id]?.count || 0 }))
@@ -621,7 +622,7 @@ function MiscInvoicesCard({ byCur = {}, byCat = {}, count = 0 }) {
 
   return (
     <m.div
-      className="relative rounded-xl bg-white border border-[var(--line)] shadow-card overflow-hidden h-full flex flex-col"
+      className="relative rounded-xl bg-[var(--bg-card)] border border-[var(--line)] shadow-card overflow-hidden h-full flex flex-col"
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: 'easeOut' }}
@@ -653,7 +654,7 @@ function MiscInvoicesCard({ byCur = {}, byCat = {}, count = 0 }) {
         {catRows.length > 0 ? (
           <>
             {/* Category mix — share of invoice count per category */}
-            <div className="w-full h-2 rounded-full overflow-hidden flex" style={{ backgroundColor: '#F1EFF6' }}>
+            <div className="w-full h-2 rounded-full overflow-hidden flex" style={{ backgroundColor: 'var(--neutral-bg)' }}>
               {catRows.map(c => (
                 <div key={c.id} style={{ width: `${c.sharePct}%`, backgroundColor: c.dot }} title={`${c.label} · ${c.sharePct.toFixed(0)}%`} />
               ))}
@@ -698,20 +699,20 @@ function UnsoldStockCard({ value = 0, mt = 0 }) {
   const fmtMT = (n) => `${new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(n || 0)} MT`;
   return (
     <m.div
-      className="relative rounded-xl bg-white border border-[var(--line)] shadow-card overflow-hidden"
+      className="relative rounded-xl bg-[var(--bg-card)] border border-[var(--line)] shadow-card overflow-hidden"
       initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, ease: 'easeOut' }}
       whileHover={{ y: -3, boxShadow: '0 2px 8px rgba(30,27,57,0.06)' }}
     >
       <div className="p-4 flex flex-col gap-2 h-full">
         <div className="flex items-center gap-2">
-          <span className="inline-flex items-center justify-center rounded-lg flex-shrink-0" style={{ background: '#E8A23D1A', color: '#9A6215', width: 30, height: 30 }}>
+          <span className="inline-flex items-center justify-center rounded-lg flex-shrink-0" style={{ background: '#E8A23D1A', color: 'var(--warn-text)', width: 30, height: 30 }}>
             <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" /><path d="M3 7v10l9 4 9-4V7" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" /></svg>
           </span>
           <span className="responsiveTextTable font-medium text-[var(--regent-gray)] leading-tight">Unsold Stock · not a cost</span>
         </div>
         <div className="font-semibold text-[var(--port-gore)] leading-none mt-1" style={{ fontSize: 'clamp(1.15rem, 0.9rem + 0.7vw, 1.6rem)', fontFamily: 'var(--font-manrope), Manrope, sans-serif', fontVariantNumeric: 'tabular-nums' }}>{fmtAutoKM(value)}</div>
-        <div className="rounded-lg p-2.5 mt-auto" style={{ backgroundColor: '#FDF3E1', boxShadow: 'inset 0 0 0 1px #F5DFAE' }}>
-          <div className="font-semibold leading-none" style={{ color: '#9A6215', fontSize: 'clamp(0.95rem, 0.8rem + 0.5vw, 1.25rem)', fontFamily: 'var(--font-manrope), Manrope, sans-serif', fontVariantNumeric: 'tabular-nums' }}>{fmtMT(mt)}</div>
+        <div className="rounded-lg p-2.5 mt-auto" style={{ backgroundColor: 'var(--warn-bg)', boxShadow: 'inset 0 0 0 1px var(--warn-border)' }}>
+          <div className="font-semibold leading-none" style={{ color: 'var(--warn-text)', fontSize: 'clamp(0.95rem, 0.8rem + 0.5vw, 1.25rem)', fontFamily: 'var(--font-manrope), Manrope, sans-serif', fontVariantNumeric: 'tabular-nums' }}>{fmtMT(mt)}</div>
           <div className="text-[0.58rem] text-[var(--regent-gray)] mt-1">in stock · capital tied up, excluded from profit</div>
         </div>
       </div>
@@ -722,7 +723,7 @@ function UnsoldStockCard({ value = 0, mt = 0 }) {
 // Receivables aging — outstanding split by invoice age (0–30 / 31–60 / 61–90 / 90+),
 // per currency, colored green→red as it ages. Shows how overdue money is at a glance.
 function AgingCard({ buckets = [] }) {
-  const colors = ['#177245', '#E8A23D', '#9A6215', '#B42332'];
+  const colors = ['var(--ok-text)', '#E8A23D', 'var(--warn-text)', 'var(--bad-text)'];
   const fmtCurKM = (cur, n) => {
     const s = cur === 'us' ? '$' : cur === 'eu' ? '€' : '';
     const v = Number(n) || 0, a = Math.abs(v);
@@ -768,7 +769,7 @@ function AgingCard({ buckets = [] }) {
 }
 
 // Horizontal-bar breakdown card (expenses by type, materials by tonnage, etc.).
-function BreakdownCard({ title, subtitle, entries = [], total, fmtVal, accent = '#6D5CE0' }) {
+function BreakdownCard({ title, subtitle, entries = [], total, fmtVal, accent = 'var(--brand)' }) {
   const max = Math.max(...entries.map(([, v]) => v), 1);
   return (
     <CardShell>
@@ -804,6 +805,7 @@ const Dash = () => {
   // Default payment term in days (Settings → General) — used to flag overdue invoices.
   const termDays = parseInt(compData?.defaultTermDays, 10) > 0 ? parseInt(compData.defaultTermDays, 10) : 30;
   const { uidCollection, user } = UserAuth();
+  const { theme } = useTheme();
   const settingsLoaded = Object.keys(settings).length > 0;
   const clientCount = settings.Client?.Client?.length || 0;
   const supplierCount = settings.Supplier?.Supplier?.length || 0;
@@ -1067,20 +1069,34 @@ const Dash = () => {
   );
   const profitSeries = useMemo(() => dataPL.map(Number), [dataPL]);
 
+  // Canvas can't resolve CSS variables — charts read this theme-aware palette
+  // instead (values mirror the :root / .dark token sets).
+  const dk = theme === 'dark';
+  const CH = {
+    ink: dk ? '#EDEBFA' : '#1E1B39',
+    muted: dk ? '#8B87A8' : '#6E6B84',
+    grid: dk ? 'rgba(255,255,255,0.07)' : '#EAE8F2',
+    card: dk ? '#1B1830' : '#ffffff',
+    tooltipBg: dk ? 'rgba(35,32,56,0.97)' : 'rgba(255,255,255,0.97)',
+    brand: dk ? '#8B7CF7' : '#6D5CE0',
+    green: dk ? '#5ECC96' : '#177245',
+    brandFade: dk ? 'rgba(139,124,247,' : 'rgba(109,92,224,',
+  };
+
   const heroData = {
     labels: revLabels,
     datasets: [
       {
         label: 'Revenue',
         data: revenueSeries,
-        borderColor: '#6D5CE0',
+        borderColor: CH.brand,
         backgroundColor: (ctx) => {
           const { chart } = ctx;
           const { ctx: c, chartArea } = chart;
-          if (!chartArea) return 'rgba(11,107,184,0.10)';
+          if (!chartArea) return `${CH.brandFade}0.10)`;
           const g = c.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-          g.addColorStop(0, 'rgba(11,107,184,0.28)');
-          g.addColorStop(1, 'rgba(11,107,184,0.00)');
+          g.addColorStop(0, `${CH.brandFade}0.28)`);
+          g.addColorStop(1, `${CH.brandFade}0.00)`);
           return g;
         },
         borderWidth: 2.5,
@@ -1103,7 +1119,7 @@ const Dash = () => {
       {
         label: 'Profit',
         data: profitSeries,
-        borderColor: '#177245',
+        borderColor: CH.green,
         backgroundColor: 'transparent',
         borderWidth: 2,
         borderDash: [5, 4],
@@ -1124,13 +1140,13 @@ const Dash = () => {
         display: true,
         position: 'top',
         align: 'end',
-        labels: { usePointStyle: true, pointStyle: 'circle', boxWidth: 6, padding: 16, font: { size: 11 }, color: '#1E1B39' },
+        labels: { usePointStyle: true, pointStyle: 'circle', boxWidth: 6, padding: 16, font: { size: 11 }, color: CH.ink },
       },
       tooltip: {
-        backgroundColor: 'rgba(255,255,255,0.97)',
-        titleColor: '#1E1B39',
-        bodyColor: '#1E1B39',
-        borderColor: '#EAE8F2',
+        backgroundColor: CH.tooltipBg,
+        titleColor: CH.ink,
+        bodyColor: CH.ink,
+        borderColor: CH.grid,
         borderWidth: 1,
         cornerRadius: 10,
         padding: 12,
@@ -1139,8 +1155,8 @@ const Dash = () => {
       },
     },
     scales: {
-      x: { grid: { display: false }, ticks: { font: { size: 10 }, color: '#8D8AA3' }, border: { display: false } },
-      y: { grid: { color: '#EAE8F2' }, ticks: { callback: (v) => fmtAutoKM(v, 1), font: { size: 10 }, color: '#8D8AA3' }, border: { display: false } },
+      x: { grid: { display: false }, ticks: { font: { size: 10 }, color: CH.muted }, border: { display: false } },
+      y: { grid: { color: CH.grid }, ticks: { callback: (v) => fmtAutoKM(v, 1), font: { size: 10 }, color: CH.muted }, border: { display: false } },
     },
   };
 
@@ -1150,8 +1166,8 @@ const Dash = () => {
     labels: ['Cost of Goods Sold', 'Other Expenses', 'Net Profit'],
     datasets: [{
       data: [cogs, totalExpenses, profitForArc],
-      backgroundColor: ['#6D5CE0', '#D9557B', '#177245'],
-      borderColor: '#ffffff',
+      backgroundColor: [CH.brand, '#D9557B', CH.green],
+      borderColor: CH.card,
       borderWidth: 2,
       hoverOffset: 6,
     }],
@@ -1164,10 +1180,10 @@ const Dash = () => {
     plugins: {
       legend: { display: false },
       tooltip: {
-        backgroundColor: 'rgba(255,255,255,0.97)',
-        titleColor: '#1E1B39',
-        bodyColor: '#1E1B39',
-        borderColor: '#EAE8F2',
+        backgroundColor: CH.tooltipBg,
+        titleColor: CH.ink,
+        bodyColor: CH.ink,
+        borderColor: CH.grid,
         borderWidth: 1,
         cornerRadius: 10,
         padding: 10,
@@ -1177,9 +1193,9 @@ const Dash = () => {
   };
 
   const donutLegend = [
-    { label: 'Cost of Goods Sold', value: cogs, color: '#6D5CE0' },
+    { label: 'Cost of Goods Sold', value: cogs, color: 'var(--brand)' },
     { label: 'Other Expenses', value: totalExpenses, color: '#D9557B' },
-    { label: 'Net Profit', value: totalPL, color: '#177245' },
+    { label: 'Net Profit', value: totalPL, color: 'var(--ok-text)' },
   ];
 
   // Ranking data sources
@@ -1230,7 +1246,7 @@ const Dash = () => {
 
           {/* FILTER BAR — Supplier / Client / Material (date range lives in the header) */}
           <m.div className="mb-5" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.08 }}>
-            <div className="flex flex-wrap items-center gap-2 bg-white border border-[var(--line)] rounded-2xl px-3 py-2.5 shadow-card">
+            <div className="flex flex-wrap items-center gap-2 bg-[var(--bg-card)] border border-[var(--line)] rounded-2xl px-3 py-2.5 shadow-card">
               <span className="inline-flex items-center gap-1.5 pr-2 mr-0.5 border-r border-[var(--line)]">
                 <span className="inline-flex items-center justify-center rounded-lg" style={{ background: 'var(--endeavour)', color: '#fff', width: 22, height: 22 }}>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M3 5h18M6 12h12M10 19h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
@@ -1265,9 +1281,9 @@ const Dash = () => {
 
           {/* FX data-gap warning — a missing rate is counted at 1:1, not silently zeroed */}
           {missingRate > 0 && (
-            <div className="mb-4 flex items-center gap-2 rounded-xl px-3 py-2" style={{ background: '#FDF3E1', border: '1px solid #F5DFAE' }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="flex-shrink-0" style={{ color: '#9A6215' }}><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" /><path d="M12 9v4m0 4h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
-              <span className="responsiveTextTable" style={{ color: '#9A6215' }}>
+            <div className="mb-4 flex items-center gap-2 rounded-xl px-3 py-2" style={{ background: 'var(--warn-bg)', border: '1px solid var(--warn-border)' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="flex-shrink-0" style={{ color: 'var(--warn-text)' }}><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" /><path d="M12 9v4m0 4h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
+              <span className="responsiveTextTable" style={{ color: 'var(--warn-text)' }}>
                 {missingRate} EUR contract{missingRate === 1 ? '' : 's'} missing an FX rate — counted at 1:1, so USD totals may be understated. Set the EUR→USD rate on those contracts for accurate figures.
               </span>
             </div>
@@ -1286,14 +1302,14 @@ const Dash = () => {
               title="Sales Revenue"
               value={fmtAutoKM(invoiceRevAgg.total)}
               chartData={invoiceRevAgg.byMonth}
-              accent="#177245"
+              accent="var(--ok-text)"
               icon={<svg width="16" height="16" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4" stroke="currentColor" strokeWidth="2" /><path d="M8 10h8M8 14h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>}
             />
             <StatKpiCard
               title="Cost of Goods Sold"
               value={fmtAutoKM(cogs)}
               chartData={cogsByMonth}
-              accent="#B42332"
+              accent="var(--bad-text)"
               goodWhenUp={false}
               icon={<svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="2" /><path d="M12 8v4l2 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>}
             />
@@ -1301,7 +1317,7 @@ const Dash = () => {
               title="MT Purchased"
               value={`${new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(totalMT)} MT`}
               chartData={dataContracts}
-              accent="#6D5CE0"
+              accent="var(--brand)"
               icon={<svg width="16" height="16" fill="none" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" strokeWidth="2" /><path d="M7 10h10M7 14h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>}
             />
             <StatKpiCard
@@ -1417,7 +1433,7 @@ const Dash = () => {
               entries={Object.entries(materialSold).filter(([, v]) => v > 0.01).sort((a, b) => b[1] - a[1]).slice(0, 8)}
               total={shippedMT}
               fmtVal={(v) => `${new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(v || 0)} MT`}
-              accent="#6D5CE0"
+              accent="var(--brand)"
             />
           </div>
 

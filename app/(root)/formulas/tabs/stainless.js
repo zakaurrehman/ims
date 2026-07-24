@@ -585,10 +585,10 @@ import { useState } from "react";
 // Shared styling (style-only constants — no logic)
 const headCell = "py-1.5 text-center text-[10px] font-semibold uppercase tracking-[0.04em] text-[var(--ink-muted)]";
 const labelCls = "text-[10px] font-semibold uppercase tracking-[0.04em] text-[var(--ink-muted)] mb-1.5";
-const inputCell = "w-full h-6 rounded-[8px] bg-[var(--bg-subtle)] border border-[var(--line-strong)] text-center text-xs font-inter tabular-nums font-medium text-[#B42332] focus:outline-none focus:border-[var(--brand)] focus:ring-2 focus:ring-[var(--brand-soft)] transition-colors";
+const inputCell = "w-full h-6 rounded-[8px] bg-[var(--bg-subtle)] border border-[var(--line-strong)] text-center text-xs font-inter tabular-nums font-medium text-[var(--bad-text)] focus:outline-none focus:border-[var(--brand)] focus:ring-2 focus:ring-[var(--brand-soft)] transition-colors";
 const computedInput = "w-full h-6 rounded-[8px] bg-[var(--brand-soft)] border border-transparent text-center text-xs font-inter tabular-nums font-semibold text-[var(--brand-strong)] outline-none cursor-default";
 const computedCell = "h-6 rounded-[8px] bg-[var(--brand-soft)] flex items-center justify-center text-xs font-inter tabular-nums font-semibold text-[var(--brand-strong)]";
-const pillInput = "w-full h-8 rounded-[10px] border border-[var(--line-strong)] bg-white text-center text-[13px] font-inter tabular-nums font-semibold text-[#B42332] focus:outline-none focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] transition-colors";
+const pillInput = "w-full h-8 rounded-[10px] border border-[var(--line-strong)] bg-[var(--bg-card)] text-center text-[13px] font-inter tabular-nums font-semibold text-[var(--bad-text)] focus:outline-none focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] transition-colors";
 const resultPill = "h-8 px-3 rounded-[10px] bg-[var(--brand-soft)] border border-[var(--brand-border)] flex items-center justify-center text-[13px] font-inter tabular-nums font-semibold text-[var(--brand-strong)]";
 
 const Stainless = ({ value, handleChange }) => {
@@ -617,7 +617,7 @@ const Stainless = ({ value, handleChange }) => {
     return value.stainless != null ? (
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 items-start">
             {/* COST SECTION */}
-            <div className="w-full bg-white rounded-2xl border border-[var(--line)] shadow-card overflow-hidden">
+            <div className="w-full bg-[var(--bg-card)] rounded-2xl border border-[var(--line)] shadow-card overflow-hidden">
                 <div className="px-4 pt-4">
                     <h3 className="text-[13px] font-display font-semibold text-[var(--ink)]">Cost</h3>
                     <p className="text-[11px] text-[var(--ink-muted)] mt-0.5">Purchase-side composition and pricing</p>
@@ -627,14 +627,14 @@ const Stainless = ({ value, handleChange }) => {
                         <div className="flex flex-col gap-4">
                             <div>
                                 <p className={labelCls}>Composition</p>
-                                <div className="rounded-xl border border-[var(--line)] overflow-hidden w-fit bg-white">
+                                <div className="rounded-xl border border-[var(--line)] overflow-hidden w-fit bg-[var(--bg-card)]">
                                     <div className="grid grid-cols-[85px_85px_85px_85px] bg-[var(--bg-subtle)] border-b border-[var(--line)]">
                                         <div className={headCell}>Ni</div>
                                         <div className={headCell}>Cr</div>
                                         <div className={headCell}>Mo</div>
                                         <div className={headCell}>Fe</div>
                                     </div>
-                                    <div className="grid grid-cols-[85px_85px_85px_85px] bg-white">
+                                    <div className="grid grid-cols-[85px_85px_85px_85px] bg-[var(--bg-card)]">
                                         <div className="p-1">
                                             <input
                                                 type="text"
@@ -740,14 +740,14 @@ const Stainless = ({ value, handleChange }) => {
                             {/* Price Row */}
                             <div>
                                 <p className={labelCls}>Price</p>
-                                <div className="rounded-xl border border-[var(--line)] overflow-hidden w-fit bg-white">
+                                <div className="rounded-xl border border-[var(--line)] overflow-hidden w-fit bg-[var(--bg-card)]">
                                     <div className="grid grid-cols-[85px_85px_85px_85px] bg-[var(--bg-subtle)] border-b border-[var(--line)]">
                                         <div className={headCell}>Ni</div>
                                         <div className={headCell}>Cr</div>
                                         <div className={headCell}>Mo</div>
                                         <div className={headCell}>Fe</div>
                                     </div>
-                                    <div className="grid grid-cols-[85px_85px_85px_85px] bg-white">
+                                    <div className="grid grid-cols-[85px_85px_85px_85px] bg-[var(--bg-card)]">
                                         <div className="p-1">
                                             <input
                                                 type="text"
@@ -880,7 +880,7 @@ const Stainless = ({ value, handleChange }) => {
             </div>
 
             {/* SALES SECTION */}
-            <div className="w-full bg-white rounded-2xl border border-[var(--line)] shadow-card overflow-hidden">
+            <div className="w-full bg-[var(--bg-card)] rounded-2xl border border-[var(--line)] shadow-card overflow-hidden">
                 <div className="px-4 pt-4">
                     <h3 className="text-[13px] font-display font-semibold text-[var(--ink)]">Sales</h3>
                     <p className="text-[11px] text-[var(--ink-muted)] mt-0.5">Sales-side composition and pricing</p>
@@ -890,7 +890,7 @@ const Stainless = ({ value, handleChange }) => {
                         <div className="flex flex-col gap-4">
                             <div>
                                 <p className={labelCls}>Composition</p>
-                                <div className="rounded-xl border border-[var(--line)] overflow-hidden w-fit bg-white">
+                                <div className="rounded-xl border border-[var(--line)] overflow-hidden w-fit bg-[var(--bg-card)]">
                                     <div className="grid grid-cols-[85px_85px_85px_85px] bg-[var(--bg-subtle)] border-b border-[var(--line)]">
                                         {[
                                             { label: 'Ni', value: value?.stainless?.ni + '%' },
@@ -903,7 +903,7 @@ const Stainless = ({ value, handleChange }) => {
                                             </div>
                                         ))}
                                     </div>
-                                    <div className="grid grid-cols-[85px_85px_85px_85px] bg-white">
+                                    <div className="grid grid-cols-[85px_85px_85px_85px] bg-[var(--bg-card)]">
                                         {[
                                             { label: 'Ni', value: value?.stainless?.ni + '%' },
                                             { label: 'Cr', value: value?.stainless?.cr + '%' },
@@ -921,14 +921,14 @@ const Stainless = ({ value, handleChange }) => {
                             {/* Price */}
                             <div>
                                 <p className={labelCls}>Price</p>
-                                <div className="rounded-xl border border-[var(--line)] overflow-hidden w-fit bg-white">
+                                <div className="rounded-xl border border-[var(--line)] overflow-hidden w-fit bg-[var(--bg-card)]">
                                     <div className="grid grid-cols-[85px_85px_85px_85px] bg-[var(--bg-subtle)] border-b border-[var(--line)]">
                                         <div className={headCell}>Ni</div>
                                         <div className={headCell}>Cr</div>
                                         <div className={headCell}>Mo</div>
                                         <div className={headCell}>Fe</div>
                                     </div>
-                                    <div className="grid grid-cols-[85px_85px_85px_85px] bg-white">
+                                    <div className="grid grid-cols-[85px_85px_85px_85px] bg-[var(--bg-card)]">
                                         <div className="p-1">
                                             <div className={computedCell}>
                                                 {formatCurrency(

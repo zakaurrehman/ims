@@ -1008,7 +1008,7 @@ const Cashflow = () => {
                             onCancel={() => setAutoCancelled(true)}
                         />
                         <VideoLoader loading={loading} fullScreen={true} />
-                        <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
+                        <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-[var(--bg-card)]">
                             <div className='flex items-center justify-between flex-wrap gap-2 pb-2'>
                                 <div>
                                     <h1 className="text-display">{getTtl('Cashflow', ln)}</h1>
@@ -1035,13 +1035,13 @@ const Cashflow = () => {
                             <div className="inline-flex gap-1 mb-2 bg-[var(--bg-subtle)] border border-[var(--line)] rounded-full p-0.5">
                                 <button
                                     onClick={() => setActiveTab('general')}
-                                    className={`px-4 py-1 text-[0.72rem] xl:text-[0.75rem] rounded-full transition-all ${activeTab === 'general' ? 'bg-white text-[var(--ink)] font-medium shadow-card' : 'text-[var(--ink-secondary)]'}`}
+                                    className={`px-4 py-1 text-[0.72rem] xl:text-[0.75rem] rounded-full transition-all ${activeTab === 'general' ? 'bg-[var(--bg-card)] text-[var(--ink)] font-medium shadow-card' : 'text-[var(--ink-secondary)]'}`}
                                 >
                                     General Cashflow
                                 </button>
                                 <button
                                     onClick={() => setActiveTab('unsold')}
-                                    className={`px-4 py-1 text-[0.72rem] xl:text-[0.75rem] rounded-full transition-all ${activeTab === 'unsold' ? 'bg-white text-[var(--ink)] font-medium shadow-card' : 'text-[var(--ink-secondary)]'}`}
+                                    className={`px-4 py-1 text-[0.72rem] xl:text-[0.75rem] rounded-full transition-all ${activeTab === 'unsold' ? 'bg-[var(--bg-card)] text-[var(--ink)] font-medium shadow-card' : 'text-[var(--ink-secondary)]'}`}
                                 >
                                     Unsold Stocks
                                 </button>
@@ -1051,7 +1051,7 @@ const Cashflow = () => {
                             {activeTab === 'general' && <KpiStrip items={kpiItems} />}
 
                             {activeTab === 'unsold' ? (
-                                <div className="w-full max-w-2xl border border-[var(--line)] rounded-2xl overflow-hidden bg-white p-4">
+                                <div className="w-full max-w-2xl border border-[var(--line)] rounded-2xl overflow-hidden bg-[var(--bg-card)] p-4">
                                     <SectionHeader icon={Boxes} title="Unsold Stocks" className="mb-2">
                                         {stocksSortName2 ?
                                             <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocksName2()} />
@@ -1067,7 +1067,7 @@ const Cashflow = () => {
                                     ) : (
                                         <>
                                             {stockDataNoSold.map((x, i) => (
-                                                <div className="bg-white py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
+                                                <div className="bg-[var(--bg-card)] py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
                                                     <MyAccordion title={
                                                         <div className="flex w-full justify-between">
                                                             <div className="responsiveText font-medium text-[var(--ink)] items-center flex gap-1.5 outline-none whitespace-normal break-words min-w-0">
@@ -1152,17 +1152,17 @@ const Cashflow = () => {
                                         </div>
 
                                     }
-                                    <div className="w-full border border-[var(--line)] rounded-2xl overflow-hidden bg-white">
+                                    <div className="w-full border border-[var(--line)] rounded-2xl overflow-hidden bg-[var(--bg-card)]">
                                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 w-full">
                                             <div className="w-full">
-                                                <div className="p-2 bg-white mb-3 flex flex-col cf-card">
+                                                <div className="p-2 bg-[var(--bg-card)] mb-3 flex flex-col cf-card">
                                                     <SectionHeader icon={Boxes} title="Stocks - Paid">
                                                         {stocksSortName ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocksName()} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocksName()} />}
                                                         {stocksSort ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocks()} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocks()} />}
                                                     </SectionHeader>
                                                     {stockData1.map((x, i) => {
                                                         return (
-                                                            <div className="bg-white py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
+                                                            <div className="bg-[var(--bg-card)] py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
                                                                 <MyAccordion title={
                                                                     <div className="flex w-full justify-between">
                                                                         <div className="responsiveText items-center font-medium text-[var(--ink)] flex outline-none whitespace-normal break-words min-w-0"
@@ -1215,7 +1215,7 @@ const Cashflow = () => {
 
 
 
-                                                {stockData2.length > 0 && <div className="p-2 bg-white mb-3 flex flex-col cf-card">
+                                                {stockData2.length > 0 && <div className="p-2 bg-[var(--bg-card)] mb-3 flex flex-col cf-card">
                                                     <SectionHeader icon={Boxes} title="Stocks - UnPaid">
                                                         {stocksSortName1 ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocksName1()} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocksName1()} />}
                                                         {stocksSort1 ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocks1()} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocks1()} />}
@@ -1223,7 +1223,7 @@ const Cashflow = () => {
 
                                                     {stockData2.map((x, i) => {
                                                         return (
-                                                            <div className="bg-white py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
+                                                            <div className="bg-[var(--bg-card)] py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
                                                                 <MyAccordion title={
                                                                     <div className="flex w-full justify-between">
                                                                         <div className="responsiveText font-medium text-[var(--ink)] items-center flex outline-none whitespace-normal break-words min-w-0"
@@ -1272,7 +1272,7 @@ const Cashflow = () => {
                                                 </div>}
 
 
-                                                <div className="p-2 bg-white mb-3 flex flex-col cf-card">
+                                                <div className="p-2 bg-[var(--bg-card)] mb-3 flex flex-col cf-card">
                                                     <SectionHeader icon={Users} title="Clients - Payment">
                                                         {clientSortName1 ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortClientsName(1)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortClientsName(1)} />}
                                                         {clientSort1 ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortClients(1)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortClients(1)} />}
@@ -1280,7 +1280,7 @@ const Cashflow = () => {
 
                                                     {clientInvoices2.map((x, i) => {
                                                         return (
-                                                            <div className="bg-white py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
+                                                            <div className="bg-[var(--bg-card)] py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
                                                                 <MyAccordion title={
                                                                     <div className="flex w-full justify-between">
                                                                         <div className="flex items-center gap-1.5 min-w-0">
@@ -1329,7 +1329,7 @@ const Cashflow = () => {
                                                 </div>
 
 
-                                                <div className="p-2 bg-white mb-3 flex flex-col cf-card">
+                                                <div className="p-2 bg-[var(--bg-card)] mb-3 flex flex-col cf-card">
                                                     <SectionHeader icon={Users} title="Clients - Balances">
                                                         {clientSortName ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortClientsName(0)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortClientsName(0)} />}
                                                         {clientSort ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortClients(0)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortClients(0)} />}
@@ -1337,7 +1337,7 @@ const Cashflow = () => {
 
                                                     {clientInvoices1.map((x, i) => {
                                                         return (
-                                                            <div className="bg-white py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
+                                                            <div className="bg-[var(--bg-card)] py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
                                                                 <MyAccordion title={
                                                                     <div className="flex w-full justify-between">
                                                                         <div className="flex items-center gap-1.5 min-w-0">
@@ -1445,7 +1445,7 @@ const Cashflow = () => {
 
                                             <div className="w-full border-l border-[var(--line)] pt-0">
 
-                                                <div className="p-2 bg-white mb-3 flex flex-col cf-card">
+                                                <div className="p-2 bg-[var(--bg-card)] mb-3 flex flex-col cf-card">
                                                     <SectionHeader icon={Factory} title="Supplier - Payment">
                                                         {supPmntssSortName1 ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortSupPmntsName(1)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortSupPmntsName(1)} />}
                                                         {supPmntssSort1 ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortSupPmnts(1)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortSupPmnts(1)} />}
@@ -1455,7 +1455,7 @@ const Cashflow = () => {
 
                                                     {supPayments2.map((x, i) => {
                                                         return (
-                                                            <div className="bg-white py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
+                                                            <div className="bg-[var(--bg-card)] py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
                                                                 <MyAccordion title={
                                                                     <div className="flex w-full justify-between leading-4 2xl:leading-6">
                                                                         <div className="flex items-center gap-1.5 w-full min-w-0">
@@ -1505,7 +1505,7 @@ const Cashflow = () => {
                                                 </div>
 
 
-                                                <div className="p-2 bg-white mb-3 flex flex-col cf-card">
+                                                <div className="p-2 bg-[var(--bg-card)] mb-3 flex flex-col cf-card">
                                                     <SectionHeader icon={Factory} title="Supplier - Balances">
                                                         {supPmntssSortName ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortSupPmntsName(0)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortSupPmntsName(0)} />}
                                                         {supPmntssSort ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortSupPmnts(0)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortSupPmnts(0)} />}
@@ -1515,7 +1515,7 @@ const Cashflow = () => {
 
                                                     {supPayments1.map((x, i) => {
                                                         return (
-                                                            <div className="bg-white py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
+                                                            <div className="bg-[var(--bg-card)] py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
                                                                 <MyAccordion title={
                                                                     <div className="flex w-full justify-between leading-4 2xl:leading-6">
                                                                         <div className="flex items-center gap-1.5 w-full min-w-0">
@@ -1564,7 +1564,7 @@ const Cashflow = () => {
                                                     </div>
                                                 </div>
 
-                                                <div className="p-2 bg-white mb-3 flex flex-col cf-card">
+                                                <div className="p-2 bg-[var(--bg-card)] mb-3 flex flex-col cf-card">
                                                     <SectionHeader icon={Wallet} title="Expenses">
                                                         {expensesSortName ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortExpensesName()} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortExpensesName()} />}
                                                         {expensesSort ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortExpenses()} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortExpenses()} />}
@@ -1572,7 +1572,7 @@ const Cashflow = () => {
 
                                                     {expenses.map((x, i) => {
                                                         return (
-                                                            <div className="bg-white py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
+                                                            <div className="bg-[var(--bg-card)] py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
                                                                 <MyAccordion title={
                                                                     <div className="flex justify-between leading-4 2xl:leading-6 w-full">
                                                                         <div className="responsiveText font-medium text-[var(--ink)] items-center flex gap-1.5 outline-none whitespace-normal break-words min-w-0">
@@ -1619,7 +1619,7 @@ const Cashflow = () => {
                                                     </div>
                                                 </div>
 
-                                                <div className="p-2 bg-white mb-3 flex flex-col cf-card">
+                                                <div className="p-2 bg-[var(--bg-card)] mb-3 flex flex-col cf-card">
                                                     {
                                                         userTitle === 'Admin' &&
                                                         <div className='mt-1 p-1'>

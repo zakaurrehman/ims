@@ -72,7 +72,7 @@ export function PlatformCard3() {
           className="absolute bottom-8 right-8 md:right-16 bg-[var(--endeavour)] w-28 h-32 flex items-center justify-center shadow-2xl shadow-blue-900/30 z-20 cursor-pointer hover:scale-105 transition-transform duration-300"
           style={{ borderRadius: '10px 10px 50px 50px' }}
         >
-           <div className="bg-white rounded-full p-2 shadow-sm">
+           <div className="bg-[var(--bg-card)] rounded-full p-2 shadow-sm">
              <Check className="w-8 h-8 text-[var(--endeavour)] stroke-[4px]" />
            </div>
         </div>

@@ -58,7 +58,7 @@ export function PlatformCard2() {
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.2 }}
-        className="relative h-full w-full bg-white rounded-[2rem] shadow-sm border border-slate-100/50 p-8 lg:pr-12"
+        className="relative h-full w-full bg-[var(--bg-card)] rounded-[2rem] shadow-sm border border-slate-100/50 p-8 lg:pr-12"
       >
         {/* Floating Card - Financial Overview */}
         <div className="absolute -top-16 right-8 w-56 bg-[var(--endeavour)] text-white p-5 rounded-3xl shadow-2xl shadow-blue-500/30 z-10">

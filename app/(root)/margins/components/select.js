@@ -42,8 +42,8 @@ const SelectEnt = memo(({ props, data, handleChangeSelect, month, name, plHolder
                           text-[0.75rem]
                           text-[var(--ink)]
                           border border-transparent
-                          hover:border-[var(--line-strong)] hover:bg-white
-                          focus:border-[var(--brand)] focus:bg-white
+                          hover:border-[var(--line-strong)] hover:bg-[var(--bg-card)]
+                          focus:border-[var(--brand)] focus:bg-[var(--bg-card)]
                           focus:ring-2 focus:ring-[var(--brand-soft)]
                           focus:outline-none
                           transition-colors
@@ -62,7 +62,7 @@ const SelectEnt = memo(({ props, data, handleChangeSelect, month, name, plHolder
                     <PopoverContent
                       align="start"
                       sideOffset={4}
-                      className="p-0 w-[var(--radix-popover-trigger-width)] min-w-[180px] z-40 bg-white rounded-xl border border-[var(--line)] shadow-pop"
+                      className="p-0 w-[var(--radix-popover-trigger-width)] min-w-[180px] z-40 bg-[var(--bg-card)] rounded-xl border border-[var(--line)] shadow-pop"
                     >
                       <Command className="bg-transparent">
                         <CommandInput

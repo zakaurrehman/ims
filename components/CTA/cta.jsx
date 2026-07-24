@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function CTA() {
   return (
-    <section className="relative bg-white py-8 overflow-hidden">
+    <section className="relative bg-[var(--bg-card)] py-8 overflow-hidden">
       <div className="container mx-auto px-6 text-center relative z-10">
         <h2 className="text-3xl md:text-4xl font-bold text-[var(--chathams-blue)] mb-4">
           Run your whole trading operation in one place
@@ -23,7 +23,7 @@ export default function CTA() {
           </Link>
           <a
             href="#modules"
-            className="border border-[#EAE8F2] text-[var(--chathams-blue)] px-8 py-3 rounded-xl font-bold hover:bg-[#F4F3F9] transition-all"
+            className="border border-[var(--line)] text-[var(--chathams-blue)] px-8 py-3 rounded-xl font-bold hover:bg-[var(--bg-subtle)] transition-all"
           >
             See the modules
           </a>

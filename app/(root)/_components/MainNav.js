@@ -5,7 +5,8 @@ import { UserAuth } from '../../../contexts/useAuthContext'
 import { SettingsContext } from '../../../contexts/useSettingsContext'
 import { getTtl } from '../../../utils/languages'
 import { useRouter } from 'next/navigation'
-import { X, Search, Bot, LogOut as LogOutIcon, Settings, ChevronDown } from 'lucide-react';
+import { X, Search, Bot, LogOut as LogOutIcon, Settings, ChevronDown, Sun, Moon } from 'lucide-react';
+import { useTheme } from '../../../contexts/useThemeContext';
 import Image from 'next/image';
 import { useGlobalSearch } from '../../../contexts/useGlobalSearchContext'
 import Tltip from '../../../components/tlTip'
@@ -39,6 +40,7 @@ const Clock = () => {
 
 export const MainNav = () => {
   const { SignOut, user, gisAccount, userTitle } = UserAuth();
+  const { theme, toggleTheme } = useTheme();
   const { compData, accounts, uidCollection, setUidCollection } = useContext(SettingsContext)
   const ln = compData?.lng || 'English'
   const router = useRouter()
@@ -91,7 +93,7 @@ export const MainNav = () => {
         borderRadius: '12px',
         border: '1px solid var(--line)',
         boxShadow: 'var(--shadow-xs)',
-        background: 'rgba(255, 255, 255, 0.82)',
+        background: 'var(--glass)',
         backdropFilter: 'blur(10px)',
         WebkitBackdropFilter: 'blur(10px)',
         padding: '0 clamp(8px, 1vw, 16px)', // reduced horizontal padding
@@ -132,14 +134,14 @@ export const MainNav = () => {
 
           {!openSearch ? (
             <button
-              className='hidden lg:flex items-center gap-2 h-9 pl-3 pr-2 rounded-[10px] border border-[var(--line)] bg-[var(--bg-subtle)] text-[var(--ink-muted)] hover:border-[var(--line-strong)] hover:bg-white transition-colors'
+              className='hidden lg:flex items-center gap-2 h-9 pl-3 pr-2 rounded-[10px] border border-[var(--line)] bg-[var(--bg-subtle)] text-[var(--ink-muted)] hover:border-[var(--line-strong)] hover:bg-[var(--bg-card)] transition-colors'
               onClick={() => { if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('ims:openPalette')); }}
               aria-label='Search'
               style={{ minWidth: 180 }}
             >
               <Search size={15} strokeWidth={1.75} />
               <span className='text-[0.75rem] flex-1 text-left'>{getTtl('Search', ln) || 'Search'}...</span>
-              <kbd className='px-1.5 py-0.5 rounded-[6px] bg-white border border-[var(--line)] text-[0.625rem] font-medium text-[var(--ink-secondary)]'>Ctrl K</kbd>
+              <kbd className='px-1.5 py-0.5 rounded-[6px] bg-[var(--bg-card)] border border-[var(--line)] text-[0.625rem] font-medium text-[var(--ink-secondary)]'>Ctrl K</kbd>
             </button>
           ) : (
             <div className="relative flex items-center responsiveText">
@@ -150,7 +152,7 @@ export const MainNav = () => {
                 autoFocus
                 onBlur={() => setOpenSearch(false)}
                 onChange={(e) => setQuery(e.target.value)}
-                className='ml-2 w-60 pl-3 pr-8 py-2 rounded-[10px] bg-[var(--bg-subtle)] border border-[var(--line)] focus:border-[var(--brand)] focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-[var(--brand-soft)] placeholder:text-[var(--ink-muted)] placeholder:opacity-100 transition-all'
+                className='ml-2 w-60 pl-3 pr-8 py-2 rounded-[10px] bg-[var(--bg-subtle)] border border-[var(--line)] focus:border-[var(--brand)] focus:bg-[var(--bg-card)] focus:outline-none focus:ring-[3px] focus:ring-[var(--brand-soft)] placeholder:text-[var(--ink-muted)] placeholder:opacity-100 transition-all'
                 style={{ fontSize: 'inherit', color: 'var(--ink)' }}
               />
               <button
@@ -167,7 +169,7 @@ export const MainNav = () => {
 
           {/* Results dropdown, only if openSearch and query */}
           {openSearch && query && (
-            <div className='absolute left-0 top-full mt-2 w-72 bg-white rounded-xl border border-[var(--line)] z-[9999] max-h-96 overflow-y-auto p-2' style={{ boxShadow: 'var(--shadow-md)' }}>
+            <div className='absolute left-0 top-full mt-2 w-72 bg-[var(--bg-card)] rounded-xl border border-[var(--line)] z-[9999] max-h-96 overflow-y-auto p-2' style={{ boxShadow: 'var(--shadow-md)' }}>
               {searchResults.length > 0 ? (
                 searchResults.map((r) => (
                   <button
@@ -202,6 +204,15 @@ export const MainNav = () => {
             <Bot size={18} strokeWidth={1.75} />
           </button>
         </Tltip>
+        <Tltip tltpText={theme === 'dark' ? 'Light mode' : 'Dark mode'} direction='bottom'>
+          <button
+            className='flex items-center justify-center w-9 h-9 rounded-[10px] text-[var(--ink-secondary)] hover:bg-[var(--bg-subtle)] hover:text-[var(--ink)] transition-colors'
+            onClick={toggleTheme}
+            aria-label='Toggle theme'
+          >
+            {theme === 'dark' ? <Sun size={18} strokeWidth={1.75} /> : <Moon size={18} strokeWidth={1.75} />}
+          </button>
+        </Tltip>
         {/* Notification center — live bell with unread badge, snooze & sound */}
         <NotificationBell />
 
@@ -213,7 +224,7 @@ export const MainNav = () => {
           <div className='relative' ref={dropdownRef}>
             <button
               onClick={() => setShowDropdown(!showDropdown)}
-              className='flex items-center gap-2 pl-1.5 pr-2 py-1 rounded-[10px] border border-[var(--line)] bg-white hover:bg-[var(--bg-subtle)] transition-colors'
+              className='flex items-center gap-2 pl-1.5 pr-2 py-1 rounded-[10px] border border-[var(--line)] bg-[var(--bg-card)] hover:bg-[var(--bg-subtle)] transition-colors'
               aria-label='User menu'
             >
               <span className='w-7 h-7 rounded-full bg-[var(--brand-soft)] text-[var(--brand)] flex items-center justify-center text-[0.75rem] font-semibold uppercase'>
@@ -232,7 +243,7 @@ export const MainNav = () => {
               <ChevronDown size={14} strokeWidth={2} className={`text-[var(--ink-muted)] transition-transform ${showDropdown ? 'rotate-180' : ''}`} />
             </button>
             {showDropdown && (
-              <div className='absolute right-0 top-full mt-2 w-56 bg-white rounded-xl border border-[var(--line)] py-2 z-[9999] overflow-visible' style={{ boxShadow: 'var(--shadow-md)' }}>
+              <div className='absolute right-0 top-full mt-2 w-56 bg-[var(--bg-card)] rounded-xl border border-[var(--line)] py-2 z-[9999] overflow-visible' style={{ boxShadow: 'var(--shadow-md)' }}>
                 <div className='px-4 py-3 border-b border-[var(--line)]'>
                   <p className='responsiveTextTable font-medium text-[var(--ink)]'>
                     {user?.displayName || user?.email?.split('@')[0] || 'User'}

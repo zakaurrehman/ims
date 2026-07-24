@@ -187,7 +187,7 @@ const Customtable = ({
         .dashboard-scroll::-webkit-scrollbar-thumb { background: #c9cfd9; border-radius: 4px; }
         .dashboard-scroll::-webkit-scrollbar-thumb:hover { background: #a9b2c0; }
 
-        .glass-table { background: #ffffff; }
+        .glass-table { background: var(--bg-card); }
 
         .custom-table, .custom-table *, .glass-table, .glass-table * {
           font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
@@ -205,7 +205,7 @@ const Customtable = ({
         }
 
         .custom-table td {
-          background-color: #ffffff;
+          background-color: var(--bg-card);
           border-bottom: 1px solid var(--line);
           text-align: center;
           vertical-align: middle;
@@ -225,7 +225,7 @@ const Customtable = ({
             className="flex-shrink-0 rounded-t-2xl"
             style={{
               borderBottom: '1px solid var(--line)',
-              background: '#ffffff',
+              background: "var(--bg-card)",
             }}
           >
             <Header
@@ -289,13 +289,13 @@ const Customtable = ({
                       </tr>
 
                       {filterOn && (
-                        <tr style={{ backgroundColor: '#FFFFFF' }}>
+                        <tr style={{ backgroundColor: "var(--bg-card)" }}>
                           {hdGroup.headers.map(header => (
                         <th
                           key={header.id}
                           className="px-2 py-1.5"
                           style={{
-                            backgroundColor: '#FFFFFF',
+                            backgroundColor: "var(--bg-card)",
                             borderBottom: '1px solid var(--line)',
                             minWidth: header.column.id === 'select' ? '50px' : '90px',
                             maxWidth: header.column.id === 'select' ? '50px' : 'none',
@@ -468,7 +468,7 @@ const Customtable = ({
                   onClick={() => SelectRow(row.original)}
                   className="rounded-2xl overflow-hidden transition-colors duration-200"
                   style={{
-                    backgroundColor: '#FFFFFF',
+                    backgroundColor: "var(--bg-card)",
                     border: highlightId === row.original.id ? '2px solid var(--brand)' : '1px solid var(--line)',
                     boxShadow: highlightId === row.original.id ? 'var(--shadow-sm)' : 'var(--shadow-xs)'
                   }}
@@ -527,7 +527,7 @@ const Customtable = ({
             className="flex-shrink-0 rounded-b-2xl"
             style={{
               borderTop: '1px solid var(--line)',
-              background: '#ffffff',
+              background: "var(--bg-card)",
             }}
           >
             <div className="w-full px-6 py-3">

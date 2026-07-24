@@ -49,7 +49,7 @@ const Customtable = ({ data, columns }) => {
                                         <th
                                             key={header.id}
                                             style={{
-                                                backgroundColor: '#fff',
+                                                backgroundColor: "var(--bg-card)",
                                                 color: 'var(--ink-muted)',
                                                 padding: isDel ? '0' : '6px 6px',
                                                 fontSize: '0.6875rem',

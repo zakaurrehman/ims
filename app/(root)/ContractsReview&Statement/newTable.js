@@ -74,7 +74,7 @@ const Customtable = ({
             }}
             onChange={table.getToggleAllPageRowsSelectedHandler()}
             className="w-4 h-4 cursor-pointer rounded"
-            style={{ accentColor: '#EEEBFC' }}
+            style={{ accentColor: 'var(--brand-soft)' }}
           />
         </div>
       ),
@@ -86,7 +86,7 @@ const Customtable = ({
             disabled={!row.getCanSelect()}
             onChange={row.getToggleSelectedHandler()}
             className="w-4 h-4 cursor-pointer rounded"
-            style={{ accentColor: '#EEEBFC' }}
+            style={{ accentColor: 'var(--brand-soft)' }}
           />
         </div>
       ),
@@ -199,17 +199,17 @@ const Customtable = ({
         /* Professional gradient scrollbar matching cards */
         .dashboard-scroll::-webkit-scrollbar { width: 10px; height: 10px; }
         .dashboard-scroll::-webkit-scrollbar-track { 
-          background: linear-gradient(180deg, #F4F3F9, #F1EFF6); 
+          background: linear-gradient(180deg, var(--bg-subtle), var(--neutral-bg)); 
           border-radius: 6px; 
         }
         .dashboard-scroll::-webkit-scrollbar-thumb { 
-          background: linear-gradient(180deg, #EAE8F2, #DAD6E8); 
+          background: linear-gradient(180deg, var(--line), var(--line-strong)); 
           border-radius: 6px; 
-          border: 2px solid #F4F3F9;
+          border: 2px solid var(--bg-subtle);
         }
         .dashboard-scroll::-webkit-scrollbar-thumb:hover { 
-          background: linear-gradient(180deg, #DAD6E8, #8D8AA3);
-          border-color: #F1EFF6;
+          background: linear-gradient(180deg, var(--line-strong), var(--ink-muted));
+          border-color: var(--neutral-bg);
         }
 
         /* Glassmorphic professional table */
@@ -242,7 +242,7 @@ const Customtable = ({
         }
 
         .custom-table td {
-          background-color: #ffffff;
+          background-color: var(--bg-card);
           border-bottom: 1px solid var(--line);
           text-align: center;
           vertical-align: middle;
@@ -252,11 +252,11 @@ const Customtable = ({
         }
 
         .custom-table th {
-          background-color: #F4F3F9;
+          background-color: var(--bg-subtle);
         }
 
         .custom-table td {
-          background-color: #fff;
+          background-color: var(--bg-card);
           border-bottom: 1px solid var(--line);
         }
       `}</style>
@@ -264,14 +264,14 @@ const Customtable = ({
       <div className="custom-table">
         <div className="relative flex flex-col rounded-2xl glass-table">
           {/* Border overlay — renders above children so corners always visible */}
-          <div className="absolute inset-0 rounded-2xl border border-[#EAE8F2] pointer-events-none z-[15]" />
+          <div className="absolute inset-0 rounded-2xl border border-[var(--line)] pointer-events-none z-[15]" />
 
           {/* HEADER */}
           <div
             className="flex-shrink-0 rounded-t-2xl"
             style={{
-              borderBottom: '1px solid #EAE8F2',
-              background: '#ffffff',
+              borderBottom: '1px solid var(--line)',
+              background: "var(--bg-card)",
             }}
           >
             <Header
@@ -300,7 +300,7 @@ const Customtable = ({
                     <Fragment key={hdGroup.id}>
                                             {/* Totals Row */}
                                             <tr style={{ 
-                                              background: '#F4F3F9',
+                                              background: 'var(--bg-subtle)',
                                               
                                             }}>
                                               {hdGroup.headers.map((header, idx) => (
@@ -309,7 +309,7 @@ const Customtable = ({
                                                   className="font-poppins responsiveTextTable font-medium"
                                                   style={{
                                                     color: 'var(--chathams-blue)',
-                                                    backgroundColor: '#F4F3F9',
+                                                    backgroundColor: 'var(--bg-subtle)',
                                                     border: 'none',
                                                     boxShadow: 'none',
                                                     borderRadius: 0,
@@ -324,14 +324,14 @@ const Customtable = ({
                                             </tr>
                       
                                             {/* Header Row */}
-                      <tr style={{ background: '#F4F3F9' }}>
+                      <tr style={{ background: 'var(--bg-subtle)' }}>
                         {hdGroup.headers.map(header => (
                           <th
                             key={header.id}
                             className="font-poppins responsiveTextTable font-medium"
                             style={{
                               color: 'var(--chathams-blue)',
-                              backgroundColor: '#F4F3F9',
+                              backgroundColor: 'var(--bg-subtle)',
                               minWidth: header.column.id === 'select' ? '50px' : '60px',
                               maxWidth: header.column.id === 'select' ? '50px' : 'none',
                               letterSpacing: '0.05em',
@@ -352,14 +352,14 @@ const Customtable = ({
 
                       {/* Filter Row */}
                       {filterOn && (
-                        <tr style={{ backgroundColor: '#FFFFFF' }}>
+                        <tr style={{ backgroundColor: "var(--bg-card)" }}>
                           {hdGroup.headers.map(header => (
                             <th
                               key={header.id}
                               className="px-2 py-1.5"
                               style={{
-                                backgroundColor: '#FFFFFF',
-                                borderBottom: '2px solid #EAE8F2',
+                                backgroundColor: "var(--bg-card)",
+                                borderBottom: '2px solid var(--line)',
                                 minWidth: header.column.id === 'select' ? '50px' : '90px',
                                 maxWidth: header.column.id === 'select' ? '50px' : 'none',
                               }}
@@ -402,18 +402,18 @@ const Customtable = ({
                         let badgeConfig = null;
                         if (isCompleted) {
                           badgeConfig = cell.getValue()
-                            ? { bg: '#E5F6EC', color: '#177245', label: 'Completed' }
-                            : { bg: '#FDEAEA', color: '#B42332', label: 'Incompleted' };
+                            ? { bg: 'var(--ok-bg)', color: 'var(--ok-text)', label: 'Completed' }
+                            : { bg: 'var(--bad-bg)', color: 'var(--bad-text)', label: 'Incompleted' };
                         }
                         if (isStatus && cell.getValue()) {
                           if (cell.getValue() === 'Completed')
-                            badgeConfig = { bg: '#E5F6EC', color: '#177245', label: 'Completed' };
+                            badgeConfig = { bg: 'var(--ok-bg)', color: 'var(--ok-text)', label: 'Completed' };
                           else if (cell.getValue() === 'Incompleted')
-                            badgeConfig = { bg: '#FDEAEA', color: '#B42332', label: 'Incompleted' };
+                            badgeConfig = { bg: 'var(--bad-bg)', color: 'var(--bad-text)', label: 'Incompleted' };
                           else if (cell.getValue() === 'Paid')
-                            badgeConfig = { bg: '#E5F6EC', color: '#177245', border: '#BFE8D0', label: 'Paid' };
+                            badgeConfig = { bg: 'var(--ok-bg)', color: 'var(--ok-text)', border: 'var(--ok-border)', label: 'Paid' };
                           else if (cell.getValue() === 'Unpaid')
-                            badgeConfig = { bg: '#FDF3E1', color: '#9A6215', border: '#F5DFAE', label: 'Unpaid' };
+                            badgeConfig = { bg: 'var(--warn-bg)', color: 'var(--warn-text)', border: 'var(--warn-border)', label: 'Unpaid' };
                         }
 
                         return (
@@ -433,7 +433,7 @@ const Customtable = ({
                                   style={{
                                     backgroundColor: badgeConfig.bg,
                                     color: badgeConfig.color,
-                                    border: `1px solid ${badgeConfig.border || '#DAD6E8'}`
+                                    border: `1px solid ${badgeConfig.border || 'var(--line-strong)'}`
                                   }}
                                 >
                                   {badgeConfig.label}
@@ -490,13 +490,13 @@ const Customtable = ({
                   onDoubleClick={() => SelectRow(row.original)}
                   className="rounded-2xl overflow-hidden shadow-lg transition-colors duration-200"
                   style={{
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #EAE8F2',
+                    backgroundColor: "var(--bg-card)",
+                    border: '1px solid var(--line)',
                     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.06)'
                   }}
                 >
                   <div 
-                    className="px-3 py-2 flex items-center justify-between bg-[#F4F3F9]"
+                    className="px-3 py-2 flex items-center justify-between bg-[var(--bg-subtle)]"
                     // style={{ 
                     //   background: 'linear-gradient(135deg, #7A6FE3, #7A6FE3, #0E9888)',
                     // }}
@@ -533,7 +533,7 @@ const Customtable = ({
                         <div 
                           key={cell.id} 
                           className="flex flex-col space-y-1.5 pb-2.5 last:pb-0"
-                          style={{ borderBottom: '1px solid #EAE8F2' }}
+                          style={{ borderBottom: '1px solid var(--line)' }}
                         >
                           <div 
                             className="uppercase tracking-wider font-normal" 
@@ -585,8 +585,8 @@ const Customtable = ({
           <div
             className="flex-shrink-0 rounded-b-2xl"
             style={{
-              borderTop: '1px solid #EAE8F2',
-              background: '#ffffff',
+              borderTop: '1px solid var(--line)',
+              background: "var(--bg-card)",
             }}
           >
             <div className="w-full px-6 py-4">

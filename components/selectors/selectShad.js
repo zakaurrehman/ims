@@ -57,7 +57,7 @@ export function Selector({ arr, value, onChange, name, clear, disabled, secondar
             </SelectTrigger>
             <SelectContent className="z-[9999] rounded-xl border border-[var(--bg-subtle)] shadow-md text-[0.75rem] text-[var(--chathams-blue)] min-w-[var(--radix-select-trigger-width)] max-h-72 overflow-auto">
                 {searchable && (
-                    <div className="sticky top-0 z-10 bg-white p-1.5 border-b border-[var(--bg-subtle)]">
+                    <div className="sticky top-0 z-10 bg-[var(--bg-card)] p-1.5 border-b border-[var(--bg-subtle)]">
                         <input
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}

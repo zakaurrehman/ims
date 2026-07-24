@@ -36,7 +36,15 @@ export default function RootLayout({ children }) {
 
 
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
+			<head>
+				{/* Applies the saved (or OS) theme before first paint — prevents the light flash. */}
+				<script
+					dangerouslySetInnerHTML={{
+						__html: `try{var t=localStorage.getItem('ims:theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}if(t==='dark'){document.documentElement.classList.add('dark')}}catch(e){}`,
+					}}
+				/>
+			</head>
 			{/* Legacy aliases: --font-poppins → Jakarta (old call sites), --font-manrope → Jakarta
 			    (heading classes) so every existing reference renders the current font. */}
 			<body

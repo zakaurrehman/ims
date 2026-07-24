@@ -76,7 +76,7 @@ export default function SumBasket({ items = [], onRemove, onClear }) {
             ref={ref}
             className={`fixed z-40 w-[19rem] rounded-2xl overflow-hidden font-poppins
                 border border-[var(--line)]
-                bg-white/90 backdrop-blur-md shadow-pop
+                bg-[var(--glass)] backdrop-blur-md shadow-pop
                 animate-in fade-in slide-in-from-bottom-3 duration-300
                 ${pos ? '' : 'bottom-4 left-1/2 -translate-x-1/2'}`}
             style={pos ? { left: pos.left, top: pos.top } : undefined}
@@ -85,7 +85,7 @@ export default function SumBasket({ items = [], onRemove, onClear }) {
             <div
                 onPointerDown={startDrag}
                 className="flex items-center justify-between gap-2 px-3 py-2 cursor-grab active:cursor-grabbing select-none
-                    bg-white border-b border-[var(--line)] text-[var(--ink)]"
+                    bg-[var(--bg-card)] border-b border-[var(--line)] text-[var(--ink)]"
             >
                 <div className="flex items-center gap-2 min-w-0">
                     <span className="grid place-items-center w-6 h-6 rounded-lg bg-[var(--brand-soft)] text-[var(--brand)] shrink-0">

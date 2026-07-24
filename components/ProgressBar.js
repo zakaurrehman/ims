@@ -3,10 +3,10 @@
 // Slim reference-style progress bar: 4px rounded track + tone fill.
 // value: 0..1 (clamped). tone: 'brand' | 'green' | 'amber' | 'red' | auto by value.
 const FILLS = {
-    brand: '#6D5CE0',
-    green: '#177245',
+    brand: 'var(--brand)',
+    green: 'var(--ok-text)',
     amber: '#E8A23D',
-    red: '#B42332',
+    red: 'var(--bad-text)',
 };
 
 export default function ProgressBar({ value = 0, tone = 'brand', width = '100%', label, className = '' }) {

@@ -407,7 +407,7 @@ const Expenses = () => {
 						]} />
 
 						{/* Main Card */}
-						<div className="page-card rounded-2xl p-3 sm:p-5 border border-[var(--line)] w-full bg-white shadow-card">
+						<div className="page-card rounded-2xl p-3 sm:p-5 border border-[var(--line)] w-full bg-[var(--bg-card)] shadow-card">
 
 							{/* Header Section */}
 							<div className='flex items-center justify-end flex-wrap gap-2 pb-2'>

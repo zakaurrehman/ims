@@ -279,7 +279,7 @@ const NotificationBell = () => {
                     </div>
                 )}
                 {snoozeFor === n.id && (
-                    <div className='absolute right-2 top-9 z-10 bg-white rounded-lg border border-[var(--line)] py-1' style={{ boxShadow: 'var(--shadow-md)' }}>
+                    <div className='absolute right-2 top-9 z-10 bg-[var(--bg-card)] rounded-lg border border-[var(--line)] py-1' style={{ boxShadow: 'var(--shadow-md)' }}>
                         {SNOOZE_OPTS.map(opt => (
                             <button
                                 key={opt.label}
@@ -315,9 +315,9 @@ const NotificationBell = () => {
             </button>
 
             {open && (
-                <div className='absolute right-0 top-full mt-2 w-[380px] bg-white rounded-2xl border border-[var(--line)] z-[9999] overflow-hidden' style={{ boxShadow: 'var(--shadow-md)', animation: 'rise-in 0.25s cubic-bezier(0.16,1,0.3,1) both' }}>
+                <div className='absolute right-0 top-full mt-2 w-[380px] bg-[var(--bg-card)] rounded-2xl border border-[var(--line)] z-[9999] overflow-hidden' style={{ boxShadow: 'var(--shadow-md)', animation: 'rise-in 0.25s cubic-bezier(0.16,1,0.3,1) both' }}>
                     {/* Header */}
-                    <div className='flex items-center justify-between px-4 py-3' style={{ background: 'white', borderBottom: '1px solid var(--line)' }}>
+                    <div className='flex items-center justify-between px-4 py-3' style={{ background: "var(--bg-card)", borderBottom: '1px solid var(--line)' }}>
                         <span className='font-semibold font-display inline-flex items-center gap-1.5' style={{ fontSize: '0.8125rem', color: 'var(--ink)' }}>
                             Notifications
                             {effectiveUnreadCount > 0 && (
@@ -446,7 +446,7 @@ const NotificationBell = () => {
                             groups.map(([label, items]) => (
                                 <div key={label}>
                                     <div
-                                        className='sticky top-0 flex items-center justify-between px-4 pt-2.5 pb-1 bg-white'
+                                        className='sticky top-0 flex items-center justify-between px-4 pt-2.5 pb-1 bg-[var(--bg-card)]'
                                         style={{ fontSize: '0.625rem', fontWeight: 600, letterSpacing: '0.05em', color: 'var(--ink-muted)', textTransform: 'uppercase', zIndex: 5 }}
                                     >
                                         <span>{label}</span>

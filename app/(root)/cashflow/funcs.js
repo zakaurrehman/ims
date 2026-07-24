@@ -59,7 +59,7 @@ const SumToggle = ({ active, onToggle }) => (
         <button type="button" onClick={onToggle}
             className={`flex items-center justify-center w-4 h-4 rounded-[4px] border text-[10px] leading-none font-bold transition-colors ${active
                 ? 'bg-[var(--brand)] border-[var(--brand)] text-white'
-                : 'bg-white border-[var(--brand-border)] text-[var(--brand)] hover:bg-[var(--brand-soft)]'}`}>
+                : 'bg-[var(--bg-card)] border-[var(--brand-border)] text-[var(--brand)] hover:bg-[var(--brand-soft)]'}`}>
             {active ? '✓' : '+'}
         </button>
     </Tltip>
@@ -529,7 +529,7 @@ export const StoclToolTip = ({ stock, stockDataAll, settings, uidCollection, set
     });
 
     return (
-        <div className="w-full border border-[var(--line)] rounded-xl overflow-hidden bg-white">
+        <div className="w-full border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
             <div className="max-h-[30rem] lg:max-h-[50rem] overflow-y-auto overflow-x-auto">
             <table className="cashflow-detail-table w-full table-auto">
                 <thead>
@@ -650,7 +650,7 @@ export const StocksUnSold = ({ supplier, stockDataAllArray, settings, uidCollect
     });
 
     return (
-        <div className="w-full border border-[var(--line)] rounded-xl overflow-hidden bg-white">
+        <div className="w-full border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
             <div className="max-h-[30rem] lg:max-h-[50rem] overflow-y-auto overflow-x-auto">
             <table className="cashflow-detail-table w-full table-auto">
                 <thead>
@@ -921,7 +921,7 @@ export const ClientDetails = ({ client, data, type, uidCollection, setDateSelect
     const filteredArr1 = sortKey ? sortRows(rawInDebt, sortKey, sortDir) : rawInDebt;
 
     return (
-        <div className="w-full border border-[var(--line)] rounded-xl overflow-hidden bg-white">
+        <div className="w-full border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
             <div className="max-h-[30rem] lg:max-h-[50rem] overflow-y-auto overflow-x-auto">
             {type === 'PartPaid' &&
                 <div className="pt-1 w-full">
@@ -1380,7 +1380,7 @@ export const SupplierDetails = ({ supplier, data, uidCollection, setDateSelect,
     });
 
     return (
-        <div className="w-full border border-[var(--line)] rounded-xl overflow-hidden bg-white">
+        <div className="w-full border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
             <div className="max-h-[30rem] lg:max-h-[50rem] overflow-y-auto overflow-x-auto">
             <table className="cashflow-detail-table w-full table-auto">
                 <thead>
@@ -1583,7 +1583,7 @@ export const ExpensesToolTip = ({ supplier, expensesAll, settings, uidCollection
     const allEur = filteredArr.length > 0 && filteredArr.every(z => z.cur === 'eu');
 
     return (
-        <div className="w-full border border-[var(--line)] rounded-xl overflow-hidden bg-white">
+        <div className="w-full border border-[var(--line)] rounded-xl overflow-hidden bg-[var(--bg-card)]">
             <div className="max-h-[30rem] lg:max-h-[50rem] overflow-y-auto overflow-x-auto">
             <table className="cashflow-detail-table w-full table-auto">
                 <thead>

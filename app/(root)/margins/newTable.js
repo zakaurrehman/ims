@@ -483,7 +483,7 @@ const Customtable = (props) => {
                             data.map((row, rowIdx) => (
                                 <div 
                                     key={row.id || rowIdx} 
-                                    className="rounded-lg border border-[var(--line)] bg-white shadow-card overflow-hidden"
+                                    className="rounded-lg border border-[var(--line)] bg-[var(--bg-card)] shadow-card overflow-hidden"
                                 >
                                     {/* Compact Card Header */}
                                     <div className="bg-[var(--bg-subtle)] px-3 py-2 border-b border-[var(--line)] flex justify-between items-center min-h-[32px]">

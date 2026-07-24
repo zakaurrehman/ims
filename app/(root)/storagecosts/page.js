@@ -62,7 +62,7 @@ function MonthPickerPill({ value, onChange }) {
     return (
         <>
             <button ref={btnRef} type="button" onClick={openPicker}
-                className="flex items-center gap-2 rounded-lg bg-[#F4F3F9] border border-[#DAD6E8] px-2 h-7 hover:border-[var(--endeavour)] transition-colors"
+                className="flex items-center gap-2 rounded-lg bg-[var(--bg-subtle)] border border-[var(--line-strong)] px-2 h-7 hover:border-[var(--endeavour)] transition-colors"
                 style={{ fontSize: '0.7rem', color: value ? 'var(--chathams-blue)' : 'var(--regent-gray)', minWidth: 140 }}>
                 <Calendar className="w-3.5 h-3.5 text-[var(--endeavour)] shrink-0" />
                 <span className="flex-1 text-left whitespace-nowrap">{value ? `${MONTHS_FULL[selMonth - 1]} ${selYear}` : 'Pick month'}</span>
@@ -70,8 +70,8 @@ function MonthPickerPill({ value, onChange }) {
             {open && typeof document !== 'undefined' && createPortal(
                 <>
                     <div className="fixed inset-0 z-[9998]" onClick={() => setOpen(false)} />
-                    <div className="fixed z-[9999] rounded-2xl shadow-xl bg-white border border-[#F4F3F9] overflow-hidden" style={{ top: pos.top, bottom: pos.bottom, left: pos.left, width: 224 }}>
-                        <div className="flex items-center justify-between py-1.5 px-2" style={{ background: '#F4F3F9' }}>
+                    <div className="fixed z-[9999] rounded-2xl shadow-xl bg-[var(--bg-card)] border border-[var(--bg-subtle)] overflow-hidden" style={{ top: pos.top, bottom: pos.bottom, left: pos.left, width: 224 }}>
+                        <div className="flex items-center justify-between py-1.5 px-2" style={{ background: 'var(--bg-subtle)' }}>
                             <button type="button" onClick={() => setViewYear(y => y - 1)} className="p-1 rounded hover:bg-white/60"><ChevronLeft className="w-4 h-4 text-[var(--endeavour)]" /></button>
                             <span className="font-semibold" style={{ fontSize: '0.8rem', color: 'var(--chathams-blue)' }}>{viewYear}</span>
                             <button type="button" onClick={() => setViewYear(y => y + 1)} className="p-1 rounded hover:bg-white/60"><ChevronRight className="w-4 h-4 text-[var(--endeavour)]" /></button>
@@ -81,14 +81,14 @@ function MonthPickerPill({ value, onChange }) {
                                 const isSel = selMonth === i + 1 && selYear === viewYear;
                                 return (
                                     <button key={m} type="button" onClick={() => pick(i)}
-                                        className={`rounded-lg py-1.5 font-medium transition-colors ${isSel ? '' : 'hover:bg-[#F4F3F9]'}`}
+                                        className={`rounded-lg py-1.5 font-medium transition-colors ${isSel ? '' : 'hover:bg-[var(--bg-subtle)]'}`}
                                         style={{ fontSize: '0.72rem', background: isSel ? 'var(--endeavour)' : 'transparent', color: isSel ? 'white' : 'var(--chathams-blue)' }}>
                                         {m}
                                     </button>
                                 );
                             })}
                         </div>
-                        <div className="flex items-center justify-between px-2 py-1.5 border-t border-[#F4F3F9]">
+                        <div className="flex items-center justify-between px-2 py-1.5 border-t border-[var(--bg-subtle)]">
                             <button type="button" onClick={() => { onChange(''); setOpen(false); }} className="hover:underline" style={{ fontSize: '0.66rem', color: 'var(--regent-gray)' }}>Clear</button>
                             <button type="button" onClick={thisMonth} className="font-medium hover:underline" style={{ fontSize: '0.66rem', color: 'var(--endeavour)' }}>This month</button>
                         </div>
@@ -216,8 +216,8 @@ const StorageCosts = () => {
     }
 
     return (
-        <div className="mx-auto w-full max-w-full px-1 md:px-2 pb-24 mt-[72px]" style={{ background: '#F4F3F9' }}>
-            <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
+        <div className="mx-auto w-full max-w-full px-1 md:px-2 pb-24 mt-[72px]" style={{ background: 'var(--bg-subtle)' }}>
+            <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-[var(--bg-card)]">
                 {/* Header + unit toggle */}
                 <div className="flex items-center justify-between flex-wrap gap-2 mb-4">
                     <div>
@@ -251,7 +251,7 @@ const StorageCosts = () => {
                                         fontSize: '0.68rem', padding: '5px 12px',
                                         background: unit === u.key ? 'var(--endeavour)' : 'white',
                                         color: unit === u.key ? 'white' : 'var(--chathams-blue)',
-                                        border: `1px solid ${unit === u.key ? 'var(--endeavour)' : '#DAD6E8'}`,
+                                        border: `1px solid ${unit === u.key ? 'var(--endeavour)' : 'var(--line-strong)'}`,
                                     }}>
                                     {u.label}
                                 </button>
@@ -263,19 +263,19 @@ const StorageCosts = () => {
 
                 {/* Real actuals — exact figures from your expenses & stock, shown even before tagging */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 mb-3">
-                    <div className="rounded-2xl p-4 bg-white border border-[#EAE8F2] shadow-sm">
+                    <div className="rounded-2xl p-4 bg-[var(--bg-card)] border border-[var(--line)] shadow-sm">
                         <div className="flex items-center gap-1.5 text-[var(--regent-gray)]" style={{ fontSize: '0.62rem' }}><Receipt className="w-3.5 h-3.5" /> Storage spend · {year === 'all' ? 'all years' : year}</div>
                         <div className="font-bold mt-1 text-[var(--chathams-blue)]" style={{ fontSize: '1.35rem' }}>{fmtUsd(actuals.totalSpend)}</div>
                         <div className="text-[var(--regent-gray)] mt-0.5" style={{ fontSize: '0.6rem' }}>
                             {actuals.count} invoice{actuals.count === 1 ? '' : 's'} · {actuals.taggedCount} tagged · {actuals.count - actuals.taggedCount} to tag
                         </div>
                     </div>
-                    <div className="rounded-2xl p-4 bg-white border border-[#EAE8F2] shadow-sm">
+                    <div className="rounded-2xl p-4 bg-[var(--bg-card)] border border-[var(--line)] shadow-sm">
                         <div className="flex items-center gap-1.5 text-[var(--regent-gray)]" style={{ fontSize: '0.62rem' }}><Boxes className="w-3.5 h-3.5" /> In storage now</div>
                         <div className="font-bold mt-1 text-[var(--chathams-blue)]" style={{ fontSize: '1.35rem' }}>{fmtMt(actuals.totalMt)} MT</div>
                         <div className="text-[var(--regent-gray)] mt-0.5" style={{ fontSize: '0.6rem' }}>{actuals.whMt.length} warehouse{actuals.whMt.length === 1 ? '' : 's'} with stock</div>
                     </div>
-                    <div className="rounded-2xl p-4 bg-white border border-[#EAE8F2] shadow-sm">
+                    <div className="rounded-2xl p-4 bg-[var(--bg-card)] border border-[var(--line)] shadow-sm">
                         <div className="flex items-center gap-1.5 text-[var(--regent-gray)] mb-1" style={{ fontSize: '0.62rem' }}><Warehouse className="w-3.5 h-3.5" /> By warehouse (MT now)</div>
                         <div className="flex flex-col gap-0.5 max-h-[4.5rem] overflow-y-auto pr-1">
                             {actuals.whMt.length === 0
@@ -300,22 +300,22 @@ const StorageCosts = () => {
                         </div>
                     </div>
                     {metric.rows.map(r => (
-                        <div key={r.wh} className="rounded-2xl p-4 bg-white border border-[#EAE8F2] shadow-sm">
+                        <div key={r.wh} className="rounded-2xl p-4 bg-[var(--bg-card)] border border-[var(--line)] shadow-sm">
                             <div className="flex items-center gap-1.5 text-[var(--regent-gray)]" style={{ fontSize: '0.62rem' }}><Warehouse className="w-3.5 h-3.5" /> {r.name}</div>
                             <div className="font-bold mt-1 text-[var(--chathams-blue)]" style={{ fontSize: '1.2rem' }}>{rateStr(r.rate)}</div>
                             <div className="text-[var(--regent-gray)] mt-0.5" style={{ fontSize: '0.6rem' }}>{fmtUsd(r.cost)} · {new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(r.mt)} MT-months</div>
                         </div>
                     ))}
                     {metric.rows.length === 0 && (
-                        <div className="sm:col-span-2 xl:col-span-3 rounded-2xl p-4 bg-white border border-dashed border-[#EAE8F2] flex items-center text-[var(--regent-gray)] responsiveTextTable">
+                        <div className="sm:col-span-2 xl:col-span-3 rounded-2xl p-4 bg-[var(--bg-card)] border border-dashed border-[var(--line)] flex items-center text-[var(--regent-gray)] responsiveTextTable">
                             No storage invoices tagged yet for this period — tag some below to see the rate.
                         </div>
                     )}
                 </div>
 
                 {/* Per-year summary — storage spend, MT-months and the average rate for each year */}
-                <div className="rounded-2xl border border-[#EAE8F2] bg-white overflow-hidden mb-5">
-                    <div className="flex items-center gap-2 px-4 py-2.5" style={{ background: '#F4F3F9' }}>
+                <div className="rounded-2xl border border-[var(--line)] bg-[var(--bg-card)] overflow-hidden mb-5">
+                    <div className="flex items-center gap-2 px-4 py-2.5" style={{ background: 'var(--bg-subtle)' }}>
                         <Calendar className="w-4 h-4 text-[var(--endeavour)]" />
                         <span className="responsiveText font-semibold text-[var(--chathams-blue)]">Per-year summary</span>
                         <span className="responsiveTextTable text-[var(--regent-gray)] ml-1 hidden sm:inline">— click a year to filter</span>
@@ -338,7 +338,7 @@ const StorageCosts = () => {
                                     {perYear.map(r => (
                                         <tr key={r.year}
                                             onClick={() => setYear(year === r.year ? 'all' : r.year)}
-                                            className={`border-t border-[#F4F3F9] cursor-pointer transition-colors ${year === r.year ? 'bg-[#F4F3F9]' : 'hover:bg-[#F4F3F9]'}`}>
+                                            className={`border-t border-[var(--bg-subtle)] cursor-pointer transition-colors ${year === r.year ? 'bg-[var(--bg-subtle)]' : 'hover:bg-[var(--bg-subtle)]'}`}>
                                             <td className="px-3 py-2 font-medium text-[var(--chathams-blue)]">{r.year}</td>
                                             <td className="px-3 py-2 text-right text-[var(--port-gore)]">{fmtUsd(r.spend)}</td>
                                             <td className="px-3 py-2 text-right text-[var(--port-gore)]">{new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(r.mtMonths)}</td>
@@ -353,19 +353,19 @@ const StorageCosts = () => {
                 </div>
 
                 {/* Triage: untagged storage invoices */}
-                <div className="rounded-2xl border border-[#EAE8F2] bg-white overflow-hidden">
-                    <div className="flex items-center gap-2 px-4 py-2.5" style={{ background: '#F4F3F9' }}>
-                        {untagged.length > 0 ? <AlertTriangle className="w-4 h-4" style={{ color: '#9A6215' }} /> : <Check className="w-4 h-4" style={{ color: '#177245' }} />}
+                <div className="rounded-2xl border border-[var(--line)] bg-[var(--bg-card)] overflow-hidden">
+                    <div className="flex items-center gap-2 px-4 py-2.5" style={{ background: 'var(--bg-subtle)' }}>
+                        {untagged.length > 0 ? <AlertTriangle className="w-4 h-4" style={{ color: 'var(--warn-text)' }} /> : <Check className="w-4 h-4" style={{ color: 'var(--ok-text)' }} />}
                         <span className="responsiveText font-semibold text-[var(--chathams-blue)]">
                             Storage invoices needing a warehouse + month
                         </span>
-                        <span className="rounded-full px-2 py-0.5 font-semibold" style={{ fontSize: '0.6rem', background: untagged.length ? '#FDF3E1' : '#E5F6EC', color: untagged.length ? '#9A6215' : '#177245', boxShadow: `inset 0 0 0 1px ${untagged.length ? '#F5DFAE' : '#BFE8D0'}` }}>
+                        <span className="rounded-full px-2 py-0.5 font-semibold" style={{ fontSize: '0.6rem', background: untagged.length ? 'var(--warn-bg)' : 'var(--ok-bg)', color: untagged.length ? 'var(--warn-text)' : 'var(--ok-text)', boxShadow: `inset 0 0 0 1px ${untagged.length ? 'var(--warn-border)' : 'var(--ok-border)'}` }}>
                             {untagged.length}
                         </span>
                         {actuals.count > 0 && (
                             <div className="ml-auto flex items-center gap-2 flex-1 justify-end">
-                                <div className="h-1.5 rounded-full overflow-hidden bg-white/70 w-full" style={{ boxShadow: 'inset 0 0 0 1px #EAE8F2', maxWidth: 160 }}>
-                                    <div className="h-full rounded-full transition-all" style={{ width: `${Math.round((actuals.taggedCount / actuals.count) * 100)}%`, background: '#177245' }} />
+                                <div className="h-1.5 rounded-full overflow-hidden bg-white/70 w-full" style={{ boxShadow: 'inset 0 0 0 1px var(--line)', maxWidth: 160 }}>
+                                    <div className="h-full rounded-full transition-all" style={{ width: `${Math.round((actuals.taggedCount / actuals.count) * 100)}%`, background: 'var(--ok-text)' }} />
                                 </div>
                                 <span className="whitespace-nowrap font-medium" style={{ fontSize: '0.6rem', color: 'var(--chathams-blue)' }}>{actuals.taggedCount}/{actuals.count} tagged</span>
                             </div>
@@ -395,7 +395,7 @@ const StorageCosts = () => {
                                         const d = draftOf(e);
                                         const ready = d.storageWh && d.storageMonth;
                                         return (
-                                            <tr key={e.id} className="border-t border-[#F4F3F9]">
+                                            <tr key={e.id} className="border-t border-[var(--bg-subtle)]">
                                                 <td className="px-3 py-2 whitespace-nowrap text-[var(--port-gore)]">{(typeof e.date === 'string' ? e.date : '').substring(0, 10)}</td>
                                                 <td className="px-3 py-2 text-[var(--port-gore)] max-w-[12rem] truncate">{e.expense || '—'}</td>
                                                 <td className="px-3 py-2 text-[var(--port-gore)]">{settings.Supplier?.Supplier?.find(s => s.id === e.supplier)?.nname || '—'}</td>

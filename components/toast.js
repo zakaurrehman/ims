@@ -30,7 +30,7 @@ const Toast = () => {
     return (
         <div>
             {toast?.show && (
-                <div className={`bottom-4 right-4 z-[70] fixed rounded-xl overflow-hidden border bg-white text-[var(--ink)]
+                <div className={`bottom-4 right-4 z-[70] fixed rounded-xl overflow-hidden border bg-[var(--bg-card)] text-[var(--ink)]
                 ${toast?.clr === 'success' ? 'border-[var(--ok-border)]' : 'border-[var(--bad-border)]'}`}
                     style={{ boxShadow: 'var(--shadow-md)', animation: 'toast-slide-in 0.3s cubic-bezier(0.16,1,0.3,1) both' }}>
                     <div className='gap-3 flex text-[0.8125rem] font-medium px-4 py-3 items-center'>
@@ -53,7 +53,7 @@ const Toast = () => {
                 </div>
             )}
             {secondaryToast && toast?.clr === 'success' && (
-                <div className="gap-3 flex text-[0.8125rem] font-medium px-4 py-3 bottom-4 right-4 z-[70] fixed rounded-xl items-center fadeInToast border border-[var(--line)] bg-white text-[var(--ink-secondary)]"
+                <div className="gap-3 flex text-[0.8125rem] font-medium px-4 py-3 bottom-4 right-4 z-[70] fixed rounded-xl items-center fadeInToast border border-[var(--line)] bg-[var(--bg-card)] text-[var(--ink-secondary)]"
                     style={{ boxShadow: 'var(--shadow-md)' }}>
                     <CheckCircle2 size={16} className='text-[var(--brand)] flex-shrink-0' />
                     <div>Please verify the saved data again!</div>

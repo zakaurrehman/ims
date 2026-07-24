@@ -33,7 +33,7 @@ function AlertPill({ icon: Icon, label, count, severity, onClick }) {
             <span>{label}</span>
             <span
                 className='px-1.5 py-0.5 rounded-full'
-                style={{ background: 'white', fontSize: '0.58rem', minWidth: '18px', textAlign: 'center' }}
+                style={{ background: "var(--bg-card)", fontSize: '0.58rem', minWidth: '18px', textAlign: 'center' }}
             >
                 {count}
             </span>
@@ -176,7 +176,7 @@ const AIAlertsBar = () => {
 
     if (loading) {
         return (
-            <div className='flex items-center gap-2 px-3 py-2.5 rounded-xl mb-3 shadow-sm' style={{ border: '1px solid var(--line)', background: '#ffffff' }}>
+            <div className='flex items-center gap-2 px-3 py-2.5 rounded-xl mb-3 shadow-sm' style={{ border: '1px solid var(--line)', background: "var(--bg-card)" }}>
                 <Loader2 className='w-3.5 h-3.5 animate-spin' style={{ color: 'var(--brand)' }} />
                 <span style={{ fontSize: '0.65rem', color: 'var(--ink-muted)' }}>Checking alerts…</span>
             </div>
@@ -198,7 +198,7 @@ const AIAlertsBar = () => {
     return (
         <div
             className='flex flex-wrap items-center gap-2 px-3 py-2.5 rounded-xl mb-3 shadow-sm'
-            style={{ border: '1px solid var(--line)', background: '#ffffff' }}
+            style={{ border: '1px solid var(--line)', background: "var(--bg-card)" }}
             role='region'
             aria-label='AI alerts summary'
         >

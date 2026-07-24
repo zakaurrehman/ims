@@ -31,7 +31,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                 }
 
                 .margins-table td {
-                    background-color: #fff;
+                    background-color: var(--bg-card);
                     border-bottom: 1px solid var(--line);
                     color: var(--ink);
                     font-size: 0.75rem;
@@ -66,7 +66,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                 <div
                     className="flex-shrink-0"
                     style={{
-                        background: '#fff'
+                        background: "var(--bg-card)"
                     }}
                 >
                     {/* Desktop table container matching newTable exactly */}
@@ -450,7 +450,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                     key={i}
                                     className="rounded-2xl overflow-hidden shadow-card transition-colors duration-200"
                                     style={{
-                                        backgroundColor: '#FFFFFF',
+                                        backgroundColor: "var(--bg-card)",
                                         border: '1px solid var(--line)',
                                         boxShadow: 'var(--shadow-xs)'
                                     }}
@@ -575,7 +575,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                             <div
                                 className="rounded-2xl overflow-hidden shadow-card transition-colors duration-200"
                                 style={{
-                                    backgroundColor: '#FFFFFF',
+                                    backgroundColor: "var(--bg-card)",
                                     border: '1px solid var(--line-strong)',
                                     boxShadow: 'var(--shadow-sm)'
                                 }}

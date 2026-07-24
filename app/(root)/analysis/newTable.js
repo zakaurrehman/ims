@@ -115,17 +115,17 @@ const Customtable = ({
       <style jsx global>{`
         .dashboard-scroll::-webkit-scrollbar { width: 10px; height: 10px; }
         .dashboard-scroll::-webkit-scrollbar-track { 
-          background: linear-gradient(180deg, #F4F3F9, #F4F3F9); 
+          background: linear-gradient(180deg, var(--bg-subtle), var(--bg-subtle)); 
           border-radius: 6px; 
         }
         .dashboard-scroll::-webkit-scrollbar-thumb { 
           background: linear-gradient(180deg, #6366F1, #4338CA); 
           border-radius: 6px; 
-          border: 2px solid #F4F3F9;
+          border: 2px solid var(--bg-subtle);
         }
         .dashboard-scroll::-webkit-scrollbar-thumb:hover { 
           background: linear-gradient(180deg, #A855F7, #7E22CE);
-          border-color: #F4F3F9;
+          border-color: var(--bg-subtle);
         }
         .glass-table {
           background: linear-gradient(135deg, 
@@ -155,7 +155,7 @@ const Customtable = ({
           font-weight: 600;
         }
         .custom-table td {
-          background-color: #fff;
+          background-color: var(--bg-card);
           border-bottom: 1px solid var(--line);
           font-size: 0.75rem;
           font-variant-numeric: tabular-nums;
@@ -330,7 +330,7 @@ const Customtable = ({
                 buttonClassName="px-3 py-1 responsiveText"
                 disabledClassName="opacity-50 cursor-not-allowed"
                 activeClassName="bg-blue-600 text-white"
-                inactiveClassName="bg-[#F1EFF6] text-[var(--port-gore)]"
+                inactiveClassName="bg-[var(--neutral-bg)] text-[var(--port-gore)]"
               />
             </div>
           </div>

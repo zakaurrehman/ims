@@ -27,11 +27,11 @@ const INPUT_CLASS = `
   border border-transparent
   outline-none
   hover:border-[var(--line-strong)]
-  hover:bg-white
+  hover:bg-[var(--bg-card)]
   focus:ring-2
   focus:ring-[var(--brand-soft)]
   focus:border-[var(--brand)]
-  focus:bg-white
+  focus:bg-[var(--bg-card)]
   shadow-none
   transition-colors
 `;

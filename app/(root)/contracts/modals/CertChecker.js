@@ -165,7 +165,7 @@ const CertChecker = () => {
                         value={newElement}
                         onChange={e => setNewElement(e.target.value)}
                         className='rounded-full border px-2 py-0.5 outline-none focus:border-[var(--endeavour)]'
-                        style={{ fontSize: '0.62rem', borderColor: 'var(--line)', background: 'white', color: 'var(--port-gore)' }}
+                        style={{ fontSize: '0.62rem', borderColor: 'var(--line)', background: "var(--bg-card)", color: 'var(--port-gore)' }}
                     >
                         <option value=''>Element</option>
                         {ELEMENT_PRESETS.filter(e => !spec.find(s => s.element === e)).map(e => (
@@ -174,13 +174,13 @@ const CertChecker = () => {
                     </select>
                     <input placeholder='Min %' value={newMin} onChange={e => setNewMin(e.target.value)} type='number' step='any'
                         className='w-16 rounded-full border px-2 py-0.5 outline-none focus:border-[var(--endeavour)]'
-                        style={{ fontSize: '0.62rem', borderColor: 'var(--line)', background: 'white', color: 'var(--port-gore)' }} />
+                        style={{ fontSize: '0.62rem', borderColor: 'var(--line)', background: "var(--bg-card)", color: 'var(--port-gore)' }} />
                     <input placeholder='Max %' value={newMax} onChange={e => setNewMax(e.target.value)} type='number' step='any'
                         className='w-16 rounded-full border px-2 py-0.5 outline-none focus:border-[var(--endeavour)]'
-                        style={{ fontSize: '0.62rem', borderColor: 'var(--line)', background: 'white', color: 'var(--port-gore)' }} />
+                        style={{ fontSize: '0.62rem', borderColor: 'var(--line)', background: "var(--bg-card)", color: 'var(--port-gore)' }} />
                     <input placeholder='±tol' value={newTolerance} onChange={e => setNewTolerance(e.target.value)} type='number' step='any' title='Tolerance — allowed deviation from min/max (e.g. 0.05)'
                         className='w-14 rounded-full border px-2 py-0.5 outline-none focus:border-[var(--endeavour)]'
-                        style={{ fontSize: '0.62rem', borderColor: 'var(--line)', background: 'white', color: 'var(--port-gore)' }} />
+                        style={{ fontSize: '0.62rem', borderColor: 'var(--line)', background: "var(--bg-card)", color: 'var(--port-gore)' }} />
                     <button onClick={addSpec} disabled={!newElement}
                         className='flex items-center gap-1 px-2.5 py-0.5 rounded-full text-white disabled:opacity-40'
                         style={{ fontSize: '0.62rem', background: 'var(--endeavour)' }}>
@@ -214,7 +214,7 @@ const CertChecker = () => {
                         <FileText className='w-4 h-4' style={{ color: 'var(--endeavour)' }} />
                         <span style={{ fontSize: '0.68rem', color: 'var(--chathams-blue)' }}>{file.name}</span>
                         <button onClick={e => { e.stopPropagation(); setFile(null); setResult(null); }} className='ml-1'>
-                            <X className='w-3 h-3' style={{ color: '#B42332' }} />
+                            <X className='w-3 h-3' style={{ color: 'var(--bad-text)' }} />
                         </button>
                     </div>
                 ) : (
@@ -237,9 +237,9 @@ const CertChecker = () => {
 
             {/* Error */}
             {error && (
-                <div className='flex items-center gap-2 p-2.5 rounded-lg' style={{ background: '#FDEAEA', border: '1px solid #F5C6C9' }}>
-                    <AlertTriangle className='w-3.5 h-3.5 flex-shrink-0' style={{ color: '#B42332' }} />
-                    <span style={{ fontSize: '0.65rem', color: '#B42332' }}>{error}</span>
+                <div className='flex items-center gap-2 p-2.5 rounded-lg' style={{ background: 'var(--bad-bg)', border: '1px solid var(--bad-border)' }}>
+                    <AlertTriangle className='w-3.5 h-3.5 flex-shrink-0' style={{ color: 'var(--bad-text)' }} />
+                    <span style={{ fontSize: '0.65rem', color: 'var(--bad-text)' }}>{error}</span>
                 </div>
             )}
 
@@ -298,14 +298,14 @@ const CertChecker = () => {
                                                         <div className='flex flex-col gap-0.5'>
                                                             <span
                                                                 className='flex items-center gap-1 px-2 py-0.5 rounded-full w-fit'
-                                                                style={{ fontSize: '0.58rem', background: '#FDEAEA', color: '#B42332' }}
+                                                                style={{ fontSize: '0.58rem', background: 'var(--bad-bg)', color: 'var(--bad-text)' }}
                                                                 role='status'
                                                                 aria-label={`${row.element} fail${row.reason ? ': ' + row.reason : ''}`}
                                                             >
                                                                 <XCircle className='w-3 h-3' aria-hidden='true' /> Fail
                                                             </span>
                                                             {row.reason && (
-                                                                <span style={{ fontSize: '0.55rem', color: '#B42332' }}>{row.reason}</span>
+                                                                <span style={{ fontSize: '0.55rem', color: 'var(--bad-text)' }}>{row.reason}</span>
                                                             )}
                                                         </div>
                                                     )}

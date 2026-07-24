@@ -157,7 +157,7 @@ export default function EditableSelectCell({ getValue, row, column, table }) {
     >
       <Listbox.Options
         static
-        className="z-[9999] max-h-48 overflow-auto rounded-xl bg-white py-1 text-xs shadow-lg focus:outline-none border border-[var(--bg-subtle)] custom-scrollbar"
+        className="z-[9999] max-h-48 overflow-auto rounded-xl bg-[var(--bg-card)] py-1 text-xs shadow-lg focus:outline-none border border-[var(--bg-subtle)] custom-scrollbar"
         style={{
           position: "absolute",
           ...(dropUp

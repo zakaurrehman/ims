@@ -211,7 +211,7 @@ const WHvModal = ({ isOpen, setIsOpen, item, setItem, data, setData }) => {
     }
 
     const labelCls = 'text-[11px] font-medium text-[var(--ink-secondary)] whitespace-nowrap mb-0.5'
-    const inputCls = 'w-full rounded-[10px] border border-[var(--line-strong)] bg-white text-[var(--ink)] text-xs h-7 px-2 focus:outline-none focus:ring-1 focus:ring-[var(--brand)] focus:border-[var(--brand)] disabled:opacity-70'
+    const inputCls = 'w-full rounded-[10px] border border-[var(--line-strong)] bg-[var(--bg-card)] text-[var(--ink)] text-xs h-7 px-2 focus:outline-none focus:ring-1 focus:ring-[var(--brand)] focus:border-[var(--brand)] disabled:opacity-70'
 
     return (
         <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={getTtl('Materials Breakdown', ln)} w='max-w-4xl'>
@@ -244,7 +244,7 @@ const WHvModal = ({ isOpen, setIsOpen, item, setItem, data, setData }) => {
             <div className={`${showBlock ? 'flex' : 'hidden'} gap-4 px-3 pb-2 mx-3 mb-2 rounded-2xl border border-[var(--line)] p-3`} style={{ background: 'var(--bg-subtle)' }}>
                 <div className='flex flex-col'>
                     <p className={labelCls}>{getTtl('Weight', ln)}</p>
-                    <input type='text' className={inputCls + ' w-24 !bg-white'} name='qnty' value={addComma(newItemStock.qnty, false)} onChange={e => handleValueQnty1(e)} />
+                    <input type='text' className={inputCls + ' w-24 !bg-[var(--bg-card)]'} name='qnty' value={addComma(newItemStock.qnty, false)} onChange={e => handleValueQnty1(e)} />
                 </div>
                 <div className='flex flex-col w-48'>
                     <p className={labelCls}>{getTtl('Stock', ln)}:</p>

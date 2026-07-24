@@ -17,14 +17,14 @@ function CodeBlock({ children }) {
     return (
         <div
             className='relative rounded-lg p-2.5 mt-1 mb-2 font-mono'
-            style={{ background: '#1E1B39', color: '#DDD9EA', fontSize: '0.65rem' }}
+            style={{ background: 'var(--ink)', color: 'var(--neutral-border)', fontSize: '0.65rem' }}
         >
             <button
                 onClick={copy}
                 className='absolute top-1.5 right-1.5 p-1 rounded hover:bg-white/10 transition-colors'
                 title='Copy'
             >
-                {copied ? <Check className='w-3 h-3' style={{ color: '#BFE8D0' }} /> : <Copy className='w-3 h-3' style={{ color: '#8D8AA3' }} />}
+                {copied ? <Check className='w-3 h-3' style={{ color: 'var(--ok-border)' }} /> : <Copy className='w-3 h-3' style={{ color: 'var(--ink-muted)' }} />}
             </button>
             <pre className='whitespace-pre-wrap pr-6'>{children}</pre>
         </div>
@@ -108,23 +108,23 @@ const EmailSetup = () => {
                 )}
 
                 {!loading && error && (
-                    <div className='flex items-center gap-2 px-3 py-2 rounded-lg' style={{ background: '#FDEAEA', border: '1px solid #F5C6C9' }}>
-                        <AlertTriangle className='w-3.5 h-3.5' style={{ color: '#B42332' }} />
-                        <span style={{ fontSize: '0.65rem', color: '#B42332' }}>{error}</span>
+                    <div className='flex items-center gap-2 px-3 py-2 rounded-lg' style={{ background: 'var(--bad-bg)', border: '1px solid var(--bad-border)' }}>
+                        <AlertTriangle className='w-3.5 h-3.5' style={{ color: 'var(--bad-text)' }} />
+                        <span style={{ fontSize: '0.65rem', color: 'var(--bad-text)' }}>{error}</span>
                     </div>
                 )}
 
                 {!loading && status && (
                     <>
                         {status.ready ? (
-                            <div className='flex items-start gap-2 px-3 py-2.5 rounded-lg' style={{ background: '#E5F6EC', border: '1px solid #BFE8D0' }}>
-                                <CheckCircle2 className='w-4 h-4 flex-shrink-0 mt-0.5' style={{ color: '#177245' }} />
+                            <div className='flex items-start gap-2 px-3 py-2.5 rounded-lg' style={{ background: 'var(--ok-bg)', border: '1px solid var(--ok-border)' }}>
+                                <CheckCircle2 className='w-4 h-4 flex-shrink-0 mt-0.5' style={{ color: 'var(--ok-text)' }} />
                                 <div>
-                                    <p className='font-semibold' style={{ fontSize: '0.7rem', color: '#177245' }}>
+                                    <p className='font-semibold' style={{ fontSize: '0.7rem', color: 'var(--ok-text)' }}>
                                         Email sending is configured
                                     </p>
-                                    <p style={{ fontSize: '0.62rem', color: '#177245', marginTop: '2px' }}>
-                                        Sending from <code style={{ background: '#E5F6EC', padding: '1px 4px', borderRadius: '3px' }}>{status.fromEmail}</code>
+                                    <p style={{ fontSize: '0.62rem', color: 'var(--ok-text)', marginTop: '2px' }}>
+                                        Sending from <code style={{ background: 'var(--ok-bg)', padding: '1px 4px', borderRadius: '3px' }}>{status.fromEmail}</code>
                                         {status.fromDomain && (
                                             <> — make sure <strong>{status.fromDomain}</strong> is verified in your Resend dashboard for best deliverability.</>
                                         )}
@@ -132,16 +132,16 @@ const EmailSetup = () => {
                                 </div>
                             </div>
                         ) : (
-                            <div className='flex items-start gap-2 px-3 py-2.5 rounded-lg' style={{ background: '#FDF3E1', border: '1px solid #E8A23D' }}>
+                            <div className='flex items-start gap-2 px-3 py-2.5 rounded-lg' style={{ background: 'var(--warn-bg)', border: '1px solid #E8A23D' }}>
                                 <AlertTriangle className='w-4 h-4 flex-shrink-0 mt-0.5' style={{ color: '#E8A23D' }} />
                                 <div>
-                                    <p className='font-semibold' style={{ fontSize: '0.7rem', color: '#9A6215' }}>
+                                    <p className='font-semibold' style={{ fontSize: '0.7rem', color: 'var(--warn-text)' }}>
                                         Email sending is NOT configured
                                     </p>
-                                    <p style={{ fontSize: '0.62rem', color: '#9A6215', marginTop: '2px' }}>
+                                    <p style={{ fontSize: '0.62rem', color: 'var(--warn-text)', marginTop: '2px' }}>
                                         Missing:{' '}
-                                        {!status.hasApiKey && <code style={{ background: '#F5DFAE', padding: '1px 4px', borderRadius: '3px', marginRight: '4px' }}>RESEND_API_KEY</code>}
-                                        {!status.hasFromEmail && <code style={{ background: '#F5DFAE', padding: '1px 4px', borderRadius: '3px' }}>RESEND_FROM_EMAIL</code>}
+                                        {!status.hasApiKey && <code style={{ background: 'var(--warn-border)', padding: '1px 4px', borderRadius: '3px', marginRight: '4px' }}>RESEND_API_KEY</code>}
+                                        {!status.hasFromEmail && <code style={{ background: 'var(--warn-border)', padding: '1px 4px', borderRadius: '3px' }}>RESEND_FROM_EMAIL</code>}
                                     </p>
                                 </div>
                             </div>
@@ -174,7 +174,7 @@ const EmailSetup = () => {
                             onChange={e => handleCadenceChange(e.target.value)}
                             aria-label='Reminder cadence in days'
                             className='w-16 text-center rounded-[10px] border px-2 py-1 outline-none focus:border-[var(--endeavour)] focus:ring-2 focus:ring-[var(--endeavour)]/20'
-                            style={{ fontSize: '0.68rem', borderColor: 'var(--line)', background: 'white', color: 'var(--port-gore)' }}
+                            style={{ fontSize: '0.68rem', borderColor: 'var(--line)', background: "var(--bg-card)", color: 'var(--port-gore)' }}
                         />
                         <span style={{ fontSize: '0.65rem', color: 'var(--chathams-blue)' }}>days</span>
                     </div>
@@ -182,9 +182,9 @@ const EmailSetup = () => {
             </div>
 
             {/* Setup steps */}
-            <div className='rounded-xl p-4' style={{ border: '1px solid var(--line)', background: 'white' }}>
+            <div className='rounded-xl p-4' style={{ border: '1px solid var(--line)', background: "var(--bg-card)" }}>
                 <p className='font-semibold mb-2' style={{ fontSize: '0.72rem', color: 'var(--chathams-blue)' }}>
-                    Setup steps {status?.ready && <span style={{ color: '#177245' }}>(complete ✓)</span>}
+                    Setup steps {status?.ready && <span style={{ color: 'var(--ok-text)' }}>(complete ✓)</span>}
                 </p>
 
                 <ol className='space-y-3' style={{ fontSize: '0.68rem', color: 'var(--port-gore)' }}>

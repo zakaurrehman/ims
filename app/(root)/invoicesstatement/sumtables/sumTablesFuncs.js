@@ -124,11 +124,11 @@ export const sumClients = (dt) => {
 export const detailsToolTip = (row, data, settings, dataTable, rmrk) => {
     const containerStyle = {
         fontFamily: "var(--font-poppins), 'Poppins', sans-serif",
-        background: '#fff',
+        background: "var(--bg-card)",
         borderRadius: '16px',
         overflow: 'hidden',
         boxShadow: 'var(--shadow-md)',
-        border: '1px solid #EAE8F2',
+        border: '1px solid var(--line)',
         minWidth: '400px',
         padding: '0',
     };
@@ -144,14 +144,14 @@ export const detailsToolTip = (row, data, settings, dataTable, rmrk) => {
         color: 'var(--chathams-blue)',
         fontWeight: 500,
         fontSize: '0.68rem',
-        border: '1px solid #EAE8F2',
-        background: '#F4F3F9',
+        border: '1px solid var(--line)',
+        background: 'var(--bg-subtle)',
         whiteSpace: 'nowrap',
     };
     const tdStyle = {
         textAlign: 'center',
         padding: '5px 10px',
-        border: '1px solid #EAE8F2',
+        border: '1px solid var(--line)',
         fontSize: '0.68rem',
         color: 'var(--chathams-blue)',
         whiteSpace: 'nowrap',
@@ -169,7 +169,7 @@ export const detailsToolTip = (row, data, settings, dataTable, rmrk) => {
 
         return (
             <div style={containerStyle}>
-                <div style={{ background: '#F4F3F9', padding: '7px 14px', fontWeight: 500, fontSize: '0.68rem', color: 'var(--chathams-blue)', borderBottom: '1px solid #EAE8F2' }}>
+                <div style={{ background: 'var(--bg-subtle)', padding: '7px 14px', fontWeight: 500, fontSize: '0.68rem', color: 'var(--chathams-blue)', borderBottom: '1px solid var(--line)' }}>
                     Supplier Details
                 </div>
                 <table style={tableStyle}>
@@ -183,7 +183,7 @@ export const detailsToolTip = (row, data, settings, dataTable, rmrk) => {
                     </thead>
                     <tbody>
                         {filteredArr?.map((z, i) => (
-                            <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#F4F3F9', transition: 'background 150ms ease-in-out' }}>
+                            <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : 'var(--bg-subtle)', transition: 'background 150ms ease-in-out' }}>
                                 <td style={tdStyle}>
                                     {Array.isArray(z.supInvoices) ? z.supInvoices.map((item, index) => (
                                         <div key={index}>{item}</div>
@@ -237,7 +237,7 @@ export const detailsToolTip = (row, data, settings, dataTable, rmrk) => {
 
         return (
             <div style={containerStyle}>
-                <div style={{ background: '#F4F3F9', padding: '7px 14px', fontWeight: 500, fontSize: '0.68rem', color: 'var(--chathams-blue)', borderBottom: '1px solid #EAE8F2' }}>
+                <div style={{ background: 'var(--bg-subtle)', padding: '7px 14px', fontWeight: 500, fontSize: '0.68rem', color: 'var(--chathams-blue)', borderBottom: '1px solid var(--line)' }}>
                     Client Details
                 </div>
                 <table style={tableStyle}>
@@ -251,7 +251,7 @@ export const detailsToolTip = (row, data, settings, dataTable, rmrk) => {
                     </thead>
                     <tbody>
                         {filteredArr?.map((z, i) => (
-                            <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#F4F3F9', transition: 'background 150ms ease-in-out' }}>
+                            <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : 'var(--bg-subtle)', transition: 'background 150ms ease-in-out' }}>
                                 <td style={tdStyle}>{z.InvNum}</td>
                                 <td style={tdAmountStyle}>
                                     <NumericFormat

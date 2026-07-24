@@ -86,7 +86,7 @@ const SideBarMini = () => {
   }, []);
 
   return (
-    <nav className="w-full h-14 flex items-center bg-white border-b border-[var(--line)]" style={{ boxShadow: 'var(--shadow-xs)' }}>
+    <nav className="w-full h-14 flex items-center bg-[var(--bg-card)] border-b border-[var(--line)]" style={{ boxShadow: 'var(--shadow-xs)' }}>
       <div className='flex w-full justify-between items-center'>
         {/* Logo and Search Icon */}
         <div className='flex items-center'>
@@ -119,12 +119,12 @@ const SideBarMini = () => {
                     setQuery(e.target.value);
                     setShowDropdown(true);
                   }}
-                  className="w-full pl-4 pr-10 py-2.5 rounded-[10px] bg-[var(--bg-subtle)] border border-[var(--line)] focus:border-[var(--brand)] focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-[var(--brand-soft)] placeholder:text-[var(--ink-muted)] transition-all"
+                  className="w-full pl-4 pr-10 py-2.5 rounded-[10px] bg-[var(--bg-subtle)] border border-[var(--line)] focus:border-[var(--brand)] focus:bg-[var(--bg-card)] focus:outline-none focus:ring-[3px] focus:ring-[var(--brand-soft)] placeholder:text-[var(--ink-muted)] transition-all"
                   style={{ fontSize: 'inherit', color: 'var(--ink)' }}
                 />
                 {/* Search Dropdown */}
                 {showDropdown && searchResults.length > 0 && (
-                  <div className='absolute left-0 right-0 mt-2 bg-white rounded-xl border border-[var(--line)] z-[101] overflow-auto max-h-80 w-full min-w-[16rem]' style={{ boxShadow: 'var(--shadow-md)' }}>
+                  <div className='absolute left-0 right-0 mt-2 bg-[var(--bg-card)] rounded-xl border border-[var(--line)] z-[101] overflow-auto max-h-80 w-full min-w-[16rem]' style={{ boxShadow: 'var(--shadow-md)' }}>
                     {searchResults.map((r) => (
                       <button
                         key={r.key}
@@ -166,7 +166,7 @@ const SideBarMini = () => {
                 >
                 <MenuItems
   data-ims-sidebar="1"
-  className="fixed right-2 top-14 w-76 origin-top-left divide-y divide-[var(--line)] rounded-xl border border-[var(--line)] bg-white focus:outline-none h-[450px] overflow-auto z-[20000]"
+  className="fixed right-2 top-14 w-76 origin-top-left divide-y divide-[var(--line)] rounded-xl border border-[var(--line)] bg-[var(--bg-card)] focus:outline-none h-[450px] overflow-auto z-[20000]"
   style={{ boxShadow: 'var(--shadow-md)' }}
 >
   <div className='px-4 py-3 border-b border-[var(--line)]'>

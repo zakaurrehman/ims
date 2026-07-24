@@ -39,10 +39,10 @@ const fmtMT = (n) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }
 
 // Auto-derived lifecycle colours, used only when the contract has no manual shipment status set.
 const FALLBACK_STATUS_STYLES = {
-    shipped: { backgroundColor: '#EEEBFC', border: '1px solid #D6CFF7', color: '#5A49CB' },
-    partial: { backgroundColor: '#F4F3F9', border: '1px solid #EAE8F2', color: 'var(--chathams-blue)' },
-    pending: { backgroundColor: '#FDF3E1', border: '1px solid #F5DFAE', color: '#9A6215' },
-    unsold:  { backgroundColor: '#FDEAEA', border: '1px solid #F5C6C9', color: '#B42332' },
+    shipped: { backgroundColor: 'var(--brand-soft)', border: '1px solid var(--brand-border)', color: 'var(--brand-strong)' },
+    partial: { backgroundColor: 'var(--bg-subtle)', border: '1px solid var(--line)', color: 'var(--chathams-blue)' },
+    pending: { backgroundColor: 'var(--warn-bg)', border: '1px solid var(--warn-border)', color: 'var(--warn-text)' },
+    unsold:  { backgroundColor: 'var(--bad-bg)', border: '1px solid var(--bad-border)', color: 'var(--bad-text)' },
 };
 
 // Status chip that follows the software lifecycle: the contract's shipment status (Pending /
@@ -64,7 +64,7 @@ const ProgressBar = ({ shipped, total }) => {
     const t = parseFloat(total) || 0;
     const s = parseFloat(shipped) || 0;
     const pct = t > 0 ? Math.max(0, Math.min(100, Math.round((s / t) * 100))) : 0;
-    const color = pct >= 100 ? '#177245' : pct > 0 ? 'var(--endeavour)' : '#DDD9EA';
+    const color = pct >= 100 ? 'var(--ok-text)' : pct > 0 ? 'var(--endeavour)' : 'var(--neutral-border)';
     return (
         <div className="flex flex-col items-center gap-1" style={{ minWidth: 84 }}>
             <div style={{ width: '100%', height: 6, borderRadius: 9999, background: '#e6eef7', overflow: 'hidden' }}>
@@ -608,12 +608,12 @@ const ContractsMerged = () => {
                         <button
                             onClick={row.getToggleExpandedHandler()}
                             aria-label={row.getIsExpanded() ? 'Collapse details' : 'Expand details'}
-                            className={`flex items-center justify-center w-6 h-6 rounded-lg transition-all duration-200 focus:outline-none ${row.getIsExpanded() ? 'bg-[#EEEBFC] text-[var(--endeavour)]' : 'text-[var(--endeavour)] hover:bg-[#F4F3F9]'}`}
+                            className={`flex items-center justify-center w-6 h-6 rounded-lg transition-all duration-200 focus:outline-none ${row.getIsExpanded() ? 'bg-[var(--brand-soft)] text-[var(--endeavour)]' : 'text-[var(--endeavour)] hover:bg-[var(--bg-subtle)]'}`}
                         >
                             <IoIosArrowDown size={13} className={`transition-transform duration-200 ${row.getIsExpanded() ? 'rotate-180' : 'rotate-0'}`} />
                         </button>
                     ) : (
-                        <span className='inline-block w-1.5 h-1.5 rounded-full' style={{ background: '#DDD9EA' }} />
+                        <span className='inline-block w-1.5 h-1.5 rounded-full' style={{ background: 'var(--neutral-border)' }} />
                     )}
                 </div>
             ),
@@ -823,8 +823,8 @@ const ContractsMerged = () => {
                     onClick={() => setEnabledSwitch(!enabledSwitch)}
                     className="relative w-9 h-5 rounded-full focus:outline-none transition-colors duration-200 border-2 flex items-center"
                     style={{
-                        background: enabledSwitch ? "#6D5CE0" : "#8D8AA3",
-                        borderColor: enabledSwitch ? "#6D5CE0" : "#8D8AA3",
+                        background: enabledSwitch ? "var(--brand)" : "var(--ink-muted)",
+                        borderColor: enabledSwitch ? "var(--brand)" : "var(--ink-muted)",
                         minWidth: trackWidth,
                         borderWidth: 2,
                         padding: 0,
@@ -838,7 +838,7 @@ const ContractsMerged = () => {
                             width: `${knobSize}px`,
                             height: `${knobSize}px`,
                             borderRadius: "50%",
-                            background: "radial-gradient(circle at 60% 40%, #F4F3F9 70%, #EAE8F2 100%)",
+                            background: "radial-gradient(circle at 60% 40%, var(--bg-subtle) 70%, var(--line) 100%)",
                             boxShadow: "0 2px 6px rgba(0,0,0,0.10)",
                             transform: `translateY(-50%) ${enabledSwitch ? `translateX(${translateX}px)` : "translateX(0)"}`,
                             transition: "transform 0.2s",
@@ -851,14 +851,14 @@ const ContractsMerged = () => {
     }
 
     return (
-        <div className="w-full " style={{ background: "#F4F3F9" }}>
+        <div className="w-full " style={{ background: "var(--bg-subtle)" }}>
             <div className="mx-auto w-full max-w-full px-1 md:px-2 pb-4 mt-[72px]">
                 {Object.keys(settings).length === 0 ? <TableSkeleton /> :
                     <>
                         <Toast />
                         <VideoLoader loading={loading} fullScreen={true} />
                         {/* Main Card */}
-                        <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
+                        <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-[var(--bg-card)]">
                             {/* Header Section */}
                             <div className='flex items-center justify-between flex-wrap gap-2 pb-1'>
                                 <h1 className="text-[var(--ink)] responsiveTextTitle">

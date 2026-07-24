@@ -4,11 +4,11 @@
 // One pastel system: soft bg, dark text, faint border (see globals.css :root tokens).
 // "blue" is the info/accent tone — violet in the reference palette.
 export const TONES = {
-    green: { bg: '#E5F6EC', text: '#177245', border: '#BFE8D0' },
-    amber: { bg: '#FDF3E1', text: '#9A6215', border: '#F5DFAE' },
-    red: { bg: '#FDEAEA', text: '#B42332', border: '#F5C6C9' },
-    blue: { bg: '#EEEBFC', text: '#5A49CB', border: '#D6CFF7' },
-    gray: { bg: '#F1EFF6', text: '#5D5A74', border: '#DDD9EA' },
+    green: { bg: 'var(--ok-bg)', text: 'var(--ok-text)', border: 'var(--ok-border)' },
+    amber: { bg: 'var(--warn-bg)', text: 'var(--warn-text)', border: 'var(--warn-border)' },
+    red: { bg: 'var(--bad-bg)', text: 'var(--bad-text)', border: 'var(--bad-border)' },
+    blue: { bg: 'var(--brand-soft)', text: 'var(--brand-strong)', border: 'var(--brand-border)' },
+    gray: { bg: 'var(--neutral-bg)', text: 'var(--ink-secondary)', border: 'var(--neutral-border)' },
 };
 
 // Map a free-text status label to a tone. Order matters: negative/partial checks

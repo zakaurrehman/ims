@@ -51,10 +51,10 @@ const Customtable = ({ data, columns, expensesData, settings, title, filt }) => 
 
   return (
     <div
-      className="bg-white rounded-xl shadow border overflow-hidden"
+      className="bg-[var(--bg-card)] rounded-xl shadow border overflow-hidden"
       style={{
         width: TABLE_WIDTH,
-        borderColor: '#EAE8F2',
+        borderColor: 'var(--line)',
         borderWidth: 1,
         borderRadius: '16px',
         boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
@@ -74,9 +74,9 @@ const Customtable = ({ data, columns, expensesData, settings, title, filt }) => 
         {/* TITLE */}
         <div
           style={{
-            borderBottom: '1px solid #EAE8F2',
+            borderBottom: '1px solid var(--line)',
             padding: '12px 16px',
-            background: '#F4F3F9'
+            background: 'var(--bg-subtle)'
           }}
         >
           <p
@@ -93,9 +93,9 @@ const Customtable = ({ data, columns, expensesData, settings, title, filt }) => 
         <div
           className="grid grid-cols-[1fr_auto] px-4 py-2"
           style={{
-            background: '#ffffff',
-            borderTop: '1px solid #EAE8F2',
-            borderBottom: '1px solid #EAE8F2'
+            background: "var(--bg-card)",
+            borderTop: '1px solid var(--line)',
+            borderBottom: '1px solid var(--line)'
           }}
         >
           <div
@@ -132,7 +132,7 @@ const Customtable = ({ data, columns, expensesData, settings, title, filt }) => 
               tltpText={expensesToolTip(row, expensesData, settings, filt)}
             >
               <div
-                className="grid grid-cols-[1fr_auto] px-4 py-1 items-center hover:bg-[#F4F3F9] transition responsiveTextTable"
+                className="grid grid-cols-[1fr_auto] px-4 py-1 items-center hover:bg-[var(--bg-subtle)] transition responsiveTextTable"
                 style={{
                   borderBottom: '1px solid var(--selago)'
                 }}
@@ -162,8 +162,8 @@ const Customtable = ({ data, columns, expensesData, settings, title, filt }) => 
         <div
           className="px-4 py-3"
           style={{
-            borderTop: '1px solid #EAE8F2',
-            background: '#F4F3F9'
+            borderTop: '1px solid var(--line)',
+            background: 'var(--bg-subtle)'
           }}
         >
           <div

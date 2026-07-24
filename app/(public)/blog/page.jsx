@@ -57,7 +57,7 @@ const blogPosts = [
 
 export default function BlogPage() {
   return (
-    <div className="w-full bg-white min-h-screen font-sans text-foreground">
+    <div className="w-full bg-[var(--bg-card)] min-h-screen font-sans text-foreground">
       <Navbar />
       <main className="pt-15">
         {/* Hero Section - text customized for Blog page */}
@@ -67,14 +67,14 @@ export default function BlogPage() {
         />
 
         {/* Blog Posts List */}
-        <section className="py-12 bg-[#F4F3F9]">
+        <section className="py-12 bg-[var(--bg-subtle)]">
           <div className="container mx-auto px-4 max-w-6xl">
             <h2 className="text-3xl font-bold text-[var(--chathams-blue)] mb-8 text-center">
               Latest Blog Posts
             </h2>
             <div className="grid md:grid-cols-3 gap-6">
               {blogPosts.map((post, idx) => (
-                <Link key={idx} href={`/blog/${post.slug}`} className="bg-white rounded-2xl border border-[#EAE8F2] overflow-hidden flex flex-col items-center p-6 hover:shadow-md hover:border-[var(--endeavour)] transition no-underline">
+                <Link key={idx} href={`/blog/${post.slug}`} className="bg-[var(--bg-card)] rounded-2xl border border-[var(--line)] overflow-hidden flex flex-col items-center p-6 hover:shadow-md hover:border-[var(--endeavour)] transition no-underline">
                   {post.icon}
                   <h3 className="text-lg font-bold text-[var(--chathams-blue)] mb-2 text-center">{post.title}</h3>
                   <p className="text-gray-500 text-sm mb-4 text-center">{post.excerpt}</p>

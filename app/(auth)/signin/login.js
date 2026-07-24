@@ -60,14 +60,14 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="w-full bg-white min-h-screen font-sans">
+    <div className="w-full bg-[var(--bg-card)] min-h-screen font-sans">
       <main>
-        <section className="relative bg-gradient-to-br from-[#6D5CE0] via-[#5A49CB] to-[#1E1B39] text-white overflow-hidden min-h-screen flex items-center justify-center py-6">
+        <section className="relative bg-gradient-to-br from-[var(--brand)] via-[var(--brand-strong)] to-[var(--ink)] text-white overflow-hidden min-h-screen flex items-center justify-center py-6">
           
           {/* Sign In Card */}
           <div className="container px-4 relative z-20 py-8">
             <div className="max-w-md mx-auto">
-              <div className="bg-white rounded-2xl w-full p-8 relative" style={{ boxShadow: 'var(--shadow-md)' }}>
+              <div className="bg-[var(--bg-card)] rounded-2xl w-full p-8 relative" style={{ boxShadow: 'var(--shadow-md)' }}>
 
                 {/* Back Arrow */}
                 <button className="absolute top-8 left-8 text-[var(--ink-muted)] hover:text-[var(--ink)] transition-colors">

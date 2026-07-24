@@ -91,7 +91,7 @@ const StorageAging = ({ data = [] }) => {
 
     if (!data?.length) return null;
 
-    const bucketColor = { '0-30': '#177245', '31-60': 'var(--brand)', '61-90': '#E8A23D', '90+': '#B42332' };
+    const bucketColor = { '0-30': 'var(--ok-text)', '31-60': 'var(--brand)', '61-90': '#E8A23D', '90+': 'var(--bad-text)' };
 
     return (
         <div className='w-full mt-6'>
@@ -111,7 +111,7 @@ const StorageAging = ({ data = [] }) => {
                     const danger = g.oldest >= DEMURRAGE_DAYS;
                     const warn = g.oldest >= STALE_DAYS;
                     return (
-                        <div key={g.terminal} className='rounded-2xl border p-3 shadow-card' style={{ borderColor: danger ? TONES.red.border : warn ? TONES.amber.border : 'var(--line)', background: 'white' }}>
+                        <div key={g.terminal} className='rounded-2xl border p-3 shadow-card' style={{ borderColor: danger ? TONES.red.border : warn ? TONES.amber.border : 'var(--line)', background: "var(--bg-card)" }}>
                             <div className='flex items-center justify-between mb-1.5'>
                                 <span className='font-medium responsiveText text-[var(--ink)] truncate'>{g.name}</span>
                                 <span className='flex items-center gap-1' style={{ fontSize: '0.6rem', color: danger ? TONES.red.text : warn ? TONES.amber.text : 'var(--ink-muted)' }}>
@@ -150,7 +150,7 @@ const StorageAging = ({ data = [] }) => {
                     </p>
                     <div className='flex flex-col gap-1 max-h-56 overflow-y-auto'>
                         {staleRows.slice(0, 100).map(r => (
-                            <div key={r.id} className='flex items-center justify-between gap-2 px-2 py-1 rounded-lg bg-white border' style={{ borderColor: TONES.amber.border }}>
+                            <div key={r.id} className='flex items-center justify-between gap-2 px-2 py-1 rounded-lg bg-[var(--bg-card)] border' style={{ borderColor: TONES.amber.border }}>
                                 <span className='truncate' style={{ fontSize: '0.62rem', color: 'var(--ink)' }}>
                                     {r.descriptionName || 'Cargo'} · {stockName(r.stock)} · {fmtQty(r.qnty)}
                                 </span>

@@ -35,8 +35,8 @@ const Customtable = ({ data, columns, expensesData, settings, title, filt, headi
                     vertical-align: middle !important;
                     padding: 8px 6px !important;
                     border: none;
-                    border-bottom: 1px solid #DAD6E8;
-                    background: #fff;
+                    border-bottom: 1px solid var(--line-strong);
+                    background: var(--bg-card);
                 }
                 .glass-table th > *, .glass-table td > * {
                     display: flex;
@@ -52,12 +52,12 @@ const Customtable = ({ data, columns, expensesData, settings, title, filt, headi
                     letter-spacing: 0.05em;
                 }
                 .glass-table tfoot th, .glass-table tfoot td {
-                    background: #F4F3F9;
+                    background: var(--bg-subtle);
                     color: var(--chathams-blue) !important;
                     font-weight: 400;
                     text-align: center !important;
                     vertical-align: middle !important;
-                    border-bottom: 1px solid #EAE8F2;
+                    border-bottom: 1px solid var(--line);
                 }
                 .glass-table tbody tr:hover td {
                     background: var(--selago) !important;
@@ -66,11 +66,11 @@ const Customtable = ({ data, columns, expensesData, settings, title, filt, headi
                 }
                     .glass-table th,
 .glass-table td {
-    border-bottom: 1px solid #DAD6E8;
+    border-bottom: 1px solid var(--line-strong);
 }
 
 .glass-table th {
-    border-top: 1px solid #DAD6E8;
+    border-top: 1px solid var(--line-strong);
 }
 
 .glass-table tr:last-child td {
@@ -78,7 +78,7 @@ const Customtable = ({ data, columns, expensesData, settings, title, filt, headi
 }
             `}</style>
            
-            <div className="glass-table rounded-2xl shadow-lg border border-[#EAE8F2] p-2 sm:p-4 mb-6 w-full flex flex-col h-full"
+            <div className="glass-table rounded-2xl shadow-lg border border-[var(--line)] p-2 sm:p-4 mb-6 w-full flex flex-col h-full"
                 style={{
                     borderRadius: '16px',
                     boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
@@ -96,18 +96,18 @@ const Customtable = ({ data, columns, expensesData, settings, title, filt, headi
                  <div className="hidden sm:block flex-1 rounded-2xl ">
 
                         <div
-                        className="rounded-2xl overflow-hidden border border-[#EAE8F2]"
+                        className="rounded-2xl overflow-hidden border border-[var(--line)]"
                         style={{
                             borderRadius: '16px',
                             boxShadow: '0 3px 8px rgba(0,0,0,0.06)',
-                            background: '#ffffff'
+                            background: "var(--bg-card)"
                         }}
                         >
 
                         <div
                         className="responsiveTextTableTitle px-6 py-4 text-center font-medium font-poppins"
                         style={{
-                            background: '#F4F3F9',
+                            background: 'var(--bg-subtle)',
                             color: 'var(--chathams-blue)'
                         }}
                         >
@@ -182,12 +182,12 @@ const Customtable = ({ data, columns, expensesData, settings, title, filt, headi
                     <div className="block sm:hidden space-y-3 glass-table">
                         <div
                             className="responsiveTextTableTitle px-6 py-4 text-center font-medium font-poppins rounded-t-2xl"
-                            style={{ background: '#F4F3F9', color: 'var(--chathams-blue)' }}
+                            style={{ background: 'var(--bg-subtle)', color: 'var(--chathams-blue)' }}
                         >
                             {title}
                         </div>
                         {table1.getRowModel().rows.map(row => (
-                            <div key={row.id} className="bg-white border border-[var(--selago)] rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow">
+                            <div key={row.id} className="bg-[var(--bg-card)] border border-[var(--selago)] rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow">
                                 {row.getVisibleCells().map(cell => (
                                     <div key={cell.id} className="flex justify-between items-start py-2 border-b border-[var(--selago)] last:border-b-0">
                                         <span className="responsiveTextTable font-medium uppercase w-2/5 flex-shrink-0" style={{color:'var(--chathams-blue)'}}>

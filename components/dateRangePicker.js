@@ -69,7 +69,7 @@ const DateRangePicker = ({ displayLabel }) => {
 
             /* ── Popup wrapper: rounded + themed border + shadow + compact size ── */
             .react-tailwindcss-datepicker-container > div:not(:first-child),
-            .shadow-sm.border.border-gray-300.px-1.py-0\\.5.bg-white.rounded-lg {
+            .shadow-sm.border.border-gray-300.px-1.py-0\\.5.bg-[var(--bg-card)].rounded-lg {
                 border-radius: 1.25rem !important;
                 border: 1px solid var(--line) !important;
                 box-shadow: 0 12px 40px rgba(16,58,122,0.12) !important;
@@ -189,7 +189,7 @@ const DateRangePicker = ({ displayLabel }) => {
                     inputClassName="
                         responsiveText font-medium h-7 py-0 pl-7 pr-4
                         w-full
-                        bg-white
+                        bg-[var(--bg-card)]
                         rounded-full
                         border border-[var(--line)]
                         shadow-sm

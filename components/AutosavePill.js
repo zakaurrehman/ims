@@ -11,7 +11,7 @@ export default function AutosavePill({ mode, text, countdown, onSaveNow, onCance
     if (!mode) return null;
     return (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[9990] pointer-events-none">
-            <div className="flex items-center gap-2 rounded-full bg-white border border-[var(--line)] pl-3 pr-2 py-1.5 pointer-events-auto"
+            <div className="flex items-center gap-2 rounded-full bg-[var(--bg-card)] border border-[var(--line)] pl-3 pr-2 py-1.5 pointer-events-auto"
                 style={{ fontSize: '0.72rem', boxShadow: 'var(--shadow-sm)' }}>
                 {mode === 'pending' && (
                     <>

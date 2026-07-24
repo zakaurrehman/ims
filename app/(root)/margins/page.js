@@ -512,7 +512,7 @@ const Margins = () => {
                         <VideoLoader loading={loading} fullScreen={true} />
 
                         {/* Main Card */}
-                        <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
+                        <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-[var(--bg-card)]">
 
                             {/* Header Section */}
                             <div className='flex items-center justify-between flex-wrap gap-2 pb-2'>
@@ -534,7 +534,7 @@ const Margins = () => {
                                             onChange={e => handleThresholdChange(e.target.value)}
                                             aria-label='Minimum acceptable total margin'
                                             className='w-20 text-center rounded-[10px] border px-2 py-0.5 outline-none focus:border-[var(--brand)] focus:ring-2 focus:ring-[var(--brand-soft)]'
-                                            style={{ fontSize: '0.65rem', borderColor: 'var(--line-strong)', background: 'white', color: 'var(--ink)' }}
+                                            style={{ fontSize: '0.65rem', borderColor: 'var(--line-strong)', background: "var(--bg-card)", color: 'var(--ink)' }}
                                         />
                                     </div>
                                     <div className='flex items-center gap-2 group'>
@@ -557,12 +557,12 @@ const Margins = () => {
                                             </span>
                                             <div className='flex flex-wrap gap-1'>
                                                 {alertedItems.slice(0, 3).map((item, i) => (
-                                                    <span key={i} className='px-2 py-0.5 rounded-full' style={{ fontSize: '0.58rem', background: 'white', border: `1px solid ${TONES.amber.border}`, color: TONES.amber.text }}>
+                                                    <span key={i} className='px-2 py-0.5 rounded-full' style={{ fontSize: '0.58rem', background: "var(--bg-card)", border: `1px solid ${TONES.amber.border}`, color: TONES.amber.text }}>
                                                         {item.description || 'Item'} · {Number(item.totalMarginVal || 0).toLocaleString()} ({item.month})
                                                     </span>
                                                 ))}
                                                 {alertedItems.length > 3 && (
-                                                    <span className='px-2 py-0.5 rounded-full' style={{ fontSize: '0.58rem', background: 'white', border: `1px solid ${TONES.amber.border}`, color: TONES.amber.text }}>
+                                                    <span className='px-2 py-0.5 rounded-full' style={{ fontSize: '0.58rem', background: "var(--bg-card)", border: `1px solid ${TONES.amber.border}`, color: TONES.amber.text }}>
                                                         +{alertedItems.length - 3} more
                                                     </span>
                                                 )}
@@ -595,7 +595,7 @@ const Margins = () => {
                                             <div
                                                 ref={explainScrollRef}
                                                 className='rounded-lg p-2.5 overflow-y-auto'
-                                                style={{ background: 'white', border: `1px solid ${TONES.amber.border}`, minHeight: '48px', maxHeight: '320px' }}
+                                                style={{ background: "var(--bg-card)", border: `1px solid ${TONES.amber.border}`, minHeight: '48px', maxHeight: '320px' }}
                                             >
                                                 {explanation ? (
                                                     <p className='whitespace-pre-wrap' style={{ fontSize: '0.68rem', color: TONES.amber.text, lineHeight: '1.5' }}>
@@ -624,7 +624,7 @@ const Margins = () => {
                                                 Alert trend across {alertHistory.length} month{alertHistory.length !== 1 ? 's' : ''}
                                             </button>
                                             {historyOpen && (
-                                                <div className='rounded-lg p-2 mt-1.5' style={{ background: 'white', border: `1px solid ${TONES.amber.border}` }}>
+                                                <div className='rounded-lg p-2 mt-1.5' style={{ background: "var(--bg-card)", border: `1px solid ${TONES.amber.border}` }}>
                                                     <div className='flex items-end gap-1.5 mb-2' style={{ height: '40px' }}>
                                                         {(() => {
                                                             const max = Math.max(...alertHistory.map(h => h.count), 1);

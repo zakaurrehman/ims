@@ -388,7 +388,7 @@ const Stocks = () => {
             ]} />
 
             {/* Main Card */}
-            <div className="page-card rounded-2xl p-3 sm:p-5 border border-[var(--line)] shadow-card w-full bg-white">
+            <div className="page-card rounded-2xl p-3 sm:p-5 border border-[var(--line)] shadow-card w-full bg-[var(--bg-card)]">
 
               {/* Tabs: this account's stock vs the IMS+GIS shared pool */}
               <div className='mt-3 flex'>
@@ -396,7 +396,7 @@ const Stocks = () => {
                   {[['mine', 'My Stock'], ['shared', 'Shared (IMS + GIS)']].map(([key, label]) => (
                     <button key={key} type='button' onClick={() => setActiveTab(key)}
                       className={`rounded-full transition-colors ${activeTab === key
-                        ? 'bg-white text-[var(--ink)] font-medium shadow-card'
+                        ? 'bg-[var(--bg-card)] text-[var(--ink)] font-medium shadow-card'
                         : 'text-[var(--ink-secondary)]'}`}
                       style={{ fontSize: '0.72rem', padding: '5px 14px' }}>
                       {label}

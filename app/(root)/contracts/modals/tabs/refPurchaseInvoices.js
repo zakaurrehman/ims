@@ -156,14 +156,14 @@ const RefPurchaseInvoices = ({ valueCon, setValueCon, saveData_PoInvoices, ln })
                                                 key={q}
                                                 data-label={q}
                                                 className={`px-3 border border-[var(--line-strong)] h-11 cursor-pointer transition-colors
-                                                ${active ? 'bg-[var(--brand-soft)]' : 'bg-white hover:bg-[var(--bg-subtle)]'}`}
+                                                ${active ? 'bg-[var(--brand-soft)]' : 'bg-[var(--bg-card)] hover:bg-[var(--bg-subtle)]'}`}
                                                 onClick={() => setRef(y, x)}
                                             >
                                                 <div className='flex items-center justify-center'>
                                                     <span className={`inline-flex items-center justify-center size-4 rounded-md transition-all
                                                     ${active
                                                             ? 'bg-[var(--endeavour)] text-white shadow-sm'
-                                                            : 'border border-[var(--line)] bg-white'}`}>
+                                                            : 'border border-[var(--line)] bg-[var(--bg-card)]'}`}>
                                                         {active && <Check className='size-3' strokeWidth={3} />}
                                                     </span>
                                                 </div>

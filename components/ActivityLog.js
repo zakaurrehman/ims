@@ -124,7 +124,7 @@ const ActivityLog = ({ entityType, entityId, showFilters = false }) => {
                         const meta = metaFor(r.entityType);
                         const Icon = meta.icon;
                         return (
-                            <li key={r.id} className='flex items-start gap-2.5 p-2 rounded-xl' style={{ border: '1px solid var(--line)', background: 'white' }}>
+                            <li key={r.id} className='flex items-start gap-2.5 p-2 rounded-xl' style={{ border: '1px solid var(--line)', background: "var(--bg-card)" }}>
                                 <span className='inline-flex items-center justify-center rounded-full flex-shrink-0' style={{ width: 26, height: 26, background: meta.bg }}>
                                     <Icon className='w-3.5 h-3.5' style={{ color: meta.color }} />
                                 </span>

@@ -52,7 +52,7 @@ function NotesCell({ value, contractId, contractDate, uidCollection, onChange, o
     // Flat at rest (matches read-only tables); the input box only appears on
     // hover/focus so editability stays discoverable without the boxed-grid look.
     return (
-        <div className="px-2 py-0.5 rounded-[8px] responsiveTextTable font-medium border border-transparent hover:border-[var(--line-strong)] hover:bg-white focus-within:border-[var(--brand)] focus-within:bg-white transition-colors">
+        <div className="px-2 py-0.5 rounded-[8px] responsiveTextTable font-medium border border-transparent hover:border-[var(--line-strong)] hover:bg-[var(--bg-card)] focus-within:border-[var(--brand)] focus-within:bg-[var(--bg-card)] transition-colors">
             <textarea
                 value={local}
                 onChange={handleChange}
@@ -90,12 +90,12 @@ function DateCell({ rawDate, onOpen, onClear, urgency }) {
     // Arrival cells tint when cargo is overdue (red) or due within 7 days (amber);
     // neutral dates are flat like read-only cells, with a hover affordance only.
     const tint = urgency === 'overdue'
-        ? { backgroundColor: '#FDEAEA', border: '1px solid #F5C6C9' }
+        ? { backgroundColor: 'var(--bad-bg)', border: '1px solid var(--bad-border)' }
         : urgency === 'soon'
-        ? { backgroundColor: '#FDF3E1', border: '1px solid #F5DFAE' }
+        ? { backgroundColor: 'var(--warn-bg)', border: '1px solid var(--warn-border)' }
         : { backgroundColor: 'transparent', border: '1px solid transparent' };
-    const textColor = urgency === 'overdue' ? '#B42332'
-        : urgency === 'soon' ? '#9A6215'
+    const textColor = urgency === 'overdue' ? 'var(--bad-text)'
+        : urgency === 'soon' ? 'var(--warn-text)'
         : (display ? 'var(--ink)' : 'var(--ink-muted)');
 
     const handleClick = (e) => {
@@ -116,7 +116,7 @@ function DateCell({ rawDate, onOpen, onClear, urgency }) {
     return (
         <div
             ref={ref}
-            className="h-7 responsiveTextTable flex items-center justify-center px-2 rounded-[8px] cursor-pointer select-none w-full relative hover:!border-[var(--line-strong)] hover:!bg-white transition-colors"
+            className="h-7 responsiveTextTable flex items-center justify-center px-2 rounded-[8px] cursor-pointer select-none w-full relative hover:!border-[var(--line-strong)] hover:!bg-[var(--bg-card)] transition-colors"
             style={{ ...tint, minWidth: '72px' }}
             onClick={handleClick}
         >
@@ -159,7 +159,7 @@ function FilterSelect({ value, onChange, placeholder, options }) {
                 className="flex items-center gap-1.5 font-medium px-2.5 py-0.5 rounded-full border cursor-pointer focus:outline-none transition-colors whitespace-nowrap"
                 style={{
                     fontSize: '0.68rem',
-                    borderColor: active ? 'var(--endeavour)' : '#EAE8F2',
+                    borderColor: active ? 'var(--endeavour)' : 'var(--line)',
                     color: active ? '#fff' : 'var(--chathams-blue)',
                     backgroundColor: active ? 'var(--endeavour)' : '#fff',
                 }}
@@ -168,12 +168,12 @@ function FilterSelect({ value, onChange, placeholder, options }) {
                 <svg width="8" height="8" viewBox="0 0 10 10" fill="currentColor"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"/></svg>
             </button>
             {open && (
-                <div className="absolute z-[200] top-full mt-1 left-0 rounded-2xl shadow-lg overflow-hidden" style={{ border: '1px solid #DAD6E8', backgroundColor: '#fff', minWidth: '140px', maxHeight: '220px', overflowY: 'auto' }}>
+                <div className="absolute z-[200] top-full mt-1 left-0 rounded-2xl shadow-lg overflow-hidden" style={{ border: '1px solid var(--line-strong)', backgroundColor: "var(--bg-card)", minWidth: '140px', maxHeight: '220px', overflowY: 'auto' }}>
                     <div
                         onClick={() => { onChange(''); setOpen(false); }}
                         className="px-3 py-1.5 cursor-pointer transition-colors"
                         style={{ fontSize: '0.68rem', color: value === '' ? 'var(--endeavour)' : 'var(--chathams-blue)', fontWeight: value === '' ? 600 : 400, backgroundColor: value === '' ? 'var(--selago)' : '#fff' }}
-                        onMouseEnter={e => { if (value !== '') e.currentTarget.style.backgroundColor = '#F4F3F9'; }}
+                        onMouseEnter={e => { if (value !== '') e.currentTarget.style.backgroundColor = 'var(--bg-subtle)'; }}
                         onMouseLeave={e => { if (value !== '') e.currentTarget.style.backgroundColor = '#fff'; }}
                     >
                         {placeholder}
@@ -184,7 +184,7 @@ function FilterSelect({ value, onChange, placeholder, options }) {
                             onClick={() => { onChange(o.id); setOpen(false); }}
                             className="px-3 py-1.5 cursor-pointer transition-colors"
                             style={{ fontSize: '0.68rem', color: value === o.id ? 'var(--endeavour)' : 'var(--port-gore)', fontWeight: value === o.id ? 600 : 400, backgroundColor: value === o.id ? 'var(--selago)' : '#fff' }}
-                            onMouseEnter={e => { if (value !== o.id) e.currentTarget.style.backgroundColor = '#F4F3F9'; }}
+                            onMouseEnter={e => { if (value !== o.id) e.currentTarget.style.backgroundColor = 'var(--bg-subtle)'; }}
                             onMouseLeave={e => { if (value !== o.id) e.currentTarget.style.backgroundColor = '#fff'; }}
                         >
                             {o.label}
@@ -246,7 +246,7 @@ function StatusSelect({ value, onChange }) {
                 <div
                     ref={dropRef}
                     className="rounded-xl overflow-hidden shadow-lg"
-                    style={{ position: 'fixed', top: pos.top, left: pos.left, minWidth: pos.width, zIndex: 99999, border: '1px solid #DAD6E8', backgroundColor: '#fff' }}
+                    style={{ position: 'fixed', top: pos.top, left: pos.left, minWidth: pos.width, zIndex: 99999, border: '1px solid var(--line-strong)', backgroundColor: "var(--bg-card)" }}
                 >
                     {STATUSES.map(s => (
                         <div
@@ -783,7 +783,7 @@ const ShipmentPage = () => {
           font-weight: 600;
         }
             .custom-table td {
-          background-color: #ffffff;
+          background-color: var(--bg-card);
           border-bottom: 1px solid var(--line);
           text-align: center;
           vertical-align: middle;
@@ -833,7 +833,7 @@ const ShipmentPage = () => {
                 <Toast />
 
                 {/* Outer card — title only */}
-                <div className="rounded-2xl p-2 sm:p-3 lg:p-5 mt-4 sm:mt-6 lg:mt-8 border border-[#EAE8F2] w-full bg-[#F4F3F9]">
+                <div className="rounded-2xl p-2 sm:p-3 lg:p-5 mt-4 sm:mt-6 lg:mt-8 border border-[var(--line)] w-full bg-[var(--bg-subtle)]">
                     <div className="flex items-center justify-between pb-2 flex-wrap gap-2">
                         <div>
                             <h1 className="text-display">Shipments Tracking</h1>
@@ -842,21 +842,21 @@ const ShipmentPage = () => {
                     </div>
 
                     {/* Inner card — toolbar + table */}
-                    <div className="relative rounded-2xl" style={{ background: '#F4F3F9' }}>
-                      <div className="absolute inset-0 rounded-2xl border border-[#EAE8F2] pointer-events-none z-[25]" />
+                    <div className="relative rounded-2xl" style={{ background: 'var(--bg-subtle)' }}>
+                      <div className="absolute inset-0 rounded-2xl border border-[var(--line)] pointer-events-none z-[25]" />
 
                     {/* Toolbar */}
                     <div
                         className="flex flex-col sm:flex-row sm:justify-between sm:items-center px-2 py-2 gap-2 rounded-t-2xl"
-                        style={{ borderBottom: '1px solid #EAE8F2', background: '#ffffff' }}
+                        style={{ borderBottom: '1px solid var(--line)', background: "var(--bg-card)" }}
                     >
                         {/* Left: Search + Status filter chips */}
                         <div className="flex flex-wrap items-center gap-2">
 
                             {/* Search */}
-                            <div className="flex items-center relative w-[120px] sm:w-[140px] h-7 border border-[#EAE8F2] rounded-2xl bg-white focus-within:ring-1 focus-within:ring-blue-200 shadow-sm transition-all duration-200">
+                            <div className="flex items-center relative w-[120px] sm:w-[140px] h-7 border border-[var(--line)] rounded-2xl bg-[var(--bg-card)] focus-within:ring-1 focus-within:ring-blue-200 shadow-sm transition-all duration-200">
                                 <input
-                                    className="bg-white border-0 shadow-none pr-8 pl-3 focus:outline-none focus:ring-0 w-full text-[var(--chathams-blue)] placeholder:text-[var(--chathams-blue)] h-full text-[0.5625rem] xl:text-[0.657rem] 2xl:text-[0.71875rem] 3xl:text-[0.75rem] font-medium rounded-2xl"
+                                    className="bg-[var(--bg-card)] border-0 shadow-none pr-8 pl-3 focus:outline-none focus:ring-0 w-full text-[var(--chathams-blue)] placeholder:text-[var(--chathams-blue)] h-full text-[0.5625rem] xl:text-[0.657rem] 2xl:text-[0.71875rem] 3xl:text-[0.75rem] font-medium rounded-2xl"
                                     placeholder="Search"
                                     value={search}
                                     onChange={e => setSearch(e.target.value)}
@@ -907,7 +907,7 @@ const ShipmentPage = () => {
                             {showFilters && <div className="flex items-center gap-1 flex-wrap">
                                 <button
                                     onClick={() => setStatusFilter('')}
-                                    className={`font-medium px-2.5 py-0.5 rounded-full border transition-colors ${statusFilter === '' ? 'bg-[var(--endeavour)] text-white border-[var(--endeavour)]' : 'bg-white text-[var(--endeavour)] border-[var(--endeavour)] hover:bg-[var(--selago)]'}`}
+                                    className={`font-medium px-2.5 py-0.5 rounded-full border transition-colors ${statusFilter === '' ? 'bg-[var(--endeavour)] text-white border-[var(--endeavour)]' : 'bg-[var(--bg-card)] text-[var(--endeavour)] border-[var(--endeavour)] hover:bg-[var(--selago)]'}`}
                                     style={{ fontSize: '0.68rem' }}
                                 >
                                     All ({contracts.length})
@@ -982,13 +982,13 @@ const ShipmentPage = () => {
 
                     {/* Attention strip — fastest path to what needs action; chips filter the table */}
                     {(overdueCount + soonCount + inTransitCount) > 0 && (
-                        <div className="flex items-center gap-2 px-3 py-1.5 flex-wrap" style={{ background: '#ffffff', borderBottom: '1px solid #EAE8F2' }}>
+                        <div className="flex items-center gap-2 px-3 py-1.5 flex-wrap" style={{ background: "var(--bg-card)", borderBottom: '1px solid var(--line)' }}>
                             <span className="responsiveTextTable font-semibold tracking-wider" style={{ color: 'var(--regent-gray)' }}>NEEDS ATTENTION</span>
                             {overdueCount > 0 && (
                                 <button
                                     onClick={() => setUrgencyFilter(prev => prev === 'overdue' ? '' : 'overdue')}
                                     className="font-medium px-2.5 py-0.5 rounded-full transition-all"
-                                    style={{ fontSize: '0.68rem', backgroundColor: '#FDEAEA', border: '1px solid #F5C6C9', color: '#B42332', outline: urgencyFilter === 'overdue' ? '2px solid #B42332' : 'none', outlineOffset: '1px' }}
+                                    style={{ fontSize: '0.68rem', backgroundColor: 'var(--bad-bg)', border: '1px solid var(--bad-border)', color: 'var(--bad-text)', outline: urgencyFilter === 'overdue' ? '2px solid var(--bad-text)' : 'none', outlineOffset: '1px' }}
                                 >
                                     {overdueCount} overdue
                                 </button>
@@ -997,7 +997,7 @@ const ShipmentPage = () => {
                                 <button
                                     onClick={() => setUrgencyFilter(prev => prev === 'soon' ? '' : 'soon')}
                                     className="font-medium px-2.5 py-0.5 rounded-full transition-all"
-                                    style={{ fontSize: '0.68rem', backgroundColor: '#FDF3E1', border: '1px solid #F5DFAE', color: '#9A6215', outline: urgencyFilter === 'soon' ? '2px solid #9A6215' : 'none', outlineOffset: '1px' }}
+                                    style={{ fontSize: '0.68rem', backgroundColor: 'var(--warn-bg)', border: '1px solid var(--warn-border)', color: 'var(--warn-text)', outline: urgencyFilter === 'soon' ? '2px solid var(--warn-text)' : 'none', outlineOffset: '1px' }}
                                 >
                                     {soonCount} arriving ≤7d
                                 </button>
@@ -1073,7 +1073,7 @@ const ShipmentPage = () => {
                                                         <span className='font-semibold' style={{ fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--ink-secondary)' }}>
                                                             {entry.status || 'No status'}
                                                         </span>
-                                                        <span className='rounded-full font-semibold px-1.5' style={{ fontSize: '0.625rem', background: 'white', color: 'var(--ink-muted)', border: '1px solid var(--line)' }}>
+                                                        <span className='rounded-full font-semibold px-1.5' style={{ fontSize: '0.625rem', background: "var(--bg-card)", color: 'var(--ink-muted)', border: '1px solid var(--line)' }}>
                                                             {entry.count}
                                                         </span>
                                                     </span>
@@ -1174,9 +1174,9 @@ const ShipmentPage = () => {
                                                         return recent ? (
                                                             <div
                                                                 className="px-2 py-0.5 rounded-full responsiveTextTable font-medium text-center whitespace-nowrap inline-flex items-center gap-1"
-                                                                style={{ backgroundColor: '#E5F6EC', border: '1px solid #BFE8D0', color: '#177245' }}
+                                                                style={{ backgroundColor: 'var(--ok-bg)', border: '1px solid var(--ok-border)', color: 'var(--ok-text)' }}
                                                             >
-                                                                <span style={{ width: 6, height: 6, borderRadius: 9999, backgroundColor: '#177245', display: 'inline-block' }} />
+                                                                <span style={{ width: 6, height: 6, borderRadius: 9999, backgroundColor: 'var(--ok-text)', display: 'inline-block' }} />
                                                                 {relTime(ts)}
                                                             </div>
                                                         ) : (
@@ -1217,10 +1217,10 @@ const ShipmentPage = () => {
                                 <div
                                     key={contract.id}
                                     className="rounded-2xl overflow-hidden"
-                                    style={{ backgroundColor: '#FFFFFF', border: '1px solid #EAE8F2', boxShadow: '0 4px 12px rgba(0,0,0,0.06)' }}
+                                    style={{ backgroundColor: "var(--bg-card)", border: '1px solid var(--line)', boxShadow: '0 4px 12px rgba(0,0,0,0.06)' }}
                                 >
                                     {/* Card header */}
-                                    <div className="px-3 py-2 flex items-center justify-between bg-[#F4F3F9]">
+                                    <div className="px-3 py-2 flex items-center justify-between bg-[var(--bg-subtle)]">
                                         <button
                                             onClick={() => navigateTo(contract.id)}
                                             className="font-medium text-[var(--endeavour)] responsiveText hover:underline"
@@ -1232,8 +1232,8 @@ const ShipmentPage = () => {
                                                 const u = getUrgency(contract);
                                                 if (!u) return null;
                                                 const s = u === 'overdue'
-                                                    ? { backgroundColor: '#FDEAEA', border: '1px solid #F5C6C9', color: '#B42332', t: 'Overdue' }
-                                                    : { backgroundColor: '#FDF3E1', border: '1px solid #F5DFAE', color: '#9A6215', t: '≤7d' };
+                                                    ? { backgroundColor: 'var(--bad-bg)', border: '1px solid var(--bad-border)', color: 'var(--bad-text)', t: 'Overdue' }
+                                                    : { backgroundColor: 'var(--warn-bg)', border: '1px solid var(--warn-border)', color: 'var(--warn-text)', t: '≤7d' };
                                                 return (
                                                     <span className="responsiveTextTable font-medium px-2 py-0.5 rounded-full" style={{ backgroundColor: s.backgroundColor, border: s.border, color: s.color }}>
                                                         {s.t}
@@ -1242,7 +1242,7 @@ const ShipmentPage = () => {
                                             })()}
                                             <span
                                                 className="responsiveTextTable font-medium px-2.5 py-0.5 rounded-full"
-                                                style={status ? STATUS_STYLES[status] : { backgroundColor: '#F1EFF6', color: 'var(--regent-gray)', border: '1px solid #DDD9EA' }}
+                                                style={status ? STATUS_STYLES[status] : { backgroundColor: 'var(--neutral-bg)', color: 'var(--regent-gray)', border: '1px solid var(--neutral-border)' }}
                                             >
                                                 {status || 'No Status'}
                                             </span>
@@ -1262,7 +1262,7 @@ const ShipmentPage = () => {
                                             { label: 'Ship Type',     value: getShpType(contract) },
                                             { label: 'Last Update',   value: relTime(contract.shipmentUpdatedAt) },
                                         ].map(({ label, value }) => (
-                                            <div key={label} className="flex flex-col space-y-1 pb-2" style={{ borderBottom: '1px solid #F4F3F9' }}>
+                                            <div key={label} className="flex flex-col space-y-1 pb-2" style={{ borderBottom: '1px solid var(--bg-subtle)' }}>
                                                 <span className="responsiveTextTable uppercase tracking-wider text-[var(--regent-gray)] font-medium">{label}</span>
                                                 <div className="px-1 py-1 responsiveTextTable text-[var(--ink)]">
                                                     {value || '—'}
@@ -1271,7 +1271,7 @@ const ShipmentPage = () => {
                                         ))}
 
                                         {/* Status */}
-                                        <div className="flex flex-col space-y-1 pb-2" style={{ borderBottom: '1px solid #F4F3F9' }}>
+                                        <div className="flex flex-col space-y-1 pb-2" style={{ borderBottom: '1px solid var(--bg-subtle)' }}>
                                             <span className="responsiveTextTable uppercase tracking-wider text-[var(--regent-gray)] font-medium">Status</span>
                                             <StatusSelect
                                                 value={status}
@@ -1298,7 +1298,7 @@ const ShipmentPage = () => {
                     </div>
 
                     {/* Pagination footer */}
-                    <div className="flex-shrink-0 rounded-b-2xl" style={{ borderTop: '1px solid #EAE8F2', background: '#ffffff' }}>
+                    <div className="flex-shrink-0 rounded-b-2xl" style={{ borderTop: '1px solid var(--line)', background: "var(--bg-card)" }}>
                         <div className="w-full px-6 py-4">
                             <div className="flex items-center justify-between">
 
@@ -1326,7 +1326,7 @@ const ShipmentPage = () => {
                                                 style={{
                                                     backgroundColor: safePageIndex === pi ? 'var(--endeavour)' : '#FFFFFF',
                                                     color: safePageIndex === pi ? '#FFFFFF' : 'var(--endeavour)',
-                                                    borderColor: safePageIndex === pi ? 'var(--endeavour)' : '#EAE8F2',
+                                                    borderColor: safePageIndex === pi ? 'var(--endeavour)' : 'var(--line)',
                                                 }}
                                             >
                                                 {pi + 1}
@@ -1352,13 +1352,13 @@ const ShipmentPage = () => {
                                             <HiMiniChevronUpDown className="ml-2 -mr-1 mt-0.5 h-4 w-4 text-[var(--endeavour)]" />
                                         </MenuButton>
                                         <Transition as={Fragment} enter="transition ease-out duration-100" enterFrom="transform opacity-0 scale-95" enterTo="transform opacity-100 scale-100" leave="transition ease-in duration-75" leaveFrom="transform opacity-100 scale-100" leaveTo="transform opacity-0 scale-95">
-                                            <MenuItems className="absolute right-0 bottom-10 w-[4.2rem] origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-[var(--selago)] focus:outline-none z-50">
+                                            <MenuItems className="absolute right-0 bottom-10 w-[4.2rem] origin-top-right rounded-lg bg-[var(--bg-card)] shadow-lg ring-1 ring-[var(--selago)] focus:outline-none z-50">
                                                 <div className="px-1 py-1">
                                                     {[5, 10, 20, 25, 50, 100].map(x => (
                                                         <MenuItem key={x}>
                                                             <button
                                                                 onClick={() => { setPageSize(x); setPageIndex(0); }}
-                                                                className={`${pageSize === x ? 'bg-[#F4F3F9] text-[var(--endeavour)] font-semibold' : 'text-[var(--port-gore)]'} flex w-full items-center rounded-lg px-2 py-1.5 text-[0.72rem] mt-0.5 justify-center ${pageSize !== x ? 'hover:bg-[var(--selago)]' : ''}`}
+                                                                className={`${pageSize === x ? 'bg-[var(--bg-subtle)] text-[var(--endeavour)] font-semibold' : 'text-[var(--port-gore)]'} flex w-full items-center rounded-lg px-2 py-1.5 text-[0.72rem] mt-0.5 justify-center ${pageSize !== x ? 'hover:bg-[var(--selago)]' : ''}`}
                                                             >
                                                                 {x}
                                                             </button>

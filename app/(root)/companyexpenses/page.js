@@ -158,7 +158,7 @@ const Expenses = () => {
             },
             filterFn: 'dateBetweenFilterFn'
         },
-        { accessorKey: 'cur', header: getTtl('Currency', ln), cell: (props) => { const v = (props.getValue() || '').toUpperCase(); const isUsd = v === 'USD' || v === 'US'; const isEur = v === 'EUR' || v === 'EU'; return <span style={{ background: isUsd ? '#BFE8D0' : isEur ? '#F4F3F9' : '#F1EFF6', color: isUsd ? '#177245' : isEur ? 'var(--chathams-blue)' : '#555', borderRadius: '8px', padding: '3px 14px', fontWeight: 500, fontSize: '0.75rem', display: 'inline-block' }}>{isUsd ? '$' : isEur ? '€' : v}</span> } },
+        { accessorKey: 'cur', header: getTtl('Currency', ln), cell: (props) => { const v = (props.getValue() || '').toUpperCase(); const isUsd = v === 'USD' || v === 'US'; const isEur = v === 'EUR' || v === 'EU'; return <span style={{ background: isUsd ? 'var(--ok-border)' : isEur ? 'var(--bg-subtle)' : 'var(--neutral-bg)', color: isUsd ? 'var(--ok-text)' : isEur ? 'var(--chathams-blue)' : '#555', borderRadius: '8px', padding: '3px 14px', fontWeight: 500, fontSize: '0.75rem', display: 'inline-block' }}>{isUsd ? '$' : isEur ? '€' : v}</span> } },
         {
             accessorKey: 'amount', header: getTtl('Amount', ln), cell: (props) => <p>{showAmount(props)}</p>,
             meta: {
@@ -291,7 +291,7 @@ const Expenses = () => {
                         <Toast />
                         <VideoLoader loading={loading} fullScreen={true} />
                         {/* Main Card */}
-                        <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-white">
+                        <div className="page-card rounded-2xl p-3 sm:p-5 mt-8 border border-[var(--line)] shadow-card w-full bg-[var(--bg-card)]">
                             {/* Header Section */}
                             <div className='flex items-center justify-between flex-wrap gap-2 pb-2'>
                                 <div>
@@ -309,13 +309,13 @@ const Expenses = () => {
                                             style={{
                                                 fontSize: '0.66rem', padding: '4px 12px',
                                                 color: onlyUnsplit ? 'white' : 'var(--chathams-blue)',
-                                                background: onlyUnsplit ? 'var(--endeavour)' : '#F4F3F9',
-                                                border: '1px solid #EAE8F2',
+                                                background: onlyUnsplit ? 'var(--endeavour)' : 'var(--bg-subtle)',
+                                                border: '1px solid var(--line)',
                                             }}
                                         >
                                             <Split className='w-3.5 h-3.5' />
                                             Needs IMS/GIS split
-                                            <span className='rounded-full px-1.5' style={{ fontSize: '0.6rem', background: onlyUnsplit ? 'rgba(255,255,255,0.25)' : '#F4F3F9', color: onlyUnsplit ? 'white' : 'var(--endeavour)' }}>
+                                            <span className='rounded-full px-1.5' style={{ fontSize: '0.6rem', background: onlyUnsplit ? 'rgba(255,255,255,0.25)' : 'var(--bg-subtle)', color: onlyUnsplit ? 'white' : 'var(--endeavour)' }}>
                                                 {pendingCount}
                                             </span>
                                         </button>

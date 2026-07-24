@@ -11,7 +11,7 @@ import { Button } from '@components/ui/button';
 import { Save } from 'lucide-react';
 
 // Standard form field styling (matches the app's control spec app-wide).
-const fieldCls = "w-full h-8 px-3 rounded-[10px] border border-[var(--line-strong)] bg-white text-[var(--ink)] outline-none transition-colors focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] text-[0.8125rem]";
+const fieldCls = "w-full h-8 px-3 rounded-[10px] border border-[var(--line-strong)] bg-[var(--bg-card)] text-[var(--ink)] outline-none transition-colors focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] text-[0.8125rem]";
 const labelCls = "text-[0.6875rem] font-semibold uppercase tracking-[0.04em] text-[var(--ink-muted)]";
 
 
@@ -39,7 +39,7 @@ const General = () => {
             {compData && Object.keys(compData).length === 0 ?
                 <Spinner />
                 : <>
-                    <div className='border border-[var(--line)] p-4 rounded-2xl bg-white mt-1'>
+                    <div className='border border-[var(--line)] p-4 rounded-2xl bg-[var(--bg-card)] mt-1'>
                         <p className='text-[0.8125rem] font-semibold mb-3 text-[var(--ink)] font-display'>Company</p>
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                             <div className='flex flex-col gap-1.5' >
@@ -73,7 +73,7 @@ const General = () => {
                         </div>
                     </div>
 
-                    <div className='border border-[var(--line)] p-4 rounded-2xl bg-white mt-5'>
+                    <div className='border border-[var(--line)] p-4 rounded-2xl bg-[var(--bg-card)] mt-5'>
                         <p className='text-[0.8125rem] font-semibold mb-3 text-[var(--ink)] font-display'>Address & Registration</p>
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                             <div className='col-span-12 sm:col-span-1'>
@@ -162,7 +162,7 @@ const General = () => {
 
 
 
-                    <div className='border border-[var(--line)] p-4 rounded-2xl bg-white  mt-5 w-full'>
+                    <div className='border border-[var(--line)] p-4 rounded-2xl bg-[var(--bg-card)]  mt-5 w-full'>
                         <p className='text-[0.8125rem] font-semibold mb-3 text-[var(--ink)] font-display'>Online</p>
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-2 w-full'>
                             <div className='flex flex-col gap-1.5' >
@@ -189,7 +189,7 @@ const General = () => {
                     </div>
 
 
-                    <div className=' border border-[var(--line)] p-4 rounded-2xl bg-white  mt-5 w-full'>
+                    <div className=' border border-[var(--line)] p-4 rounded-2xl bg-[var(--bg-card)]  mt-5 w-full'>
                         <p className='text-[0.8125rem] font-semibold mb-3 text-[var(--ink)] font-display'>Contact</p>
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-2 w-full'>
                             <div className='flex flex-col gap-1.5' >
@@ -236,7 +236,7 @@ const General = () => {
                     {/* <div className=' border border-slate-300 p-4 rounded-2xl  mt-5 w-full'>
                         <Logos compData={compData} setCompData={setCompData} />
                     </div> */}
-                    <div className='border border-[var(--line)] p-4 rounded-2xl bg-white mt-5 w-full'>
+                    <div className='border border-[var(--line)] p-4 rounded-2xl bg-[var(--bg-card)] mt-5 w-full'>
                         <p className='text-[0.8125rem] font-semibold mb-3 text-[var(--ink)] font-display'>Invoice wording</p>
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                             <div className='flex flex-col gap-1.5'>
@@ -254,7 +254,7 @@ const General = () => {
                                 <textarea
                                     rows={2}
                                     placeholder='e.g. We hereby certify the goods are non-radioactive and free of contamination.'
-                                    className="w-full px-3 py-2 rounded-[10px] border border-[var(--line-strong)] bg-white text-[var(--ink)] outline-none transition-colors focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] text-[0.8125rem] resize-y"
+                                    className="w-full px-3 py-2 rounded-[10px] border border-[var(--line-strong)] bg-[var(--bg-card)] text-[var(--ink)] outline-none transition-colors focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] text-[0.8125rem] resize-y"
                                     style={{ fontFamily: 'inherit' }}
                                     value={compData?.invNonRadioText || ''}
                                     onChange={e => setCompData({ ...(compData || {}), invNonRadioText: e.target.value })}
@@ -266,7 +266,7 @@ const General = () => {
                         </p>
                     </div>
 
-                    <div className='border border-[var(--line)] p-4 rounded-2xl bg-white mt-5 w-full'>
+                    <div className='border border-[var(--line)] p-4 rounded-2xl bg-[var(--bg-card)] mt-5 w-full'>
                         <p className='text-[0.8125rem] font-semibold mb-3 text-[var(--ink)] font-display'>Currency &amp; Terms</p>
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                             <div className='flex flex-col gap-1.5'>

@@ -29,7 +29,7 @@ const MarginTable = memo(function MarginTable(props) {
                 defaultOpen={openMonth === true}
                 className="margin-card w-full overflow-visible"
                 style={{
-                    background: '#ffffff',
+                    background: "var(--bg-card)",
                     borderRadius: '12px',
                     border: '1px solid var(--line)',
                     marginBottom: '0px',
@@ -42,7 +42,7 @@ const MarginTable = memo(function MarginTable(props) {
                         <div 
                             className="flex flex-wrap items-center gap-2 mb-2"
                             style={{
-                                background: '#ffffff',
+                                background: "var(--bg-card)",
                                 padding: '2px 4px',
                                 borderRadius: '8px',
                                 marginBottom: '0px',

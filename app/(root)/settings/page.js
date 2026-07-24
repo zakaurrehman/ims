@@ -76,7 +76,7 @@ const Page = () => {
     classNames(
       'px-4 py-1.5 h-[30px] flex items-center text-[0.75rem] whitespace-nowrap transition-colors focus:outline-none rounded-full',
       selected
-        ? 'font-medium text-[var(--ink)] bg-white shadow-card'
+        ? 'font-medium text-[var(--ink)] bg-[var(--bg-card)] shadow-card'
         : 'font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)]'
     )
   }
@@ -86,7 +86,7 @@ const Page = () => {
 
               ))}
             </TabList>
-           <div className="page-card relative mt-3 rounded-2xl border border-[var(--line)] bg-white shadow-card p-4">
+           <div className="page-card relative mt-3 rounded-2xl border border-[var(--line)] bg-[var(--bg-card)] shadow-card p-4">
   <TabPanels>
     {tabs.map((tab, idx) => (
       <TabPanel

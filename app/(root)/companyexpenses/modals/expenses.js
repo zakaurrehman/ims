@@ -85,7 +85,7 @@ const Expenses = ({setIsOpen}) => {
                 />
             )}
 
-            <div className='z-10 relative mt-2 rounded-2xl flex m-2 pb-4' style={{ border: '1px solid var(--line)', background: 'white' }}>
+            <div className='z-10 relative mt-2 rounded-2xl flex m-2 pb-4' style={{ border: '1px solid var(--line)', background: "var(--bg-card)" }}>
 
                 <div className='grid grid-cols-1 md:grid-cols-12 gap-3 w-full p-2'>
                     <div className='md:col-span-4 px-2'>
@@ -163,7 +163,7 @@ const Expenses = ({setIsOpen}) => {
                         <p className='text-[0.6875rem] font-semibold uppercase tracking-[0.04em] text-[var(--ink-muted)] mb-1'>{getTtl('Comments', ln)}:</p>
                         <div>
                             <textarea rows="5" name="comments"
-                                className="w-full h-28 px-3 py-2 rounded-[10px] border border-[var(--line-strong)] bg-white text-[var(--ink)] text-[0.8125rem] outline-none transition-colors focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] resize-y"
+                                className="w-full h-28 px-3 py-2 rounded-[10px] border border-[var(--line-strong)] bg-[var(--bg-card)] text-[var(--ink)] text-[0.8125rem] outline-none transition-colors focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] resize-y"
                                 style={{ fontSize: '0.75rem', fontFamily: 'inherit' }}
                                 value={valueExp.comments} onChange={handleValue} />
                         </div>
