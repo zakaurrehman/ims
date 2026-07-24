@@ -59,13 +59,14 @@ const Page = () => {
     <div className="mx-auto w-full max-w-full px-1 md:px-2 pb-4 mt-[72px]">
       <Toast />
       <VideoLoader loading={loading} fullScreen={true} />
-      <div className="p-1 md:p-4 bg-white rounded-2xl border border-[#EAE8F2] shadow-sm">
-        <div className="mt-5 page-header">
+      <div>
+        {/* Page header sits on the page background, like every other page */}
+        <div className="page-header mt-6 mb-3 px-1">
           <h1 className="text-display">{getTtl('Settings', ln)}</h1>
           <p className="text-[0.75rem] text-[var(--ink-muted)] mt-0.5">Suppliers, clients & app configuration</p>
         </div>
 
-        <div className="w-full px-3 mt-2 border border-[#EAE8F2] rounded-xl bg-white p-3">
+        <div className="w-full">
           <TabGroup >
 <TabList className="inline-flex ml-1 gap-1 p-0.5 rounded-full bg-[var(--bg-subtle)] border border-[var(--line)] overflow-x-auto">
               {tabs.map((z) => (
@@ -85,17 +86,7 @@ const Page = () => {
 
               ))}
             </TabList>
-           <div
-  className="
-    relative
-    mt-[-1px]
-    rounded-xl
-    border border-[#EAE8F2]
-    bg-white
-    shadow-sm
-    p-3
-  "
->
+           <div className="page-card relative mt-3 rounded-2xl border border-[var(--line)] bg-white shadow-card p-4">
   <TabPanels>
     {tabs.map((tab, idx) => (
       <TabPanel

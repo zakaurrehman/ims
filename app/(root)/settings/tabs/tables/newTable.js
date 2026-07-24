@@ -110,7 +110,7 @@ const Customtable = ({
 
         <div className="w-full rounded-2xl border border-[var(--selago)] overflow-x-auto shadow-sm">
           <table className="w-full min-w-[700px] border-collapse text-center table-fixed border border-[var(--selago)]">
-            <thead className="md:sticky md:top-0 md:z-10 bg-[#F4F3F9]">
+            <thead className="md:sticky md:top-0 md:z-10 bg-[var(--bg-subtle)]">
               {table.getHeaderGroups().map((hdGroup) => (
                 <tr key={hdGroup.id} className="border-b border-[var(--line)]">
                   {hdGroup.headers.map((header) => (
@@ -183,7 +183,7 @@ const Customtable = ({
             </tbody>
           </table>
         </div>
-        <div className="flex items-center justify-between p-3 border-[#EAE8F2] bg-white rounded-b-lg">
+        <div className="flex items-center justify-between p-3 border-[var(--line)] bg-white rounded-b-lg">
           {/* LEFT — Showing text */}
           <div className="hidden lg:flex text-[var(--endeavour)] text-[0.72rem]">
             {`${getTtl("Showing", ln)} ${table.getState().pagination.pageIndex *

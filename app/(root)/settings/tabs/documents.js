@@ -122,17 +122,17 @@ const Documents = () => {
                     <div className="flex gap-2 mb-3 flex-wrap">
                         {['Annex VII', 'ISF', 'Carrier'].map(doc => (
                             <button key={doc} onClick={() => switchDoc(doc)}
-                                className={`px-4 py-1.5 rounded-full text-[0.75rem] font-medium transition-all border
+                                className={`px-4 py-1.5 rounded-[10px] text-[0.75rem] font-medium transition-all border
                                     ${activeDoc === doc
                                         ? 'bg-[var(--endeavour)] text-white border-[var(--endeavour)]'
-                                        : 'text-[var(--chathams-blue)] border-[#EAE8F2] hover:bg-[var(--selago)]'}`}>
+                                        : 'text-[var(--ink)] border-[var(--line)] hover:bg-[var(--selago)]'}`}>
                                 {doc}
                             </button>
                         ))}
                     </div>
 
                     {/* List */}
-                    <ul className="flex flex-col ring-1 ring-black/5 rounded-2xl bg-[#F4F3F9] py-2 min-h-[60px]">
+                    <ul className="flex flex-col ring-1 ring-black/5 rounded-2xl bg-[var(--bg-subtle)] py-2 min-h-[60px]">
                         {templates.length === 0 && (
                             <li className="px-4 py-2 text-[0.75rem] text-[var(--regent-gray)] italic">
                                 No {activeDoc === 'Carrier' ? 'carriers' : 'templates'} yet
@@ -140,8 +140,8 @@ const Documents = () => {
                         )}
                         {[...templates].sort((a, b) => (a.name || '').localeCompare(b.name || '')).map(t => (
                             <li key={t.id}
-                                className={`flex items-center justify-between px-4 py-2 rounded-full mx-2 cursor-pointer
-                                    text-[0.75rem] text-[var(--chathams-blue)] hover:bg-[var(--selago)]
+                                className={`flex items-center justify-between px-4 py-2 rounded-[10px] mx-2 cursor-pointer
+                                    text-[0.75rem] text-[var(--ink)] hover:bg-[var(--selago)]
                                     ${editId === t.id ? 'bg-white font-semibold' : ''}`}>
                                 <span onClick={() => edit(t)} className="flex-1 truncate">{t.nickname || t.name || '(unnamed)'}</span>
                                 <div className="flex gap-2 ml-2">
@@ -153,14 +153,14 @@ const Documents = () => {
                     </ul>
 
                     <button onClick={() => { setForm(getBlank(activeDoc)); setEditId(null); setShowForm(true); setError(''); }}
-                        className="mt-3 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[0.75rem] font-medium
-                            border border-[#EAE8F2] text-[var(--chathams-blue)] hover:bg-[var(--selago)] transition-all">
+                        className="mt-3 flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] text-[0.75rem] font-medium
+                            border border-[var(--line)] text-[var(--ink)] hover:bg-[var(--selago)] transition-all">
                         <CirclePlus size={14} /> Add {listLabel}
                     </button>
                 </div>
 
                 {/* RIGHT — form */}
-                {showForm && <div className="flex-1 border border-[#EAE8F2] rounded-2xl p-4">
+                {showForm && <div className="flex-1 border border-[var(--line)] rounded-2xl p-4">
                     <p className="text-[0.75rem] font-semibold text-[var(--ink)] mb-3">
                         {editId ? `Edit ${listLabel}` : `New ${listLabel}`}
                     </p>
@@ -169,14 +169,14 @@ const Documents = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {fields.map(f => (
                             <div key={f.key} className={f.key === 'name' ? 'md:col-span-2' : ''}>
-                                <label className="block text-[0.7rem] font-medium text-[var(--chathams-blue)] mb-0.5">
+                                <label className="block text-[0.7rem] font-medium text-[var(--ink)] mb-0.5">
                                     {f.label}{f.required && <span className="text-red-500 ml-0.5">*</span>}
                                 </label>
                                 <input
                                     value={form[f.key] || ''}
                                     onChange={e => handleField(f.key, e.target.value)}
                                     placeholder={f.placeholder || ''}
-                                    className="border border-[#EAE8F2] rounded-full px-3 py-1 h-7 text-[0.75rem] w-full
+                                    className="border border-[var(--line)] rounded-[10px] px-3 py-1 h-7 text-[0.75rem] w-full
                                         focus:outline-none focus:ring-1 focus:ring-[var(--endeavour)]"
                                     style={{ fontFamily: 'inherit' }}
                                 />
@@ -186,13 +186,13 @@ const Documents = () => {
 
                     <div className="flex gap-2 mt-4">
                         <button onClick={save}
-                            className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[0.75rem] font-medium
+                            className="flex items-center gap-1.5 px-4 py-1.5 rounded-[10px] text-[0.75rem] font-medium
                                 bg-[var(--endeavour)] text-white hover:opacity-90 transition-all">
                             <Save size={13} /> {editId ? 'Update' : `Save ${listLabel}`}
                         </button>
                         <button onClick={cancel}
-                            className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[0.75rem] font-medium
-                                border border-[#EAE8F2] text-[var(--chathams-blue)] hover:bg-[var(--selago)]">
+                            className="flex items-center gap-1.5 px-4 py-1.5 rounded-[10px] text-[0.75rem] font-medium
+                                border border-[var(--line)] text-[var(--ink)] hover:bg-[var(--selago)]">
                             Cancel
                         </button>
                     </div>

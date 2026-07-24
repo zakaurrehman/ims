@@ -82,7 +82,7 @@ const EmailSetup = () => {
     return (
         <div className='p-3 space-y-3'>
             {/* Status card */}
-            <div className='rounded-xl p-4' style={{ border: '1px solid #EAE8F2', background: '#F4F3F9' }}>
+            <div className='rounded-xl p-4' style={{ border: '1px solid var(--line)', background: 'var(--bg-subtle)' }}>
                 <div className='flex items-center justify-between mb-3'>
                     <div className='flex items-center gap-2'>
                         <Mail className='w-4 h-4' style={{ color: 'var(--endeavour)' }} />
@@ -93,8 +93,8 @@ const EmailSetup = () => {
                     <button
                         onClick={fetchStatus}
                         disabled={loading}
-                        className='px-2.5 py-1 rounded-full border transition-colors hover:border-[var(--endeavour)] disabled:opacity-50'
-                        style={{ fontSize: '0.6rem', borderColor: '#EAE8F2', color: 'var(--chathams-blue)' }}
+                        className='px-2.5 py-1 rounded-[10px] border transition-colors hover:border-[var(--endeavour)] disabled:opacity-50'
+                        style={{ fontSize: '0.6rem', borderColor: 'var(--line)', color: 'var(--chathams-blue)' }}
                     >
                         {loading ? <Loader2 className='w-2.5 h-2.5 animate-spin inline' /> : 'Re-check'}
                     </button>
@@ -151,7 +151,7 @@ const EmailSetup = () => {
             </div>
 
             {/* Cadence */}
-            <div className='rounded-xl p-4' style={{ border: '1px solid #EAE8F2', background: '#F4F3F9' }}>
+            <div className='rounded-xl p-4' style={{ border: '1px solid var(--line)', background: 'var(--bg-subtle)' }}>
                 <div className='flex items-center justify-between gap-3 flex-wrap'>
                     <div className='flex items-start gap-2 min-w-0 flex-1'>
                         <Clock className='w-4 h-4 mt-0.5 flex-shrink-0' style={{ color: 'var(--endeavour)' }} />
@@ -173,8 +173,8 @@ const EmailSetup = () => {
                             value={cadence}
                             onChange={e => handleCadenceChange(e.target.value)}
                             aria-label='Reminder cadence in days'
-                            className='w-16 text-center rounded-full border px-2 py-1 outline-none focus:border-[var(--endeavour)] focus:ring-2 focus:ring-[var(--endeavour)]/20'
-                            style={{ fontSize: '0.68rem', borderColor: '#EAE8F2', background: 'white', color: 'var(--port-gore)' }}
+                            className='w-16 text-center rounded-[10px] border px-2 py-1 outline-none focus:border-[var(--endeavour)] focus:ring-2 focus:ring-[var(--endeavour)]/20'
+                            style={{ fontSize: '0.68rem', borderColor: 'var(--line)', background: 'white', color: 'var(--port-gore)' }}
                         />
                         <span style={{ fontSize: '0.65rem', color: 'var(--chathams-blue)' }}>days</span>
                     </div>
@@ -182,7 +182,7 @@ const EmailSetup = () => {
             </div>
 
             {/* Setup steps */}
-            <div className='rounded-xl p-4' style={{ border: '1px solid #EAE8F2', background: 'white' }}>
+            <div className='rounded-xl p-4' style={{ border: '1px solid var(--line)', background: 'white' }}>
                 <p className='font-semibold mb-2' style={{ fontSize: '0.72rem', color: 'var(--chathams-blue)' }}>
                     Setup steps {status?.ready && <span style={{ color: '#177245' }}>(complete ✓)</span>}
                 </p>

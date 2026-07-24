@@ -75,25 +75,25 @@ const BankAccount = () => {
         setErrors({})
     }
 
-    const fieldRow = 'flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-0';
-    const labelCls = 'sm:w-[110px] shrink-0 responsiveText font-medium text-[var(--chathams-blue)] text-[0.75rem]';
-    const inputCls = 'w-full sm:flex-1 h-[26px] px-5 responsiveText rounded-full border border-[#EAE8F2] bg-white text-[0.75rem]';
+    const fieldRow = 'flex flex-col';
+    const labelCls = 'text-[0.6875rem] font-semibold uppercase tracking-[0.04em] text-[var(--ink-muted)] mb-1';
+    const inputCls = 'w-full h-8 px-3 rounded-[10px] border border-[var(--line-strong)] bg-white text-[var(--ink)] text-[0.8125rem] outline-none transition-colors focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)]';
 
     return (
         <div className='p-4 rounded-2xl flex flex-col md:flex-row w-full gap-4'>
-            <div className="md:px-5 w-full md:w-[27%] flex-shrink-0 rounded-2xl p-2 bg-[#F4F3F9]">
-                <p className='flex items-center responsiveText font-medium pl-2 text-[var(--chathams-blue)] text-[0.75rem] whitespace-nowrap'>{getTtl('Bank Account', ln)}:</p>
-                <ul className="flex flex-col overflow-auto mt-1 bg-[#F4F3F9] py-2">
+            <div className="md:px-5 w-full md:w-[27%] flex-shrink-0 rounded-2xl p-2 bg-[var(--bg-subtle)]">
+                <p className='flex items-center responsiveText font-medium pl-2 text-[var(--ink)] text-[0.75rem] whitespace-nowrap'>{getTtl('Bank Account', ln)}:</p>
+                <ul className="flex flex-col overflow-auto mt-1 bg-[var(--bg-subtle)] py-2">
                     {(settings['Bank Account']?.['Bank Account'] || []).filter(x => !x.deleted).map((x, i) => (
                         <li key={i} onClick={() => SelectBank(x)}
-                            className={`cursor-pointer flex items-center gap-x-2 py-2 px-4 responsiveText text-[var(--chathams-blue)] text-[0.75rem] rounded-full hover:bg-[#F4F3F9] ${value.id === x.id && 'font-medium bg-white'}`}>
+                            className={`cursor-pointer flex items-center gap-x-2 py-2 px-4 responsiveText text-[var(--ink)] text-[0.75rem] rounded-full hover:bg-[var(--bg-subtle)] ${value.id === x.id && 'font-medium bg-white'}`}>
                             {x.bankNname}
                         </li>
                     ))}
                 </ul>
             </div>
 
-            <div className='flex flex-col w-full bg-[#F4F3F9] p-4 rounded-2xl'>
+            <div className='flex flex-col w-full bg-[var(--bg-subtle)] p-4 rounded-2xl'>
                 <div className='pb-2 rounded-2xl mt-1 w-full gap-4 flex flex-wrap h-fit'>
                     <Tltip direction='top' tltpText='Add new bank'>
                         <button className={`supplierAddButton ${disabledButton ? 'cursor-not-allowed' : ''}`} disabled={disabledButton} onClick={addItem}>
@@ -118,7 +118,7 @@ const BankAccount = () => {
                     </Tltip>
                 </div>
 
-                <div className='border border-[#EAE8F2] p-4 rounded-2xl mt-1 shadow-md w-full bg-white'>
+                <div className='border border-[var(--line)] p-4 rounded-2xl mt-1 shadow-md w-full bg-white'>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 w-full">
                         <div className="space-y-4">
                             <div className="flex flex-col">

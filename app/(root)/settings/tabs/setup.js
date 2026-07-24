@@ -76,7 +76,7 @@ const Setup = () => {
             className="
               flex flex-col overflow-auto mt-1
               ring-1 ring-black/5 rounded-2xl
-              bg-[#F4F3F9]
+              bg-[var(--bg-subtle)]
               py-2
             "
           >
@@ -87,9 +87,9 @@ const Setup = () => {
                   className={`
                     inline-flex items-center gap-x-2
                     py-2 px-5
-                    responsiveText font-medium text-[var(--chathams-blue)] text-[0.75rem] 
+                    responsiveText font-medium text-[var(--ink)] text-[0.75rem] 
                     cursor-pointer whitespace-nowrap
-                    rounded-full mx-2
+                    rounded-[10px] mx-2
                     hover:bg-[var(--selago)]
                     ${x === keyName ? "font-semibold bg-white" : ""}
                   `}
@@ -103,7 +103,7 @@ const Setup = () => {
         {/* divider line stays */}
 
         {/* RIGHT PANEL */}
-        <div className="w-full md:w-[70%] md:px-4 pt-4 md:pt-0 rounded-2xl bg-[#F4F3F9] ">
+        <div className="w-full md:w-[70%] md:px-4 pt-4 md:pt-0 rounded-2xl bg-[var(--bg-subtle)] ">
           <div className=" p-4 rounded-2xl mt-5 shadow-md bg-white w-full md:w-[50%]">
             <List
               list={list}

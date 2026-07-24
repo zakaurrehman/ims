@@ -10,6 +10,10 @@ import Tltip from '../../../../components/tlTip.js';
 import { Button } from '@components/ui/button';
 import { Save } from 'lucide-react';
 
+// Standard form field styling (matches the app's control spec app-wide).
+const fieldCls = "w-full h-8 px-3 rounded-[10px] border border-[var(--line-strong)] bg-white text-[var(--ink)] outline-none transition-colors focus:border-[var(--brand)] focus:ring-[3px] focus:ring-[var(--brand-soft)] text-[0.8125rem]";
+const labelCls = "text-[0.6875rem] font-semibold uppercase tracking-[0.04em] text-[var(--ink-muted)]";
+
 
 export const getLng = () => {
     return;
@@ -35,37 +39,23 @@ const General = () => {
             {compData && Object.keys(compData).length === 0 ?
                 <Spinner />
                 : <>
-                    <div className='border border-[#EAE8F2] p-4 rounded-2xl mt-1'>
+                    <div className='border border-[var(--line)] p-4 rounded-2xl bg-white mt-1'>
+                        <p className='text-[0.8125rem] font-semibold mb-3 text-[var(--ink)] font-display'>Company</p>
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                            <div className='gap-4 flex items-center' >
-                                <p className='responsiveText font-medium text-[0.825rem] whitespace-nowrap w-[100px] text-[var(--chathams-blue)]'>
+                            <div className='flex flex-col gap-1.5' >
+                                <p className={labelCls}>
                                     {getTtl('cmpName', ln)}:</p>
                                 <input
                                     type='input'
-                                    className="
-  flex-1
-  h-[26px]
-  px-4
-  rounded-full
-  border
-  border-[#EAE8F2]
-  bg-white
-  text-[var(--chathams-blue)]
-  outline-none
-  transition
-  focus:border-[#6D5CE0]
-  focus:ring-2
-  focus:ring-[#6D5CE0]/20
-  text-[0.75rem]
-"
+                                    className={fieldCls}
 
                                     value={compData?.name || ''}
                                     onChange={e => setCompData({ ...(compData || {}), name: e.target.value })}
                                 />
                             </div>
 
-                            <div className='gap-4 flex items-center w-full' >
-                                <p className="responsiveText font-medium text-[0.825rem] whitespace-nowrap w-[100px] text-[var(--chathams-blue)]">
+                            <div className='flex flex-col gap-1.5' >
+                                <p className={labelCls}>
                                     {getTtl("lng", ln)}:
                                 </p>
 
@@ -83,77 +73,48 @@ const General = () => {
                         </div>
                     </div>
 
-                    <div className='border border-[#EAE8F2] p-4 rounded-2xl mt-5'>
+                    <div className='border border-[var(--line)] p-4 rounded-2xl bg-white mt-5'>
+                        <p className='text-[0.8125rem] font-semibold mb-3 text-[var(--ink)] font-display'>Address & Registration</p>
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                             <div className='col-span-12 sm:col-span-1'>
                                 <div className='flex flex-col gap-2'>
-                                    <div className='gap-4 flex items-center' >
-                                        <p className='responsiveText font-medium text-[0.825rem] whitespace-nowrap w-[100px] text-[var(--chathams-blue)]'>
+                                    <div className='flex flex-col gap-1.5' >
+                                        <p className={labelCls}>
                                             {getTtl('street', ln)}:</p>
                                         <input
                                             type='input'
-                                            className="flex-1 h-[26px] px-4 rounded-full border border-[#EAE8F2] bg-white text-[var(--chathams-blue)] outline-none transition focus:border-[#6D5CE0] focus:ring-2 focus:ring-[#6D5CE0]/20 text-[0.75rem]"
+                                            className={fieldCls}
                                             value={compData?.street || ''}
                                             onChange={e => setCompData({ ...(compData || {}), street: e.target.value })}
                                         />
                                     </div>
-                                    <div className='flex gap-4 items-center ' >
-                                        <p className='responsiveText font-medium text-[0.825rem] whitespace-nowrap w-[100px] text-[var(--chathams-blue)]'>
+                                    <div className='flex flex-col gap-1.5' >
+                                        <p className={labelCls}>
                                             {getTtl('city', ln)}: </p>
                                         <input
                                             type='input'
-                                            className="flex-1 h-[26px] px-4 rounded-full border border-[#EAE8F2] bg-white text-[var(--chathams-blue)] outline-none transition focus:border-[#6D5CE0] focus:ring-2 focus:ring-[#6D5CE0]/20 text-[0.75rem]"
+                                            className={fieldCls}
                                             value={compData?.city || ''}
                                             onChange={e => setCompData({ ...(compData || {}), city: e.target.value })}
                                         />
                                     </div>
-                                    <div className='col-span-12 md:col-span-1 flex gap-4 items-center' >
-                                        <p className='responsiveText font-medium text-[0.825rem] whitespace-nowrap w-[100px] text-[var(--chathams-blue)]'>
+                                    <div className='flex flex-col gap-1.5' >
+                                        <p className={labelCls}>
                                             {getTtl('country', ln)}:</p>
                                         <input
                                             type='input'
-                                            className="
-  flex-1
-  h-[26px]
-  px-4
-  rounded-full
-  border
-  border-[#EAE8F2]
-  bg-white
-  text-[var(--chathams-blue)]
-  outline-none
-  transition
-  focus:border-[#6D5CE0]
-  focus:ring-2
-  focus:ring-[#6D5CE0]/20
-  text-[0.75rem]
-"
+                                            className={fieldCls}
 
                                             value={compData?.country || ''}
                                             onChange={e => setCompData({ ...(compData || {}), country: e.target.value })}
                                         />
                                     </div>
-                                    <div className='col-span-12 md:col-span-1 flex gap-4 items-center' >
-                                        <p className='responsiveText font-medium text-[0.825rem] whitespace-nowrap w-[100px] text-[var(--chathams-blue)]'>
+                                    <div className='flex flex-col gap-1.5' >
+                                        <p className={labelCls}>
                                             {getTtl('zipCode', ln)}:</p>
                                         <input
                                             type='input'
-                                            className="
-  flex-1
-  h-[26px]
-  px-4
-  rounded-full
-  border
-  border-[#EAE8F2]
-  bg-white
-  text-[var(--chathams-blue)]
-  outline-none
-  transition
-  focus:border-[#6D5CE0]
-  focus:ring-2
-  focus:ring-[#6D5CE0]/20
-  text-[0.75rem]
-"
+                                            className={fieldCls}
 
                                             value={compData?.zip || ''}
                                             onChange={e => setCompData({ ...(compData || {}), zip: e.target.value })}
@@ -163,76 +124,31 @@ const General = () => {
                             </div>
                             <div className='col-span-12 sm:col-span-1'>
                                 <div className='flex flex-col gap-2'>
-                                    <div className='col-span-12 md:col-span-1 flex gap-4 items-center' >
-                                        <p className='responsiveText font-medium text-[0.825rem] whitespace-nowrap w-[100px] text-[var(--chathams-blue)]'>Reg No.:</p>
+                                    <div className='flex flex-col gap-1.5' >
+                                        <p className={labelCls}>Reg No.:</p>
                                         <input
                                             type='input'
-                                            className="
-  flex-1
-  h-[26px]
-  px-4
-  rounded-full
-  border
-  border-[#EAE8F2]
-  bg-white
-  text-[var(--chathams-blue)]
-  outline-none
-  transition
-  focus:border-[#6D5CE0]
-  focus:ring-2
-  focus:ring-[#6D5CE0]/20
-  text-[0.75rem]
-"
+                                            className={fieldCls}
 
                                             value={compData?.reg || ''}
                                             onChange={e => setCompData({ ...(compData || {}), reg: e.target.value })}
                                         />
                                     </div>
-                                    <div className='col-span-12 md:col-span-1 flex gap-4 items-center' >
-                                        <p className='responsiveText font-medium text-[0.825rem] whitespace-nowrap w-[100px] text-[var(--chathams-blue)]'>VAT No.:</p>
+                                    <div className='flex flex-col gap-1.5' >
+                                        <p className={labelCls}>VAT No.:</p>
                                         <input
                                             type='input'
-                                            className="
-  flex-1
-  h-[26px]
-  px-4
-  rounded-full
-  border
-  border-[#EAE8F2]
-  bg-white
-  text-[var(--chathams-blue)]
-  outline-none
-  transition
-  focus:border-[#6D5CE0]
-  focus:ring-2
-  focus:ring-[#6D5CE0]/20
-  text-[0.75rem]
-"
+                                            className={fieldCls}
 
                                             value={compData?.vat || ''}
                                             onChange={e => setCompData({ ...(compData || {}), vat: e.target.value })}
                                         />
                                     </div>
-                                    <div className='col-span-12 md:col-span-1 flex gap-4 items-center' >
-                                        <p className='responsiveText font-medium text-[0.825rem] whitespace-nowrap w-[100px] text-[var(--chathams-blue)]'>EORI No.:</p>
+                                    <div className='flex flex-col gap-1.5' >
+                                        <p className={labelCls}>EORI No.:</p>
                                         <input
                                             type='input'
-                                            className="
-  flex-1
-  h-[26px]
-  px-4
-  rounded-full
-  border
-  border-[#EAE8F2]
-  bg-white
-  text-[var(--chathams-blue)]
-  outline-none
-  transition
-  focus:border-[#6D5CE0]
-  focus:ring-2
-  focus:ring-[#6D5CE0]/20
-  text-[0.75rem]
-"
+                                            className={fieldCls}
 
                                             value={compData?.eori || ''}
                                             onChange={e => setCompData({ ...(compData || {}), eori: e.target.value })}
@@ -246,54 +162,25 @@ const General = () => {
 
 
 
-                    <div className='border border-[#EAE8F2] p-4 rounded-2xl  mt-5 w-full'>
+                    <div className='border border-[var(--line)] p-4 rounded-2xl bg-white  mt-5 w-full'>
+                        <p className='text-[0.8125rem] font-semibold mb-3 text-[var(--ink)] font-display'>Online</p>
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-2 w-full'>
-                            <div className='col-span-12 md:col-span-1 flex gap-4 items-center' >
-                                <p className='responsiveText font-medium text-[0.825rem] whitespace-nowrap w-[100px] text-[var(--chathams-blue)]'>
+                            <div className='flex flex-col gap-1.5' >
+                                <p className={labelCls}>
                                     {getTtl('cmpemail', ln)}:</p>
                                 <input
                                     type='input'
-                                    className="
-  flex-1
-  h-[26px]
-  px-4
-  rounded-full
-  border
-  border-[#EAE8F2]
-  bg-white
-  text-[var(--chathams-blue)]
-  outline-none
-  transition
-  focus:border-[#6D5CE0]
-  focus:ring-2
-  focus:ring-[#6D5CE0]/20
-  text-[0.75rem]
-"
+                                    className={fieldCls}
                                     value={compData?.email || ''}
                                     onChange={e => setCompData({ ...(compData || {}), email: e.target.value })}
                                 />
                             </div>
-                            <div className='col-span-12 md:col-span-1 flex gap-4 items-center' >
-                                <p className='responsiveText font-medium text-[0.825rem] whitespace-nowrap w-[100px] text-[var(--chathams-blue)]'>
+                            <div className='flex flex-col gap-1.5' >
+                                <p className={labelCls}>
                                     {getTtl('cmpwebsite', ln)}:</p>
                                 <input
                                     type='input'
-                                    className="
-  flex-1
-  h-[26px]
-  px-4
-  rounded-full
-  border
-  border-[#EAE8F2]
-  bg-white
-  text-[var(--chathams-blue)]
-  outline-none
-  transition
-  focus:border-[#6D5CE0]
-  focus:ring-2
-  focus:ring-[#6D5CE0]/20
-  text-[0.75rem]
-"
+                                    className={fieldCls}
                                     value={compData?.website || ''}
                                     onChange={e => setCompData({ ...(compData || {}), website: e.target.value })}
                                 />
@@ -302,42 +189,43 @@ const General = () => {
                     </div>
 
 
-                    <div className=' border border-[#EAE8F2] p-4 rounded-2xl  mt-5 w-full'>
+                    <div className=' border border-[var(--line)] p-4 rounded-2xl bg-white  mt-5 w-full'>
+                        <p className='text-[0.8125rem] font-semibold mb-3 text-[var(--ink)] font-display'>Contact</p>
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-2 w-full'>
-                            <div className='col-span-12 md:col-span-1 flex gap-4 items-center' >
-                                <p className='responsiveText font-medium text-[0.825rem] whitespace-nowrap w-[100px] text-[var(--chathams-blue)]'>
+                            <div className='flex flex-col gap-1.5' >
+                                <p className={labelCls}>
                                     {getTtl('cmpPhone', ln)}:</p>
                                 <input
                                     type='input'
-                                    className="flex-1 h-[26px] px-4 rounded-full border border-[#EAE8F2] bg-white text-[var(--chathams-blue)] outline-none transition focus:border-[#6D5CE0] focus:ring-2 focus:ring-[#6D5CE0]/20 text-[0.75rem]"
+                                    className={fieldCls}
                                     value={compData?.phone || ''}
                                     onChange={e => setCompData({ ...(compData || {}), phone: e.target.value })}
                                 />
                             </div>
-                            <div className='col-span-12 md:col-span-1 flex gap-4 items-center' >
-                                <p className='responsiveText font-medium text-[0.825rem] whitespace-nowrap w-[100px] text-[var(--chathams-blue)]'>
+                            <div className='flex flex-col gap-1.5' >
+                                <p className={labelCls}>
                                     {getTtl('cmpMobile', ln)}:</p>
                                 <input
                                     type='input'
-                                    className="flex-1 h-[26px] px-4 rounded-full border border-[#EAE8F2] bg-white text-[var(--chathams-blue)] outline-none transition focus:border-[#6D5CE0] focus:ring-2 focus:ring-[#6D5CE0]/20 text-[0.75rem]"
+                                    className={fieldCls}
                                     value={compData?.mobile || ''}
                                     onChange={e => setCompData({ ...(compData || {}), mobile: e.target.value })}
                                 />
                             </div>
-                            <div className='col-span-12 md:col-span-1 flex gap-4 items-center' >
-                                <p className='responsiveText font-medium text-[0.825rem] whitespace-nowrap w-[100px] text-[var(--chathams-blue)]'>Fax:</p>
+                            <div className='flex flex-col gap-1.5' >
+                                <p className={labelCls}>Fax:</p>
                                 <input
                                     type='input'
-                                    className="flex-1 h-[26px] px-4 rounded-full border border-[#EAE8F2] bg-white text-[var(--chathams-blue)] outline-none transition focus:border-[#6D5CE0] focus:ring-2 focus:ring-[#6D5CE0]/20 text-[0.75rem]"
+                                    className={fieldCls}
                                     value={compData?.fax || ''}
                                     onChange={e => setCompData({ ...(compData || {}), fax: e.target.value })}
                                 />
                             </div>
-                            <div className='col-span-12 md:col-span-1 flex gap-4 items-center' >
-                                <p className='responsiveText font-medium text-[0.825rem] whitespace-nowrap w-[100px] text-[var(--chathams-blue)]'>Contact Person:</p>
+                            <div className='flex flex-col gap-1.5' >
+                                <p className={labelCls}>Contact Person:</p>
                                 <input
                                     type='input'
-                                    className="flex-1 h-[26px] px-4 rounded-full border border-[#EAE8F2] bg-white text-[var(--chathams-blue)] outline-none transition focus:border-[#6D5CE0] focus:ring-2 focus:ring-[#6D5CE0]/20 text-[0.75rem]"
+                                    className={fieldCls}
                                     value={compData?.contact || ''}
                                     onChange={e => setCompData({ ...(compData || {}), contact: e.target.value })}
                                 />
@@ -348,15 +236,15 @@ const General = () => {
                     {/* <div className=' border border-slate-300 p-4 rounded-2xl  mt-5 w-full'>
                         <Logos compData={compData} setCompData={setCompData} />
                     </div> */}
-                    <div className='border border-[#EAE8F2] p-4 rounded-2xl mt-5 w-full'>
-                        <p className='responsiveText font-medium text-[0.825rem] mb-3 text-[var(--chathams-blue)]'>Invoice wording</p>
+                    <div className='border border-[var(--line)] p-4 rounded-2xl bg-white mt-5 w-full'>
+                        <p className='text-[0.8125rem] font-semibold mb-3 text-[var(--ink)] font-display'>Invoice wording</p>
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                            <div className='flex gap-4 items-center'>
-                                <p className='responsiveText font-medium text-[0.825rem] whitespace-nowrap w-[170px] text-[var(--chathams-blue)]'>Prepayment label:</p>
+                            <div className='flex flex-col gap-1.5'>
+                                <p className={labelCls}>Prepayment label:</p>
                                 <input
                                     type='input'
                                     placeholder='Prepayment'
-                                    className="flex-1 h-[26px] px-4 rounded-full border border-[#EAE8F2] bg-white text-[var(--chathams-blue)] outline-none transition focus:border-[#6D5CE0] focus:ring-2 focus:ring-[#6D5CE0]/20 text-[0.75rem]"
+                                    className={fieldCls}
                                     value={compData?.invPrepaymentLabel || ''}
                                     onChange={e => setCompData({ ...(compData || {}), invPrepaymentLabel: e.target.value })}
                                 />
@@ -366,7 +254,7 @@ const General = () => {
                                 <textarea
                                     rows={2}
                                     placeholder='e.g. We hereby certify the goods are non-radioactive and free of contamination.'
-                                    className="flex-1 p-2 rounded-2xl border border-[#EAE8F2] bg-white text-[var(--chathams-blue)] outline-none transition focus:border-[#6D5CE0] focus:ring-2 focus:ring-[#6D5CE0]/20 text-[0.75rem]"
+                                    className="flex-1 p-2 rounded-2xl border border-[var(--line)] bg-white text-[var(--chathams-blue)] outline-none transition focus:border-[var(--brand)] focus:ring-2 focus:ring-[var(--brand)]/20 text-[0.75rem]"
                                     style={{ fontFamily: 'inherit' }}
                                     value={compData?.invNonRadioText || ''}
                                     onChange={e => setCompData({ ...(compData || {}), invNonRadioText: e.target.value })}
@@ -378,27 +266,27 @@ const General = () => {
                         </p>
                     </div>
 
-                    <div className='border border-[#EAE8F2] p-4 rounded-2xl mt-5 w-full'>
-                        <p className='responsiveText font-medium text-[0.825rem] mb-3 text-[var(--chathams-blue)]'>Currency &amp; Terms</p>
+                    <div className='border border-[var(--line)] p-4 rounded-2xl bg-white mt-5 w-full'>
+                        <p className='text-[0.8125rem] font-semibold mb-3 text-[var(--ink)] font-display'>Currency &amp; Terms</p>
                         <div className='flex flex-col gap-3'>
-                            <div className='flex gap-4 items-center'>
-                                <p className='responsiveText font-medium text-[0.825rem] whitespace-nowrap w-[200px] text-[var(--chathams-blue)]'>Standard EUR &rarr; USD rate:</p>
+                            <div className='flex flex-col gap-1.5'>
+                                <p className={labelCls}>Standard EUR &rarr; USD rate:</p>
                                 <input
                                     type='number'
                                     step='0.0001'
                                     placeholder='e.g. 1.08'
-                                    className="flex-1 max-w-[180px] h-[26px] px-4 rounded-full border border-[#EAE8F2] bg-white text-[var(--chathams-blue)] outline-none transition focus:border-[#6D5CE0] focus:ring-2 focus:ring-[#6D5CE0]/20 text-[0.75rem]"
+                                    className={fieldCls}
                                     value={compData?.eurUsdRate ?? ''}
                                     onChange={e => setCompData({ ...(compData || {}), eurUsdRate: e.target.value })}
                                 />
                             </div>
-                            <div className='flex gap-4 items-center'>
-                                <p className='responsiveText font-medium text-[0.825rem] whitespace-nowrap w-[200px] text-[var(--chathams-blue)]'>Default payment term (days):</p>
+                            <div className='flex flex-col gap-1.5'>
+                                <p className={labelCls}>Default payment term (days):</p>
                                 <input
                                     type='number'
                                     step='1'
                                     placeholder='30'
-                                    className="flex-1 max-w-[180px] h-[26px] px-4 rounded-full border border-[#EAE8F2] bg-white text-[var(--chathams-blue)] outline-none transition focus:border-[#6D5CE0] focus:ring-2 focus:ring-[#6D5CE0]/20 text-[0.75rem]"
+                                    className={fieldCls}
                                     value={compData?.defaultTermDays ?? ''}
                                     onChange={e => setCompData({ ...(compData || {}), defaultTermDays: e.target.value })}
                                 />
