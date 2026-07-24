@@ -75,7 +75,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                             className="overflow-auto"
                            
                         >
-                            <table className="w-full rounded-xl" style={{ tableLayout: 'auto', borderSpacing: '6px' }}>
+                            <table className="w-full rounded-xl" style={{ tableLayout: 'auto', borderSpacing: '0' }}>
                                 {/* THEAD - matching newTable header exactly */}
                                 <thead className="sticky top-0 z-10">
                                     <tr>
@@ -145,7 +145,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                                     willChange: 'background-color, color',
                                                 }}
                                             >
-                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[50px] text-center whitespace-nowrap border border-[var(--line-strong)] rounded-lg transition-all duration-200 ease-in-out bg-[var(--bg-subtle)] text-[var(--ink)] fade-in">
+                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[50px] text-center whitespace-nowrap text-[var(--ink)] fade-in">
                                                     {z.month + "-" + yr}
                                                 </div>
                                             </td>
@@ -161,7 +161,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                                     willChange: 'background-color, color',
                                                 }}
                                             >
-                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[40px] text-center whitespace-nowrap border rounded-lg border-[var(--line-strong)] transition-all duration-200 ease-in-out bg-[var(--bg-subtle)] fade-in">
+                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[40px] text-center whitespace-nowrap fade-in">
                                                     <NumericFormat
                                                         value={z.purchase}
                                                         displayType="text"
@@ -186,7 +186,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                             >
                                                 {isGIS ? (
                                                 <Tltip direction="top" tltpText={"IMS: " + addComma(z.totalMargin / 2)}>
-                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[105px] text-center whitespace-nowrap border rounded-lg border-[var(--line-strong)] transition-all duration-200 ease-in-out bg-[var(--bg-subtle)]  fade-in">
+                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[105px] text-center whitespace-nowrap fade-in">
                                                     <NumericFormat
                                                         value={z.totalMargin}
                                                         displayType="text"
@@ -200,7 +200,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                                 </div>
                                                 </Tltip>
                                                 ) : (
-                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[105px] text-center whitespace-nowrap border rounded-lg border-[var(--line-strong)] transition-all duration-200 ease-in-out bg-[var(--bg-subtle)]  fade-in">
+                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[105px] text-center whitespace-nowrap fade-in">
                                                     <NumericFormat
                                                         value={z.totalMargin}
                                                         displayType="text"
@@ -226,7 +226,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                                     willChange: 'background-color, color',
                                                 }}
                                             >
-                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[50px] text-center whitespace-nowrap border rounded-lg border-[var(--line-strong)] transition-all duration-200 ease-in-out bg-[var(--bg-subtle)] fade-in">
+                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[50px] text-center whitespace-nowrap fade-in">
                                                     <NumericFormat
                                                         value={z.openShip}
                                                         displayType="text"
@@ -253,7 +253,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                             >
                                                 {isGIS ? (
                                                 <Tltip direction="top" tltpText={"IMS: " + addComma(z.remaining / 2)}>
-                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[70px] text-center whitespace-nowrap border rounded-lg border-[var(--line-strong)] transition-all duration-200 ease-in-out bg-[var(--bg-subtle)] fade-in">
+                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[70px] text-center whitespace-nowrap fade-in">
                                                     <NumericFormat
                                                         value={z.remaining}
                                                         displayType="text"
@@ -268,7 +268,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                                 </div>
                                                 </Tltip>
                                                 ) : (
-                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[70px] text-center whitespace-nowrap border rounded-lg border-[var(--line-strong)] transition-all duration-200 ease-in-out bg-[var(--bg-subtle)] fade-in">
+                                                <div className="px-2 py-1 responsiveTextTable font-normal flex items-center justify-center min-w-[70px] text-center whitespace-nowrap fade-in">
                                                     <NumericFormat
                                                         value={z.remaining}
                                                         displayType="text"
@@ -300,7 +300,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                                 background: 'var(--bg-subtle)'
                                             }}
                                         >
-                                            <div className="px-2 py-1 font-medium flex items-center justify-center min-w-[50px] text-center whitespace-nowrap border rounded-lg border-[var(--line-strong)] text-[0.72rem] xl:text-[0.75rem] 2xl:text-[0.8rem] 3xl:text-[0.875rem]">
+                                            <div className="px-2 py-1 font-medium flex items-center justify-center min-w-[50px] text-center whitespace-nowrap text-[0.8125rem] tabular-nums">
                                                 Total
                                             </div>
                                         </td>
@@ -317,7 +317,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                                 background: 'var(--bg-subtle)'
                                             }}
                                         >
-                                            <div className="px-2 py-1 font-medium flex items-center justify-center min-w-[40px] text-center whitespace-nowrap border rounded-lg border-[var(--line-strong)] text-[0.72rem] xl:text-[0.75rem] 2xl:text-[0.8rem] 3xl:text-[0.875rem]">
+                                            <div className="px-2 py-1 font-medium flex items-center justify-center min-w-[40px] text-center whitespace-nowrap text-[0.8125rem] tabular-nums">
                                                 <NumericFormat
                                                     value={purchase}
                                                     displayType="text"
@@ -342,7 +342,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                         >
                                             {isGIS ? (
                                             <Tltip direction="top" tltpText={"IMS: " + addComma(totalMargin / 2)}>
-                                            <div className="px-2 py-1 font-medium flex items-center justify-center min-w-[105px] text-center whitespace-nowrap border rounded-lg border-[var(--line-strong)] text-[0.72rem] xl:text-[0.75rem] 2xl:text-[0.8rem] 3xl:text-[0.875rem]">
+                                            <div className="px-2 py-1 font-medium flex items-center justify-center min-w-[105px] text-center whitespace-nowrap text-[0.8125rem] tabular-nums">
                                                 <NumericFormat
                                                     value={totalMargin}
                                                     displayType="text"
@@ -355,7 +355,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                             </div>
                                             </Tltip>
                                             ) : (
-                                            <div className="px-2 py-1 font-medium flex items-center justify-center min-w-[105px] text-center whitespace-nowrap border rounded-lg border-[var(--line-strong)] text-[0.72rem] xl:text-[0.75rem] 2xl:text-[0.8rem] 3xl:text-[0.875rem]">
+                                            <div className="px-2 py-1 font-medium flex items-center justify-center min-w-[105px] text-center whitespace-nowrap text-[0.8125rem] tabular-nums">
                                                 <NumericFormat
                                                     value={totalMargin}
                                                     displayType="text"
@@ -381,7 +381,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                                 background: 'var(--bg-subtle)'
                                             }}
                                         >
-                                            <div className="px-2 py-1 font-medium flex items-center justify-center min-w-[50px] text-center whitespace-nowrap border rounded-lg border-[var(--line-strong)] text-[0.72rem] xl:text-[0.75rem] 2xl:text-[0.8rem] 3xl:text-[0.875rem]">
+                                            <div className="px-2 py-1 font-medium flex items-center justify-center min-w-[50px] text-center whitespace-nowrap text-[0.8125rem] tabular-nums">
                                                 <NumericFormat
                                                     value={outStandingShip}
                                                     displayType="text"
@@ -408,7 +408,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                         >
                                             {isGIS ? (
                                             <Tltip direction="top" tltpText={"IMS: " + addComma(remaining / 2)}>
-                                            <div className="px-2 py-1 font-medium flex items-center justify-center min-w-[70px] text-center whitespace-nowrap border rounded-lg border-[var(--line-strong)] text-[0.72rem] xl:text-[0.75rem] 2xl:text-[0.8rem] 3xl:text-[0.875rem]">
+                                            <div className="px-2 py-1 font-medium flex items-center justify-center min-w-[70px] text-center whitespace-nowrap text-[0.8125rem] tabular-nums">
                                                 <NumericFormat
                                                     value={remaining}
                                                     displayType="text"
@@ -422,7 +422,7 @@ const ThirdPart = ({ data, remaining, outStandingShip, purchase, totalMargin, yr
                                             </div>
                                             </Tltip>
                                             ) : (
-                                            <div className="px-2 py-1 font-medium flex items-center justify-center min-w-[70px] text-center whitespace-nowrap border rounded-lg border-[var(--line-strong)] text-[0.72rem] xl:text-[0.75rem] 2xl:text-[0.8rem] 3xl:text-[0.875rem]">
+                                            <div className="px-2 py-1 font-medium flex items-center justify-center min-w-[70px] text-center whitespace-nowrap text-[0.8125rem] tabular-nums">
                                                 <NumericFormat
                                                     value={remaining}
                                                     displayType="text"
