@@ -51,8 +51,14 @@ export default function CommandPalette() {
         setOpen((prev) => (prev ? false : prev));
       }
     };
+    // Topbar search pill (and anything else) can open the palette via this event.
+    const onOpenEvent = () => setOpen(true);
     document.addEventListener('keydown', onKeyDown);
-    return () => document.removeEventListener('keydown', onKeyDown);
+    window.addEventListener('ims:openPalette', onOpenEvent);
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('ims:openPalette', onOpenEvent);
+    };
   }, []);
 
   // Reset typed query when palette closes — opening it again should start fresh.

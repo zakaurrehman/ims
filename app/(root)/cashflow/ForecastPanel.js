@@ -6,6 +6,7 @@ import { loadData, resolveDueDate } from '../../../utils/utils';
 import { authedFetch } from '../../../utils/aiClient';
 import { Loader2, RefreshCw, TrendingUp, TrendingDown, Minus, AlertTriangle, Info, Clock } from 'lucide-react';
 import { TONES } from '../../../components/statusUtils';
+import CountUp from '../../../components/CountUp';
 
 const HORIZONS = [30, 60, 90];
 
@@ -234,7 +235,8 @@ const ForecastPanel = () => {
                                             fontSize: '1rem',
                                             color: result.baseTotals.net >= 0 ? TONES.green.text : TONES.red.text
                                         }}>
-                                            {result.baseTotals.net >= 0 ? '+' : ''}{result.baseCurrency} {Number(result.baseTotals.net).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                            {result.baseTotals.net >= 0 ? '+' : ''}{result.baseCurrency}{' '}
+                                            <CountUp value={result.baseTotals.net} format={(n) => Number(n).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} />
                                         </p>
                                     </div>
                                     <div className='text-right' style={{ fontSize: '0.6rem', color: 'var(--ink-secondary)' }}>

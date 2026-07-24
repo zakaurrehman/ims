@@ -15,6 +15,7 @@ import { UserAuth } from "../../../contexts/useAuthContext";
 import { delCompExp, loadMaterials, saveMaterials, loadDataSettings } from "../../../utils/utils";
 import { DEFAULT_ELEMENTS, UNIT_LABELS, TO_KGS, FROM_KGS } from './constants';
 import useMetalPrices from '../../../hooks/useMetalPrices';
+import LoadingButton from '../../../components/LoadingButton';
 
 function countDecimalDigits(str) {
     const match = str.match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/)
@@ -360,9 +361,9 @@ const MaterialTables = () => {
                                     <button onClick={addTable} className="blackButton">
                                         + {getTtl('Add Table', ln) || 'Add Table'}
                                     </button>
-                                    <button onClick={saveTable} className="whiteButton">
+                                    <LoadingButton variant="secondary" onClick={saveTable}>
                                         {getTtl('Save', ln) || 'Save'}
-                                    </button>
+                                    </LoadingButton>
                                 </div>
                             </div>
                             <div className="w-full">

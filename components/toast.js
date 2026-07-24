@@ -30,14 +30,26 @@ const Toast = () => {
     return (
         <div>
             {toast?.show && (
-                <div className={`gap-3 flex text-[0.8125rem] font-medium px-4 py-3 bottom-4 right-4 z-[70] fixed rounded-xl items-center fadeInToast border bg-white text-[var(--ink)]
+                <div className={`bottom-4 right-4 z-[70] fixed rounded-xl overflow-hidden border bg-white text-[var(--ink)]
                 ${toast?.clr === 'success' ? 'border-[var(--ok-border)]' : 'border-[var(--bad-border)]'}`}
-                    style={{ boxShadow: 'var(--shadow-md)' }}>
-                    <span className={`w-1 self-stretch rounded-full flex-shrink-0 ${toast?.clr === 'success' ? 'bg-[var(--ok-text)]' : 'bg-[var(--bad-text)]'}`} />
-                    {toast?.clr === 'success'
-                        ? <CheckCircle2 size={18} className='text-[var(--ok-text)] flex-shrink-0' />
-                        : <XCircle size={18} className='text-[var(--bad-text)] flex-shrink-0' />}
-                    <div>{toast?.text || ''}</div>
+                    style={{ boxShadow: 'var(--shadow-md)', animation: 'toast-slide-in 0.3s cubic-bezier(0.16,1,0.3,1) both' }}>
+                    <div className='gap-3 flex text-[0.8125rem] font-medium px-4 py-3 items-center'>
+                        {toast?.clr === 'success'
+                            ? <CheckCircle2 size={18} className='text-[var(--ok-text)] flex-shrink-0' />
+                            : <XCircle size={18} className='text-[var(--bad-text)] flex-shrink-0' />}
+                        <div>{toast?.text || ''}</div>
+                    </div>
+                    {/* Auto-dismiss progress — mirrors the notification popups */}
+                    <div className='h-[3px] w-full' style={{ background: 'var(--bg-sunken)' }}>
+                        <div
+                            className='h-full'
+                            style={{
+                                background: toast?.clr === 'success' ? 'var(--ok-text)' : 'var(--bad-text)',
+                                opacity: 0.85,
+                                animation: 'toast-bar 5000ms linear forwards',
+                            }}
+                        />
+                    </div>
                 </div>
             )}
             {secondaryToast && toast?.clr === 'success' && (

@@ -17,7 +17,7 @@ import {
 } from "@tanstack/react-table";
 
 import { Fragment, useEffect, useMemo, useState, useContext } from "react";
-import { ArrowUpNarrowWide, ArrowDownWideNarrow } from "lucide-react";
+import { ArrowUpNarrowWide, ArrowDownWideNarrow, ArrowUpDown } from "lucide-react";
 import { Paginator } from "../../../components/table/Paginator";
 import RowsIndicator from "../../../components/table/RowsIndicator";
 import EmptyState from "../../../components/EmptyState";
@@ -263,7 +263,7 @@ const Customtable = ({
                         {hdGroup.headers.map(header => (
                         <th
                           key={header.id}
-                          className="font-medium py-2"
+                          className="group/th font-medium py-2"
                           onClick={header.column.getCanSort() ? header.column.getToggleSortingHandler() : undefined}
                           style={{
                             minWidth: header.column.id === 'select' ? '50px' : '60px',
@@ -280,6 +280,9 @@ const Customtable = ({
                             {flexRender(header.column.columnDef.header, header.getContext())}
                             {header.column.getIsSorted() === 'asc' && <ArrowUpNarrowWide size={13} className="shrink-0" style={{ color: 'var(--brand)' }} />}
                             {header.column.getIsSorted() === 'desc' && <ArrowDownWideNarrow size={13} className="shrink-0" style={{ color: 'var(--brand)' }} />}
+                            {header.column.getCanSort() && !header.column.getIsSorted() && (
+                              <ArrowUpDown size={11} className="shrink-0 opacity-0 group-hover/th:opacity-50 transition-opacity" style={{ color: 'var(--ink-muted)' }} />
+                            )}
                           </span>
                         </th>
                         ))}

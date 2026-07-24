@@ -132,15 +132,16 @@ export const MainNav = () => {
           </div>
 
           {!openSearch ? (
-            <Tltip tltpText={getTtl('Search', ln) || 'Search'} direction='bottom'>
-              <button
-                className='flex items-center justify-center w-9 h-9 rounded-[10px] text-[var(--ink-secondary)] hover:bg-[var(--bg-subtle)] hover:text-[var(--ink)] transition-colors'
-                onClick={() => setOpenSearch(true)}
-                aria-label='Search'
-              >
-                <Search size={18} strokeWidth={1.75} />
-              </button>
-            </Tltip>
+            <button
+              className='hidden lg:flex items-center gap-2 h-9 pl-3 pr-2 rounded-[10px] border border-[var(--line)] bg-[var(--bg-subtle)] text-[var(--ink-muted)] hover:border-[var(--line-strong)] hover:bg-white transition-colors'
+              onClick={() => { if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('ims:openPalette')); }}
+              aria-label='Search'
+              style={{ minWidth: 180 }}
+            >
+              <Search size={15} strokeWidth={1.75} />
+              <span className='text-[0.75rem] flex-1 text-left'>{getTtl('Search', ln) || 'Search'}...</span>
+              <kbd className='px-1.5 py-0.5 rounded-[6px] bg-white border border-[var(--line)] text-[0.625rem] font-medium text-[var(--ink-secondary)]'>Ctrl K</kbd>
+            </button>
           ) : (
             <div className="relative flex items-center responsiveText">
               <input

@@ -803,7 +803,7 @@ const Dash = () => {
   const companyRate = parseFloat(compData?.eurUsdRate) || 0;
   // Default payment term in days (Settings → General) — used to flag overdue invoices.
   const termDays = parseInt(compData?.defaultTermDays, 10) > 0 ? parseInt(compData.defaultTermDays, 10) : 30;
-  const { uidCollection } = UserAuth();
+  const { uidCollection, user } = UserAuth();
   const settingsLoaded = Object.keys(settings).length > 0;
   const clientCount = settings.Client?.Client?.length || 0;
   const supplierCount = settings.Supplier?.Supplier?.length || 0;
@@ -1209,12 +1209,17 @@ const Dash = () => {
           <m.div className="mb-5 flex flex-wrap items-center justify-between gap-3"
             initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.05 }}>
             <div>
-              <h1 className="text-[var(--ink)] responsiveTextTitle">
-                {getTtl('Dashboard', ln)}
+              <h1 className="text-display">
+                {(() => {
+                  const h = new Date().getHours();
+                  const greet = h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
+                  const name = user?.displayName || user?.email?.split('@')[0] || '';
+                  return name ? `${greet}, ${name.charAt(0).toUpperCase() + name.slice(1)}` : getTtl('Dashboard', ln);
+                })()}
               </h1>
-              <p className="responsiveText text-[var(--regent-gray)] pl-3 mt-0.5">
-                Financial overview · {currentYear}
-                {filtersActive && <span className="text-[var(--endeavour)] font-medium"> · filtered</span>}
+              <p className="responsiveText text-[var(--ink-muted)] mt-0.5">
+                {new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })} · Financial overview {currentYear}
+                {filtersActive && <span className="text-[var(--brand)] font-medium"> · filtered</span>}
               </p>
             </div>
             <div className="flex items-center gap-1">

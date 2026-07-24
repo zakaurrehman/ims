@@ -19,6 +19,7 @@ import {
 
 import { Fragment, useEffect, useMemo, useState } from "react";
 import { TbSortDescending, TbSortAscending } from "react-icons/tb";
+import { ArrowUpDown } from "lucide-react";
 
 import { Paginator } from "../../../components/table/Paginator";
 import RowsIndicator from "../../../components/table/RowsIndicator";
@@ -211,7 +212,7 @@ const Customtable = ({
                         {group.headers.map(header => (
                           <th
                             key={header.id}
-                            className="px-2 py-2 font-poppins"
+                            className="group/th px-2 py-2"
                             style={{
                               color: 'var(--ink-muted)',
                               width: header.column.id === 'select' ? '50px' : undefined,
@@ -226,6 +227,9 @@ const Customtable = ({
                               {flexRender(header.column.columnDef.header, header.getContext())}
                               {header.column.getIsSorted() === 'asc' && <TbSortAscending style={{ fontSize: '0.85rem', color: 'var(--brand)' }} />}
                               {header.column.getIsSorted() === 'desc' && <TbSortDescending style={{ fontSize: '0.85rem', color: 'var(--brand)' }} />}
+                              {header.column.getCanSort() && !header.column.getIsSorted() && (
+                                <ArrowUpDown size={11} className="shrink-0 opacity-0 group-hover/th:opacity-50 transition-opacity" style={{ color: 'var(--ink-muted)' }} />
+                              )}
                             </div>
                           </th>
                         ))}

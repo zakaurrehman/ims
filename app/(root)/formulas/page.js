@@ -16,6 +16,7 @@ import { getCur } from '../../../components/exchangeApi';
 import dateFormat from "dateformat";
 import useMetalPrices from '../../../hooks/useMetalPrices';
 import { RefreshCw } from 'lucide-react';
+import LoadingButton from '../../../components/LoadingButton';
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(' ')
@@ -227,9 +228,9 @@ const Page = () => {
 													/>
 												</div>
 
-												<button type='button' className='blackButton min-w-[80px]' onClick={saveData}>
+												<LoadingButton className='min-w-[80px]' onClick={saveData}>
 													Save
-												</button>
+												</LoadingButton>
 											</div>
 										</div>
 									)}

@@ -33,6 +33,9 @@ import ForecastPanel from "./ForecastPanel";
 import SumBasket from "./sumBasket";
 import { exportCashflowToExcel } from "./excel";
 import { FiDownload } from "react-icons/fi";
+import KpiStrip from "../../../components/KpiStrip";
+import Avatar from "../../../components/Avatar";
+import { Boxes, Users, Factory, Wallet, Banknote } from "lucide-react";
 
 function countDecimalDigits(inputString) {
     const match = inputString.match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
@@ -49,6 +52,20 @@ function countDecimalDigits(inputString) {
 
     return trimmedPart.length;
 }
+
+// Mini-stat section header: 28px brand-soft icon tile + section name, with any
+// trailing controls (sort toggles / Add button) passed as children. Style only.
+const SectionHeader = ({ icon: Icon, title, className = '', children }) => (
+    <div className={`flex items-center justify-between mb-1 rounded-xl px-1 py-1 hover:bg-[var(--bg-subtle)] transition-colors ${className}`}>
+        <div className="flex items-center gap-2 min-w-0">
+            <span className="w-7 h-7 rounded-[9px] bg-[var(--brand-soft)] text-[var(--brand)] flex items-center justify-center shrink-0">
+                {Icon && <Icon size={15} strokeWidth={1.75} />}
+            </span>
+            <span className="text-[13px] font-display font-semibold text-[var(--ink)] truncate">{title}</span>
+        </div>
+        {children ? <div className="flex items-center gap-2 shrink-0">{children}</div> : null}
+    </div>
+);
 
 
 const Cashflow = () => {
@@ -958,6 +975,25 @@ const Cashflow = () => {
         });
     };
 
+    // KPI summary — pure reuse of the same aggregates the section totals below
+    // already render (no new computation beyond re-running the identical reduces).
+    const clientsDueKpi = [...clientInvoices1, ...clientInvoices2].reduce((t, o) => t + (parseFloat(o.debtBlnc) || 0), 0);
+    const suppliersDueKpi = [...(supPayments1 || []), ...(supPayments2 || [])].reduce((t, o) => t + (parseFloat(o.blnc) || 0), 0);
+    const expensesKpi = (expenses || []).reduce((t, o) => t + (parseFloat(o.amount) || 0), 0);
+    const fmtUsd = (n) => '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const kpiItems = [
+        ...(userTitle === 'Admin' ? [{
+            label: 'Total Balance',
+            value: (totalLeft || 0) - (totalRight || 0),
+            format: fmtUsd, icon: Banknote,
+            tone: ((totalLeft || 0) - (totalRight || 0)) >= 0 ? 'green' : 'red',
+            sub: 'Left − right totals',
+        }] : []),
+        { label: 'Clients due', value: clientsDueKpi, format: fmtUsd, icon: Users, tone: 'blue' },
+        { label: 'Suppliers due', value: suppliersDueKpi, format: fmtUsd, icon: Factory, tone: 'amber' },
+        { label: 'Expenses', value: expensesKpi, format: fmtUsd, icon: Wallet, tone: 'red' },
+    ];
+
     return (
         <div className="w-full" style={{ background: "var(--bg-page)" }}>
             <div className="cf-uniform mx-auto max-w-full px-1 md:px-2 pb-4 mt-[72px]">
@@ -1011,31 +1047,31 @@ const Cashflow = () => {
                                 </button>
                             </div>
 
+                            {/* KPI summary strip (same values as the section totals below) */}
+                            {activeTab === 'general' && <KpiStrip items={kpiItems} />}
 
                             {activeTab === 'unsold' ? (
                                 <div className="w-full max-w-2xl border border-[var(--line)] rounded-2xl overflow-hidden bg-white p-4">
-                                    <div className="flex items-center justify-between mb-2">
-                                        <div className="text-[var(--chathams-blue)] responsiveText font-semibold">Unsold Stocks</div>
-                                        <div className="flex items-center gap-2">
-                                            {stocksSortName2 ?
-                                                <FaSortAmountDown className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortStocksName2()} />
-                                                :
-                                                <FaSortAmountUpAlt className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortStocksName2()} />}
-                                            {stocksSort2 ?
-                                                <FaSortAmountDown className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortStocks2()} />
-                                                :
-                                                <FaSortAmountUpAlt className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortStocks2()} />}
-                                        </div>
-                                    </div>
+                                    <SectionHeader icon={Boxes} title="Unsold Stocks" className="mb-2">
+                                        {stocksSortName2 ?
+                                            <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocksName2()} />
+                                            :
+                                            <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocksName2()} />}
+                                        {stocksSort2 ?
+                                            <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocks2()} />
+                                            :
+                                            <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocks2()} />}
+                                    </SectionHeader>
                                     {stockDataNoSold.length === 0 ? (
-                                        <div className="text-[var(--regent-gray)] responsiveText py-4 text-center">No unsold stocks</div>
+                                        <div className="text-[var(--ink-muted)] responsiveText py-4 text-center">No unsold stocks</div>
                                     ) : (
                                         <>
                                             {stockDataNoSold.map((x, i) => (
-                                                <div className="bg-white py-0.5 px-0 hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
+                                                <div className="bg-white py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
                                                     <MyAccordion title={
                                                         <div className="flex w-full justify-between">
-                                                            <div className="responsiveText font-medium text-[var(--port-gore)] items-center flex outline-none whitespace-normal break-words min-w-0">
+                                                            <div className="responsiveText font-medium text-[var(--ink)] items-center flex gap-1.5 outline-none whitespace-normal break-words min-w-0">
+                                                                <Avatar name={x.supplierName} size={18} />
                                                                 {x.supplierName}
                                                             </div>
                                                             <div className="leading-4 2xl:leading-6">
@@ -1047,7 +1083,7 @@ const Cashflow = () => {
                                                                     prefix={x.cur === 'us' ? '$' : '€'}
                                                                     decimalScale='2'
                                                                     fixedDecimalScale
-                                                                    className='responsiveText font-medium text-[var(--port-gore)]'
+                                                                    className='responsiveText font-semibold text-[var(--ink)] tabular-nums'
                                                                 />
                                                             </div>
                                                         </div>
@@ -1120,19 +1156,16 @@ const Cashflow = () => {
                                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 w-full">
                                             <div className="w-full">
                                                 <div className="p-2 bg-white mb-3 flex flex-col cf-card">
-                                                    <div className="flex items-center justify-between mb-1">
-                                                        <span className="text-[var(--chathams-blue)] responsiveText font-semibold">Stocks - Paid</span>
-                                                        <div className="flex items-center gap-2">
-                                                            {stocksSortName ? <FaSortAmountDown className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortStocksName()} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortStocksName()} />}
-                                                            {stocksSort ? <FaSortAmountDown className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortStocks()} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortStocks()} />}
-                                                        </div>
-                                                    </div>
+                                                    <SectionHeader icon={Boxes} title="Stocks - Paid">
+                                                        {stocksSortName ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocksName()} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocksName()} />}
+                                                        {stocksSort ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocks()} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocks()} />}
+                                                    </SectionHeader>
                                                     {stockData1.map((x, i) => {
                                                         return (
-                                                            <div className="bg-white py-0.5 px-0 hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
+                                                            <div className="bg-white py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
                                                                 <MyAccordion title={
                                                                     <div className="flex w-full justify-between">
-                                                                        <div className="responsiveText items-center font-medium text-[var(--port-gore)] flex outline-none whitespace-normal break-words min-w-0"
+                                                                        <div className="responsiveText items-center font-medium text-[var(--ink)] flex outline-none whitespace-normal break-words min-w-0"
                                                                         >
                                                                             {settings.Stocks.Stocks.find(z => z.id === x.stock)?.nname}
                                                                         </div>
@@ -1146,7 +1179,7 @@ const Cashflow = () => {
                                                                                 prefix={x.cur === 'us' ? '$' : '€'}
                                                                                 decimalScale='2'
                                                                                 fixedDecimalScale
-                                                                                className='responsiveText font-medium text-[var(--port-gore)] '
+                                                                                className='responsiveText font-semibold text-[var(--ink)] tabular-nums'
                                                                             />
                                                                         </div>
                                                                     </div>
@@ -1183,20 +1216,17 @@ const Cashflow = () => {
 
 
                                                 {stockData2.length > 0 && <div className="p-2 bg-white mb-3 flex flex-col cf-card">
-                                                    <div className="flex items-center justify-between mb-1">
-                                                        <span className="text-[var(--chathams-blue)] responsiveText font-semibold">Stocks - UnPaid</span>
-                                                        <div className="flex items-center gap-2">
-                                                            {stocksSortName1 ? <FaSortAmountDown className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortStocksName1()} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortStocksName1()} />}
-                                                            {stocksSort1 ? <FaSortAmountDown className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortStocks1()} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortStocks1()} />}
-                                                        </div>
-                                                    </div>
+                                                    <SectionHeader icon={Boxes} title="Stocks - UnPaid">
+                                                        {stocksSortName1 ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocksName1()} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocksName1()} />}
+                                                        {stocksSort1 ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocks1()} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortStocks1()} />}
+                                                    </SectionHeader>
 
                                                     {stockData2.map((x, i) => {
                                                         return (
-                                                            <div className="bg-white py-0.5 px-0 hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
+                                                            <div className="bg-white py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
                                                                 <MyAccordion title={
                                                                     <div className="flex w-full justify-between">
-                                                                        <div className="responsiveText font-medium text-[var(--port-gore)] items-center flex outline-none whitespace-normal break-words min-w-0"
+                                                                        <div className="responsiveText font-medium text-[var(--ink)] items-center flex outline-none whitespace-normal break-words min-w-0"
                                                                         >
                                                                             {settings.Stocks.Stocks.find(z => z.id === x.stock)?.nname}
                                                                         </div>
@@ -1210,7 +1240,7 @@ const Cashflow = () => {
                                                                                 prefix={x.cur === 'us' ? '$' : '€'}
                                                                                 decimalScale='2'
                                                                                 fixedDecimalScale
-                                                                                className='responsiveText font-medium text-[var(--port-gore)]'
+                                                                                className='responsiveText font-semibold text-[var(--ink)] tabular-nums'
                                                                             />
                                                                         </div>
                                                                     </div>
@@ -1243,21 +1273,19 @@ const Cashflow = () => {
 
 
                                                 <div className="p-2 bg-white mb-3 flex flex-col cf-card">
-                                                    <div className="flex items-center justify-between mb-1">
-                                                        <span className="text-[var(--chathams-blue)] responsiveText font-semibold">Clients - Payment</span>
-                                                        <div className="flex items-center gap-2">
-                                                            {clientSortName1 ? <FaSortAmountDown className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortClientsName(1)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortClientsName(1)} />}
-                                                            {clientSort1 ? <FaSortAmountDown className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortClients(1)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortClients(1)} />}
-                                                        </div>
-                                                    </div>
+                                                    <SectionHeader icon={Users} title="Clients - Payment">
+                                                        {clientSortName1 ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortClientsName(1)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortClientsName(1)} />}
+                                                        {clientSort1 ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortClients(1)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortClients(1)} />}
+                                                    </SectionHeader>
 
                                                     {clientInvoices2.map((x, i) => {
                                                         return (
-                                                            <div className="bg-white py-0.5 px-0 hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
+                                                            <div className="bg-white py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
                                                                 <MyAccordion title={
                                                                     <div className="flex w-full justify-between">
                                                                         <div className="flex items-center gap-1.5 min-w-0">
-                                                                            <div className="responsiveText text-[var(--port-gore)] font-medium items-center flex outline-none whitespace-normal break-words min-w-0">
+                                                                            <div className="responsiveText text-[var(--ink)] font-medium items-center flex gap-1.5 outline-none whitespace-normal break-words min-w-0">
+                                                                                <Avatar name={settings.Client.Client.find(z => z.id === x.client)?.nname} size={18} />
                                                                                 {settings.Client.Client.find(z => z.id === x.client)?.nname}
                                                                             </div>
                                                                             <FinalSummaryBadge finalized={x._finCount} total={x._finTotal} />
@@ -1271,7 +1299,7 @@ const Cashflow = () => {
                                                                                 prefix={x.cur === 'us' ? '$' : '€'}
                                                                                 decimalScale='2'
                                                                                 fixedDecimalScale
-                                                                                className='responsiveText font-medium text-[var(--port-gore)]'
+                                                                                className='responsiveText font-semibold text-[var(--ink)] tabular-nums'
                                                                             />
 
                                                                         </div>
@@ -1302,21 +1330,19 @@ const Cashflow = () => {
 
 
                                                 <div className="p-2 bg-white mb-3 flex flex-col cf-card">
-                                                    <div className="flex items-center justify-between mb-1">
-                                                        <span className="text-[var(--chathams-blue)] responsiveText font-semibold">Clients - Balances</span>
-                                                        <div className="flex items-center gap-2">
-                                                            {clientSortName ? <FaSortAmountDown className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortClientsName(0)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortClientsName(0)} />}
-                                                            {clientSort ? <FaSortAmountDown className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortClients(0)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortClients(0)} />}
-                                                        </div>
-                                                    </div>
+                                                    <SectionHeader icon={Users} title="Clients - Balances">
+                                                        {clientSortName ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortClientsName(0)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortClientsName(0)} />}
+                                                        {clientSort ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortClients(0)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortClients(0)} />}
+                                                    </SectionHeader>
 
                                                     {clientInvoices1.map((x, i) => {
                                                         return (
-                                                            <div className="bg-white py-0.5 px-0 hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
+                                                            <div className="bg-white py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
                                                                 <MyAccordion title={
                                                                     <div className="flex w-full justify-between">
                                                                         <div className="flex items-center gap-1.5 min-w-0">
-                                                                            <div className="responsiveText font-medium text-[var(--port-gore)] items-center flex outline-none whitespace-normal break-words min-w-0">
+                                                                            <div className="responsiveText font-medium text-[var(--ink)] items-center flex gap-1.5 outline-none whitespace-normal break-words min-w-0">
+                                                                                <Avatar name={settings.Client.Client.find(z => z.id === x.client)?.nname} size={18} />
                                                                                 {settings.Client.Client.find(z => z.id === x.client)?.nname}
                                                                             </div>
                                                                             <FinalSummaryBadge finalized={x._finCount} total={x._finTotal} />
@@ -1330,7 +1356,7 @@ const Cashflow = () => {
                                                                                 prefix={x.cur === 'us' ? '$' : '€'}
                                                                                 decimalScale='2'
                                                                                 fixedDecimalScale
-                                                                                className='responsiveText font-medium text-[var(--port-gore)]'
+                                                                                className='responsiveText font-semibold text-[var(--ink)] tabular-nums'
                                                                             />
 
                                                                         </div>
@@ -1365,8 +1391,7 @@ const Cashflow = () => {
                                                     {
                                                         userTitle === 'Admin' &&
                                                         <div className='mt-1 p-1'>
-                                                            <div className='flex justify-between p-2'>
-                                                                <span className="text-[var(--chathams-blue)] responsiveText font-semibold">Financing</span>
+                                                            <SectionHeader icon={Banknote} title="Financing">
                                                                 <button
                                                                     type="button"
                                                                     className="blackButton"
@@ -1374,7 +1399,7 @@ const Cashflow = () => {
                                                                 >
                                                                     Add
                                                                 </button>
-                                                            </div>
+                                                            </SectionHeader>
                                                             <div className="py-0 px-0 mb-1 ">
                                                                 {
                                                                     financedLeft?.map((z, i) => {
@@ -1421,23 +1446,21 @@ const Cashflow = () => {
                                             <div className="w-full border-l border-[var(--line)] pt-0">
 
                                                 <div className="p-2 bg-white mb-3 flex flex-col cf-card">
-                                                    <div className="flex items-center justify-between mb-1">
-                                                        <span className="text-[var(--chathams-blue)] responsiveText font-semibold">Supplier - Payment</span>
-                                                        <div className="flex items-center gap-2">
-                                                            {supPmntssSortName1 ? <FaSortAmountDown className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortSupPmntsName(1)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortSupPmntsName(1)} />}
-                                                            {supPmntssSort1 ? <FaSortAmountDown className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortSupPmnts(1)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortSupPmnts(1)} />}
-                                                        </div>
-                                                    </div>
+                                                    <SectionHeader icon={Factory} title="Supplier - Payment">
+                                                        {supPmntssSortName1 ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortSupPmntsName(1)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortSupPmntsName(1)} />}
+                                                        {supPmntssSort1 ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortSupPmnts(1)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortSupPmnts(1)} />}
+                                                    </SectionHeader>
 
 
 
                                                     {supPayments2.map((x, i) => {
                                                         return (
-                                                            <div className="bg-white py-0.5 px-0 hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
+                                                            <div className="bg-white py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
                                                                 <MyAccordion title={
                                                                     <div className="flex w-full justify-between leading-4 2xl:leading-6">
                                                                         <div className="flex items-center gap-1.5 w-full min-w-0">
-                                                                            <span className="responsiveText font-medium text-[var(--port-gore)] items-center flex outline-none whitespace-normal break-words min-w-0">
+                                                                            <span className="responsiveText font-medium text-[var(--ink)] items-center flex gap-1.5 outline-none whitespace-normal break-words min-w-0">
+                                                                                <Avatar name={settings.Supplier.Supplier.find(z => z.id === x.supplier)?.nname} size={18} />
                                                                                 {settings.Supplier.Supplier.find(z => z.id === x.supplier)?.nname}
                                                                             </span>
                                                                             <FinalSummaryBadge finalized={x._finCount} total={x._finTotal} />
@@ -1451,7 +1474,7 @@ const Cashflow = () => {
                                                                                 prefix={'$'}
                                                                                 decimalScale='2'
                                                                                 fixedDecimalScale
-                                                                                className='responsiveText font-medium text-[var(--port-gore)]'
+                                                                                className='responsiveText font-semibold text-[var(--ink)] tabular-nums'
                                                                             />
                                                                         </div>
                                                                     </div>
@@ -1483,23 +1506,21 @@ const Cashflow = () => {
 
 
                                                 <div className="p-2 bg-white mb-3 flex flex-col cf-card">
-                                                    <div className="flex items-center justify-between mb-1">
-                                                        <span className="text-[var(--chathams-blue)] responsiveText font-semibold">Supplier - Balances</span>
-                                                        <div className="flex items-center gap-2">
-                                                            {supPmntssSortName ? <FaSortAmountDown className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortSupPmntsName(0)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortSupPmntsName(0)} />}
-                                                            {supPmntssSort ? <FaSortAmountDown className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortSupPmnts(0)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortSupPmnts(0)} />}
-                                                        </div>
-                                                    </div>
+                                                    <SectionHeader icon={Factory} title="Supplier - Balances">
+                                                        {supPmntssSortName ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortSupPmntsName(0)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortSupPmntsName(0)} />}
+                                                        {supPmntssSort ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortSupPmnts(0)} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortSupPmnts(0)} />}
+                                                    </SectionHeader>
 
 
 
                                                     {supPayments1.map((x, i) => {
                                                         return (
-                                                            <div className="bg-white py-0.5 px-0 hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
+                                                            <div className="bg-white py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
                                                                 <MyAccordion title={
                                                                     <div className="flex w-full justify-between leading-4 2xl:leading-6">
                                                                         <div className="flex items-center gap-1.5 w-full min-w-0">
-                                                                            <span className="responsiveText items-center font-medium text-[var(--port-gore)] flex outline-none whitespace-normal break-words min-w-0">
+                                                                            <span className="responsiveText items-center font-medium text-[var(--ink)] flex gap-1.5 outline-none whitespace-normal break-words min-w-0">
+                                                                                <Avatar name={settings.Supplier.Supplier.find(z => z.id === x.supplier)?.nname} size={18} />
                                                                                 {settings.Supplier.Supplier.find(z => z.id === x.supplier)?.nname}
                                                                             </span>
                                                                             <FinalSummaryBadge finalized={x._finCount} total={x._finTotal} />
@@ -1513,7 +1534,7 @@ const Cashflow = () => {
                                                                                 prefix={'$'}
                                                                                 decimalScale='2'
                                                                                 fixedDecimalScale
-                                                                                className='responsiveText font-medium text-[var(--port-gore)]'
+                                                                                className='responsiveText font-semibold text-[var(--ink)] tabular-nums'
                                                                             />
                                                                         </div>
                                                                     </div>
@@ -1544,20 +1565,18 @@ const Cashflow = () => {
                                                 </div>
 
                                                 <div className="p-2 bg-white mb-3 flex flex-col cf-card">
-                                                    <div className="flex items-center justify-between mb-1">
-                                                        <span className="text-[var(--chathams-blue)] responsiveText font-semibold">Expenses</span>
-                                                        <div className="flex items-center gap-2">
-                                                            {expensesSortName ? <FaSortAmountDown className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortExpensesName()} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortExpensesName()} />}
-                                                            {expensesSort ? <FaSortAmountDown className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortExpenses()} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--port-gore)] cursor-pointer" onClick={() => sortExpenses()} />}
-                                                        </div>
-                                                    </div>
+                                                    <SectionHeader icon={Wallet} title="Expenses">
+                                                        {expensesSortName ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortExpensesName()} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortExpensesName()} />}
+                                                        {expensesSort ? <FaSortAmountDown className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortExpenses()} /> : <FaSortAmountUpAlt className="scale-[0.9] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer" onClick={() => sortExpenses()} />}
+                                                    </SectionHeader>
 
                                                     {expenses.map((x, i) => {
                                                         return (
-                                                            <div className="bg-white py-0.5 px-0 hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
+                                                            <div className="bg-white py-0.5 px-0 rounded-xl hover:bg-[var(--bg-subtle)] transition-colors" key={i}>
                                                                 <MyAccordion title={
                                                                     <div className="flex justify-between leading-4 2xl:leading-6 w-full">
-                                                                        <div className="responsiveText font-medium text-[var(--port-gore)] items-center flex outline-none whitespace-normal break-words min-w-0"              >
+                                                                        <div className="responsiveText font-medium text-[var(--ink)] items-center flex gap-1.5 outline-none whitespace-normal break-words min-w-0">
+                                                                            <Avatar name={settings.Supplier.Supplier.find(z => z.id === x.supplier)?.nname} size={18} />
                                                                             {settings.Supplier.Supplier.find(z => z.id === x.supplier)?.nname}
                                                                         </div>
 
@@ -1570,7 +1589,7 @@ const Cashflow = () => {
                                                                                 prefix={'$'}
                                                                                 decimalScale='2'
                                                                                 fixedDecimalScale
-                                                                                className='responsiveText font-medium text-[var(--port-gore)]'
+                                                                                className='responsiveText font-semibold text-[var(--ink)] tabular-nums'
                                                                             />
                                                                         </div>
                                                                     </div>
@@ -1604,8 +1623,7 @@ const Cashflow = () => {
                                                     {
                                                         userTitle === 'Admin' &&
                                                         <div className='mt-1 p-1'>
-                                                            <div className='flex justify-between'>
-                                                                <span className="text-[var(--chathams-blue)] responsiveText font-semibold">Financing</span>
+                                                            <SectionHeader icon={Banknote} title="Financing">
                                                                 <button
                                                                     type="button"
                                                                     className="blackButton"
@@ -1613,7 +1631,7 @@ const Cashflow = () => {
                                                                 >
                                                                     Add
                                                                 </button>
-                                                            </div>
+                                                            </SectionHeader>
                                                             <div className="flex gap-1 mt-1 pt-2 flex-col" >
                                                                 {
                                                                     financedRight?.map((z, i) => {
