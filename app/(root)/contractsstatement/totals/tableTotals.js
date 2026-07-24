@@ -161,7 +161,7 @@ const Customtable = ({ data, columns, expensesData, settings }) => {
                                         <div className="uppercase tracking-wider font-normal" style={{ color: 'var(--regent-gray)', fontSize: '0.58rem' }}>
                                             {cell.column.columnDef.header}
                                         </div>
-                                        <div className="font-normal break-words px-2 py-1 rounded-xl leading-relaxed min-h-[28px] flex items-center shadow-sm" style={{ color: 'var(--port-gore)', background: 'linear-gradient(135deg, #F4F3F9, #F4F3F9)', fontSize: '0.62rem', border: '1px solid #EAE8F2' }}>
+                                        <div className="font-normal break-words px-1 py-1 leading-relaxed min-h-[28px] flex items-center" style={{ color: 'var(--ink)', fontSize: '0.62rem' }}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </div>
                                     </div>

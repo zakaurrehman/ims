@@ -455,14 +455,11 @@ const Customtable = ({
                               ) : (
                                 <div className="flex justify-center">
                                   {val !== null && val !== undefined && val !== '' ? (
-                                    <div
-                                      className="px-1 py-1 responsiveTextTable font-normal min-w-[70px] flex items-center justify-center"
-                                      style={{ backgroundColor: '#F4F3F9', border: '1px solid #DAD6E8' }}
-                                    >
+                                    <div className="px-1 py-1 responsiveTextTable font-normal min-w-[70px] flex items-center justify-center" style={{ color: 'var(--ink)' }}>
                                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                     </div>
                                   ) : (
-                                    <div className="px-1 py-1 responsiveTextTable font-normal min-w-[70px]" style={{ backgroundColor: '#F4F3F9', border: '1px solid #DAD6E8' }}>&nbsp;</div>
+                                    <div className="px-1 py-1 responsiveTextTable font-normal min-w-[70px]">&nbsp;</div>
                                   )}
                                 </div>
                               )}
@@ -689,13 +686,7 @@ const Customtable = ({
                             {cell.column.columnDef.header}
                           </div>
                           <div 
-                            className="font-normal break-words px-2 py-1 rounded-xl leading-relaxed min-h-[28px] flex items-center shadow-sm" 
-                            style={{ 
-                              color: 'var(--port-gore)',
-                              background: 'linear-gradient(135deg, #F4F3F9, #F4F3F9)',
-                              fontSize: '0.62rem',
-                              border: '1px solid #EAE8F2'
-                            }}
+                            className="responsiveTextTable font-normal break-words px-1 py-1 leading-relaxed min-h-[28px] flex items-center" style={{ color: 'var(--ink)' }}
                           >
                             {flexRender(cell.column.columnDef.cell, cell.getContext()) || '\u00A0'}
                           </div>

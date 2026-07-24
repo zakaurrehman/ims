@@ -17,6 +17,7 @@ import Image from 'next/image';
 import Tltip from '../../../components/tlTip';
 import { FileSpreadsheet } from 'lucide-react';
 import ProgressBar from '../../../components/ProgressBar';
+import Avatar from '../../../components/Avatar';
 // exceljs is imported dynamically inside exportExcel so it stays off the
 // first-load bundle (same pattern as the other excel exporters).
 import { saveAs } from 'file-saver';
@@ -48,13 +49,15 @@ function NotesCell({ value, contractId, contractDate, uidCollection, onChange, o
         }, 800);
     };
 
+    // Flat at rest (matches read-only tables); the input box only appears on
+    // hover/focus so editability stays discoverable without the boxed-grid look.
     return (
-        <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal" style={{ backgroundColor: '#F4F3F9', border: '1px solid #DAD6E8' }}>
+        <div className="px-2 py-0.5 rounded-[8px] responsiveTextTable font-normal border border-transparent hover:border-[var(--line-strong)] hover:bg-white focus-within:border-[var(--brand)] focus-within:bg-white transition-colors">
             <textarea
                 value={local}
                 onChange={handleChange}
                 rows={1}
-                className="w-full min-w-[160px] responsiveTextTable text-[var(--port-gore)] bg-transparent resize-none focus:outline-none placeholder:text-[var(--regent-gray)]"
+                className="w-full min-w-[160px] responsiveTextTable text-[var(--ink)] bg-transparent resize-none focus:outline-none placeholder:text-[var(--ink-muted)]"
                 placeholder="Add notes..."
             />
         </div>
@@ -74,15 +77,16 @@ function DateCell({ rawDate, onOpen, onClear, urgency }) {
     const ref = useRef(null);
     const display = fmtDate(rawDate);
 
-    // Arrival cells tint when cargo is overdue (red) or due within 7 days (amber).
+    // Arrival cells tint when cargo is overdue (red) or due within 7 days (amber);
+    // neutral dates are flat like read-only cells, with a hover affordance only.
     const tint = urgency === 'overdue'
         ? { backgroundColor: '#FDEAEA', border: '1px solid #F5C6C9' }
         : urgency === 'soon'
         ? { backgroundColor: '#FDF3E1', border: '1px solid #F5DFAE' }
-        : { backgroundColor: '#F4F3F9', border: '1px solid #DAD6E8' };
+        : { backgroundColor: 'transparent', border: '1px solid transparent' };
     const textColor = urgency === 'overdue' ? '#B42332'
         : urgency === 'soon' ? '#9A6215'
-        : (display ? 'var(--port-gore)' : 'var(--regent-gray)');
+        : (display ? 'var(--ink)' : 'var(--ink-muted)');
 
     const handleClick = (e) => {
         e.stopPropagation();
@@ -102,7 +106,7 @@ function DateCell({ rawDate, onOpen, onClear, urgency }) {
     return (
         <div
             ref={ref}
-            className="h-7 responsiveTextTable flex items-center justify-center px-2 rounded-lg cursor-pointer select-none w-full relative"
+            className="h-7 responsiveTextTable flex items-center justify-center px-2 rounded-[8px] cursor-pointer select-none w-full relative hover:!border-[var(--line-strong)] hover:!bg-white transition-colors"
             style={{ ...tint, minWidth: '72px' }}
             onClick={handleClick}
         >
@@ -999,36 +1003,34 @@ const ShipmentPage = () => {
                                         <tr key={contract.id} className="hover-row cursor-pointer transition-colors">
                                             <td className="td-truncate">
                                                 <Tltip direction="bottom" tltpText={contract.order || '—'}>
-                                                    <div className="px-2 py-1 rounded-xl responsiveTextTable font-normal text-center pill-inner" style={{ backgroundColor: "#F4F3F9", border: "1px solid #DAD6E8" }}>
-                                                        <button onClick={() => navigateTo(contract.id)} className="text-[var(--endeavour)] hover:underline w-full overflow-hidden text-ellipsis whitespace-nowrap block">
-                                                            {contract.order || '—'}
-                                                        </button>
-                                                    </div>
+                                                    <button onClick={() => navigateTo(contract.id)} className="responsiveTextTable font-medium text-[var(--brand)] hover:underline w-full overflow-hidden text-ellipsis whitespace-nowrap block text-center">
+                                                        {contract.order || '—'}
+                                                    </button>
                                                 </Tltip>
                                             </td>
                                             <td className="td-truncate">
                                                 <Tltip direction="bottom" tltpText={getSupplierName(contract)}>
-                                                    <div className="px-2 py-1 rounded-xl responsiveTextTable font-normal text-center pill-inner" style={{ backgroundColor: "#F4F3F9", border: "1px solid #DAD6E8" }}>
-                                                        {getSupplierName(contract)}
-                                                    </div>
+                                                    <span className="inline-flex items-center justify-center gap-1.5 responsiveTextTable text-[var(--ink)] max-w-full">
+                                                        {getSupplierName(contract) !== '—' && <Avatar name={getSupplierName(contract)} size={18} />}
+                                                        <span className="truncate">{getSupplierName(contract)}</span>
+                                                    </span>
                                                 </Tltip>
                                             </td>
                                             <td>
-                                                <div className="flex justify-center">
-                                                    <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal text-center whitespace-nowrap" style={{ backgroundColor: "#F4F3F9", border: "1px solid #DAD6E8" }}>
-                                                        {mainInv ? (
-                                                            <button onClick={() => navigateTo(contract.id)} className="text-[var(--endeavour)] hover:underline">
-                                                                {mainInv.invoice}
-                                                            </button>
-                                                        ) : '—'}
-                                                    </div>
+                                                <div className="flex justify-center responsiveTextTable">
+                                                    {mainInv ? (
+                                                        <button onClick={() => navigateTo(contract.id)} className="font-medium text-[var(--brand)] hover:underline">
+                                                            {mainInv.invoice}
+                                                        </button>
+                                                    ) : <span className="text-[var(--ink-muted)]">—</span>}
                                                 </div>
                                             </td>
                                             <td className="td-truncate">
                                                 <Tltip direction="bottom" tltpText={getClientName(contract.id)}>
-                                                    <div className="px-2 py-1 rounded-xl responsiveTextTable font-normal text-center pill-inner" style={{ backgroundColor: "#F4F3F9", border: "1px solid #DAD6E8" }}>
-                                                        {getClientName(contract.id)}
-                                                    </div>
+                                                    <span className="inline-flex items-center justify-center gap-1.5 responsiveTextTable text-[var(--ink)] max-w-full">
+                                                        {getClientName(contract.id) !== '—' && <Avatar name={getClientName(contract.id)} size={18} />}
+                                                        <span className="truncate">{getClientName(contract.id)}</span>
+                                                    </span>
                                                 </Tltip>
                                             </td>
                                             <td>
@@ -1052,21 +1054,21 @@ const ShipmentPage = () => {
                                             </td>
                                             <td className="td-truncate">
                                                 <Tltip direction="bottom" tltpText={getPOL(contract)}>
-                                                    <div className="px-2 py-1 rounded-xl responsiveTextTable font-normal text-center pill-inner" style={{ backgroundColor: "#F4F3F9", border: "1px solid #DAD6E8" }}>
+                                                    <div className="responsiveTextTable text-center text-[var(--ink)] overflow-hidden text-ellipsis whitespace-nowrap">
                                                         {getPOL(contract)}
                                                     </div>
                                                 </Tltip>
                                             </td>
                                             <td className="td-truncate">
                                                 <Tltip direction="bottom" tltpText={getPOD(contract)}>
-                                                    <div className="px-2 py-1 rounded-xl responsiveTextTable font-normal text-center pill-inner" style={{ backgroundColor: "#F4F3F9", border: "1px solid #DAD6E8" }}>
+                                                    <div className="responsiveTextTable text-center text-[var(--ink)] overflow-hidden text-ellipsis whitespace-nowrap">
                                                         {getPOD(contract)}
                                                     </div>
                                                 </Tltip>
                                             </td>
                                             <td>
                                                 <div className="flex justify-center">
-                                                    <div className="px-3 py-1 rounded-xl responsiveTextTable font-normal text-center whitespace-nowrap" style={{ backgroundColor: "#F4F3F9", border: "1px solid #DAD6E8" }}>
+                                                    <div className="responsiveTextTable text-center whitespace-nowrap text-[var(--ink)]">
                                                         {getShpType(contract)}
                                                     </div>
                                                 </div>
@@ -1084,16 +1086,18 @@ const ShipmentPage = () => {
                                                     {(() => {
                                                         const ts = contract.shipmentUpdatedAt;
                                                         const recent = isRecent(ts);
-                                                        return (
+                                                        return recent ? (
                                                             <div
-                                                                className="px-2 py-1 rounded-xl responsiveTextTable font-normal text-center whitespace-nowrap inline-flex items-center gap-1"
-                                                                style={recent
-                                                                    ? { backgroundColor: '#E5F6EC', border: '1px solid #BFE8D0', color: '#177245' }
-                                                                    : { backgroundColor: '#F4F3F9', border: '1px solid #DAD6E8', color: ts ? 'var(--port-gore)' : 'var(--regent-gray)' }}
+                                                                className="px-2 py-0.5 rounded-full responsiveTextTable font-medium text-center whitespace-nowrap inline-flex items-center gap-1"
+                                                                style={{ backgroundColor: '#E5F6EC', border: '1px solid #BFE8D0', color: '#177245' }}
                                                             >
-                                                                {recent && <span style={{ width: 6, height: 6, borderRadius: 9999, backgroundColor: '#22c55e', display: 'inline-block' }} />}
+                                                                <span style={{ width: 6, height: 6, borderRadius: 9999, backgroundColor: '#177245', display: 'inline-block' }} />
                                                                 {relTime(ts)}
                                                             </div>
+                                                        ) : (
+                                                            <span className="responsiveTextTable whitespace-nowrap" style={{ color: ts ? 'var(--ink-secondary)' : 'var(--ink-muted)' }}>
+                                                                {relTime(ts)}
+                                                            </span>
                                                         );
                                                     })()}
                                                 </div>
@@ -1175,7 +1179,7 @@ const ShipmentPage = () => {
                                         ].map(({ label, value }) => (
                                             <div key={label} className="flex flex-col space-y-1 pb-2" style={{ borderBottom: '1px solid #F4F3F9' }}>
                                                 <span className="responsiveTextTable uppercase tracking-wider text-[var(--regent-gray)] font-medium">{label}</span>
-                                                <div className="px-2 py-1 rounded-xl responsiveTextTable text-[var(--port-gore)]" style={{ backgroundColor: '#F4F3F9', border: '1px solid #DAD6E8' }}>
+                                                <div className="px-1 py-1 responsiveTextTable text-[var(--ink)]">
                                                     {value || '—'}
                                                 </div>
                                             </div>
