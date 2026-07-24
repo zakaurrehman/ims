@@ -77,6 +77,16 @@ function DateCell({ rawDate, onOpen, onClear, urgency }) {
     const ref = useRef(null);
     const display = fmtDate(rawDate);
 
+    // Countdown suffix for near/overdue arrivals: "in 3d" / "today" / "5d late".
+    let countdown = null;
+    if (urgency && rawDate) {
+        const t = new Date(rawDate).getTime();
+        if (!isNaN(t)) {
+            const days = Math.floor((Date.now() - t) / 86400000);
+            countdown = days > 0 ? `${days}d late` : days === 0 ? 'today' : `in ${-days}d`;
+        }
+    }
+
     // Arrival cells tint when cargo is overdue (red) or due within 7 days (amber);
     // neutral dates are flat like read-only cells, with a hover affordance only.
     const tint = urgency === 'overdue'
@@ -113,6 +123,11 @@ function DateCell({ rawDate, onOpen, onClear, urgency }) {
             <span style={{ color: textColor }}>
                 {display || '—'}
             </span>
+            {countdown && (
+                <span className='font-semibold whitespace-nowrap' style={{ color: textColor, fontSize: '0.625rem', marginLeft: 5, opacity: 0.85 }}>
+                    · {countdown}
+                </span>
+            )}
             {display && (
                 <button
                     onClick={(e) => { e.stopPropagation(); onClear(); }}
@@ -259,6 +274,23 @@ const ShipmentPage = () => {
     const [invoiceMap, setInvoiceMap] = useState({});
     const [search, setSearch] = useState('');
     const [statusFilter, setStatusFilter] = useState('');
+    // Group rows into collapsible lifecycle sections (persisted; set in an effect
+    // rather than the initializer so SSR and first client render agree).
+    const [groupByStatus, setGroupByStatus] = useState(true);
+    const [collapsedGroups, setCollapsedGroups] = useState(() => new Set());
+    useEffect(() => {
+        try { setGroupByStatus(localStorage.getItem('ims:shipGroupByStatus') !== '0'); } catch { }
+    }, []);
+    const toggleGroupByStatus = () => setGroupByStatus(v => {
+        const nv = !v;
+        try { localStorage.setItem('ims:shipGroupByStatus', nv ? '1' : '0'); } catch { }
+        return nv;
+    });
+    const toggleGroup = (s) => setCollapsedGroups(prev => {
+        const next = new Set(prev);
+        if (next.has(s)) next.delete(s); else next.add(s);
+        return next;
+    });
     const [showFilters, setShowFilters] = useState(true);
     const [pageIndex, setPageIndex] = useState(0);
     const [pageSize, setPageSize] = useState(25);
@@ -664,6 +696,22 @@ const ShipmentPage = () => {
     const startRow = sortedFiltered.length === 0 ? 0 : safePageIndex * pageSize + 1;
     const endRow = safePageIndex * pageSize + paginated.length;
 
+    // Collapsible status sections (current page only — pagination stays intact).
+    // Grouping is skipped while a specific status filter is active (pointless then).
+    const GROUP_ORDER = ['Pending', 'Shipped', 'In Transit', 'Arrived', 'Completed', 'On Hold', ''];
+    const groupingActive = groupByStatus && statusFilter === '';
+    const displayRows = !groupingActive
+        ? paginated.map(c => ({ type: 'row', contract: c }))
+        : GROUP_ORDER.flatMap(s => {
+            const items = paginated.filter(c => normalizeStatus(c.shipmentStatus || '') === s);
+            if (!items.length) return [];
+            const collapsed = collapsedGroups.has(s);
+            return [
+                { type: 'header', status: s, count: items.length, collapsed },
+                ...(collapsed ? [] : items.map(c => ({ type: 'row', contract: c }))),
+            ];
+        });
+
     const getPageNumbers = () => {
         const pages = [];
         const maxVisible = 5;
@@ -878,6 +926,21 @@ const ShipmentPage = () => {
                                     );
                                 })}
 
+                                <span className='h-4 w-px bg-[var(--line-strong)] mx-0.5' aria-hidden='true' />
+                                <button
+                                    onClick={toggleGroupByStatus}
+                                    title='Collapse the table into per-status sections'
+                                    className='font-medium px-2.5 py-0.5 rounded-full border transition-colors'
+                                    style={{
+                                        fontSize: '0.68rem',
+                                        background: groupByStatus ? 'var(--brand-soft)' : 'white',
+                                        color: groupByStatus ? 'var(--brand)' : 'var(--ink-secondary)',
+                                        borderColor: groupByStatus ? 'var(--brand-border)' : 'var(--line)',
+                                    }}
+                                >
+                                    Group by status
+                                </button>
+
                                 {/* Supplier filter */}
                                 <FilterSelect
                                     value={supplierFilter}
@@ -996,7 +1059,29 @@ const ShipmentPage = () => {
                                         </td>
                                     </tr>
                                 )}
-                                {paginated.map((contract) => {
+                                {displayRows.map((entry) => {
+                                    if (entry.type === 'header') {
+                                        const dotColor = STATUS_STYLES[entry.status]?.color || 'var(--ink-muted)';
+                                        return (
+                                            <tr key={`grp-${entry.status || 'none'}`} onClick={() => toggleGroup(entry.status)} className='cursor-pointer select-none'>
+                                                <td colSpan={12} style={{ background: 'var(--bg-subtle)', borderBottom: '1px solid var(--line)', padding: '5px 12px', textAlign: 'left' }}>
+                                                    <span className='inline-flex items-center gap-2'>
+                                                        <svg width='11' height='11' viewBox='0 0 10 10' fill='none' style={{ transition: 'transform 0.15s', transform: entry.collapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}>
+                                                            <path d='M2 3.5L5 6.5L8 3.5' stroke='var(--ink-muted)' strokeWidth='1.8' strokeLinecap='round' strokeLinejoin='round' />
+                                                        </svg>
+                                                        <span className='rounded-full' style={{ width: 7, height: 7, background: dotColor, display: 'inline-block' }} />
+                                                        <span className='font-semibold' style={{ fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--ink-secondary)' }}>
+                                                            {entry.status || 'No status'}
+                                                        </span>
+                                                        <span className='rounded-full font-semibold px-1.5' style={{ fontSize: '0.625rem', background: 'white', color: 'var(--ink-muted)', border: '1px solid var(--line)' }}>
+                                                            {entry.count}
+                                                        </span>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        );
+                                    }
+                                    const contract = entry.contract;
                                     const mainInv = getMainInvoice(contract);
                                     const status = contract.shipmentStatus || '';
                                     return (
